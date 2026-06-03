@@ -22,7 +22,7 @@ body {
 /* ============================================================
    FONTS
    ============================================================ */
-@font-face { font-family: 'Intro'; src: url('fonts/intro.otf') format('opentype'); }
+@font-face { font-family: 'Intro'; src: url('fonts/Intro.otf') format('opentype'); }
 @font-face { font-family: 'Graphie'; src: url('fonts/Graphie Book.ttf'); }
 @font-face { font-family: 'MoonFlower'; src: url('fonts/Moon Flower Bold.ttf'); }
 @font-face { font-family: 'SF Sports Night'; src: url('fonts/SF Sports Night NS.ttf') format('truetype'); }
