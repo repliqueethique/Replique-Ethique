@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Réplique Éthique - Administration</title>
+
+<link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+<header class="header">
+    <h1>Réplique Éthique</h1>
+    <p>Administration</p>
+</header>
+
+<main class="admin-layout">
+
+    <aside class="sidebar">
+
+        <button class="menu-btn active"
+                data-section="videos">
+            Vidéos
+        </button>
+
+        <button class="menu-btn"
+                data-section="tags">
+            Tags
+        </button>
+
+        <button class="menu-btn"
+                data-section="lexique">
+            Lexique
+        </button>
+        <button id="btnResetLocal">
+            Réinitialiser sauvegarde locale
+        </button>
+
+    </aside>
+
+    <section class="content">
+
+        <div id="section-videos">
+
+            <section class="toolbar">
+
+                <button id="btnNouvelleVideo">
+                    + Nouvelle vidéo
+                </button>
+
+                <button id="btnExporter">
+                    Export Data.JS
+                </button>
+
+            </section>
+            <input
+                id="rechercheVideo"
+                placeholder="Rechercher une vidéo..."
+            >
+
+            <section id="listeVideos"></section>
+
+        </div>
+
+        <div id="section-tags" class="hidden">
+
+            <div class="toolbar">
+
+                <button id="btnNouvelleCategorie">
+                    + Catégorie
+                </button>
+
+            </div>
+
+            <div id="listeCategories">
+
+            </div>
+
+        </div>
+
+        <div id="section-lexique" class="hidden">
+
+            <div class="toolbar">
+
+                <button id="btnNouveauMot">
+                    + Nouveau mot
+                </button>
+
+            </div>
+
+            <div id="listeLexique"></div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<div id="modal" class="hidden">
+
+    <div class="modal-content">
+
+        <h2>Vidéo</h2>
+
+        <label>
+            Titre
+            <input id="titre">
+        </label>
+
+        <label>
+            Lien Youtube
+            <input id="youtube">
+        </label>
+
+        <label>
+
+            Tags
+
+            <div id="tagsSelection">
+
+            </div>
+
+        </label>
+
+        <label>
+            Texte
+            <textarea id="texte"></textarea>
+        </label>
+
+        <label>
+            Vignette
+            <input id="vignette" type="file" accept="image/*">
+        </label>
+
+        <label class="checkbox">
+            <input id="essentiel" type="checkbox">
+            Ajouter à L'essentiel
+        </label>
+
+        <div class="actions">
+
+            <button id="btnSave">
+                Enregistrer
+            </button>
+
+            <button id="btnCancel">
+                Annuler
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="../data.js"></script>
+<div id="lexiqueModal" class="hidden">
+
+    <div class="modal-content">
+
+        <h2 id="lexiqueTitre">
+            Nouveau terme
+        </h2>
+
+        <label>
+
+            Mot
+
+            <input
+                id="lexiqueMot">
+
+        </label>
+
+        <label>
+
+            Définition
+
+            <textarea
+                id="lexiqueDefinition"
+                class="grand-texte">
+
+            </textarea>
+
+        </label>
+
+        <div class="actions">
+
+            <button id="btnSaveLexique">
+
+                Enregistrer
+
+            </button>
+
+            <button id="btnCancelLexique">
+
+                Annuler
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+<script src="admin.js"></script>
+
+</body>
+</html>

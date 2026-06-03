@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Réplique Éthique</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Réplique Éthique" />
+  <link rel="apple-touch-icon" href="images/logo-fixe.png" />
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js');
+      });
+    }
+  </script>
+</head>
+<body>
+
+  <!-- BLOC 0 : Fond global -->
+  <div id="fond-global">
+    <div class="fond fond-accueil visible"></div>
+    <div class="fond fond-mots-cles"></div>
+    <div class="fond fond-essentiel"></div>
+    <div class="fond fond-lexique"></div>
+  </div>
+
+  <!-- BLOC 1 : Reset scrollbars navigateur -->
+
+<!-- Page Paramètres -->
+<div id="page-parametres" style="
+  display:none; position:fixed; top:0; left:0; width:100%; height:100dvh;
+  overflow-y:auto; z-index:99999;
+  background:linear-gradient(135deg, #31bebd, #242422);
+  flex-direction:column;
+">
+  <!-- Header pleine largeur en dehors du conteneur -->
+  <div id="header-params" style="background:#242422; width:100%; height:70px; display:flex; align-items:center; justify-content:space-between; padding:0 10px; box-sizing:border-box; position:relative; flex-shrink:0;">
+    <button onclick="fermerParametres()" class="triangle-retour gauche" aria-label="Retour"></button>
+    <h1 style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:'SF Sports Night'; color:#fce7ac; font-size:2.5em; margin:0; white-space:nowrap;">Paramètres</h1>
+    <div style="width:36px;"></div>
+  </div>
+
+  <div style="
+    max-width:600px; margin:0 auto; padding:20px;
+    box-sizing:border-box; width:100%;
+    position:relative;
+  ">
+    <!-- Image de fond -->
+    <img src="images/machine.png" alt="" style="
+      position:fixed; bottom:0; left:50%; transform:translateX(-50%);
+      width:75%; max-width:600px; opacity:0.2;
+      pointer-events:none; z-index:0;
+    "/>
+
+    <div style="position:relative; z-index:1; margin-top:24px;">
+
+      <!-- En-têtes colonnes -->
+      <div style="display:grid; grid-template-columns:1fr auto 1fr; margin-bottom:16px;">
+        <div style="font-family:'Intro'; color:#fff; font-size:0.85em; text-align:right; padding-right:12px;">Afficher à l'accueil</div>
+        <div></div>
+        <div style="font-family:'Intro'; color:#fff; font-size:0.85em; text-align:left; padding-left:12px;">Page au démarrage</div>
+      </div>
+
+      <div id="liste-options-params"></div>
+
+      <!-- Affichage -->
+      <div style="margin:24px 0 12px; text-align:center;">
+        <div style="font-family:'Intro'; color:#fff; font-size:1em; margin-bottom:12px;">Affichage</div>
+        <div style="display:flex; gap:16px; align-items:flex-start; justify-content:center;">
+
+          <button id="btn-toggle-affichage" onclick="toggleAffichage()" style="
+            background:#242422; border:3px solid #fff; border-radius:16px;
+            width:100px; height:100px;
+            cursor:pointer; display:inline-flex;
+            flex-direction:column; align-items:center; justify-content:center; gap:10px;
+            transition:transform 0.2s ease;
+          ">
+            <div id="icone-affichage" style="display:grid; grid-template-columns:1fr 1fr; gap:4px; width:40px; height:40px;">
+              <div style="width:18px; height:18px; background:#31bebd; border-radius:4px;"></div>
+              <div style="width:18px; height:18px; background:#31bebd; border-radius:4px;"></div>
+              <div style="width:18px; height:18px; background:#31bebd; border-radius:4px;"></div>
+              <div style="width:18px; height:18px; background:#31bebd; border-radius:4px;"></div>
+            </div>
+            <span id="label-affichage" style="font-family:'Intro'; color:#fff; font-size:1em;">galerie</span>
+          </button>
+
+          <button id="btn-toggle-taille" onclick="toggleTaille()" style="
+            background:#242422; border:3px solid #fff; border-radius:16px;
+            width:100px; height:100px;
+            cursor:pointer; display:inline-flex;
+            flex-direction:column; align-items:center; justify-content:center; gap:10px;
+            transition:transform 0.2s ease;
+          ">
+            <div id="icone-taille" style="display:flex; align-items:center; justify-content:center; width:40px; height:40px;">
+              <div style="width:20px; height:20px; background:#31bebd; border-radius:4px;"></div>
+            </div>
+            <span id="label-taille" style="font-family:'Intro'; color:#fff; font-size:1em;">petites</span>
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Notification mobile uniquement -->
+      <div id="bloc-notification" style="display:none; align-items:center; justify-content:center; gap:12px; margin:20px 0; font-family:'Graphie'; color:#fff; font-size:1em;">
+        notification nouvelles vidéos
+        <input type="checkbox" id="check-notif" style="
+          width:26px; height:26px; cursor:pointer;
+          accent-color:#31bebd;
+          border-radius:6px;
+        "/>
+      </div>
+
+      <!-- Boutons bas -->
+      <div style="display:flex; gap:16px; margin-top:24px;">
+        <button onclick="fermerParametres()" style="
+          flex:1; font-family:'Intro'; font-size:1.1em;
+          padding:16px; border-radius:30px; border:none;
+          background:#31bebd; color:#fff; cursor:pointer;
+          transition:transform 0.2s ease;
+        ">Retour</button>
+        <button onclick="reinitialiserParametres()" style="
+          flex:1; font-family:'Intro'; font-size:1.1em;
+          padding:16px; border-radius:30px; border:none;
+          background:#31bebd; color:#fff; cursor:pointer;
+          transition:transform 0.2s ease;
+        ">Réinitialiser</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+  <!-- BLOC 2 : Conteneur carrousel -->
+  <div id="conteneur-pages">
+
+    <!-- Page Mots-clés -->
+    <section id="page-mots-cles" class="page">
+      <header class="header-mots-cles">
+        <button id="retour-accueil" class="triangle-retour" aria-label="Retour accueil"></button>
+        <h1 class="titre-mots-cles">mots-clés</h1>
+        <a href="#" onclick="ouvrirParametres(); return false;" style="margin-right:15px; flex-shrink:0;">
+          <img src="images/rouage.png" style="width:24px; height:24px;" />
+        </a>
+      </header>
+      <div class="contenu-mots-cles">
+        <!-- Catégories & Tags -->
+      </div>
+      <img src="images/clés.png" alt="illustration clés" class="image-cles" />
+    </section>
+
+    <!-- Page Accueil -->
+    <main id="accueil" class="page visible">
+      <img id="logo-fixe" src="images/logo-animation.gif" alt="Logo Réplique Éthique" />
+
+      <div class="search-bar">
+        <input type="text" placeholder="Que cherches-tu ?" />
+        <button class="search-button transition-ready">
+          <img src="images/icone-loupe.png" alt="Search" />
+        </button>
+      </div>
+
+      <div class="menu-buttons">
+        <button class="transition-ready" id="btn-mots-cles">Mots-clés</button>
+        <button class="transition-ready" id="btn-liste">Liste</button>
+        <button class="transition-ready" id="btn-essentiel">L’essentiel</button>
+        <button class="transition-ready" id="btn-lexique">Lexique</button>
+        <button class="transition-ready">Favoris</button>
+      </div>
+
+      <div class="footer-bar">
+        <div style="width:40px; flex-shrink:0;"></div>
+        <div style="display:flex; gap:6px; align-items:center; margin:0 auto;">
+          <a href="#" id="btn-info"><img src="images/icone-info.png" alt="Info" class="transition-ready" /></a>
+          <a href="#"><img src="images/icone-mail.png" alt="Mail" class="transition-ready" /></a>
+          <a href="#"><img src="images/icone-mastodon.png" alt="Mastodon" class="transition-ready" /></a>
+          <a href="#"><img src="images/icone-bluesky.png" alt="Bluesky" class="transition-ready" /></a>
+          <a href="#"><img src="images/icone-discord.png" alt="Discord" class="transition-ready" /></a>
+          <a href="#"><img src="images/icone-youtube.png" alt="YouTube" class="transition-ready" /></a>
+          <a href="#"><img src="images/icone-instagram.png" alt="Instagram" class="transition-ready" /></a>
+        </div>
+        <a href="#" id="btn-parametres" style="margin-right:15px; flex-shrink:0;">
+          <img src="images/rouage.png" alt="Paramètres" class="transition-ready" style="width:24px; height:24px;" />
+        </a>
+      </div>
+      
+      <a href="https://www.replique-ethique.fr" class="site-link transition-ready">Réplique Éthique</a>
+    </main>
+
+    <!-- Page Liste -->
+    <section id="page-liste" class="page">
+      <div class="header-liste">
+        <div class="triangle-retour gauche" id="retour-accueil-liste"></div>
+        <h1 class="titre-mots-cles">liste</h1>
+        <a href="#" onclick="ouvrirParametres(); return false;" style="margin-right:15px; flex-shrink:0;">
+          <img src="images/rouage.png" style="width:24px; height:24px;" />
+        </a>
+      </div>
+      <div class="conteneur-vignettes" id="conteneur-vignettes"></div>
+    </section>
+
+    <!-- Page Essentiel -->
+    <div id="page-essentiel" class="page">
+      <div class="header-essentiel">
+       <div class="triangle-retour gauche" id="retour-accueil-essentiel"></div>
+        <h1 class="titre-essentiel">L'essentiel</h1>
+        <a href="#" onclick="ouvrirParametres(); return false;" style="margin-right:15px; flex-shrink:0;">
+          <img src="images/rouage.png" style="width:24px; height:24px;" />
+        </a>
+      </div>
+      <div class="contenu-essentiel colonne-unique"></div>
+    </div>
+
+
+    <!-- Page Lexique -->
+    <div id="page-lexique" class="page">
+      <div class="header-mots-cles">
+        <button id="retour-accueil-lexique" class="triangle-retour gauche" aria-label="Retour accueil"></button>
+        <h1 class="titre-mots-cles">lexique</h1>
+        <a href="#" onclick="ouvrirParametres(); return false;" style="margin-right:15px; flex-shrink:0;">
+          <img src="images/rouage.png" style="width:24px; height:24px;" />
+        </a>
+      </div>
+
+      <div class="contenu-lexique">
+        <div class="mot-lexique">
+          <button class="bouton-mot">Antispécisme</button>
+          <div class="definition">L’antispécisme est un courant de pensée qui refuse la discrimination basée sur l’espèce.</div>
+        </div>
+        <div class="mot-lexique">
+          <button class="bouton-mot">Intersectionnalité</button>
+          <div class="definition">L’intersectionnalité est une approche qui croise les discriminations pour mieux comprendre leurs effets cumulés.</div>
+        </div>
+        <div class="mot-lexique">
+          <button class="bouton-mot">Validisme</button>
+          <div class="definition">Le validisme désigne les discriminations envers les personnes en situation de handicap.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- ONGLETS FAVORIS -->
+    <div id="favoris-panel" class="onglet-favoris">
+      <div class="header-favoris">
+        <div class="triangle-retour bas" id="fermer-favoris"></div>
+        <h2 class="titre-favoris">Favoris</h2>
+        <a href="#" onclick="ouvrirParametres(); return false;" style="position:absolute; right:15px; flex-shrink:0;">
+           <img src="images/rouage.png" style="width:24px; height:24px;" />
+        </a>
+      </div>
+      <div class="contenu-favoris" id="contenu-favoris"></div>
+      <img src="images/coeur.png" alt="Illustration Favoris" class="image-favoris" />
+    </div>
+
+    <!-- ONGLET INFO -->
+    <div id="info-panel" class="onglet-info">
+      <img src="images/volant.png" alt="volant" class="image-volant" />
+      <div class="info-content">
+        <!-- Section Bienvenue -->
+        <div class="texte-info" id="contenu-bienvenue">
+          <h2 class="titre-info">bienvenue !</h2>
+          <p class="texte-paragraphe">
+            Le but de cette application est d’aider les antispécistes et sentientistes à répondre aux arguments fréquemment donnés lors des échanges avec des personnes spécistes. Et ce, de 2 manières :<br>
+            - En trouvant rapidement des supports d’information à partager.<br>
+            - En se formant sur l’argumentation.<br><br>
+            <strong>Comment utiliser l’application ?</strong><br>
+            C’est très simple ! Sur la page d’accueil utilise la barre de recherche pour trouver en 1 clic la vidéo que tu cherches.<br>
+            Tu peux aussi parcourir la liste des mots clés en cliquant sur le bouton « mots‑clés ». « L’essentiel » permet d’accéder aux vidéos les plus importantes.<br>
+            Le lexique contient les définitions des termes avec leur source.<br>
+            Bonne navigation !
+          </p>
+          <button class="btn-fleche droite" id="slide-to-comment"></button>
+        </div>
+
+        <!-- Section Comment -->
+        <div class="texte-info" id="contenu-comment" style="display:none;">
+          <h2 class="titre-info">comment Naviguer</h2>
+          <p class="texte-paragraphe">
+            Tu peux te déplacer d’une page à l’autre en «swipant» c’est à dire en faisant glisser ton doigt sur l’écran.<br>
+            - swipe vers la gauche ou la droite pour faire défiler les pages<br>
+            - swipe vers le bas depuis le haut de l’écran pour faire apparaître le menu «info» et accéder aux «paramètres»<br>
+            - swipe vers le haut depuis le bas de l’écran pour faire apparaître la page des favoris.<br><br>
+            <strong>comment gérer ses favoris</strong><br>
+            Pour ajouter une vidéo aux favoris, il te suffit de cliquer sur l’icône étoile présente sur la vignette
+          </p>
+          <button class="btn-fleche gauche" id="slide-to-bienvenue"></button>
+        </div>
+
+        <!-- Footer boutons Accueil + Paramètres -->
+        <div class="footer-info">
+          <button class="btn-info" id="btn-info-home">retour</button>
+          <button class="btn-info" id="btn-info-settings">paramètres</button>
+        </div>
+      </div>
+    </div>
+
+  <!-- JS global -->
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

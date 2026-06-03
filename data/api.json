@@ -1,0 +1,2360 @@
+{
+  "kind": "youtube#playlistItemListResponse",
+  "etag": "NcVdoJubEOQygU4PF8kgNpjQ880",
+  "items": [
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "Mc1JenGrGEqkAm1kmdQzw_jxNfE",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS41NkI0NEY2RDEwNTU3Q0M2",
+      "snippet": {
+        "publishedAt": "2021-03-11T12:24:15Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Choix personnel\" | 001⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Présentation de la série\n00:37 Minimiser les souffrances \n00:50 Le cercle de considération\n01:17 Le sentientisme\n01:45 Le choix personnel\n02:25 Un choix n'est pas personnel s'il implique un autre être sentient\n\n►Retrouvez-nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définition :\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/og5t19FOPPg/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/og5t19FOPPg/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/og5t19FOPPg/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/og5t19FOPPg/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/og5t19FOPPg/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 0,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "og5t19FOPPg"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "3vr7bRgi-1ErpkDSMncsQ34_Dm8",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS4wOTA3OTZBNzVEMTUzOTMy",
+      "snippet": {
+        "publishedAt": "2021-03-22T18:31:24Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Végane pour le goût\" | 002⏱️Votre Éthique en 2 min",
+        "description": "►Chapitres :\n00:00 Générique\n00:09 La compréhension de l'antispécisme\n00:22 Le changement de thèse\n00:34 Le problème du changement de thèse\n00:51 Les erreurs logiques\n01:03 Une méthode inefficace\n01:17 Manger des végétaux n'empêche pas de manger des animaux\n01:30 Sans rapport avec le spécisme\n01:47 Le rôle du végétalisme\n02:17 On n'est pas végane pour le goût mais pour les autres sentients\n\nRetrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/LwXi0NJcclM/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/LwXi0NJcclM/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/LwXi0NJcclM/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/LwXi0NJcclM/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/LwXi0NJcclM/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 1,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "LwXi0NJcclM"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "wGwS50cASNOAJDB3EL4x6WKt-ic",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS5DQUNERDQ2NkIzRUQxNTY1",
+      "snippet": {
+        "publishedAt": "2021-03-31T13:27:50Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Végane pour la planète\" | 003⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 L'éthique écologique\n00:17 Séparer l'écologie de l'animalisme\n00:36 Incompatibilités : Poule de jardin, zoo, aquarium...\n01:14 ...Entretien des prairies et régulation\n01:46 Hors thèse\n02:04 Le sentientisme\n02:24 On n'est pas végane pour la planète mais pour les autres sentients\n\nRetrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/KLNRU6aIdDA/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/KLNRU6aIdDA/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/KLNRU6aIdDA/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/KLNRU6aIdDA/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/KLNRU6aIdDA/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 2,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "KLNRU6aIdDA"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "5zd7MXCt0Aj_GMvwTp5yat7xskE",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS41MzJCQjBCNDIyRkJDN0VD",
+      "snippet": {
+        "publishedAt": "2021-03-29T12:08:28Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Végane pour la santé\" | 004⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 La désirabilité d'être en bonne santé\n00:48 Liberté et conséquences\n01:15 L'hygiénisme\n01:27 Végétalisme et santé\n01:42 Un argument hors thèse\n02:04 On n'est pas végane pour la santé mais pour les autres êtres sentients\n\n► Études comparatives sur les régimes carné, végétarien et végétalien :\n\n• https://www.ncbi.nlm.nih.gov/pubmed/10479225\n• https://www.ncbi.nlm.nih.gov/pubmed/23836264\n• https://www.ncbi.nlm.nih.gov/pubmed/26707634/\n\n« The long-term health of vegetarians appears to be generally good, and for some diseases and medical conditions it may be better than that of comparable omnivores. Much more research is needed, particularly on the long-term health of vegans »\n\n« Il apparait que la santé à long terme des végétariens est généralement bonne et que pour quelques maladies et conditions médicale il puisse être meilleur qu’un régime omnivore. Beaucoup plus de recherches sont nécessaires particulièrement sur la santé à long terme des véganes. »\n\n------------------------------------------------\nRetrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/UsT1eu2_0rg/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/UsT1eu2_0rg/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/UsT1eu2_0rg/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/UsT1eu2_0rg/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/UsT1eu2_0rg/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 3,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "UsT1eu2_0rg"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "VOp7y3msGI1kHElAYS4F58T66fE",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS45NDk1REZENzhEMzU5MDQz",
+      "snippet": {
+        "publishedAt": "2021-04-12T14:26:38Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Végane pour le titre\" | 005⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Le véganisme est un moyen\n00:32 L'utilité du véganisme\n00:51 La dissonance cognitive\n01:16 L'altruisme\n01:39 Le véganisme n'est pas une identité\n02:07 Les risques du véganisme\n02:45 On n'est pas végane pour le titre mais pour les autres êtres sentients\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/BJBzXEnHZek/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/BJBzXEnHZek/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/BJBzXEnHZek/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/BJBzXEnHZek/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/BJBzXEnHZek/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 4,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "BJBzXEnHZek"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "uO5vnJXsIrS6dO87fn0bv5beqqQ",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS5GNjNDRDREMDQxOThCMDQ2",
+      "snippet": {
+        "publishedAt": "2021-04-18T20:39:07Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Véganisme et bonheur\" | 006⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 L'objectif du véganisme\n00:27 Les objections\n00:48 Le véganisme n'est pas une solution miracle\n01:06 Ne pas nuire\n01:30 On peut être végane et opprimer autrui\n01:57 Faire plaisir ne justifie pas de maltraiter\n02:10 Ne pas être végane génère forcément des souffrances\n\nRetrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/L-SetpNLt0M/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/L-SetpNLt0M/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/L-SetpNLt0M/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/L-SetpNLt0M/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/L-SetpNLt0M/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 5,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "L-SetpNLt0M"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "pVA8dfqTm8Mr-eCuTCBAeFg5U1Y",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS40NzZCMERDMjVEN0RFRThB",
+      "snippet": {
+        "publishedAt": "2021-04-26T16:09:48Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"La souffrance des plantes\" | 007⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Le cri de la carotte\n00:38 Un argument contrefactuel\n01:53 Justifie le végétalisme\n02:09 Valide la thèse sentientiste\n02:39 Hors thèse\n03:15 L'hypothétique souffrance des plantes est sans rapport avec le fait de faire souffrir des animaux\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/zNNnnd5lgrY/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/zNNnnd5lgrY/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/zNNnnd5lgrY/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/zNNnnd5lgrY/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/zNNnnd5lgrY/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 6,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "zNNnnd5lgrY"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "6uPNKdNAJdyxHXNOc0iL-CzyI38",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS5EMEEwRUY5M0RDRTU3NDJC",
+      "snippet": {
+        "publishedAt": "2021-05-02T10:24:55Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Végé et Veggie\" | 008⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 \"Végé\"\n00:41 Différence entre végétarisme et véganisme\n01:08 Ce qui rassemble les végés\n01:20 L'amalgame\n01:36 L'invisibilisation du spécisme\n02:03 L'utilisation politique du terme végé\n02:20 Le terme végé est susceptible de créer de la confusion\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définition :\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients\n\n► Remerciements :\nProjet Méduses\nL'Effet Chimpanzé",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/PfBYVcmnaJo/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/PfBYVcmnaJo/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/PfBYVcmnaJo/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/PfBYVcmnaJo/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/PfBYVcmnaJo/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 7,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "PfBYVcmnaJo"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "926ktfo92lTIcoqy2qrG-yYfVmU",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS45ODRDNTg0QjA4NkFBNkQy",
+      "snippet": {
+        "publishedAt": "2021-05-09T21:07:27Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Véganes VS végétarien·ne·s\" | 009⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Les approches animalistes\n00:41 Dissocier enjeux et pratiques\n01:18 La frontière politique\n01:36 Une perte d'énergie\n01:52 Une solution\n02:13 Sentientisme\n02:37 Informer ce n'est pas attaquer\n03:15 Les antispécistes ne se battent pas contre les végétarien·ne·s\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définition :\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients\n\n► Remerciements :\nSandra et Tristan de L'Effet Chimpanzé pour la relecture\nLe Projet Méduses pour les conseils sur le format",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/7-a2JZ_fK9I/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/7-a2JZ_fK9I/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/7-a2JZ_fK9I/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/7-a2JZ_fK9I/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/7-a2JZ_fK9I/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 8,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "7-a2JZ_fK9I"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "r7K-347LADD8Vq4Q6hWd_9hRI3Q",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS4zMDg5MkQ5MEVDMEM1NTg2",
+      "snippet": {
+        "publishedAt": "2021-05-16T21:18:39Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"C'est naturel\" | 010⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Définition de la nature\n00:34 Label \"naturel\"\n00:49 La nature n'est ni bonne ni mauvaise\n01:03 Le naturalisme prescriptif\n01:23 raisonnement à rebours et biais du survivant\n02:11 Paralogisme naturaliste\n02:31 Des bienfaits du non naturel\n02:54 \"Naturel\" ne dit signifie pas \"désirable\"\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définition :\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients\n\n• Nature :\n1. Ensemble de la réalité matérielle considérée comme indépendante de l’activité et de l’histoire humaines.\n2. Milieu terrestre particulier, défini par le relief, le sol, le climat, l’eau, la végétation.\n3. Ensemble de l’univers, en tant qu’il est le lieu, la source et le résultat de phénomènes matériels.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/5TlbGmen-XE/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/5TlbGmen-XE/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/5TlbGmen-XE/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/5TlbGmen-XE/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/5TlbGmen-XE/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 9,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "5TlbGmen-XE"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "BEK5ktC-sjvDspfywmfK7j4__UU",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS41Mzk2QTAxMTkzNDk4MDhF",
+      "snippet": {
+        "publishedAt": "2021-05-24T18:10:55Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"La validité de l'antispécisme\" | 011⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 L'antispécisme n'est pas compris\n00:47 Pourquoi ces confusions\n01:06 L'antispécisme est le rejet du spécisme\n01:20 Les raisons de l'être\n01:41 L'antispécisme n'est pas une proposition\n02:04 Le spécisme n'est pas neutre\n02:21 Contredire l'antispécisme nécessite de démontrer la validité du spécisme\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définition :\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/K2EKzdF2g3U/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/K2EKzdF2g3U/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/K2EKzdF2g3U/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/K2EKzdF2g3U/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/K2EKzdF2g3U/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 10,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "K2EKzdF2g3U"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "fEaCzxsBL3AaxUkgbnrp-EL_w80",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS41QTY1Q0UxMTVCODczNThE",
+      "snippet": {
+        "publishedAt": "2021-05-31T17:02:02Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"La puissance de l'égomorphisme\" | 012⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Le refus de faire souffrir\n00:31 L'égomorphisme\n01:12 Principe de parcimonie\n01:57 Faire souffrir ce n'est pas nier la souffrance\n02:17 S'informer\n02:35 Les éleveurs reconnaissent la sentience des animaux exploités\n03:01 Refuser de mutiler un animal c'est considérer qu'il est sentient et vouloir minimiser ses souffrances\n\n► La chaine Cervelle d'oiseau de Sébastien Moro : https://www.youtube.com/channel/UC2EYhsS52ykT6sQH5FXoY7g\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définition :\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/oNwgrTTCzug/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/oNwgrTTCzug/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/oNwgrTTCzug/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/oNwgrTTCzug/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/oNwgrTTCzug/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 11,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "oNwgrTTCzug"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "JANQ6_2y1N6FuKmHrSY_XMhqSok",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS4yMUQyQTQzMjRDNzMyQTMy",
+      "snippet": {
+        "publishedAt": "2021-06-06T21:59:57Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"C'est violent\" | 013⏱️Votre Éthique en 2 min",
+        "description": "ATTENTION :\nCette vidéo ne dit pas qu'il est acceptable ou non de casser des vitrines ou d'être violent. Elle pointe le double standard méthodologique qui consiste à dénoncer une violence et tolérer une plus grande.\n\n► Chapitres :\n00:00 Générique\n00:09 Méfiance et exclusion\n00:49 Réactances\n01:03 DEMETER\n01:24 La médiatisation\n01:47 Les antispécistes sont libertaires\n01:58 L'accusation de terrorisme\n02:41 La violence\n03:29 Le double standard\n04:08 Que sont les spécistes ?\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définition :\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients\n\n• Terrorisme : Le terrorisme est l'emploi de la terreur à des fins idéologiques, politiques ou religieuses. Les multiples définitions (Alex Schmidt et Berto Jongman en 1988 en listent 109 différentes4) varient sur : l'usage de la violence (certaines comprennent des groupes n'utilisant pas la violence mais ayant un discours radical), les techniques utilisées, la nature du sujet (mettant à part le terrorisme d'État), l'usage de la peur, le niveau d'organisation, l'idéologie, etc. Dans nombre de définitions intervient aussi le critère de la victime du terrorisme (civile, désarmée, innocente, attaque contre un État démocratique qui aurait permis au terroriste de s'exprimer légalement).\nhttps://fr.wikipedia.org/wiki/Terrorisme\n\n• Violence : La violence est l’utilisation de force ou de pouvoir, physique ou psychique, pour contraindre, dominer, tuer, détruire ou endommager. Elle implique des coups, des blessures, de la souffrance, ou encore la destruction de biens humains ou d'éléments naturels.\nSelon l'OMS, la violence est l'utilisation intentionnelle de la force physique, de menaces à l'encontre des autres ou de soi-même, contre un groupe ou une communauté, qui entraîne ou risque fortement d'entraîner un traumatisme, des dommages psychologiques, des problèmes de développement ou un décès.\nhttps://fr.wikipedia.org/wiki/Violence\n\n► Remerciements :\nLes personnes participant à l'action \"Aide à la création de contenu\" du Projet Méduses\ndont :\n• Florence Dellerie du site https://questionsanimalistes.com\n• Sandra & Tristan de la chaîne l'Effet chimpanzé https://www.youtube.com/channel/UC4IoY08ud4Mi_tP9abGBk2A\n• Yohann de la chaîne Mangayoh \nhttps://www.youtube.com/channel/UCImVxjIl3rIEoQIqeDIvKfA",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/D_c8a06xhuM/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/D_c8a06xhuM/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/D_c8a06xhuM/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/D_c8a06xhuM/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/D_c8a06xhuM/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 12,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "D_c8a06xhuM"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "m-AJdH4xtUTXogmWg5RstJHbZZs",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS45RTgxNDRBMzUwRjQ0MDhC",
+      "snippet": {
+        "publishedAt": "2021-06-12T18:47:17Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Le véganisme c'est pour les riches\" | 014⏱️Votre Éthique en 2 min",
+        "description": "ATTENTION :\nCette vidéo ne parle pas des personnes qui souffrent de trouble du comportement alimentaire les empêchant d'être végétaliennes.\n\n► Chapitres :\n00:00 Générique\n00:09 Si le véganisme était réservé aux riches.\n00:38 Généralisation\n01:08 Les produits de base\n01:23 Comparer ce qui est comparable\n01:38 Défendre les pires pratiques\n01:53 Un problème de privilégié·e\n02:14 Ce qui est bourgeois c'est maintenir des souffrances pour son confort\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définition :\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients\n\n► Remerciements :\nLes personnes participant à l'action \"Aide à la création de contenu\" du Projet Méduses\ndont :\n• Florence Dellerie du site https://questionsanimalistes.com",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/wgm_n6zM0Hs/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/wgm_n6zM0Hs/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/wgm_n6zM0Hs/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/wgm_n6zM0Hs/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/wgm_n6zM0Hs/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 13,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "wgm_n6zM0Hs"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "YqE5Z7PybDVSEk5ARLuzyffP4t0",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS5ENDU4Q0M4RDExNzM1Mjcy",
+      "snippet": {
+        "publishedAt": "2021-06-21T13:41:01Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Les chats mangent des vaches\" | 015⏱️Votre Éthique en 2 min",
+        "description": "ATTENTION :\n• Cette vidéo ne dit pas qu'il faut nourrir des animaux avec d'autres animaux. \n• Elle ne dit pas non plus qu'il faut laisser des animaux mourir de faim. \n\n► Chapitres :\n00:00 Générique\n00:09 Les antispécistes spécistes\n00:34 La domination des animaux dits de compagnie\n00:56 Hiérarchie\n01:51 Peu importe\n02:14 Un problème insoluble\n02:34 Les intérêts des animaux dits de compagnie ne sont pas prioritaires sur ceux avec lesquels on les nourrit\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définition :\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients\n\n► Remerciements :\nFlorence Dellerie du site https://questionsanimalistes.com",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/6qMW-Yu0B-Q/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/6qMW-Yu0B-Q/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/6qMW-Yu0B-Q/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/6qMW-Yu0B-Q/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/6qMW-Yu0B-Q/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 14,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "6qMW-Yu0B-Q"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "9Dfc1-1xoCmqXcIv3EbIfJFWxBw",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS4yMDhBMkNBNjRDMjQxQTg1",
+      "snippet": {
+        "publishedAt": "2021-06-27T20:39:02Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"C'est légal\" | 016⏱️Votre Éthique en 2 min",
+        "description": "ATTENTION :\n• Cette vidéo ne dit pas que si une chose est légale, alors c'est qu'elle est souhaitable.\n• Si vous pensez que l'exploitation animale n'est pas évitable, cela ne la rend pas désirable pour autant.\n\n► Chapitres :\n00:00 Générique\n00:09 Le respect de la loi\n00:36 Ce que dit la loi\n01:09 Des pratiques qui devraient être illégales\n01:30 S'opposer aux pratiques est légal\n01:45 Une contradiction\n02:31 Le système spéciste ne respecte pas sa propre loi\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définition :\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients\n\n► Remerciements :\nLes personnes participant à l'action \"Aide à la création de contenu\" du Projet Méduses\ndont :\n• Clémence pour la voix off\n\n► Sources :\n• https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006587904\n• https://www.legifrance.gouv.fr/codes/id/LEGISCTA000006152208/\n• https://www.legifrance.gouv.fr/jorf/article_jo/JORFARTI000030248589?r=FO4VDXfqRE\n• https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32005R0001\n• https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32009R1099&from=EN\n• https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:31999L0074\n• https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32008L0120\n• https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32008L0119\n• https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=celex:32007L0043",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/pWoHoljOtIU/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/pWoHoljOtIU/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/pWoHoljOtIU/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/pWoHoljOtIU/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/pWoHoljOtIU/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 15,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "pWoHoljOtIU"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "ha1pxZD-vrxQ12eC4tFrfiCL-oI",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS5GM0Q3M0MzMzY5NTJFNTdE",
+      "snippet": {
+        "publishedAt": "2021-07-05T15:31:32Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Le petit élevage local familial\" | 017⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 La thèse sentientiste\n00:30 L'élevage est une trahison\n00:50 Le but de l'élevage\n01:23 Si les animaux aiment les éleveurs\n01:48 Si les éleveurs aiment les animaux\n02:12 Le \"petit élevage respectueux\" est un oxymore\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définition :\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/qav2ZYPMtrM/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/qav2ZYPMtrM/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/qav2ZYPMtrM/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/qav2ZYPMtrM/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/qav2ZYPMtrM/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 16,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "qav2ZYPMtrM"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "fIt6QTJ6qulqPRZ0AICK6kBgxCg",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS4zRjM0MkVCRTg0MkYyQTM0",
+      "snippet": {
+        "publishedAt": "2021-07-11T20:30:01Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Les vertus de l'élevage\" | 018⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 L'entretien des prairies\n00:35 Différents enjeux\n01:01 Écologie sentientiste\n01:22 Nécessaire n'est pas désirable\n01:37 Hors sujet\n02:35 Les arguments écologiques ou économiques ne permettent pas de justifier l'abattage de sentients\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définition :\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/6fqI9NQfPjc/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/6fqI9NQfPjc/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/6fqI9NQfPjc/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/6fqI9NQfPjc/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/6fqI9NQfPjc/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 17,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "6fqI9NQfPjc"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "lIPVmAKwhST_B_sYL3ytiDezkh8",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS45NzUwQkI1M0UxNThBMkU0",
+      "snippet": {
+        "publishedAt": "2021-07-19T12:08:56Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Quand on ne sait pas...\" | 019⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Un conseil pertinent\n00:39 Identifier le sujet\n01:13 Une expertise sans rapport\n01:40 Conflit d'intérêt \n02:07 Argument d'autorité\n02:18 Quand on ne sait pas on se renseigne\n02:36 Il n'est pas nécessaire d'exploiter pour juger l'exploitation\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définitions :\n\n• Argument d'autorité consiste à invoquer une autorité lors d'une argumentation, en accordant de la valeur à un propos en fonction de son origine plutôt que de son contenu.\n\n• Empoisonnement du puits : figure de style où l'on donne préalablement à un public de l'information négative, vraie ou fausse, à propos d'un adversaire, dans le but de discréditer ou de ridiculiser tout ce que dira par la suite ce dernier, ou une personne qui lui est liée.\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/kAinP118OL0/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/kAinP118OL0/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/kAinP118OL0/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/kAinP118OL0/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/kAinP118OL0/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 18,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "kAinP118OL0"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "4KGaQlkICMn9aLyz40CWO-memv4",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS5DNzE1RjZEMUZCMjA0RDBB",
+      "snippet": {
+        "publishedAt": "2021-07-26T15:31:20Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"UN PRINCIPE FONDAMENTAL\" | 020⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 La fonction des débats\n00:46 Tout le monde est concerné\n02:14 La réactance\n02:46 Remonter à la thèse\n03:11 Exemple 1\n04:58 Exemple 2\n06:16 Exemple 3\n07:11 Identifier la thèse\n08:06 L'importance du principe\n08:44 L'argument le plus fort\n09:42 La méthode\n10:22 Auto promo\n\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définitions :\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/rSr0AinDXIc/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/rSr0AinDXIc/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/rSr0AinDXIc/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/rSr0AinDXIc/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/rSr0AinDXIc/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 19,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "rSr0AinDXIc"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "1kDxw7JkJbwgXX8vOmwvR97VdnU",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS43MTI1NDIwOTMwQjIxMzNG",
+      "snippet": {
+        "publishedAt": "2021-08-01T14:17:13Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Extrémiste et hypocrite\" | 021⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Le piège\n00:33 Contradiction\n00:57 Solution parfaite\n01:32 Juste milieu\n01:45 L'avenir\n02:20 Il n'est pas cohérent de qualifier d'extrémiste et d'hypocrite à la fois\n\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définitions :\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Tbqr4MEe6Bk/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Tbqr4MEe6Bk/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Tbqr4MEe6Bk/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/Tbqr4MEe6Bk/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/Tbqr4MEe6Bk/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 20,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "Tbqr4MEe6Bk"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "DKDKhHsCavV_j1RMB4FwzGb9ub8",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS5DQ0MyQ0Y4Mzg0M0VGOEYw",
+      "snippet": {
+        "publishedAt": "2021-08-08T17:13:32Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Ce sujet dont personne n'ose parler\" | 022⏱️Votre Éthique en 2 min",
+        "description": "ATTENTION :\nCe contenu est susceptible de heurter la sensibilité et va parler de non respect du consentement et de zססphiIie. Nous avons conscience que ce sujet est particulièrement délicat mais choisissons tout de même de le traiter parce qu’il nous paraît nécessaire de prendre en compte les nuisance induites par le fait de l’ignorer.\n\n► Chapitres :\n00:00 Générique\n00:09 Avertissement\n00:29 Un sujet tabou pour de mauvaises raisons\n00:48 Problème de consentement\n01:28 Intention vs conséquences\n01:39 L'élevage\n02:06 Double standard\n02:33 L'ironie de l'accusation\n02:11 Toutes les violences sont à condamner\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définitions :\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/wYUoldCXYvU/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/wYUoldCXYvU/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/wYUoldCXYvU/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/wYUoldCXYvU/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/wYUoldCXYvU/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 21,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "wYUoldCXYvU"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "7AUXL8jpDX1p4qpNab_UCPfZplA",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS4yQUE2Q0JEMTk4NTM3RTZC",
+      "snippet": {
+        "publishedAt": "2021-08-08T17:38:27Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Prosélytisme et propagande\" | 023⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 La propagande\n00:36 La rigueur de l'antispécisme\n00:55 Un argument boumerang\n01:26 Hégémonie culturelle\n01:44 Désinformation, manipulation et publicité\n02:25 Suicide food\n02:50 Les lobby\n03:09 Informer et donner à réfléchir n'est pas de la propagande\n\n► Conférence de Florence Dellerie \"Véganisme et pensée critique\" : https://youtu.be/2R4OiQ9J1VY\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définitions :\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients\n\n« L’interprofession cunicole lançait [...] fin 2009 une campagne ayant pour slogan « Le lapin, il mérite bien de passer à la casserole », avec pour héros «Cyril le lapin», un personnage insupportable incarné par un homme coiffé d’oreilles de lapin. Ces spots vidéo, se voulant de style jeune et décalé, ont été conçus à partir d’une préoccupation bien précise si l’on en croit Élise Aliet, chargée de communication à l’agence qui a conçu cette campagne : « On voulait casser cette douce image d'un animal quasi domestique que l'on trouve très mignon, qu'on n'a pas forcément envie de manger. Pour ce faire, on a créé un personnage qui est tellement agaçant, tellement irritant, qu'on n’a qu'une envie: le passer à la casserole.»\nSource: « La pub plombe le lapin pour mieux nous en faire manger», article publié par Lyon Capitale en partenariat avec Eco89, 29 décembre 2009, https://web.archive.org/web/20140905084221/http://rue89.nouvelobs.com:80/2009/12/29/la-pub-plombe-le-lapin-pour-mieux-nous-en-faire-manger-131600\n\nLe magazine américain The Trapper fait par exemple aux éleveurs les recommandations suivantes : « ne montrez pas le vison en train de se faire dépecer ou tuer et ne permettez aucune photo du procédé d’obtention de la fourrure. Ne montrez pas les pinces avec lesquels on brise le coût des animaux ni aucun autres outil servant à tuer. Ne permettait pas aux visiteurs ou à ceux qui vous demandent un entretien de prendre des photos des visons dans les cages. […] empêcher le de prendre des photos de l’animale en gros plan car cale rend mignon, aimable, caressable et adorable dans l’esprit des spectateurs urbains » \nSource: The Animal’s Voice, 2 : 6, 1989, p. 32.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/JMw_qQGqc9s/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/JMw_qQGqc9s/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/JMw_qQGqc9s/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/JMw_qQGqc9s/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/JMw_qQGqc9s/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 22,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "JMw_qQGqc9s"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "AbDjIZ0VZux0soJUnvYfprsSyvw",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS5DMkU4NTY1QUFGQTYwMDE3",
+      "snippet": {
+        "publishedAt": "2021-08-27T13:02:38Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Extrémiste !\" | 024⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Extrême\n00:33 Nuancer par principe\n00:49 Le sentientisme est extrême\n01:27 Argument insuffisant\n02:10 Le spécisme est extrême\n02:22 Si être sentientiste est extrême, ne pas l'être l'est également\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définitions :\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/5k-eN2k4Q_I/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/5k-eN2k4Q_I/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/5k-eN2k4Q_I/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/5k-eN2k4Q_I/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/5k-eN2k4Q_I/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 23,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "5k-eN2k4Q_I"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "mn90dhvvfJGNPqCLHVK4uWLP-gY",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS44Mjc5REFBRUE2MTdFRDU0",
+      "snippet": {
+        "publishedAt": "2021-09-01T14:59:08Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Solidaire avec les éleveurs\" | 025⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Compassion envers les spécistes\n00:40 Les éleveur·se·s ne sont pas des sadiques\n01:24 Compassion envers les autres animaux\n01:54 Propositions\n02:10 Prime de reconversion\n02:19 Maintien des subventions pour les sanctuaires\n02:26 Statut de fonctionnaire\n02:39 Retraite anticipée\n02:45 Le sentientiste se battent pour minimiser les souffrances et non contre les spécistes\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définitions :\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/WleLbHXPvQc/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/WleLbHXPvQc/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/WleLbHXPvQc/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/WleLbHXPvQc/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/WleLbHXPvQc/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 24,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "WleLbHXPvQc"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "eHUnTIWQiEJDbJiQ6BAuR-XfvPI",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS43NDhFRTgwOTRERTU4Rjg3",
+      "snippet": {
+        "publishedAt": "2021-09-13T15:40:55Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Anthropo*****isme\" | 026⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Une caractéristique commune\n00:56 Anthropodéni\n01:10 Anthropocentrisme\n01:28 Anthropomorphisme\n02:03 Reconnaître la souffrance des autres êtres sentients n'est pas de l'anthropomorphisme\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définitions :\n\n• Anthropocentrisme : conception philosophique qui considère l’humain comme l'entité centrale la plus significative de l'Univers et qui appréhende la réalité à travers la seule perspective humaine. [...]\nL'anthropocentrisme se prolonge encore aujourd'hui sur le plan philosophique et moral avec l'humanisme, idéologie à laquelle il est étroitement lié (et avec laquelle on le confond souvent), qui assigne aux humains le rôle de mètre-étalon pour mesurer toute chose ou phénomène.\n\n• Anthropomorphisme : attribution de caractéristiques du comportement ou de la morphologie humaine à d'autres entités comme des dieux, des animaux, des objets, des phénomènes, des idées et voire à des êtres d'un autre monde le cas échéant.\nhttps://fr.wikipedia.org/wiki/Anthropomorphisme\n\n• Mentaphobie : concept inventé par le zoologiste américain Donald Griffin, fondateur de l'éthologie cognitive, pour désigner les très fortes réticences de ses pairs à faire référence à la conscience animale lorsqu'il s'agit de décrire le comportement des animaux.\nhttps://fr.wikipedia.org/wiki/Mentaphobie\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients\n\n► Ressources :\n\n• Au sujet de l'anthropodéni : Selon Frans de Waal, l’éthologue inventeur du concept de l’anthropodéni, les barrières séparant l’humain de l’animal sont toutes tombées. L’empathie par exemple. [...] Pour renforcer la démarcation humain-animal, on a aussi brandi l’argument de la théorie de l’esprit : les animaux n’auraient pas cette capacité à attribuer à soi et à autrui des états mentaux. Ils seraient incapables de comprendre les intentions communicatives de l’autre. Mais dès 1978, David Premack et Guy Woodruff ébranle les certitudes dans leur article « Does the chimpanzee have a theory of mind? ». Trente ans plus tard, une expérience montre que les chimpanzés comprennent les intentions des autres, prennent en compte l’ignorance de l’autre et y remédient pour lui sauver la vie (Kaminski, Call et Tomasello 2008).\nhttps://realista.hypotheses.org/1372",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/tQVxybyHBww/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/tQVxybyHBww/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/tQVxybyHBww/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/tQVxybyHBww/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/tQVxybyHBww/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 25,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "tQVxybyHBww"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "6n_ugFnilCrb97Tl0HOalPqvAe4",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS4zRDBDOEZDOUM0MDY5NEEz",
+      "snippet": {
+        "publishedAt": "2021-09-20T17:43:06Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"L'animalisme, c'est pas pour les humain·e·s\" | 027⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Enjeux de l'animalisme\n00:39 Histoire de l'animalisme\n00:55 Les bénéficiaires de l'animalisme\n01:09 Un mouvement dédié\n01:35 L'antispécisme\n02:07 Le véganisme\n02:19 L'animalisme n'implique pas la défense des intérêts des humains\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définitions :\n\n• Animalisme : Courant de l'éthique qui s'appuie sur les avancées de l'éthologie et qui défend les droits des animaux. Ce courant soutient que les animaux non humains sont des êtres sensibles capables de souffrir, et par-là même dignes de considération morale de la part des êtres humains.\nhttps://fr.wikipedia.org/wiki/Animalisme\n\n• Véganisme :  Mode de vie qui refuse l'exploitation des animaux, et exclut donc la consommation de produits d'origine animale. Au-delà de l'adoption d'une pratique alimentaire végétalienne (qui exclut les produits alimentaires d'origine animale comme la viande, le poisson, les insectes, les produits laitiers, les œufs et le miel), le véganisme exclut également la consommation de tout autre produit issu des animaux, de leur exploitation ou testé sur eux (cuir, fourrure, laine, soie, etc.), et plus généralement l'utilisation des animaux dans le cadre des loisirs.\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/ArVu9q7fgVE/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/ArVu9q7fgVE/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/ArVu9q7fgVE/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/ArVu9q7fgVE/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/ArVu9q7fgVE/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 26,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "ArVu9q7fgVE"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "Soj_9RoYmo6hpj1g1rpIgRnYVvQ",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS5CMEQ2Mjk5NTc3NDZFRUNB",
+      "snippet": {
+        "publishedAt": "2021-09-27T13:53:21Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Chacun·e son rythme\" | 028⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Le déterminisme\n00:33 L'urgence\n00:54 Le problème du fatalisme\n01:33 Libéralisme\n01:48 Mes conseils\n01:54 Chacun·e ses facteurs\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définition :\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients\n\n• Au sujet du déterminisme : https://replique-ethique.fr/le-determinisme/\n• Au sujet du libéralisme : https://replique-ethique.fr/le-liberalisme/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/8XR4O1_2cqE/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/8XR4O1_2cqE/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/8XR4O1_2cqE/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/8XR4O1_2cqE/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/8XR4O1_2cqE/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 27,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "8XR4O1_2cqE"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "rh187l9QGFxXxZfFjKC6GQm0pas",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS42MTI4Njc2QjM1RjU1MjlG",
+      "snippet": {
+        "publishedAt": "2021-10-04T13:34:36Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Chacun·e ses méthodes\" | 029⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Le sentiment d'urgence\n00:35 \"Chacun·e ses méthodes\"\n00:52 L'efficience\n01:30 Faire ce qui est nécessaire et non ce qui plait\n02:00 L'importance de la stratégie\n02:16 C'est parce qu'il y a urgence que nous devons être méthodiques\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définitions :\n\n• Efficience : Aptitude (d'une machine, d'une technique, d'une personne ou d'une entreprise) à fournir le meilleur rendement.\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/onN8gueWQRo/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/onN8gueWQRo/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/onN8gueWQRo/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/onN8gueWQRo/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/onN8gueWQRo/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 28,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "onN8gueWQRo"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "vpiDIE_HDf4GfghBEVRs96kpSec",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS45RjNFMDhGQ0Q2RkFCQTc1",
+      "snippet": {
+        "publishedAt": "2021-10-11T05:33:58Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Utopiste\" | 030⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Introduction\n00:46 I. L'intention précède la pratique\n01:14 Exemple 1 \"L'ampoule\"\n01:56 Exemple 2 \"Les 3 sauvetages\"\n02:38 La dissonance cognitive\n03:06 II. L'adhésion à la thèse\n03:36 Exemple 3 \"Le frugivorisme\"\n04:32 Exemple du véganisme et de la chasse\n05:00 Réfutation vs recherche de solution\n05:30 L'utopie\n06:21 III. Défendre un objectif et non un moyen\n07:40 Exemple 1 \"L'ampoule\"\n08:20 Exemple du véganisme et de la chasse\n09:36 Résumé\n10:19 Remerciement\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n\"Qu'est-ce qu'une plante\" de Florence Burgat : https://www.seuil.com/ouvrage/qu-est-ce-qu-une-plante-florence-burgat/9782021414615\n\n► Définitions :\n\n• Biais des coûts irrécupérables : Tendance qu'ont les individus à être influencés de manière irrationnelle par des décisions prises antérieurement (investissement financier réalisé, temps passé, efforts consentis, etc.) dans le cadre d'un projet ou d'une activité, lorsque se pose la question de les poursuivre ou de les arrêter.\n\n• Dissonance cognitive : En psychologie sociale, la dissonance cognitive est la tension interne propre au système de pensées, croyances, émotions et attitudes (cognitions) d'une personne lorsque plusieurs d'entre elles entrent en contradiction l'une avec l'autre. Le terme désigne également la tension qu'une personne ressent lorsqu'un comportement entre en contradiction avec ses idées ou croyances.\n\n• Sauvetage ad hoc : Modification des prémisses d’un raisonnement pour échapper à la réfutation d’un contre-exemple. Si les nouvelles prémisses sont sans fondement, leur seule justification devient le sauvetage en question et est sophistique.\n\n• Utopie : Idéal, vue politique ou sociale qui ne tient pas compte de la réalité.\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/WR7XKm2-bdY/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/WR7XKm2-bdY/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/WR7XKm2-bdY/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/WR7XKm2-bdY/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/WR7XKm2-bdY/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 29,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "WR7XKm2-bdY"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "zyQZJDNyw2AVvxhU5KbdYCVN_X4",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS5BRjJDODk5REM0NjkzMUIy",
+      "snippet": {
+        "publishedAt": "2021-10-18T14:40:50Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Les véganes se trompent\" | 031⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Quand avoir tort n'est pas grave\n00:54 Quand avoir tort pose problème\n01:13 Une lutte fonctionnelle\n01:46 L'opposition interne\n02:18 La lutte ne devrait pas être végane vs non végane\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définitions :\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/PHvbuIRC6Mc/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/PHvbuIRC6Mc/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/PHvbuIRC6Mc/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/PHvbuIRC6Mc/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/PHvbuIRC6Mc/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 30,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "PHvbuIRC6Mc"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "acTAzSA9IgKAaW-Ah_BAMJkM2Is",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS4xOTEzQzhBQzU3MDNDNjcz",
+      "snippet": {
+        "publishedAt": "2021-10-24T18:23:26Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Chercher les limites\" | 032⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Être questionné\n00:57 Se questionner\n01:23 Les questions pièges\n01:58 Questionner les questions\n02:56 Chercher à contredire permet de déterminer la validité\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définitions :\n\n• Méthode hypercritique : Méthode d'argumentation consistant en la critique systématique ou excessivement minutieuse des moindres détails d'une affirmation ou de ses sources. Elle se distingue de la pensée critique qui est une utilisation de la raison ayant pour finalité d'affiner et de préciser les affirmations sans chercher par principe à les discréditer.\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/xAlGQdmMbBY/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/xAlGQdmMbBY/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/xAlGQdmMbBY/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/xAlGQdmMbBY/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/xAlGQdmMbBY/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 31,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "xAlGQdmMbBY"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "FoMzVlZ-frYTt5ztOjTCnKrXTwc",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS5GNDg1Njc1QzZERjlFRjE5",
+      "snippet": {
+        "publishedAt": "2021-10-30T12:46:18Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Hitler etc.\" | 033⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Il vaut mieux être végane\n00:30 Décrédibiliser\n01:03 Déshonneur par association\n01:35 Validité et contexte\n02:10 Raccourcis des qualificatifs\n02:29 Alliance et opposition\n02:15 Les erreurs et les fautes des personnes sentientistes ne justifient pas l'opposition à ces mêmes principes\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définitions :\n\n• Biais d'échantillonnage :\nBiais induit, lors d'une enquête, lorsque l'échantillon n'est pas représentatif de la population.\n\n• Déshonneur par association :\nconsiste à assimiler un sujet à un autre sujet qui bénéficie du déshonneur ou du discrédit.\n\n• Empoisonnement du puits :\nTechnique rhétorique où l'on donne préalablement à un public de l'information négative, vraie ou fausse, à propos d'un adversaire, dans le but de discréditer ou de ridiculiser tout ce que dira par la suite ce dernier, ou une personne qui lui est liée.\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/8qSfbdR8TGk/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/8qSfbdR8TGk/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/8qSfbdR8TGk/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/8qSfbdR8TGk/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/8qSfbdR8TGk/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 32,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "8qSfbdR8TGk"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "LS6-GIK-e7quMQVvLnDUGGjQeYE",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS4zQzFBN0RGNzNFREFCMjBE",
+      "snippet": {
+        "publishedAt": "2021-11-08T12:49:32Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Les véganes se privent\" | 034⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 La privation\n00:33 L'objectif\n01:08 La norme spéciste\n01:27 \"Il faut se faire plaisir\"\n02:09 Bénéficiaire vs victime\n02:56 Soulagement\n03:32 Être végane c'est, au pire, se priver de priver les autres\n\n► Pour en savoir plus sur l'expérimentation, suivez \"La volière des écureuils bleus\" :\nhttps://www.youtube.com/channel/UCfGWC0w8mTPc_O4H_EVNQ7A\nhttps://experimentation-animale.info \n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définitions :\n\n• Privation : Fait de se refuser volontairement un plaisir ou un désir dont on pourrait jouir. \n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/jB7zN2Ab3tc/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/jB7zN2Ab3tc/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/jB7zN2Ab3tc/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/jB7zN2Ab3tc/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/jB7zN2Ab3tc/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 33,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "jB7zN2Ab3tc"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "oo8NxBqKHXvGGPU8YNEBdberuR8",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS5DNkMwRUI2MkI4QkI4NDFG",
+      "snippet": {
+        "publishedAt": "2021-11-10T19:56:41Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Les véganes aiment la viande\" | 035⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Aimer le gout des POA\n00:51 Le problème des POA\n01:02 Pourquoi les végétalien·ne·s reproduisent les plats carnés\n01:55 Les aliments qui ont le même goût\n02:18 Privation contre simili\n02:56 \"Ça n'a pas le même goût\"\n03:11 Le problème n'est pas le goût mais la souffrance\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définitions :\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/vzG6P6KZ7AI/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/vzG6P6KZ7AI/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/vzG6P6KZ7AI/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/vzG6P6KZ7AI/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/vzG6P6KZ7AI/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 34,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "vzG6P6KZ7AI"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "xJL5tuHROrsNt36rXaH845x-KVQ",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS5DRUQwODMxQzUyRTlGRkY3",
+      "snippet": {
+        "publishedAt": "2021-11-20T19:21:00Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Arrêtez d'imposer\" | 036⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 La liberté\n00:36 Sentientisme et liberté\n00:49 L'autoritarisme\n01:14 Interdiction et réclamation\n01:54 Spécisme autoritariste\n02:43 😐\n02:49 \"Taisez vous\"\n03:07 Le sentientisme n'est pas autoritaire contrairement au spécisme\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définitions :\n\n• Autoritarisme :\nL’autoritarisme est une tendance à abuser de son autorité, à l'exercer avec rigueur, à chercher à l'imposer.\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/7Qt-7641py8/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/7Qt-7641py8/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/7Qt-7641py8/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/7Qt-7641py8/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/7Qt-7641py8/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 35,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "7Qt-7641py8"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "i44gN3labs2o_K2HOqnHx0YymzI",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS41MzY4MzcwOUFFRUU3QzEx",
+      "snippet": {
+        "publishedAt": "2021-11-29T14:24:37Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Un peu de tolérance\" | 037⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Les tolérances\n00:43 La tolérance désirable\n01:01 Le paradoxe de la tolérance\n01:28 Le privilège de la tolérance\n01:48 La tolérance sentientiste\n02:27 La patience animaliste\n03:09 La remise en question\n03:32 La tolérance n'est désirable que si elle minimise les souffrances\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définitions :\n\n• Tolérance : \n1 - la capacité à supporter un inconvénient. \n2 - condescendance ou de indulgence, par l’action de supporter ce que l’on ne peut empêcher ou que l’on croit ne pas pouvoir empêcher. \n3 - fait de ne pas s’opposer à des idées, à des positions différentes des nôtres. \n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients\n\n► Paradoxe de Popper :\nhttps://www.le-social.club/le-paradoxe-de-la-tolerance-de-karl-popper/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/EShuNWbiS-8/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/EShuNWbiS-8/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/EShuNWbiS-8/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/EShuNWbiS-8/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/EShuNWbiS-8/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 36,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "EShuNWbiS-8"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "LLXSZHA38p0DPC7YzGwq7rDp2Ng",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS4yQjZFRkExQjFGODk3RUFD",
+      "snippet": {
+        "publishedAt": "2021-12-03T11:37:49Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Fermé·e d'esprit\" | 038⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 L'ouverture d'esprit désirable\n00:39 L'ouverture d'esprit indésirable\n01:04 L'instrumentalisation de l'ouverture d'esprit\n01:25 L'ouverture d'esprit des antispécistes\n02:11 Échanges, débats et information\n02:43 Les antispécistes sont des spéciste qui se sont remis en question\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définition :\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients\n\n► Nuances sur la fenêtre d'Overton : \nhttps://blogs.mediapart.fr/olivier-goulet/blog/110521/le-mythe-de-la-fenetre-de-overton",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/wS7bZQ64-7Y/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/wS7bZQ64-7Y/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/wS7bZQ64-7Y/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/wS7bZQ64-7Y/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/wS7bZQ64-7Y/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 37,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "wS7bZQ64-7Y"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "N0d1lezhq9p8uSeWo4b85_WXGOk",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS4yQUJFNUVCMzVDNjcxRTlF",
+      "snippet": {
+        "publishedAt": "2021-12-13T13:48:06Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Tu peux bien faire un effort\" | 039⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Introduction\n00:33 Les repas avec les proches\n01:05 Ignorer ses convictions\n01:45 La vision des véganes\n02:25 Les efforts des véganes\n03:30 Les efforts des non-véganes\n04:09 L'asymétrie de l'effort\n05:19 Des solutions\n06:06 Plaisir dispensable contre confort mental\n06:51 Accepter de nuire ne demande pas les mêmes efforts que d'accepter de ne pas nuire\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_ethique/\nPinterest : https://www.pinterest.fr/repliqueethique/\n\n► Définition :\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients\n\n► Au sujet de la \"do-gooder derogation\" :\nhttps://scholar.harvard.edu/files/juliaminson/files/do-gooder_derogation.pdf\nhttps://estivareus.com/blog/post/?permalink=minsonetmonin",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/K-vb00Jv6nk/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/K-vb00Jv6nk/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/K-vb00Jv6nk/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/K-vb00Jv6nk/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/K-vb00Jv6nk/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 38,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "K-vb00Jv6nk"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "970Wyh3pGEpqaXuIevFYdDkXsGQ",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS40QzRDOEU0QUYwNUIxN0M1",
+      "snippet": {
+        "publishedAt": "2021-12-20T13:52:58Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"C'est quoi un système moral ?\" | 040⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Introduction\n00:47 Le système moral\n01:37 Morale et subjectivité\n02:22 Référentiel et objectif\n02:40 Exemples de systèmes moraux\n02:53 Intuitions morales\n03:24 Intérêts du système moral\n04:05 Exemple du tapage nocturne\n04:42 Personne n'est neutre\n05:31 Comprendre les autres\n06:32 Exemple du chien\n07:50 Méthode : Trouver son système moral\n09:32 Méthode : Faire émerger le système moral d'autrui\n11:57 Pour parler d'éthique il faut déjà définir les système morau\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_et...\nPinterest : https://www.pinterest.fr/repliqueethi...\n\n► Définitions :\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients\n\n► Remerciements :\nAux membres du Projet Méduses qui participent à l'Aide à la création !",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/GrxrWg5vX40/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/GrxrWg5vX40/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/GrxrWg5vX40/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/GrxrWg5vX40/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/GrxrWg5vX40/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 39,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "GrxrWg5vX40"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "1To2p0bqAATKeV6oCoFxfR2IUtY",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS41RTNBREYwMkI5QzU3RkY2",
+      "snippet": {
+        "publishedAt": "2021-12-27T16:38:10Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Faut pas faire la morale\" | 041⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 On n'échappe pas à la morale\n01:00 Information vs injonction\n01:26 Quelles injonctions accepter ?\n01:49 1er paradoxe\n02:19 2ème paradoxe\n02:39 Ma position\n03:15 Reprocher de faire la morale c'est faire la morale\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_et...\nPinterest : https://www.pinterest.fr/repliqueethi...\n\n► Définition :\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/D7EAQ1dS4pI/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/D7EAQ1dS4pI/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/D7EAQ1dS4pI/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/D7EAQ1dS4pI/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/D7EAQ1dS4pI/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 40,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "D7EAQ1dS4pI"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "x-o2T7oziv-d8SvDYZr0YkEdmQg",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS5ENjI1QUI0MDI5NEQzODFE",
+      "snippet": {
+        "publishedAt": "2022-01-02T22:25:32Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"C'est normal\" | 042⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Manger les animaux, c'est normal\n00:26 Conformisme et éducation\n01:04 Appel à la majorité\n01:32 Norme et morale\n01:58 Exemple\n02:25 Facteur aggravant\n02:57 Normalité n'est pas moralité\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_et...\nPinterest : https://www.pinterest.fr/repliqueethi...\n\n► Définition :\n\n• Appel à la majorité : sophisme ou un paralogisme, et figure de rhétorique qui s'appuie sur le fait qu'une opinion est largement répandue pour la justifier alors qu'elle ne soutient en fait aucune preuve convenable.\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/ncKXxADuplQ/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/ncKXxADuplQ/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/ncKXxADuplQ/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/ncKXxADuplQ/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/ncKXxADuplQ/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 41,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "ncKXxADuplQ"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "IHd6UkDdmxQLtPPbc9vCIri5NGY",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS44QzVGQUU2QjE2NDgxM0M4",
+      "snippet": {
+        "publishedAt": "2022-01-06T21:41:36Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Vous détruisez les traditions\" | 043⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Les animalistes ne ciblent pas les traditions\n00:38 Les animalistes protègent des traditions\n01:03 La désirabilité des traditions\n01:21 L'interdiction de traditions\n01:41 Un jugement indépendant\n02:11 Accord sur la thèse\n02:31 Tradition n'est pas moralité\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_et...\nPinterest : https://www.pinterest.fr/repliqueethi...\n\n► Définition :\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/RVHxWGErbK4/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/RVHxWGErbK4/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/RVHxWGErbK4/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/RVHxWGErbK4/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/RVHxWGErbK4/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 42,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "RVHxWGErbK4"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "o2azME30cktHfZLF1tc4xYpmONQ",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS4xMzgwMzBERjQ4NjEzNUE5",
+      "snippet": {
+        "publishedAt": "2022-01-17T10:36:41Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Supériorité morale\" | 044⏱️Votre Éthique en 2 min",
+        "description": "► Chapitres :\n00:00 Générique\n00:09 Justifier la différence de traitement\n01:04 Le critère de supériorité morale\n01:38 Paradoxe\n02:17 Implications\n02:48 La supériorité morale ne dit rien de la manière de traiter un individu\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_et...\nPinterest : https://www.pinterest.fr/repliqueethi...\n\n► Définition :\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients\n\n► Ressources au sujet de la morale chez les autres animaux :\n- https://www.cairn.info/revue-de-metaphysique-et-de-morale-2019-1-page-11.htm\n- https://youtu.be/GcJxRqTs5nk\n- https://youtu.be/leCDilISCEc",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/7pXVRtwUSHc/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/7pXVRtwUSHc/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/7pXVRtwUSHc/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/7pXVRtwUSHc/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/7pXVRtwUSHc/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 43,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "7pXVRtwUSHc"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "WY8g-ZQOjJNfrgH_f6TEL63LXCE",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS42Qzk5MkEzQjVFQjYwRDA4",
+      "snippet": {
+        "publishedAt": "2022-01-22T15:42:31Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Les pigeons ne composent pas de symphonie\" | 045⏱️Votre Éthique en 2 min",
+        "description": "00:00 Générique\n00:09 Supériorité\n00:32 Descriptif et prescriptif\n01:06 Capacité à souffrir\n01:25 Supériorité d'essence\n02:14 Être supérieur dans un domaine ne justifie pas de nuire\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_et...\nPinterest : https://www.pinterest.fr/repliqueethi...\n\n► Définition :\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients\n\n• Bak Baku Animal : https://fr.wikipedia.org/wiki/Baku_Baku_Animal",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/NBnFklfVLeU/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/NBnFklfVLeU/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/NBnFklfVLeU/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/NBnFklfVLeU/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/NBnFklfVLeU/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 44,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "NBnFklfVLeU"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "eziC-t8o4iUsgnScl3BCm64gF3w",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS41NTZEOThBNThFOUVGQkVB",
+      "snippet": {
+        "publishedAt": "2022-01-30T23:42:53Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"La viande c'est bon, le tofu c'est dégueu\" | 046⏱️Votre Éthique en 2 min",
+        "description": "00:00 Générique\n00:09 Le goût est relatif\n00:50 Le goût comme référentiel moral\n01:19 Prétexte ou motivation ?\n01:40 La gastronomie végétale\n02:03 Incohérence\n02:23 Régime et obligation\n02:36 Aimer la viande ne justifie pas d'en manger\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_et...\nPinterest : https://www.pinterest.fr/repliqueethi...\n\n► Définition :\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/90DZ1aELDIQ/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/90DZ1aELDIQ/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/90DZ1aELDIQ/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/90DZ1aELDIQ/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/90DZ1aELDIQ/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 45,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "90DZ1aELDIQ"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "zMylkOHoFdSGgBUhzXVVzLCC958",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS5CQkEwRDA0MDkwNUM2MDY1",
+      "snippet": {
+        "publishedAt": "2022-02-07T15:51:13Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Vous n'êtes qu'une minorité\" | 047⏱️Votre Éthique en 2 min",
+        "description": "00:00 Générique\n00:09 Appel à la majorité\n00:41 Être minoritaire\n01:20 Influence minoritaire\n01:33 Les antispécistes sont minoritaires\n01:47 Réfutation de l'argument\n02:20 Le nombre ne justifie pas de négliger des souffrance\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_et...\nPinterest : https://www.pinterest.fr/repliqueethi...\n\n► Définition :\n\n• Influence minoritaire : Processus par lequel les opinions minoritaires, les sources qui se posent comme déviantes, exercent une influence. L'émergence du concept d'influence minoritaire survient à la suite de l'incapacité à prendre en considération l'influence que pourrait avoir une minorité sur une majorité.\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/2AhzWbzz-rk/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/2AhzWbzz-rk/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/2AhzWbzz-rk/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/2AhzWbzz-rk/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/2AhzWbzz-rk/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 46,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "2AhzWbzz-rk"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "ajUsQz3lF2whoCl-WgV4yjhNjLw",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS4wNEU1MTI4NkZEMzVBN0JF",
+      "snippet": {
+        "publishedAt": "2022-02-13T17:15:55Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"J'agirai quand les autres agiront\" | 048⏱️Votre Éthique en 2 min",
+        "description": "00:00 Générique\n00:09 \"A quoi bon\"\n00:31 Adhésion et paradoxe\n00:47 Effet du témoin\n01:21 Dilution de la responsabilité\n01:33 Changement individuel\n02:04 Stratégie inefficace\n02:36 Si personne ne fait rien, rien ne sera fait\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_et...\nPinterest : https://www.pinterest.fr/repliqueethi...\n\n► Définition :\n\n• Effet du témoin et dilution de la responsabilité :\nhttps://fr.wikipedia.org/wiki/Effet_du_témoin\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/9yUD_3xIQEk/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/9yUD_3xIQEk/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/9yUD_3xIQEk/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/9yUD_3xIQEk/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/9yUD_3xIQEk/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 47,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "9yUD_3xIQEk"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "Gb-TfoLR_COoy3uyB1MfuT9jliM",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS4wMTYxQzVBRDI1NEVDQUZE",
+      "snippet": {
+        "publishedAt": "2022-02-19T10:42:29Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"C'est culpabilisant\" | 049⏱️Votre Éthique en 2 min",
+        "description": "00:00 Générique\n00:09 Do gooder derogation\n00:41 Non coupable de la culpabilité\n01:08 Culpabiliser vs être culpabilisé\n01:34 Culpabiliser\n02:17 Être culpabilisé\n02:50 Vous culpabiliserez\n03:21 La cause des faits\n03:36 L'éloge de la culpabilité\n04:11 Culpabiliser c'est porter un jugement négatif sur ses propres actions\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_et...\nPinterest : https://www.pinterest.fr/repliqueethi...\n\n► Définition :\n\n• Culpabilité : La culpabilité est un sentiment causé par la transgression d'une norme morale. Il s'agit d'un sentiment proche du concept du remords.\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/IetpWPUzHhs/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/IetpWPUzHhs/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/IetpWPUzHhs/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/IetpWPUzHhs/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/IetpWPUzHhs/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 48,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "IetpWPUzHhs"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "ZbzUUloLPOn7nmamAZirIfgVyHE",
+      "id": "UEx1ajg3Ympfb1JVc2VsVUQwbmlyMnFqMEQ4czVRdkMtOS4zMUEyMkQwOTk0NTg4MDgw",
+      "snippet": {
+        "publishedAt": "2022-02-28T15:01:21Z",
+        "channelId": "UCUBI8R3LyxRlELG1dbgOMqw",
+        "title": "\"Quel rapport entre logique et morale ?\" | 050⏱️Votre Éthique en 2 min",
+        "description": "00:00 Générique\n00:09 Introduction\n01:02 L'importance de la cohérence\n02:00 Scepticisme et politique\n02:41 La valeur de la logique\n03:15 Justice sociale et morale\n04:34 Morale et logique\n07:42 Refuser la cohérence\n09:11 Une position morale peut reposer sur la logique, et affirmer qu’il faut faire preuve de logique est une position morale.\n\n► Remerciements :\nAntonin \nAntoineD\nAustralex\nCédric Stolz\nFlorence Dellerie\nJihem Doe\nL'équipe de l'Effet Chimpanzé\nNico (Avec sel)\nSix\nYohann de la chaîne Mangayoh\net plus généralement l'ensemble du Projet Méduses\n\n► Retrouvez nous sur https://replique-ethique.fr\n\nFacebook : https://www.facebook.com/repliqueethique\nTwitter : https://twitter.com/RepliqueEthique\nInstagram : https://www.instagram.com/replique_et...\nPinterest : https://www.pinterest.fr/repliqueethi...\n\n► Définition :\n\n• Sentientisme : Principe moral reposant sur l'idée que le critère de sentience est pertinent pour décider de la manière dont on peut traiter une entité, et prônant le respect des intérêts des êtres sentients",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/ohzEAmPJ5os/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/ohzEAmPJ5os/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/ohzEAmPJ5os/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/ohzEAmPJ5os/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/ohzEAmPJ5os/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Réplique Éthique",
+        "playlistId": "PLuj87bj_oRUselUD0nir2qj0D8s5QvC-9",
+        "position": 49,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "ohzEAmPJ5os"
+        },
+        "videoOwnerChannelTitle": "Réplique Éthique",
+        "videoOwnerChannelId": "UCUBI8R3LyxRlELG1dbgOMqw"
+      }
+    }
+  ],
+  "pageInfo": {
+    "totalResults": 50,
+    "resultsPerPage": 50
+  }
+}

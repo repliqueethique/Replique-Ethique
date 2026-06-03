@@ -1,0 +1,337 @@
+body{
+    margin:0;
+    font-family:sans-serif;
+    background:#242422;
+    color:white;
+}
+
+.header{
+    background:#31bebd;
+    text-align:center;
+    padding:20px;
+}
+
+.header h1{
+    margin:0;
+    color:white;
+}
+
+.toolbar{
+    padding:20px;
+}
+
+.toolbar button{
+    background:#31bebd;
+    color:white;
+    border:none;
+    border-radius:30px;
+    padding:15px 25px;
+    cursor:pointer;
+}
+
+#listeVideos{
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.video-card{
+    background:#333;
+    border-radius:15px;
+    padding:20px;
+}
+
+.video-card h3{
+    margin-top:0;
+}
+
+.video-actions{
+    display:flex;
+    gap:10px;
+}
+
+.video-actions button{
+    border:none;
+    padding:10px 15px;
+    border-radius:20px;
+    cursor:pointer;
+}
+
+.edit{
+    background:#31bebd;
+    color:white;
+}
+
+.delete{
+    background:#d9534f;
+    color:white;
+}
+
+#modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.8);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.hidden{
+    display:none !important;
+}
+
+.modal-content{
+    width:90%;
+    max-width:800px;
+
+    background:white;
+    color:black;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+input,
+textarea{
+    width:100%;
+    box-sizing:border-box;
+    padding:10px;
+}
+
+textarea{
+    min-height:250px;
+    resize:vertical;
+}
+
+.actions{
+    display:flex;
+    gap:15px;
+}
+
+.admin-layout{
+    display:flex;
+    min-height:calc(100vh - 100px);
+}
+
+.sidebar{
+    width:220px;
+    background:#1d1d1d;
+
+    display:flex;
+    flex-direction:column;
+
+    padding:20px;
+    gap:10px;
+}
+
+.menu-btn{
+    background:#242422;
+    color:white;
+
+    border:none;
+
+    border-radius:15px;
+
+    padding:15px;
+
+    cursor:pointer;
+
+    text-align:left;
+}
+
+.menu-btn.active{
+    background:#31bebd;
+}
+
+.content{
+    flex:1;
+    padding:20px;
+}
+
+.categorie-card{
+
+    background:#333;
+
+    border-radius:15px;
+
+    padding:20px;
+
+    margin-bottom:15px;
+
+}
+
+.tag-item{
+
+    display:inline-block;
+
+    background:#31bebd;
+
+    color:white;
+
+    padding:8px 15px;
+
+    border-radius:999px;
+
+    margin:5px;
+
+}
+
+.categorie-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:15px;
+
+}
+
+.lexique-card{
+
+    background:#333;
+
+    border-radius:15px;
+
+    padding:20px;
+
+    margin-bottom:15px;
+
+}
+
+.lexique-actions{
+
+    margin-top:10px;
+
+    display:flex;
+
+    gap:10px;
+
+}
+
+.tags-categorie{
+
+    margin-bottom:20px;
+
+}
+
+.tags-categorie h4{
+
+    margin-bottom:10px;
+
+}
+
+.tag-checkbox{
+
+    display:block;
+
+    margin:5px 0;
+
+}
+
+#lexiqueModal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(
+        0,
+        0,
+        0,
+        0.8
+    );
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.grand-texte{
+
+    min-height:300px;
+
+    resize:vertical;
+
+}
+
+.btn-edit{
+
+    background:#12b9ba;
+
+}
+
+.btn-edit:hover{
+
+    background:#12b9ba;
+
+}
+
+.btn-delete{
+
+    background:#ff7100;
+
+}
+
+.btn-delete:hover{
+
+    background:#ff7100;
+
+}
+
+.video-status{
+
+    display:flex;
+
+    gap:12px;
+
+    margin:8px 0;
+
+    font-size:0.85rem;
+
+}
+
+.video-status span{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:5px;
+
+}
+
+.video-status span::before{
+
+    content:"";
+
+    width:8px;
+
+    height:8px;
+
+    border-radius:50%;
+
+}
+
+.status-ok::before{
+
+    background:#4caf50;
+
+}
+
+.status-missing::before{
+
+    background:#666;
+
+}   

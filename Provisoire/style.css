@@ -1,0 +1,932 @@
+/* BLOC A : Fonts personnalisées */
+@font-face {
+  font-family: 'Intro';
+  src: url('fonts/intro.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Graphie';
+  src: url('fonts/Graphie Book.ttf');
+}
+
+@font-face {
+  font-family: 'MoonFlower';
+  src: url('fonts/Moon Flower Bold.ttf');
+}
+
+@font-face {
+  font-family: 'SF Sports Night';
+  src: url('fonts/SF Sports Night NS.ttf') format('truetype');
+}
+
+/* BLOC A.1 : Fond global dynamique par superposition */
+#fond-global {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.fond {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+  z-index: 1; 
+}
+
+.fond.visible {
+  opacity: 1;
+}
+
+/* Dégradés */
+.fond-accueil {
+  background: linear-gradient(135deg, #31bebd, #fce7ac);
+}
+
+.fond-mots-cles {
+  background: linear-gradient(135deg, #242422, #31bebd);
+}
+
+.fond-essentiel {
+  background: linear-gradient(135deg, #ff7200, #fce7ac);
+}
+
+.fond-lexique {
+  background: linear-gradient(135deg, #242422, #5c205f);
+}
+
+/* BLOC B : Corps global */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Graphie', sans-serif;
+  background: none;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* BLOC C : Splash screen */
+.hidden {
+  display: none;
+}
+
+#splash {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, #31bebd, #fce7ac);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+#splash-logo {
+  width: 200px;
+  animation: fadeOut 2s ease-in-out 3s forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+/* BLOC D : Conteneur des pages (carrousel) */
+#conteneur-pages {
+  display: flex;
+  width: 200%;
+  height: 100vh;
+  transition: transform 0.8s ease-in-out;
+  overflow: hidden;
+}
+
+.page {
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+
+/* BLOC E : Page d'accueil */
+#accueil {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  box-sizing: border-box;
+}
+
+/* Logo fixe */
+#logo-fixe {
+  width: 50vw;
+  max-width: 180px;
+  height: auto;
+  margin: 0 auto 20px auto;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUpLogo 1s ease-out 5.1s forwards;
+  display: block;
+  transition: width 0.3s ease;
+}
+
+@media (max-width: 600px) {
+  #logo-fixe {
+    width: 120px;
+  }
+}
+
+@keyframes fadeInUpLogo {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Barre de recherche */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 990px;
+  padding: 5px 10px;
+  margin-bottom: 20px;
+  width: 80%;
+  max-width: 400px;
+  height: 60px;
+  transform: scale(0);
+  opacity: 100;
+}
+
+.search-bar.pop-smooth {
+  animation: popSmooth 0.6s ease-in-out 5.2s forwards;
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: 'MoonFlower';
+  font-size: 1.9em;
+  color: #31bebd;
+  text-align: center;
+  padding: 8px 0;
+}
+
+.search-bar input:focus {
+  text-align: left;
+  padding-left: 10px;
+}
+
+/* Bouton loupe */
+.search-button {
+  background: none;
+  border: none;
+  margin: 10 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.search-button img {
+  width: 40px;
+  height: 40px;
+  opacity: 1;
+  transition: transform 0.2s ease, opacity 0.3s ease;
+}
+
+.search-button.transition-ready {
+  opacity: 0;
+  transform: scale(0);
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+}
+
+.search-button.pop-smooth {
+  animation: popSmooth 0.6s ease-in-out forwards;
+}
+
+/* BLOC F : Boutons menu accueil */
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.menu-buttons button {
+  background: #31bebd;
+  color: white;
+  font-family: 'Intro';
+  font-size: 1.2em;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+/* BLOC G : Footer accueil */
+.footer-bar {
+  background: #242422;
+  padding: 10px 15px;
+  width: 100%;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+}
+
+.footer-bar img {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.2s ease;
+}
+
+.site-link {
+  font-family: 'Intro';
+  color: #242422;
+  margin-top: 10px;
+  font-size: 1em;
+  text-decoration: none;
+  text-align: center;
+}
+
+/* BLOC H : Transitions & animations */
+.transition-ready {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pop-smooth {
+  animation: popSmooth 0.6s ease-in-out forwards;
+}
+
+@keyframes popSmooth {
+  0% { opacity: 0; transform: scale(0); }
+  60% { opacity: 1; transform: scale(1.1); }
+  80% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+/* BLOC I : Hover / Active global */
+.menu-buttons button:hover,
+.search-button:hover,
+.search-button img:hover,
+.footer-bar a:hover img,
+.site-link:hover {
+  transform: scale(1.05) !important;
+}
+
+.menu-buttons button:active,
+.search-button:active,
+.search-button img:active,
+.footer-bar a:active img,
+.site-link:active {
+  transform: scale(0.95) !important;
+}
+
+/* BLOC J : Carrousel et page mots-clés */
+
+.page {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  transition: transform 0.6s ease;
+  overflow-y: auto;
+}
+
+#accueil {
+  left: 0;
+  transform: translateX(0%);
+  z-index: 1;
+}
+
+/* BLOC K : Page mots-clés */
+#page-mots-cles {
+  position: absolute;
+  top: 0;
+  left: -100%; /* ← LA BONNE POSITION POUR QU’ELLE ENTRE DEPUIS LA GAUCHE */
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: left 0.6s ease;
+  z-index: 9;
+}
+
+/* Quand elle devient active */
+#page-mots-cles.active {
+  left: 0;
+}
+
+/* BLOC D : Accueil (ajout pour l’animation) */
+#accueil.shifted {
+  transform: translateX(100%);
+  transition: transform 0.6s ease;
+}
+
+
+.page.visible {
+  transform: translateX(0%);
+}
+
+.page.hidden-left {
+  transform: translateX(100%);
+}
+
+.page.hidden-right {
+  transform: translateX(-100%);
+}
+
+/* === BLOC SPÉCIFIQUE PAGE MOTS-CLÉS === */
+.header-mots-cles {
+  background: #242422;
+  width: 100vw;
+  flex-shrink: 0;
+  overflow: hidden;
+  height: 70px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Titre centré absolument */
+.titre-mots-cles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'SF Sports Night', sans-serif;
+  color: #fce7ac;
+  font-size: 2.5em;
+  margin: 0;
+  white-space: nowrap;
+}
+
+
+.bouton-categorie {
+  width: 100%;
+  max-width: 100%;
+  padding: 16px 24px;
+  border-radius: 10px;
+  border: none;
+  background-color: #31bebd;
+  color: white;
+  font-family: 'Intro';
+  font-size: 1.3em;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.contenu-mots-cles {
+  width: 90%;
+  max-width: 600px;
+  padding: 40px 0 80px;
+  overflow: visible;  /* ← ajoute cette ligne */
+  z-index: 1;
+}
+
+.categorie {
+  margin-bottom: 20px;
+  overflow: visible;
+}
+
+.bouton-categorie:hover {
+  background-color: #00fffd;
+  transform: scale(1.05);
+}
+
+.tags {
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(auto-fit, minmax(100px, auto));
+  gap: 10px;
+  margin: 10px 0 20px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+  padding: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.tags.open {
+  max-height: 500px;
+  padding: 10px 0 10px;
+  opacity: 1;
+  visibility: visible;
+}
+
+.tag {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 9999px;
+  background-color: #31bebd;
+  color: white;
+  font-family: 'Graphie';
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.tag:hover {
+  background-color: #00fffd;
+  transform: scale(1.05);
+  transform-origin: center;
+  border-radius: 9999px;
+}
+
+.image-cles {
+  margin-top: auto;
+  width: 100%;
+  max-width: 1000px;
+  opacity: 0.5;
+  pointer-events: none;
+  margin-bottom: 20px;
+}
+/* === BLOC BOUTON RETOUR ACCUEIL === */
+.triangle-retour {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 12px 0 12px 18px;
+  border-color: transparent transparent transparent #31bebd;
+  background: none;
+  border-radius: 4px;
+  margin-left: auto;
+  margin-right: 15px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.triangle-retour:hover {
+  transform: scale(1.05);
+}
+
+.triangle-retour:active {
+  transform: scale(0.95);
+}
+
+.triangle-retour.gauche {
+  border-width: 12px 18px 12px 0;
+  border-color: transparent #31bebd transparent transparent;
+  margin-left: 15px;
+  margin-right: auto;
+}
+
+/* Positionnement dans la barre grise */
+.header-mots-cles {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+/* BLOC L : Page liste */
+
+#page-liste {
+  position: absolute;
+  top: 0;
+  left: 100%; /* Position de départ à droite de l'écran */
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: left 0.6s ease;
+  z-index: 8;
+}
+
+/* Quand elle devient visible */
+#page-liste.active {
+  left: 0;
+}
+
+/* Accueil glisse vers la gauche */
+#accueil.shifted-left {
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+/* Header */
+.header-liste {
+  background: #242422;
+  color: #fce7ac;
+  width: 100%;
+  padding: 15px 0;
+  text-align: center;
+}
+
+.ligne-tuto {
+  margin: 5px 0;
+  font-size: 1.2em;
+}
+
+.bloc-lignes-tuto {
+  text-align: center;
+  flex: 1;
+}
+
+.header-liste {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+
+
+.sf-sports {
+  font-family: 'SF Sports Night', sans-serif;
+}
+
+.graphie {
+  font-family: 'Graphie', sans-serif;
+}
+
+/* Grille des vignettes */
+.conteneur-vignettes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 800px;
+  box-sizing: border-box;
+}
+
+.vignette {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.vignette:hover {
+  transform: scale(1.05);
+}
+
+/* Scrollbar turquoise intense */
+#page-liste::-webkit-scrollbar {
+  width: 10px;
+}
+
+#page-liste::-webkit-scrollbar-thumb {
+  background-color: #00fffd;
+  border-radius: 10px;
+}
+
+#page-liste::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* BLOC M : page l'essentiel */
+
+#page-essentiel {
+  position: absolute;
+  top: 0;
+  left: 100%; /* Position hors écran par défaut */
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: left 0.6s ease;
+  z-index: 8;
+}
+
+#page-essentiel.active {
+  left: 0;
+}
+
+.header-essentiel {
+  background: #242422;
+  width: 100vw;
+  flex-shrink: 0;
+  height: 70px;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.titre-essentiel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'SF Sports Night', sans-serif;
+  color: #fce7ac;
+  font-size: 2.5em;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* BLOC M.1 : Vignettes pour l’essentiel en colonne unique */
+#page-essentiel .contenu-essentiel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.vignette-essentiel {
+  width: 80%;
+  max-width: 500px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease;
+}
+
+.vignette-essentiel:hover {
+  transform: scale(1.05);
+}
+
+/* BLOC N : page lexique */
+
+#page-lexique {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: left 0.6s ease;
+  z-index: 8;
+}
+
+#page-lexique.active {
+  left: 0;
+}
+
+.contenu-lexique {
+  width: 90%;
+  max-width: 600px;
+  padding: 40px 0 80px; /* ↑ ajoute un padding-top pour l'espacement */
+  z-index: 1;
+}
+
+.bouton-mot {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 10px;
+  background-color: #5c205f;
+  color: white;
+  font-family: 'Intro';
+  font-size: 1.2em;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  transition: border-radius 0.3s ease;
+}
+
+.bouton-mot:hover {
+  background-color: #8a3c87;
+}
+
+.bouton-mot.active {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.mot-lexique {
+  margin-bottom: 20px; /* ← espace entre chaque bouton+définition */
+}
+
+.definition {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+  background: white;
+  border-radius: 0 0 10px 10px;
+  padding: 0 16px; /* padding horizontal toujours présent */
+  margin: 0;
+  opacity: 0;
+  transition: max-height 0.4s ease, padding 0.3s ease, opacity 0.3s ease;
+}
+
+.definition.show {
+  max-height: 300px; /* ajustable selon le contenu */
+  padding: 16px;
+  opacity: 1;
+}
+
+/* ONGLET FAVORIS */
+
+.onglet-favoris {
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #31bebd, #fce7ac);
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  transition: bottom 0.6s ease;
+  overflow-y: auto;
+}
+
+.onglet-favoris.visible {
+  bottom: 0;
+}
+
+.header-favoris {
+  background: #242422;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.titre-favoris {
+  font-family: 'SF Sports Night', sans-serif;
+  color: #fce7ac;
+  font-size: 2.5em;
+  margin: 0;
+}
+
+.triangle-retour.bas {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 18px 12px 0 12px;
+  border-color: #31bebd transparent transparent transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.contenu-favoris {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.image-favoris {
+  margin-top: auto;
+  width: 100%;
+  max-width: 1000px;
+  opacity: 0.5;
+  pointer-events: none;
+  margin-bottom: 20px;
+}
+
+/* ONGLET INFO */
+#info-panel.onglet-info {
+  position: fixed;
+  inset: 5% 5%;
+  background: linear-gradient(135deg,#31bebd,#242422);
+  border-radius: 20px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity .4s ease, transform .4s ease;
+}
+
+#info-panel.visible {
+  display: flex;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.info-content {
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.texte-info {
+  margin-bottom: 130px;
+}
+
+.titre-info {
+  font-family: 'MoonFlower', sans-serif;
+  font-size: 2em;
+  color: white;
+  margin-bottom: 0px;
+}
+
+.texte-paragraphe {
+  font-family: 'Graphie', sans-serif;
+  font-size: 1em;
+  color: white;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.btn-fleche {
+  width: 40px;
+  height: 40px;
+  background-color: #31bebd;
+  border: none;
+  border-radius: 50%;
+  position: absolute;
+  top: 20px;
+  cursor: pointer;
+}
+.btn-fleche.droite {
+  right: 0;
+  clip-path: polygon(25% 20%,25% 80%,75% 50%);
+}
+.btn-fleche.gauche {
+  left: 0;
+  clip-path: polygon(75% 20%,75% 80%,25% 50%);
+}
+
+.image-volant {
+  position: absolute;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  opacity: .5;
+}
+
+.footer-info {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+}
+
+.btn-info {
+  background-color: #31bebd;
+  color: white;
+  font-family: 'Intro', sans-serif;
+  font-size: 1em;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: transform .2s ease;
+}
+
+.btn-info:hover {
+  transform: scale(1.05);
+}
+.btn-info:active {
+  transform: scale(0.95);
+}
+
+}
+.btn-info-rect {
+  background: #31bebd;
+  color: white;
+  font-family: 'Intro', sans-serif;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.btn-info-rect:hover {
+  transform: scale(1.05);
+}
