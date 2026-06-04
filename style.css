@@ -517,14 +517,15 @@ body {
 
 .categorie,
 .mot-lexique {
+  opacity: 0;
+}
+
+.anim-show {
   opacity: 1;
-  transform: translateY(0);
+  animation: popSmooth 0.45s ease forwards;
 }
 
 .anim-hidden {
   opacity: 0;
 }
 
-.anim-show {
-  animation: popSmooth 0.45s ease forwards;
-}

@@ -425,20 +425,6 @@ function naviguerVers(index, animer=true) {
   if(index === 3) afficherListe();
   if(index === 4) genererEssentiel();
 
-  if(index === 1){
-    document.querySelectorAll('.contenu-mots-cles .categorie').forEach(el=>{
-      el.classList.remove('anim-show');
-      el.classList.add('anim-hidden');
-    });
-  }
-
-  if(index === 5){
-    document.querySelectorAll('.mot-lexique').forEach(el=>{
-      el.classList.remove('anim-show');
-      el.classList.add('anim-hidden');
-    });
-  }
-
   if (!animer) {
     conteneurPages.style.transition = 'none';
     conteneurPages.style.transform = `translateX(-${index * sw}px)`;
@@ -588,6 +574,35 @@ document.addEventListener('touchstart', (e) => {
     const quarter = rect.height / 4;
     const relY = tStartY - rect.top;
     vMiddleZone = relY >= quarter && relY <= quarter * 3;
+  }
+
+  // Pré-masquage des pages qui vont être animées
+  if (pageActuelle === 2) { // Accueil → Mots-clés
+    document.querySelectorAll('.contenu-mots-cles .categorie').forEach(el => {
+      el.classList.remove('anim-show');
+      el.classList.add('anim-hidden');
+    });
+  }
+
+  if (pageActuelle === 4) { // Essentiel → Lexique
+    document.querySelectorAll('.mot-lexique').forEach(el => {
+      el.classList.remove('anim-show');
+      el.classList.add('anim-hidden');
+    });
+  }
+
+  if (pageActuelle === 5) { // Lexique → Mots-clés (wrap)
+    document.querySelectorAll('.contenu-mots-cles .categorie').forEach(el => {
+      el.classList.remove('anim-show');
+      el.classList.add('anim-hidden');
+    });
+  }
+
+  if (pageActuelle === 1) { // Mots-clés → Lexique (wrap)
+    document.querySelectorAll('.mot-lexique').forEach(el => {
+      el.classList.remove('anim-show');
+      el.classList.add('anim-hidden');
+    });
   }
 
 }, { passive: true });
