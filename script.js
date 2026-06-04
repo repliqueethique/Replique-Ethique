@@ -359,7 +359,7 @@ function creerBarreListeFavoris(key, wrapper, largeur) {
 // BLOC 6 : NAVIGATION CARROUSEL
 // ============================================================
 
-// Ordre réel : ghost-lexique(0) | mots-cles(1) | accueil(2) | liste(3) | essentiel(4) | lexique(5) | ghost-mots-cles(6)
+// Ordre : ghost-lexique(0) | mots-cles(1) | accueil(2) | liste(3) | essentiel(4) | lexique(5) | ghost-mots-cles(6)
 const PAGES = ['lexique-ghost', 'mots-cles', 'accueil', 'liste', 'essentiel', 'lexique', 'mots-cles-ghost'];
 let pageActuelle = 2;
 const conteneurPages = document.getElementById('conteneur-pages');
@@ -382,16 +382,8 @@ const fondsDePage = [
   ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondMotsCles.classList.add('visible'); },  // ghost-mots-clés
 ];
 
-function naviguerVers(index, animer=true) {
-  if(index < 1) index = 5;
-  if(index > 5) index = 1;
-
-  fondsDePage[index]?.();
-  if(index === 3) afficherListe();
-  if(index === 4) genererEssentiel();
-
-  // Animation du contenu à l'arrivée
-  if(index === 1) {
+function animerContenuPage(index) {
+  if (index === 1) {
     setTimeout(() => {
       document.querySelectorAll('.contenu-mots-cles .categorie').forEach((el, i) => {
         el.style.opacity = '0';
@@ -404,7 +396,7 @@ function naviguerVers(index, animer=true) {
       });
     }, 200);
   }
-  if(index === 5) {
+  if (index === 5) {
     setTimeout(() => {
       document.querySelectorAll('.mot-lexique').forEach((el, i) => {
         el.style.opacity = '0';
@@ -417,6 +409,16 @@ function naviguerVers(index, animer=true) {
       });
     }, 200);
   }
+}
+
+function naviguerVers(index, animer=true) {
+  if(index < 1) index = 5;
+  if(index > 5) index = 1;
+
+  fondsDePage[index]?.();
+  if(index === 3) afficherListe();
+  if(index === 4) genererEssentiel();
+  animerContenuPage(index);
 
   if (!animer) {
     conteneurPages.style.transition = 'none';
@@ -425,6 +427,7 @@ function naviguerVers(index, animer=true) {
     return;
   }
 
+  // Wrap lexique(5) → mots-clés(1) : glisse vers ghost-mots-clés(6) puis jump
   if (pageActuelle === 5 && index === 1) {
     conteneurPages.style.transition = 'transform 0.4s ease';
     conteneurPages.style.transform = `translateX(-600vw)`;
@@ -433,6 +436,7 @@ function naviguerVers(index, animer=true) {
       conteneurPages.style.transform = `translateX(-100vw)`;
     }, 410);
   }
+  // Wrap mots-clés(1) → lexique(5) : glisse vers ghost-lexique(0) puis jump
   else if (pageActuelle === 1 && index === 5) {
     conteneurPages.style.transition = 'transform 0.4s ease';
     conteneurPages.style.transform = `translateX(0vw)`;
@@ -441,6 +445,7 @@ function naviguerVers(index, animer=true) {
       conteneurPages.style.transform = `translateX(-500vw)`;
     }, 410);
   }
+  // Navigation normale
   else {
     conteneurPages.style.transition = 'transform 0.4s ease';
     conteneurPages.style.transform = `translateX(-${index * 100}vw)`;
