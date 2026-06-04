@@ -434,19 +434,20 @@ function naviguerVers(index, animer=true) {
     conteneurPages.style.transform = `translateX(-${6 * sw}px)`;
     setTimeout(() => {
       conteneurPages.style.transition = 'none';
+      void conteneurPages.offsetWidth; // force reflow → jump invisible
       conteneurPages.style.transform = `translateX(-${1 * sw}px)`;
       animerContenuPage(1, 50);
-    }, 410);
+    }, 420);
   }
-  // Wrap mots-clés(1) → lexique(5) : continue vers gauche via ghost-lexique(0)
   else if (pageActuelle === 1 && index === 5) {
     conteneurPages.style.transition = 'transform 0.4s ease';
     conteneurPages.style.transform = `translateX(0px)`;
     setTimeout(() => {
       conteneurPages.style.transition = 'none';
+      void conteneurPages.offsetWidth; // force reflow → jump invisible
       conteneurPages.style.transform = `translateX(-${5 * sw}px)`;
       animerContenuPage(5, 50);
-    }, 410);
+    }, 420);
   }
   // Navigation normale
   else {
