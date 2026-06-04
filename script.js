@@ -736,17 +736,6 @@ document.addEventListener('touchend', (e) => {
   vWrapper = null;
   gestureType = null;
 
-  conteneurPages.style.transition = 'transform 0.4s ease';
-  if (gestureType === 'carousel' && (isFlick || isLargeDrag)) {
-    if (dx < 0) naviguerVers(pageActuelle + 1);
-    else        naviguerVers(pageActuelle - 1);
-  } else {
-    conteneurPages.style.transform = `translateX(-${pageActuelle * screenW}px)`;
-  }
-
-  vWrapper = null;
-  gestureType = null;
-
 }, { passive: true });
 
 // ============================================================
