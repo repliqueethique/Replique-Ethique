@@ -383,13 +383,40 @@ const fondsDePage = [
 ];
 
 function naviguerVers(index, animer=true) {
-  // Limites réelles : 1 (mots-clés) à 5 (lexique)
   if(index < 1) index = 5;
   if(index > 5) index = 1;
 
   fondsDePage[index]?.();
   if(index === 3) afficherListe();
   if(index === 4) genererEssentiel();
+
+  // Animation du contenu à l'arrivée
+  if(index === 1) {
+    setTimeout(() => {
+      document.querySelectorAll('.contenu-mots-cles .categorie').forEach((el, i) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, i * 80);
+      });
+    }, 200);
+  }
+  if(index === 5) {
+    setTimeout(() => {
+      document.querySelectorAll('.mot-lexique').forEach((el, i) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, i * 80);
+      });
+    }, 200);
+  }
 
   if (!animer) {
     conteneurPages.style.transition = 'none';
@@ -398,7 +425,6 @@ function naviguerVers(index, animer=true) {
     return;
   }
 
-  // Wrap lexique(5) → mots-clés(1) : glisse vers ghost-mots-clés(6) puis jump
   if (pageActuelle === 5 && index === 1) {
     conteneurPages.style.transition = 'transform 0.4s ease';
     conteneurPages.style.transform = `translateX(-600vw)`;
@@ -407,7 +433,6 @@ function naviguerVers(index, animer=true) {
       conteneurPages.style.transform = `translateX(-100vw)`;
     }, 410);
   }
-  // Wrap mots-clés(1) → lexique(5) : glisse vers ghost-lexique(0) puis jump
   else if (pageActuelle === 1 && index === 5) {
     conteneurPages.style.transition = 'transform 0.4s ease';
     conteneurPages.style.transform = `translateX(0vw)`;
@@ -416,7 +441,6 @@ function naviguerVers(index, animer=true) {
       conteneurPages.style.transform = `translateX(-500vw)`;
     }, 410);
   }
-  // Navigation normale
   else {
     conteneurPages.style.transition = 'transform 0.4s ease';
     conteneurPages.style.transform = `translateX(-${index * 100}vw)`;
