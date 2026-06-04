@@ -359,12 +359,12 @@ function creerBarreListeFavoris(key, wrapper, largeur) {
 // BLOC 6 : NAVIGATION CARROUSEL
 // ============================================================
 
-const PAGES = ['mots-cles', 'accueil', 'liste', 'essentiel', 'lexique'];
-let pageActuelle = 1;
+// Ordre réel : ghost-lexique(0) | mots-cles(1) | accueil(2) | liste(3) | essentiel(4) | lexique(5) | ghost-mots-cles(6)
+const PAGES = ['lexique-ghost', 'mots-cles', 'accueil', 'liste', 'essentiel', 'lexique', 'mots-cles-ghost'];
+let pageActuelle = 2;
 const conteneurPages = document.getElementById('conteneur-pages');
-// Positionnement immédiat sur l'accueil (index 1) avant tout rendu
 conteneurPages.style.transition = 'none';
-conteneurPages.style.transform = 'translateX(-100vw)';
+conteneurPages.style.transform = 'translateX(-200vw)';
 
 const fondAccueil   = document.querySelector('.fond-accueil');
 const fondMotsCles  = document.querySelector('.fond-mots-cles');
@@ -373,68 +373,67 @@ const fondLexique   = document.querySelector('.fond-lexique');
 const fonds         = document.querySelectorAll('.fond');
 
 const fondsDePage = [
-  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondMotsCles.classList.add('visible'); },
-  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondAccueil.classList.add('visible'); },
-  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondAccueil.classList.add('visible'); },
-  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondEssentiel.classList.add('visible'); },
-  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondLexique.classList.add('visible'); },
+  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondLexique.classList.add('visible'); },   // ghost-lexique
+  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondMotsCles.classList.add('visible'); },  // mots-clés
+  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondAccueil.classList.add('visible'); },   // accueil
+  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondAccueil.classList.add('visible'); },   // liste
+  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondEssentiel.classList.add('visible'); }, // essentiel
+  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondLexique.classList.add('visible'); },   // lexique
+  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondMotsCles.classList.add('visible'); },  // ghost-mots-clés
 ];
 
 function naviguerVers(index, animer=true) {
-  const total = PAGES.length;
-  let targetIndex = index;
-  if(targetIndex < 0) targetIndex = total - 1;
-  if(targetIndex >= total) targetIndex = 0;
+  // Limites réelles : 1 (mots-clés) à 5 (lexique)
+  if(index < 1) index = 5;
+  if(index > 5) index = 1;
 
-  fondsDePage[targetIndex]?.();
-  if(targetIndex === 2) afficherListe();
-  if(targetIndex === 3) genererEssentiel();
+  fondsDePage[index]?.();
+  if(index === 3) afficherListe();
+  if(index === 4) genererEssentiel();
 
   if (!animer) {
     conteneurPages.style.transition = 'none';
-    conteneurPages.style.transform = `translateX(-${targetIndex * 100}vw)`;
-    pageActuelle = targetIndex;
+    conteneurPages.style.transform = `translateX(-${index * 100}vw)`;
+    pageActuelle = index;
     return;
   }
 
-  // Wrap last → first : continue vers la droite puis jump
-  if (pageActuelle === total - 1 && targetIndex === 0) {
+  // Wrap lexique(5) → mots-clés(1) : glisse vers ghost-mots-clés(6) puis jump
+  if (pageActuelle === 5 && index === 1) {
     conteneurPages.style.transition = 'transform 0.4s ease';
-    conteneurPages.style.transform = `translateX(-${total * 100}vw)`;
+    conteneurPages.style.transform = `translateX(-600vw)`;
     setTimeout(() => {
       conteneurPages.style.transition = 'none';
-      conteneurPages.style.transform = `translateX(0)`;
+      conteneurPages.style.transform = `translateX(-100vw)`;
     }, 410);
   }
-  // Wrap first → last : continue vers la gauche puis jump
-  else if (pageActuelle === 0 && targetIndex === total - 1) {
+  // Wrap mots-clés(1) → lexique(5) : glisse vers ghost-lexique(0) puis jump
+  else if (pageActuelle === 1 && index === 5) {
     conteneurPages.style.transition = 'transform 0.4s ease';
-    conteneurPages.style.transform = `translateX(${100}vw)`;
+    conteneurPages.style.transform = `translateX(0vw)`;
     setTimeout(() => {
       conteneurPages.style.transition = 'none';
-      conteneurPages.style.transform = `translateX(-${(total - 1) * 100}vw)`;
+      conteneurPages.style.transform = `translateX(-500vw)`;
     }, 410);
   }
   // Navigation normale
   else {
     conteneurPages.style.transition = 'transform 0.4s ease';
-    conteneurPages.style.transform = `translateX(-${targetIndex * 100}vw)`;
+    conteneurPages.style.transform = `translateX(-${index * 100}vw)`;
   }
 
-  pageActuelle = targetIndex;
+  pageActuelle = index;
 }
 
+document.getElementById('btn-mots-cles')?.addEventListener('click', ()=>naviguerVers(1));
+document.getElementById('btn-liste')?.addEventListener('click',     ()=>naviguerVers(3));
+document.getElementById('btn-essentiel')?.addEventListener('click', ()=>naviguerVers(4));
+document.getElementById('btn-lexique')?.addEventListener('click',   ()=>naviguerVers(5));
 
-
-document.getElementById('btn-mots-cles')?.addEventListener('click', ()=>naviguerVers(0));
-document.getElementById('btn-liste')?.addEventListener('click',     ()=>naviguerVers(2));
-document.getElementById('btn-essentiel')?.addEventListener('click', ()=>naviguerVers(3));
-document.getElementById('btn-lexique')?.addEventListener('click',   ()=>naviguerVers(4));
-
-document.getElementById('retour-accueil')?.addEventListener('click',           ()=>naviguerVers(1));
-document.getElementById('retour-accueil-liste')?.addEventListener('click',     ()=>naviguerVers(1));
-document.getElementById('retour-accueil-essentiel')?.addEventListener('click', ()=>naviguerVers(1));
-document.getElementById('retour-accueil-lexique')?.addEventListener('click',   ()=>naviguerVers(1));
+document.getElementById('retour-accueil')?.addEventListener('click',           ()=>naviguerVers(2));
+document.getElementById('retour-accueil-liste')?.addEventListener('click',     ()=>naviguerVers(2));
+document.getElementById('retour-accueil-essentiel')?.addEventListener('click', ()=>naviguerVers(2));
+document.getElementById('retour-accueil-lexique')?.addEventListener('click',   ()=>naviguerVers(2));
 
 document.querySelectorAll('.bouton-categorie').forEach(b=>{
   b.addEventListener('click',()=>b.nextElementSibling?.classList.toggle('open'));
@@ -727,7 +726,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   appliquerTaille(params.taille || 'petites');
 
-  const idx = PAGES.indexOf(demarrage) >= 0 ? PAGES.indexOf(demarrage) : 1;
+  const idx = PAGES.indexOf(demarrage) >= 0 ? PAGES.indexOf(demarrage) : 2;
   naviguerVers(idx, false);
 
   if (demarrage !== 'accueil') {
