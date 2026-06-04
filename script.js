@@ -634,23 +634,9 @@ document.addEventListener('touchmove', (e) => {
         const pct = Math.min(0, -100 + (dx / ww) * 100);
         bar.style.transform = `translateX(${pct}%)`;
       }
-    else if (!document.getElementById('panneau-resultats') || document.getElementById('panneau-resultats').style.display !== 'flex') {
-
-      let pageVisuelle = pageActuelle;
-
-      // Cas spécial : Lexique → Mots-clés
-      if (pageActuelle === 5 && dx < 0) {
-        pageVisuelle = 6;
-      }
-
-      // Cas spécial : Mots-clés → Lexique
-      if (pageActuelle === 1 && dx > 0) {
-        pageVisuelle = 0;
-      }
-
+    } else if (!document.getElementById('panneau-resultats') || document.getElementById('panneau-resultats').style.display !== 'flex') {
       conteneurPages.style.transition = 'none';
-      conteneurPages.style.transform =
-        `translateX(${-(pageVisuelle * screenW) + dx}px)`;
+      conteneurPages.style.transform = `translateX(${-(pageActuelle * screenW) + dx}px)`;
     }
   }
 
