@@ -388,7 +388,7 @@ function animerContenuPage(index, delai) {
 
   if (index === 1) {
     elements = document.querySelectorAll('.contenu-mots-cles .categorie');
-  } 
+  }
   else if (index === 5) {
     elements = document.querySelectorAll('.mot-lexique');
   }
@@ -400,8 +400,14 @@ function animerContenuPage(index, delai) {
     elements.forEach((el, i) => {
 
       setTimeout(() => {
+
+        // Permet de rejouer l'animation à chaque visite
+        el.classList.remove('anim-show');
+        void el.offsetWidth;
+
         el.classList.remove('anim-hidden');
         el.classList.add('anim-show');
+
       }, i * 80);
 
     });
