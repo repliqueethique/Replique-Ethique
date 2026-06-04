@@ -986,10 +986,16 @@ function ouvrirPageVideo(numero, onRetour) {
           <div style="width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;"><span style="font-size:26px;margin-left:5px;">&#9654;</span></div>
         </div>
       </div>
-      <div style="display:flex;justify-content:center;gap:16px;margin-bottom:12px;background:#242422;padding:12px;border-radius:0 0 10px 10px;">
-        <button id="btn-copier-video" style="background:#31bebd;border:none;border-radius:10px;width:170px;height:45px;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;"><img src="images/icone-copier.png" style="width:35px;height:35px;"/></button>
-        <button id="btn-partager-video" style="background:#31bebd;border:none;border-radius:10px;width:170px;height:45px;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;"><img src="images/icone-partager.png" style="width:35px;height:35px;"/></button>
-        <button id="btn-favori-video" style="background:${estFavori?'#00fffd':'#31bebd'};border:none;border-radius:10px;width:170px;height:45px;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;"><img src="images/${estFavori?'etoile':'etoile vide'}.png" style="width:35px;height:35px;"/></button>
+      <div style="display:flex;justify-content:center;gap:24px;margin-bottom:12px;background:#242422;padding:12px;border-radius:0 0 10px 10px;">
+        <button id="btn-copier-video" style="background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;">
+          <img src="images/icone-copier.png" style="width:40px;height:40px;"/>
+        </button>
+        <button id="btn-partager-video" style="background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;">
+          <img src="images/icone-partager.png" style="width:40px;height:40px;"/>
+        </button>
+        <button id="btn-favori-video" style="background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;">
+          <img id="img-favori-video" src="images/${estFavori?'etoile':'etoile vide'}.png" style="width:40px;height:40px;"/>
+        </button>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">${tagsHTML}</div>
       <h2 style="font-family:'Intro';color:#242422;margin-bottom:12px;">"${titre}"</h2>
@@ -1008,26 +1014,35 @@ function ouvrirPageVideo(numero, onRetour) {
     iframe.allow='autoplay;encrypted-media';
     zone.replaceWith(iframe);
   });
-  page.querySelector('#btn-copier-video').addEventListener('click',function(){
-    const r=this.getBoundingClientRect();
+  page.querySelector('#btn-copier-video').addEventListener('click', function(){
+    const r = this.getBoundingClientRect();
+    declencherEclat(r.left+r.width/2, r.top+r.height/2, '#00fffd');
+    animerPop(this.querySelector('img'));
     navigator.clipboard.writeText(url).then(()=>{
-      this.style.background='#00fffd';
+      this.style.opacity='0.4';
       afficherToast('Copié !','#00feff', r.left+r.width/2, r.top+r.height/2);
-      setTimeout(()=>this.style.background='#31bebd',2000);
+      setTimeout(()=>this.style.opacity='1', 1500);
     });
   });
-  page.querySelector('#btn-partager-video').addEventListener('click',()=>{
-    if(navigator.share){navigator.share({title:titre,url});}
-    else{navigator.clipboard.writeText(url).then(()=>afficherToast('Lien copié !','#00fffd'));}
+
+  page.querySelector('#btn-partager-video').addEventListener('click', function(){
+    const r = this.getBoundingClientRect();
+    declencherEclat(r.left+r.width/2, r.top+r.height/2, '#fce7ac');
+    animerPop(this.querySelector('img'));
+    if(navigator.share){ navigator.share({title:titre, url}); }
+    else{ navigator.clipboard.writeText(url).then(()=>afficherToast('Lien copié !','#fce7ac')); }
   });
-  page.querySelector('#btn-favori-video').addEventListener('click',function(){
+
+  page.querySelector('#btn-favori-video').addEventListener('click', function(){
+    const r = this.getBoundingClientRect();
     let fav=JSON.parse(localStorage.getItem('favoris')||'[]');
     const isF=fav.includes(key);
     if(isF){fav=fav.filter(f=>f!==key);}else{fav.push(key);}
     localStorage.setItem('favoris',JSON.stringify(fav));
     const ajout=fav.includes(key);
+    declencherEclat(r.left+r.width/2, r.top+r.height/2, '#f37321');
+    animerSpin(this.querySelector('img'));
     this.querySelector('img').src=`images/${ajout?'etoile':'etoile vide'}.png`;
-    this.style.background=ajout?'#00fffd':'#31bebd';
   });
 }
 
