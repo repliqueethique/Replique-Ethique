@@ -788,7 +788,7 @@ window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => { siteLink?.classList.remove('transition-ready'); siteLink?.classList.add('fade-in-up'); }, 1300);
     setTimeout(() => { footerIcons.forEach((ic,i) => { const img=ic.querySelector('img'); if(img) setTimeout(() => { img.classList.remove('transition-ready'); img.classList.add('pop-smooth'); }, i*80); }); }, 1600);
     setTimeout(() => { const bp=document.getElementById('btn-parametres'); if(bp){ const img=bp.querySelector('img'); if(img){ img.classList.remove('transition-ready'); img.classList.add('pop-smooth'); } } }, 1600);
-    setTimeout(() => { logoFixe.src = 'images/logo-fixe.png'; }, 3280);
+    setTimeout(() => { logoFixe.src = 'images/logo-fixe.png'; }, 3640);
   }
 });
 
