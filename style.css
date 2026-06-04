@@ -175,7 +175,7 @@ body {
    BOUTON RETOUR (triangle)
    ============================================================ */
 .triangle-retour {
-  width: 36px; height: 36px;
+  width: 24px; height: 24px;
   background: #31bebd;
   -webkit-clip-path: polygon(0% 0%, 70% 50%, 0% 100%);
   clip-path: polygon(0% 0%, 70% 50%, 0% 100%);

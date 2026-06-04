@@ -672,16 +672,20 @@ document.addEventListener('touchend', (e) => {
     conteneurPages.style.transition = 'transform 0.4s ease';
     conteneurPages.style.transform = `translateX(-${pageActuelle * screenW}px)`;
     const bar = vWrapper.querySelector('[style*="translateX"]');
-    if (bar && dx > 15) {
+    if (bar) {
+      const ww = vWrapper.getBoundingClientRect().width;
       bar.style.transition = 'transform 0.3s ease';
-      bar.style.transform = 'translateX(0)';
-      setTimeout(() => {
-        bar.style.transition = 'transform 0.3s ease';
+      if (dx > ww / 2) {
+        // Dépassé la moitié → ouvre complètement
+        bar.style.transform = 'translateX(0)';
+        setTimeout(() => {
+          bar.style.transition = 'transform 0.3s ease';
+          bar.style.transform = 'translateX(-100%)';
+        }, 2500);
+      } else {
+        // Pas assez → repli
         bar.style.transform = 'translateX(-100%)';
-      }, 2500);
-    } else if (bar) {
-      bar.style.transition = 'transform 0.3s ease';
-      bar.style.transform = 'translateX(-100%)';
+      }
     }
     vWrapper = null;
     gestureType = null;
@@ -976,7 +980,7 @@ function ouvrirPageVideo(numero, onRetour) {
   page.style.cssText='position:fixed;top:0;left:0;width:100%;height:100dvh;overflow-y:auto;background:#e8e8e8;z-index:9999;box-sizing:border-box;';
   page.innerHTML=`
     <div style="max-width:960px;margin:0 auto;padding:16px;box-sizing:border-box;background:#fff;min-height:100dvh;">
-      <button id="retour-page-video" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:'Graphie';color:#31bebd;font-size:14px;margin-bottom:12px;padding:0;"><span style="font-size:20px;">&#8592;</span> Retour</button>
+      <button id="retour-page-video" class="triangle-retour gauche" style="margin-bottom:12px;"></button>
       <div id="zone-video" style="position:relative;margin-bottom:0;cursor:pointer;border-radius:10px 10px 0 0;overflow:hidden;aspect-ratio:16/9;">
         <img id="vignette-img" src="${miniature}" style="width:100%;height:100%;object-fit:cover;display:block;"/>
         <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.2);">
@@ -1288,8 +1292,8 @@ function afficherResultats(scores,lexique,query){
   const barreHaut=document.createElement('div');
   barreHaut.style.cssText='display:flex;align-items:center;gap:10px;margin-bottom:20px;';
   const btnF=document.createElement('button');
-  btnF.style.cssText='background:none;border:none;cursor:pointer;color:#31bebd;font-size:20px;padding:0;flex-shrink:0;';
-  btnF.innerHTML='&#8592;';
+  btnF.className='triangle-retour gauche';
+  btnF.style.cssText='flex-shrink:0;';
   btnF.addEventListener('click',()=>{panneauResultats.style.display='none';if(searchInput)searchInput.value='';});
   const bInput=document.createElement('div');
   bInput.style.cssText='flex:1;display:flex;align-items:center;background:#fff;border-radius:990px;padding:5px 10px;height:50px;box-shadow:0 2px 8px rgba(0,0,0,0.1);';
