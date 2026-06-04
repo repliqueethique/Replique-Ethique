@@ -624,7 +624,7 @@ document.addEventListener('touchmove', (e) => {
         const pct = Math.min(0, -100 + (dx / ww) * 100);
         bar.style.transform = `translateX(${pct}%)`;
       }
-    } else {
+    } else if (!document.getElementById('panneau-resultats') || document.getElementById('panneau-resultats').style.display !== 'flex') {
       conteneurPages.style.transition = 'none';
       conteneurPages.style.transform = `translateX(${-(pageActuelle * screenW) + dx}px)`;
     }
@@ -682,16 +682,7 @@ document.addEventListener('touchend', (e) => {
     return;
   }
 
-  if (document.getElementById('page-video')) return;
-  if (estMobile() ? paramsPanel?.classList.contains('visible') : paramsPanel?.style.display === 'flex') return;
-  if (document.getElementById('panneau-resultats')?.style.display === 'flex') return;
-  if (favPanel?.classList.contains('visible')) return;
-  if (document.getElementById('info-panel')?.classList.contains('visible')) return;
-
-  const isFlick = velocity > 0.3 && dt < 300;
-  const isLargeDrag = Math.abs(dx) > screenW * 0.35;
-
-  if (estMobile() && vWrapper && vMiddleZone && gestureType === 'carousel' && dx > 0) {
+   if (estMobile() && vWrapper && vMiddleZone && gestureType === 'carousel' && dx > 0) {
     conteneurPages.style.transition = 'transform 0.4s ease';
     conteneurPages.style.transform = `translateX(-${pageActuelle * screenW}px)`;
     const bar = vWrapper.querySelector('[style*="translateX"]');
@@ -699,14 +690,12 @@ document.addEventListener('touchend', (e) => {
       const ww = vWrapper.getBoundingClientRect().width;
       bar.style.transition = 'transform 0.3s ease';
       if (dx > ww / 2) {
-        // Dépassé la moitié → ouvre complètement
         bar.style.transform = 'translateX(0)';
         setTimeout(() => {
           bar.style.transition = 'transform 0.3s ease';
           bar.style.transform = 'translateX(-100%)';
         }, 2500);
       } else {
-        // Pas assez → repli
         bar.style.transform = 'translateX(-100%)';
       }
     }
@@ -714,6 +703,28 @@ document.addEventListener('touchend', (e) => {
     gestureType = null;
     return;
   }
+
+  // Checks de panels (après vignettes)
+  if (document.getElementById('page-video')) return;
+  if (estMobile() ? paramsPanel?.classList.contains('visible') : paramsPanel?.style.display === 'flex') return;
+  if (document.getElementById('panneau-resultats')?.style.display === 'flex') return;
+  if (favPanel?.classList.contains('visible')) return;
+  if (document.getElementById('info-panel')?.classList.contains('visible')) return;
+
+  // Navigation carrousel
+  const isFlick = velocity > 0.3 && dt < 300;
+  const isLargeDrag = Math.abs(dx) > screenW * 0.35;
+
+  conteneurPages.style.transition = 'transform 0.4s ease';
+  if (gestureType === 'carousel' && (isFlick || isLargeDrag)) {
+    if (dx < 0) naviguerVers(pageActuelle + 1);
+    else        naviguerVers(pageActuelle - 1);
+  } else {
+    conteneurPages.style.transform = `translateX(-${pageActuelle * screenW}px)`;
+  }
+
+  vWrapper = null;
+  gestureType = null;
 
   conteneurPages.style.transition = 'transform 0.4s ease';
   if (gestureType === 'carousel' && (isFlick || isLargeDrag)) {
