@@ -383,32 +383,30 @@ const fondsDePage = [
 ];
 
 function animerContenuPage(index, delai) {
+
+  let elements = [];
+
   if (index === 1) {
-    setTimeout(() => {
-      document.querySelectorAll('.contenu-mots-cles .categorie').forEach((el, i) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        setTimeout(() => {
-          el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-          el.style.opacity = '1';
-          el.style.transform = 'translateY(0)';
-        }, i * 80);
-      });
-    }, delai);
+    elements = document.querySelectorAll('.contenu-mots-cles .categorie');
+  } 
+  else if (index === 5) {
+    elements = document.querySelectorAll('.mot-lexique');
   }
-  if (index === 5) {
-    setTimeout(() => {
-      document.querySelectorAll('.mot-lexique').forEach((el, i) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        setTimeout(() => {
-          el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-          el.style.opacity = '1';
-          el.style.transform = 'translateY(0)';
-        }, i * 80);
-      });
-    }, delai);
-  }
+
+  if (!elements.length) return;
+
+  setTimeout(() => {
+
+    elements.forEach((el, i) => {
+
+      setTimeout(() => {
+        el.classList.remove('anim-hidden');
+        el.classList.add('anim-show');
+      }, i * 80);
+
+    });
+
+  }, delai);
 }
 
 function naviguerVers(index, animer=true) {
@@ -420,6 +418,20 @@ function naviguerVers(index, animer=true) {
   fondsDePage[index]?.();
   if(index === 3) afficherListe();
   if(index === 4) genererEssentiel();
+
+  if(index === 1){
+    document.querySelectorAll('.contenu-mots-cles .categorie').forEach(el=>{
+      el.classList.remove('anim-show');
+      el.classList.add('anim-hidden');
+    });
+  }
+
+  if(index === 5){
+    document.querySelectorAll('.mot-lexique').forEach(el=>{
+      el.classList.remove('anim-show');
+      el.classList.add('anim-hidden');
+    });
+  }
 
   if (!animer) {
     conteneurPages.style.transition = 'none';
@@ -436,7 +448,7 @@ function naviguerVers(index, animer=true) {
       conteneurPages.style.transition = 'none';
       void conteneurPages.offsetWidth; // force reflow → jump invisible
       conteneurPages.style.transform = `translateX(-${1 * sw}px)`;
-      animerContenuPage(1, 50);
+      animerContenuPage(1, 100);
     }, 420);
   }
   else if (pageActuelle === 1 && index === 5) {
@@ -446,14 +458,14 @@ function naviguerVers(index, animer=true) {
       conteneurPages.style.transition = 'none';
       void conteneurPages.offsetWidth; // force reflow → jump invisible
       conteneurPages.style.transform = `translateX(-${5 * sw}px)`;
-      animerContenuPage(5, 50);
+      animerContenuPage(5, 100);
     }, 420);
   }
   // Navigation normale
   else {
     conteneurPages.style.transition = 'transform 0.4s ease';
     conteneurPages.style.transform = `translateX(-${index * sw}px)`;
-    animerContenuPage(index, 200);
+    animerContenuPage(index, 420);
   }
 
   pageActuelle = index;
