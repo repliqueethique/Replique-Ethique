@@ -364,7 +364,7 @@ const PAGES = ['lexique-ghost', 'mots-cles', 'accueil', 'liste', 'essentiel', 'l
 let pageActuelle = 2;
 const conteneurPages = document.getElementById('conteneur-pages');
 conteneurPages.style.transition = 'none';
-conteneurPages.style.transform = 'translateX(-200vw)';
+conteneurPages.style.transform = `translateX(-${2 * window.innerWidth}px)`;
 
 const fondAccueil   = document.querySelector('.fond-accueil');
 const fondMotsCles  = document.querySelector('.fond-mots-cles');
@@ -373,16 +373,16 @@ const fondLexique   = document.querySelector('.fond-lexique');
 const fonds         = document.querySelectorAll('.fond');
 
 const fondsDePage = [
-  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondLexique.classList.add('visible'); },   // ghost-lexique
-  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondMotsCles.classList.add('visible'); },  // mots-clés
-  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondAccueil.classList.add('visible'); },   // accueil
-  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondAccueil.classList.add('visible'); },   // liste
-  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondEssentiel.classList.add('visible'); }, // essentiel
-  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondLexique.classList.add('visible'); },   // lexique
-  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondMotsCles.classList.add('visible'); },  // ghost-mots-clés
+  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondLexique.classList.add('visible'); },
+  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondMotsCles.classList.add('visible'); },
+  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondAccueil.classList.add('visible'); },
+  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondAccueil.classList.add('visible'); },
+  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondEssentiel.classList.add('visible'); },
+  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondLexique.classList.add('visible'); },
+  ()=>{ fonds.forEach(f=>f.classList.remove('visible')); fondMotsCles.classList.add('visible'); },
 ];
 
-function animerContenuPage(index) {
+function animerContenuPage(index, delai) {
   if (index === 1) {
     setTimeout(() => {
       document.querySelectorAll('.contenu-mots-cles .categorie').forEach((el, i) => {
@@ -394,7 +394,7 @@ function animerContenuPage(index) {
           el.style.transform = 'translateY(0)';
         }, i * 80);
       });
-    }, 200);
+    }, delai);
   }
   if (index === 5) {
     setTimeout(() => {
@@ -407,7 +407,7 @@ function animerContenuPage(index) {
           el.style.transform = 'translateY(0)';
         }, i * 80);
       });
-    }, 200);
+    }, delai);
   }
 }
 
@@ -415,40 +415,44 @@ function naviguerVers(index, animer=true) {
   if(index < 1) index = 5;
   if(index > 5) index = 1;
 
+  const sw = window.innerWidth;
+
   fondsDePage[index]?.();
   if(index === 3) afficherListe();
   if(index === 4) genererEssentiel();
-  animerContenuPage(index);
 
   if (!animer) {
     conteneurPages.style.transition = 'none';
-    conteneurPages.style.transform = `translateX(-${index * 100}vw)`;
+    conteneurPages.style.transform = `translateX(-${index * sw}px)`;
     pageActuelle = index;
     return;
   }
 
-  // Wrap lexique(5) → mots-clés(1) : glisse vers ghost-mots-clés(6) puis jump
+  // Wrap lexique(5) → mots-clés(1) : continue vers droite via ghost-mots-clés(6)
   if (pageActuelle === 5 && index === 1) {
     conteneurPages.style.transition = 'transform 0.4s ease';
-    conteneurPages.style.transform = `translateX(-600vw)`;
+    conteneurPages.style.transform = `translateX(-${6 * sw}px)`;
     setTimeout(() => {
       conteneurPages.style.transition = 'none';
-      conteneurPages.style.transform = `translateX(-100vw)`;
+      conteneurPages.style.transform = `translateX(-${1 * sw}px)`;
+      animerContenuPage(1, 50);
     }, 410);
   }
-  // Wrap mots-clés(1) → lexique(5) : glisse vers ghost-lexique(0) puis jump
+  // Wrap mots-clés(1) → lexique(5) : continue vers gauche via ghost-lexique(0)
   else if (pageActuelle === 1 && index === 5) {
     conteneurPages.style.transition = 'transform 0.4s ease';
-    conteneurPages.style.transform = `translateX(0vw)`;
+    conteneurPages.style.transform = `translateX(0px)`;
     setTimeout(() => {
       conteneurPages.style.transition = 'none';
-      conteneurPages.style.transform = `translateX(-500vw)`;
+      conteneurPages.style.transform = `translateX(-${5 * sw}px)`;
+      animerContenuPage(5, 50);
     }, 410);
   }
   // Navigation normale
   else {
     conteneurPages.style.transition = 'transform 0.4s ease';
-    conteneurPages.style.transform = `translateX(-${index * 100}vw)`;
+    conteneurPages.style.transform = `translateX(-${index * sw}px)`;
+    animerContenuPage(index, 200);
   }
 
   pageActuelle = index;
