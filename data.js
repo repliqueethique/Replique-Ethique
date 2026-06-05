@@ -165,31 +165,59 @@ window.textesVideos = {
 
 window.lexiqueData = [
   {
-    "mot": "Sentience",
-    "definition": "Capacité à ressentir des expérience subjectives positives ou négatives."
+    "mot": "Animalisme",
+    "definition": "Courant de l'éthique qui s'appuie sur les avancées de l'éthologie et qui défend les droits des animaux. Ce courant soutient que les animaux non humains sont des êtres sensibles capables de souffrir, et par là même dignes de considération morale de la part des êtres humains.\n\nLe mouvement pour les droits des animaux, également connu sous les noms de mouvement de libération animale ou de défense des animaux, est un courant social qui conteste la séparation morale et juridique traditionnellement établie entre humains et animaux non humains. Il milite pour l’abolition du statut des animaux comme biens matériels et s’oppose à leur exploitation dans la recherche scientifique, l’industrie alimentaire, l’habillement et les loisirs.\n\nL'animalisme conteste la confusion entre l'« agence » et la « patience » morales : ce n'est pas parce qu'un animal n'est pas agent moral, responsable de ses actes, qu'il n'a pas de droits, qu'il n'est pas patient moral et que les agents moraux sont dispensés de devoirs envers lui."
+  },
+  {
+    "mot": "Anthropocentrisme",
+    "definition": "Conception philosophique qui considère l’humain comme l'entité centrale la plus significative de l'Univers et qui appréhende la réalité à travers la seule perspective humaine."
+  },
+  {
+    "mot": "Anthropodéni",
+    "definition": "Aussi nommé \"mentaphobie\". Concept inventé dans les années 1990 par les éthologues Donald Griffin et Frans de Waal, pour désigner les fortes réticences de leurs pairs à faire référence à la conscience animale lorsqu'il s'agit de décrire le comportement des animaux. Le terme de mentaphobie est dû à Donald Griffin, tandis que celui d'anthropodéni est dû à Frans de Waal, dans des travaux initialement indépendants."
+  },
+  {
+    "mot": "anthropomorphisme",
+    "definition": "L’anthropomorphisme est l'attribution de caractéristiques du comportement ou de la morphologie humaine à d'autres entités comme des dieux, des animaux non humains, des objets, des phénomènes, des idées et voire à des êtres d'un autre monde le cas échéant."
   },
   {
     "mot": "Antispécisme",
     "definition": "Rejet du spécisme."
   },
   {
-    "mot": "Spécisme",
-    "definition": "Idéologie postulant que le critère d'espèce est moralement acceptable ou bon, ou qu'il est pertinent, pour décider de la considération morale ou du traitement.\n\nLe spécisme peut être pur ou attributif. Le spécisme pur consiste à estimer que l'espèce est un critère en soi, alors que le spécisme pur considère que l'espèce est un critère par corrélation et que ce sont une ou des capacités propres à l'espèce qui constituent le critère réel."
+    "mot": "égomorphisme",
+    "definition": "Fait d'attribuer aux autres ses propres désirs ou pensées."
+  },
+  {
+    "mot": "mentaphobie",
+    "definition": "Aussi nommé \"anthropodéni\". Concept inventé dans les années 1990 par les éthologues Donald Griffin et Frans de Waal, pour désigner les fortes réticences de leurs pairs à faire référence à la conscience animale lorsqu'il s'agit de décrire le comportement des animaux. Le terme de mentaphobie est dû à Donald Griffin, tandis que celui d'anthropodéni est dû à Frans de Waal, dans des travaux initialement indépendants."
+  },
+  {
+    "mot": "Sentience",
+    "definition": "Capacité à ressentir des expérience subjectives positives ou négatives."
+  },
+  {
+    "mot": "Sentient",
+    "definition": "Qualificatif ou nom commun désignant les entités possédant la capacité de sentience. C'est à dire de vivre des expériences positives ou négatives"
   },
   {
     "mot": "Sentientisme",
     "definition": "Position philosophique qui défend l'idée que le critère de sentience est pertinent et suffisant pour accorder une considération morale."
   },
   {
-    "mot": "Végane",
-    "definition": "Qualification ou nom commun désignant un mode de vie excluant autant que possible le produits, services et pratiques issus de l'exploitation des animaux spécisés. Par extension, le terme désigne les personnes ayant ce mode de vie, ainsi que les pratiques ou objets qui ne sont pas issues de l'exploitation des autres animaux."
+    "mot": "Spécisation",
+    "definition": "Processus social qui consiste à percevoir une personne au travers de stéréotypes propres à l'espèce à laquelle elle est identifiée appartenir."
   },
   {
     "mot": "Spécisé",
     "definition": "Qualitatif ou nom commun désignant les victimes du spécisme. Personne non humaine victime du processus social qui consiste à la percevoir au travers de stéréotypes propres à l'espèce à laquelle elle est identifiée appartenir."
   },
   {
-    "mot": "Spécisation",
-    "definition": "Processus social qui consiste à percevoir une personne au travers de stéréotypes propres à l'espèce à laquelle elle est identifiée appartenir."
+    "mot": "Spécisme",
+    "definition": "Idéologie postulant que le critère d'espèce est moralement acceptable ou bon, ou qu'il est pertinent, pour décider de la considération morale ou du traitement.\n\nLe spécisme peut être pur ou attributif. Le spécisme pur consiste à estimer que l'espèce est un critère en soi, alors que le spécisme pur considère que l'espèce est un critère par corrélation et que ce sont une ou des capacités propres à l'espèce qui constituent le critère réel."
+  },
+  {
+    "mot": "Végane",
+    "definition": "Qualification ou nom commun désignant un mode de vie excluant autant que possible le produits, services et pratiques issus de l'exploitation des animaux spécisés. Par extension, le terme désigne les personnes ayant ce mode de vie, ainsi que les pratiques ou objets qui ne sont pas issues de l'exploitation des autres animaux."
   }
 ];
