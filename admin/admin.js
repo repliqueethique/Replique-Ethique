@@ -752,6 +752,8 @@ function renderLexique(){
 
 }
 
+renderLexique();
+
 function ajouterMot(){
 
     ouvrirLexiqueModal();
@@ -791,8 +793,6 @@ function supprimerMot(mot){
     renderLexique();
 
 }
-
-renderLexique();
 
 function renderTagsSelection(tagsActifs = []){
 
