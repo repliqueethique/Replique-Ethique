@@ -429,6 +429,7 @@ function exporterDataJS(){
     let liensVideos = {};
     let titresVideos = {};
     let textesVideos = {};
+    let lexiqueData = lexique;
 
     videos.forEach(video => {
 
@@ -451,6 +452,8 @@ window.liensVideos = ${JSON.stringify(liensVideos, null, 2)};
 window.titresVideos = ${JSON.stringify(titresVideos, null, 2)};
 
 window.textesVideos = ${JSON.stringify(textesVideos, null, 2)};
+
+window.lexiqueData = ${JSON.stringify(lexiqueData, null, 2)};
 `;
 
     const blob = new Blob(

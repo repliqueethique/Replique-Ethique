@@ -931,6 +931,78 @@ document.querySelectorAll('.bouton-mot').forEach(b=>{
   b.addEventListener('click',()=>{ b.nextElementSibling?.classList.toggle('show'); b.classList.toggle('active'); });
 });
 
+function genererLexique(){
+
+    const conteneur =
+        document.getElementById(
+            "conteneurLexique"
+        );
+
+    if(
+        !conteneur ||
+        !window.lexiqueData
+    ) return;
+
+    conteneur.innerHTML = "";
+
+    window.lexiqueData.forEach(entree => {
+
+        const bloc =
+            document.createElement("div");
+
+        bloc.className =
+            "mot-lexique";
+
+        bloc.innerHTML = `
+
+            <button
+                class="bouton-mot">
+
+                ${entree.mot}
+
+            </button>
+
+            <div
+                class="definition">
+
+                ${entree.definition}
+
+            </div>
+
+        `;
+
+        conteneur.appendChild(bloc);
+
+    });
+
+    conteneur
+        .querySelectorAll(
+            ".bouton-mot"
+        )
+        .forEach(bouton => {
+
+            bouton.addEventListener(
+                "click",
+                () => {
+
+                    bouton
+                    .nextElementSibling
+                    ?.classList
+                    .toggle("show");
+
+                    bouton
+                    .classList
+                    .toggle("active");
+
+                }
+            );
+
+        });
+
+}
+
+genererLexique();
+
 // ============================================================
 // BLOC 13 : FAVORIS
 // ============================================================
