@@ -100,6 +100,12 @@ document
 )
 .onclick =
     fermerLexiqueModal;
+document
+.getElementById(
+    "btnTrierLexique"
+)
+.onclick =
+    trierLexique;
 
 function ouvrirNouvelleVideo(){
 
@@ -999,3 +1005,20 @@ document
     location.reload();
 
 };
+
+function trierLexique(){
+
+    lexique.sort(
+        (a, b) =>
+            a.mot.localeCompare(
+                b.mot,
+                "fr",
+                {
+                    sensitivity:"base"
+                }
+            )
+    );
+
+    renderLexique();
+
+}
