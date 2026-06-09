@@ -730,9 +730,9 @@ document.addEventListener('touchend', (e) => {
     conteneurPages.style.transform = `translateX(-${pageActuelle * screenW}px)`;
     const bar = vWrapper.querySelector('[style*="translateX"]');
     if (bar) {
-      const ww = vWrapper.getBoundingClientRect().width;
+      const barWidth = bar.getBoundingClientRect().width;
       bar.style.transition = 'transform 0.3s ease';
-      if (dx > ww / 2) {
+      if (dx > barWidth / 2) {
         bar.style.transform = 'translateX(0)';
         setTimeout(() => {
           bar.style.transition = 'transform 0.3s ease';

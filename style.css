@@ -324,9 +324,15 @@ body {
   max-height: 0; overflow: hidden; background: white;
   border-radius: 0 0 10px 10px; padding: 0 16px;
   opacity: 0;
-  transition: max-height 0.4s ease, padding 0.3s ease, opacity 0.3s ease;
+  transition: opacity 0.4s ease, padding 0.3s ease, visibility 0.3s ease;
+  visibility: hidden;
 }
-.definition.show { max-height: 300px; padding: 16px; opacity: 1; }
+.definition.show { 
+  max-height: none; 
+  padding: 16px; 
+  opacity: 1; 
+  visibility: visible;
+}
 
 /* ============================================================
    PANNEAU FAVORIS (slide depuis le bas)
