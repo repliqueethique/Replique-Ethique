@@ -431,6 +431,7 @@ body {
   transition: opacity 0.3s ease;
   line-height: 1;
   -webkit-appearance: none;
+  appearance: none;
 }
 .btn-copier-mot.visible {
   opacity: 1; pointer-events: auto;
