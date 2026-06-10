@@ -1257,6 +1257,14 @@ function appliquerTheme(id) {
   const theme = THEMES.find(t => t.id === id) || THEMES[0];
   const logo = document.getElementById('logo-fixe');
   if (logo && theme.logo) logo.src = theme.logo;
+  // Mettre à jour les barres de partage déjà dans le DOM
+  const nouvelleCouleur = getComputedStyle(document.documentElement)
+    .getPropertyValue('--c-sombre').trim() || '#242422';
+  document.querySelectorAll(
+    '#conteneur-vignettes [style*="translateX"], .contenu-essentiel [style*="translateX"], #contenu-favoris [style*="translateX"]'
+  ).forEach(barre => {
+    barre.style.background = nouvelleCouleur;
+  });
 }
 
 function creerSecteurThemes(conteneur) {
