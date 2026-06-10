@@ -1554,6 +1554,49 @@ document.addEventListener('DOMContentLoaded',()=>{
   appliquerTheme(chargerTheme());
   const bp=document.getElementById('btn-parametres');
   if(bp) bp.addEventListener('click',(e)=>{e.preventDefault();ouvrirParametres();});
+
+  // Bouton retour Android : revenir à l'accueil, quitter seulement si déjà à l'accueil
+  window.addEventListener('popstate', () => {
+    const paramsPanel = document.getElementById('page-parametres');
+    const favPanel    = document.getElementById('favoris-panel');
+    const infoPanel   = document.getElementById('info-panel');
+    const videoPanel  = document.getElementById('page-video');
+
+    // Fermer d'abord les panneaux ouverts, dans l'ordre de priorité
+    if (videoPanel) {
+      videoPanel.remove();
+      history.pushState(null, '', location.href);
+      return;
+    }
+    if (estMobile() ? paramsPanel?.classList.contains('visible') : paramsPanel?.style.display === 'flex') {
+      fermerParametres();
+      history.pushState(null, '', location.href);
+      return;
+    }
+    if (favPanel?.classList.contains('visible')) {
+      favPanel.style.transition = 'bottom 0.4s ease';
+      favPanel.style.bottom = '-110%';
+      favPanel.classList.remove('visible');
+      history.pushState(null, '', location.href);
+      return;
+    }
+    if (infoPanel?.classList.contains('visible')) {
+      infoPanel.style.transform = 'translateY(-110%)';
+      infoPanel.classList.remove('visible');
+      history.pushState(null, '', location.href);
+      return;
+    }
+
+    // Si on est déjà à l'accueil (page 2), laisser quitter
+    if (pageActuelle === 2) return;
+
+    // Sinon revenir à l'accueil
+    naviguerVers(2);
+    history.pushState(null, '', location.href);
+  });
+
+  // Initialiser l'historique pour que popstate se déclenche
+  history.pushState(null, '', location.href);
 });
 
 // ============================================================
