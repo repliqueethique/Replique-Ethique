@@ -1,4 +1,103 @@
 /* ============================================================
+   THÈMES — variables globales
+   ============================================================ */
+
+/* Thème par défaut (défaut = turquoise/crème — identique à l'original) */
+:root {
+  --c-primaire:   #31bebd;   /* turquoise : boutons, triangles, tags */
+  --c-sombre:     #242422;   /* quasi-noir : headers, footer */
+  --c-accent:     #fce7ac;   /* crème-or   : titres headers, favoris outline */
+  --c-vif:        #00fffd;   /* cyan vif   : scrollbar, hover */
+  --c-orange:     #f37321;   /* orange     : essentiel, particules */
+  --c-violet:     #5c205f;   /* violet     : lexique boutons */
+  --c-violet-hover: #8a3c87;
+
+  --fond-accueil:   linear-gradient(135deg, #31bebd, #fce7ac);
+  --fond-mots-cles: linear-gradient(135deg, #242422, #31bebd);
+  --fond-essentiel: linear-gradient(135deg, #ff7200, #fce7ac);
+  --fond-lexique:   linear-gradient(135deg, #31bebd, #5c205f);
+  --fond-favoris:   linear-gradient(135deg, #31bebd, #fce7ac);
+  --fond-info:      linear-gradient(135deg, #31bebd, #242422);
+  --fond-params:    linear-gradient(135deg, #31bebd, #242422);
+}
+
+/* ── Thème SOMBRE ── */
+body.theme-sombre {
+  --c-primaire:   #7c5cbf;
+  --c-sombre:     #111111;
+  --c-accent:     #e0d0ff;
+  --c-vif:        #b39dff;
+  --c-orange:     #a855f7;
+  --c-violet:     #4a2080;
+  --c-violet-hover: #6b35b0;
+
+  --fond-accueil:   linear-gradient(135deg, #1a1a2e, #16213e);
+  --fond-mots-cles: linear-gradient(135deg, #111111, #4a2080);
+  --fond-essentiel: linear-gradient(135deg, #2d1b69, #1a1a2e);
+  --fond-lexique:   linear-gradient(135deg, #4a2080, #1a1a2e);
+  --fond-favoris:   linear-gradient(135deg, #1a1a2e, #4a2080);
+  --fond-info:      linear-gradient(135deg, #4a2080, #111111);
+  --fond-params:    linear-gradient(135deg, #4a2080, #111111);
+}
+
+/* ── Thème NÉON ── */
+body.theme-neon {
+  --c-primaire:   #00ff88;
+  --c-sombre:     #0a0a0a;
+  --c-accent:     #ff00ff;
+  --c-vif:        #00ffff;
+  --c-orange:     #ff6600;
+  --c-violet:     #cc00ff;
+  --c-violet-hover: #ff33ff;
+
+  --fond-accueil:   linear-gradient(135deg, #0a0a0a, #001a0d);
+  --fond-mots-cles: linear-gradient(135deg, #0a0a0a, #001a33);
+  --fond-essentiel: linear-gradient(135deg, #1a0033, #0a0a0a);
+  --fond-lexique:   linear-gradient(135deg, #001a33, #1a0033);
+  --fond-favoris:   linear-gradient(135deg, #0a0a0a, #001a0d);
+  --fond-info:      linear-gradient(135deg, #001a33, #0a0a0a);
+  --fond-params:    linear-gradient(135deg, #001a33, #0a0a0a);
+}
+
+/* ── Thème RÉTRO ── */
+body.theme-retro {
+  --c-primaire:   #c0392b;
+  --c-sombre:     #2c1810;
+  --c-accent:     #f5deb3;
+  --c-vif:        #e67e22;
+  --c-orange:     #d35400;
+  --c-violet:     #8b4513;
+  --c-violet-hover: #a0522d;
+
+  --fond-accueil:   linear-gradient(135deg, #d4a574, #f5deb3);
+  --fond-mots-cles: linear-gradient(135deg, #2c1810, #8b4513);
+  --fond-essentiel: linear-gradient(135deg, #c0392b, #f5deb3);
+  --fond-lexique:   linear-gradient(135deg, #8b4513, #2c1810);
+  --fond-favoris:   linear-gradient(135deg, #d4a574, #f5deb3);
+  --fond-info:      linear-gradient(135deg, #8b4513, #2c1810);
+  --fond-params:    linear-gradient(135deg, #8b4513, #2c1810);
+}
+
+/* ── Thème AQUA ── */
+body.theme-aqua {
+  --c-primaire:   #0077b6;
+  --c-sombre:     #03045e;
+  --c-accent:     #caf0f8;
+  --c-vif:        #00b4d8;
+  --c-orange:     #0096c7;
+  --c-violet:     #023e8a;
+  --c-violet-hover: #0077b6;
+
+  --fond-accueil:   linear-gradient(135deg, #0077b6, #caf0f8);
+  --fond-mots-cles: linear-gradient(135deg, #03045e, #0077b6);
+  --fond-essentiel: linear-gradient(135deg, #0096c7, #caf0f8);
+  --fond-lexique:   linear-gradient(135deg, #0077b6, #023e8a);
+  --fond-favoris:   linear-gradient(135deg, #0077b6, #caf0f8);
+  --fond-info:      linear-gradient(135deg, #0077b6, #03045e);
+  --fond-params:    linear-gradient(135deg, #0077b6, #03045e);
+}
+
+/* ============================================================
    RESET & BASE
    ============================================================ */
 html {
@@ -42,10 +141,10 @@ body {
   pointer-events: none; z-index: 1;
 }
 .fond.visible { opacity: 1; }
-.fond-accueil  { background: linear-gradient(135deg, #31bebd, #fce7ac); }
-.fond-mots-cles { background: linear-gradient(135deg, #242422, #31bebd); }
-.fond-essentiel { background: linear-gradient(135deg, #ff7200, #fce7ac); }
-.fond-lexique  { background: linear-gradient(135deg, #31bebd, #5c205f); }
+.fond-accueil   { background: var(--fond-accueil); }
+.fond-mots-cles { background: var(--fond-mots-cles); }
+.fond-essentiel { background: var(--fond-essentiel); }
+.fond-lexique   { background: var(--fond-lexique); }
 
 /* ============================================================
    CARROUSEL PRINCIPAL
@@ -97,7 +196,7 @@ body {
 .search-bar input {
   flex: 1; border: none; outline: none;
   background: transparent; font-family: 'MoonFlower';
-  font-size: 1.9em; color: #31bebd;
+  font-size: 1.9em; color: var(--c-primaire);
   text-align: center; padding: 8px 0; min-width: 0;
   line-height: 1;
 }
@@ -125,7 +224,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #31bebd; color: white;
+  background: var(--c-primaire); color: white;
   font-family: 'Intro'; font-size: 1.2em;
   padding: 12px 25px; border: none;
   border-radius: 30px; cursor: pointer;
@@ -134,7 +233,7 @@ body {
 
 /* Footer */
 .footer-bar {
-  background: #242422; padding: 10px 15px;
+  background: var(--c-sombre); padding: 10px 15px;
   width: 100%; display: flex;
   align-items: center; justify-content: center;
   margin-top: auto; box-sizing: border-box;
@@ -143,7 +242,7 @@ body {
 }
 .footer-bar img { width: 24px; height: 24px; transition: transform 0.2s ease; display: block; }
 .site-link {
-  font-family: 'Intro'; color: #242422;
+  font-family: 'Intro'; color: var(--c-sombre);
   margin-top: 10px; font-size: 1em;
   text-decoration: none; text-align: center;
 }
@@ -152,7 +251,7 @@ body {
    HEADERS DES PAGES SECONDAIRES
    ============================================================ */
 .header-mots-cles, .header-essentiel, .header-liste {
-  background: #242422; width: 100%;
+  background: var(--c-sombre); width: 100%;
   flex-shrink: 0; height: 70px;
   display: flex; align-items: center;
   justify-content: space-between;
@@ -163,12 +262,12 @@ body {
   position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   font-family: 'SF Sports Night', sans-serif;
-  color: #fce7ac; font-size: 2.5em;
+  color: var(--c-accent); font-size: 2.5em;
   margin: 0; white-space: nowrap;
   letter-spacing: 0.05em;
 }
 .header-liste {
-  color: #fce7ac; padding: 0 10px;
+  color: var(--c-accent); padding: 0 10px;
 }
 .bloc-lignes-tuto { text-align: center; flex: 1; }
 .ligne-tuto { margin: 5px 0; font-size: 1.2em; }
@@ -180,7 +279,7 @@ body {
    ============================================================ */
 .triangle-retour {
   width: 24px; height: 24px;
-  background: #31bebd;
+  background: var(--c-primaire);
   -webkit-clip-path: polygon(0% 0%, 70% 50%, 0% 100%);
   clip-path: polygon(0% 0%, 70% 50%, 0% 100%);
   cursor: pointer; flex-shrink: 0;
@@ -197,7 +296,7 @@ body {
   clip-path: none;
   border-style: solid;
   border-width: 18px 12px 0 12px;
-  border-color: #31bebd transparent transparent transparent;
+  border-color: var(--c-primaire) transparent transparent transparent;
   position: absolute; top: 20px; left: 20px;
 }
 .triangle-retour:hover { transform: scale(1.1); }
@@ -214,12 +313,12 @@ body {
 .categorie { margin-bottom: 20px; overflow: visible; }
 .bouton-categorie {
   width: 100%; padding: 16px 24px;
-  border: none; background-color: #31bebd;
+  border: none; background-color: var(--c-primaire);
   color: white; font-family: 'Intro'; font-size: 1.3em;
   cursor: pointer; box-sizing: border-box;
   transition: transform 0.2s ease, background-color 0.3s ease;
 }
-.bouton-categorie:hover { background-color: #00fffd; transform: scale(1.05); }
+.bouton-categorie:hover { background-color: var(--c-vif); transform: scale(1.05); }
 .tags {
   display: grid; grid-auto-flow: row;
   grid-template-columns: repeat(auto-fit, minmax(100px, auto));
@@ -234,11 +333,11 @@ body {
 }
 .tag {
   padding: 8px 16px; border: none;
-  border-radius: 9999px; background-color: #31bebd;
+  border-radius: 9999px; background-color: var(--c-primaire);
   color: white; font-family: 'Graphie'; cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
 }
-.tag:hover { background-color: #00fffd; transform: scale(1.05); }
+.tag:hover { background-color: var(--c-vif); transform: scale(1.05); }
 .image-cles {
   margin-top: auto; width: 100%; max-width: 1000px;
   opacity: 0.5; pointer-events: none; margin-bottom: 20px;
@@ -269,7 +368,7 @@ body {
 .conteneur-vignettes.mode-liste { grid-template-columns: 1fr; gap: 10px; }
 
 #page-liste::-webkit-scrollbar { width: 10px; }
-#page-liste::-webkit-scrollbar-thumb { background-color: #00fffd; border-radius: 10px; }
+#page-liste::-webkit-scrollbar-thumb { background-color: var(--c-vif); border-radius: 10px; }
 #page-liste::-webkit-scrollbar-track { background: transparent; }
 
 /* ============================================================
@@ -300,7 +399,7 @@ body {
 #page-essentiel::-webkit-scrollbar { width: 10px; }
 #page-mots-cles::-webkit-scrollbar-thumb,
 #page-lexique::-webkit-scrollbar-thumb,
-#page-essentiel::-webkit-scrollbar-thumb { background-color: #00fffd; border-radius: 10px; }
+#page-essentiel::-webkit-scrollbar-thumb { background-color: var(--c-vif); border-radius: 10px; }
 #page-mots-cles::-webkit-scrollbar-track,
 #page-lexique::-webkit-scrollbar-track,
 #page-essentiel::-webkit-scrollbar-track { background: transparent; }
@@ -312,12 +411,12 @@ body {
 .contenu-lexique { width: 90%; max-width: 600px; padding: 40px 0 80px; }
 .bouton-mot {
   width: 100%; padding: 16px; border: none;
-  background-color: #5c205f; color: white;
+  background-color: var(--c-violet); color: white;
   font-family: 'Intro'; font-size: 1.2em;
   text-align: left; cursor: pointer;
   transition: background-color 0.3s ease;
 }
-.bouton-mot:hover { background-color: #8a3c87; }
+.bouton-mot:hover { background-color: var(--c-violet-hover); }
 .bouton-mot.active { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
 .mot-lexique { margin-bottom: 20px; }
 .definition {
@@ -340,19 +439,19 @@ body {
 .onglet-favoris {
   position: fixed; bottom: -110%; left: 0;
   width: 100%; height: 100dvh; height: 100vh;
-  background: linear-gradient(135deg, #31bebd, #fce7ac);
+  background: var(--fond-favoris);
   z-index: 9999; display: flex; flex-direction: column;
   transition: bottom 0.6s ease; overflow-y: auto;
 }
 .onglet-favoris.visible { bottom: 0; }
 .header-favoris {
-  background: #242422; height: 70px;
+  background: var(--c-sombre); height: 70px;
   display: flex; align-items: center;
   justify-content: center; position: relative; flex-shrink: 0;
 }
 .titre-favoris {
   font-family: 'SF Sports Night', sans-serif;
-  color: #fce7ac; font-size: 2.5em; margin: 0;
+  color: var(--c-accent); font-size: 2.5em; margin: 0;
   letter-spacing: 0.05em;
 }
 .contenu-favoris {
@@ -370,7 +469,7 @@ body {
    ============================================================ */
 #info-panel.onglet-info {
   position: fixed; inset: 5% 5%;
-  background: linear-gradient(135deg, #31bebd, #242422);
+  background: var(--fond-info);
   border-radius: 20px; display: none;
   align-items: center; justify-content: center;
   z-index: 100; opacity: 0; transform: scale(0.8);
@@ -388,7 +487,7 @@ body {
   color: white; text-align: left; line-height: 1.4;
 }
 .btn-fleche {
-  width: 40px; height: 40px; background-color: #31bebd;
+  width: 40px; height: 40px; background-color: var(--c-primaire);
   border: none; border-radius: 50%; position: absolute;
   top: 20px; cursor: pointer;
 }
@@ -403,7 +502,7 @@ body {
   transform: translateX(-50%); display: flex; gap: 20px;
 }
 .btn-info {
-  background-color: #31bebd; color: white;
+  background-color: var(--c-primaire); color: white;
   font-family: 'Intro', sans-serif; font-size: 1em;
   padding: 12px 24px; border: none; border-radius: 30px;
   cursor: pointer; transition: transform .2s ease;
@@ -539,3 +638,29 @@ body {
   opacity: 0;
 }
 
+/* ============================================================
+   SÉLECTEUR DE THÈMES (dans page Paramètres)
+   ============================================================ */
+.grille-themes {
+  display: flex; flex-wrap: wrap;
+  gap: 12px; justify-content: center;
+  margin: 16px 0;
+}
+.btn-theme {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 6px;
+  background: var(--c-sombre); border: 3px solid #fff;
+  border-radius: 16px; width: 90px; height: 90px;
+  cursor: pointer; justify-content: center;
+  transition: transform 0.2s ease;
+  font-family: 'Intro'; color: #fff; font-size: 0.75em;
+}
+.btn-theme:hover { transform: scale(1.07); }
+.btn-theme.actif { border-color: var(--c-accent); border-width: 4px; }
+.apercu-theme {
+  width: 48px; height: 30px; border-radius: 8px;
+  display: flex; overflow: hidden; flex-shrink: 0;
+}
+.apercu-theme span {
+  flex: 1; display: block;
+}

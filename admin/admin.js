@@ -107,6 +107,27 @@ document
 .onclick =
     trierLexique;
 
+const rechercheVideo =
+document.getElementById(
+    "rechercheVideo"
+);
+
+if(rechercheVideo){
+
+    rechercheVideo.addEventListener(
+        "input",
+        function(){
+
+            filtreVideo =
+                this.value;
+
+            renderVideos();
+
+        }
+    );
+
+}
+
 function ouvrirNouvelleVideo(){
 
     videoEnCours = null;
@@ -331,6 +352,10 @@ chargerLocalement();
 if(videos.length === 0){
 
     chargerVideosDepuisData();
+
+}else{
+
+    renderVideos();
 
 }
 

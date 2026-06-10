@@ -1200,6 +1200,99 @@ const optionsParams=[
   {id:'tutos',          label:'tutos',               demarrage:false},
 ];
 
+// ── Thèmes disponibles ──
+const THEMES = [
+  {
+    id: 'defaut',
+    label: 'défaut',
+    couleurs: ['#31bebd', '#fce7ac', '#242422']
+  },
+  {
+    id: 'sombre',
+    label: 'sombre',
+    couleurs: ['#1a1a2e', '#7c5cbf', '#e0d0ff']
+  },
+  {
+    id: 'neon',
+    label: 'néon',
+    couleurs: ['#0a0a0a', '#00ff88', '#ff00ff']
+  },
+  {
+    id: 'retro',
+    label: 'rétro',
+    couleurs: ['#d4a574', '#c0392b', '#2c1810']
+  },
+  {
+    id: 'aqua',
+    label: 'aqua',
+    couleurs: ['#0077b6', '#caf0f8', '#03045e']
+  },
+];
+
+function chargerTheme() {
+  return localStorage.getItem('replique_ethique_theme') || 'defaut';
+}
+
+function sauvegarderTheme(id) {
+  localStorage.setItem('replique_ethique_theme', id);
+}
+
+function appliquerTheme(id) {
+  // Retirer toutes les classes de thème existantes
+  THEMES.forEach(t => document.body.classList.remove('theme-' + t.id));
+  // Appliquer la nouvelle (sauf "defaut" qui est le :root)
+  if (id && id !== 'defaut') {
+    document.body.classList.add('theme-' + id);
+  }
+}
+
+function creerSecteurThemes(conteneur) {
+  const themeActuel = chargerTheme();
+
+  const titre = document.createElement('div');
+  titre.style.cssText = "font-family:'Intro';color:#fff;font-size:1em;margin:24px 0 12px;text-align:center;";
+  titre.textContent = 'Thème';
+  conteneur.appendChild(titre);
+
+  const grille = document.createElement('div');
+  grille.className = 'grille-themes';
+  conteneur.appendChild(grille);
+
+  THEMES.forEach(theme => {
+    const btn = document.createElement('button');
+    btn.className = 'btn-theme' + (theme.id === themeActuel ? ' actif' : '');
+    btn.dataset.themeId = theme.id;
+
+    // Aperçu 3 couleurs
+    const apercu = document.createElement('div');
+    apercu.className = 'apercu-theme';
+    theme.couleurs.forEach(c => {
+      const span = document.createElement('span');
+      span.style.background = c;
+      apercu.appendChild(span);
+    });
+
+    const label = document.createElement('span');
+    label.textContent = theme.label;
+
+    btn.appendChild(apercu);
+    btn.appendChild(label);
+
+    btn.addEventListener('click', () => {
+      // Retirer .actif de tous
+      grille.querySelectorAll('.btn-theme').forEach(b => b.classList.remove('actif'));
+      btn.classList.add('actif');
+      sauvegarderTheme(theme.id);
+      appliquerTheme(theme.id);
+      // Petite animation de confirmation
+      btn.style.transform = 'scale(0.92)';
+      setTimeout(() => { btn.style.transform = ''; }, 150);
+    });
+
+    grille.appendChild(btn);
+  });
+}
+
 function chargerParametres(){
   const defaut={
     accueil:{'barre-recherche':true,'mots-cles':true,'essentiel':true,'lexique':true,'favoris':true,'liste':true,'barre-infos':true,'tutos':false},
@@ -1228,7 +1321,7 @@ function appliquerParametres(){
   const icons=fb?.querySelector('div:nth-child(2)');
   if(fb){
     if(p.accueil['barre-infos']){
-      fb.style.background='#242422'; fb.style.padding='10px 15px'; fb.style.justifyContent='center';
+      fb.style.background='var(--c-sombre)'; fb.style.padding='10px 15px'; fb.style.justifyContent='center';
       if(spacer) spacer.style.display=''; if(icons) icons.style.display='flex';
       fb.querySelectorAll('a:not(#btn-parametres)').forEach(el=>el.style.display='');
     } else {
@@ -1246,16 +1339,24 @@ function _peuplerParametres() {
   liste.innerHTML = '';
   liste.style.cssText = 'display:grid;grid-template-columns:26px auto 26px;gap:12px;align-items:center;width:fit-content;margin:0 auto;';
 
+  // Couleurs CSS actuelles (thème) pour les checkboxes
+  const cs = getComputedStyle(document.documentElement);
+  const cPrim   = cs.getPropertyValue('--c-primaire').trim() || '#31bebd';
+  const cSombre = cs.getPropertyValue('--c-sombre').trim()   || '#242422';
+
   optionsParams.forEach(opt => {
     const isA = p.accueil?.[opt.id] !== false;
     const ca = document.createElement('div');
     ca.dataset.checked = isA ? 'true' : 'false';
-    ca.style.cssText = `width:26px;height:26px;border-radius:6px;border:3px solid #fff;background:${isA?'#31bebd':'#242422'};cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:16px;`;
+    ca.style.cssText = `width:26px;height:26px;border-radius:6px;border:3px solid #fff;background:${isA ? cPrim : cSombre};cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:16px;`;
     ca.innerHTML = isA ? '✓' : '';
     ca.addEventListener('click', () => {
       const isC = ca.dataset.checked === 'true';
       ca.dataset.checked = isC ? 'false' : 'true';
-      ca.style.background = isC ? '#242422' : '#31bebd';
+      const cs2 = getComputedStyle(document.documentElement);
+      ca.style.background = isC
+        ? (cs2.getPropertyValue('--c-sombre').trim() || '#242422')
+        : (cs2.getPropertyValue('--c-primaire').trim() || '#31bebd');
       ca.innerHTML = isC ? '' : '✓';
       const pp = chargerParametres();
       if (!pp.accueil) pp.accueil = {};
@@ -1272,15 +1373,18 @@ function _peuplerParametres() {
       const isD = p.demarrage === opt.id;
       cd.dataset.checked = isD ? 'true' : 'false';
       cd.dataset.demarrage = opt.id;
-      cd.style.cssText = `width:26px;height:26px;border-radius:6px;border:3px solid #fff;background:${isD?'#31bebd':'#242422'};cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:16px;`;
+      cd.style.cssText = `width:26px;height:26px;border-radius:6px;border:3px solid #fff;background:${isD ? cPrim : cSombre};cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:16px;`;
       cd.innerHTML = isD ? '✓' : '';
       cd.addEventListener('click', () => {
         const wasC = cd.dataset.checked === 'true';
+        const cs3 = getComputedStyle(document.documentElement);
+        const cP3 = cs3.getPropertyValue('--c-primaire').trim() || '#31bebd';
+        const cS3 = cs3.getPropertyValue('--c-sombre').trim()   || '#242422';
         liste.querySelectorAll('[data-demarrage]').forEach(c => {
-          c.dataset.checked = 'false'; c.style.background = '#242422'; c.innerHTML = '';
+          c.dataset.checked = 'false'; c.style.background = cS3; c.innerHTML = '';
         });
         if (!wasC) {
-          cd.dataset.checked = 'true'; cd.style.background = '#31bebd'; cd.innerHTML = '✓';
+          cd.dataset.checked = 'true'; cd.style.background = cP3; cd.innerHTML = '✓';
           const pp = chargerParametres(); pp.demarrage = opt.id; sauvegarderParametres(pp);
         } else {
           const pp = chargerParametres(); pp.demarrage = 'accueil'; sauvegarderParametres(pp);
@@ -1296,6 +1400,22 @@ function _peuplerParametres() {
   const p2 = chargerParametres();
   mettreAJourBoutonAffichage(p2.affichage || 'vignettes');
   mettreAJourBoutonTaille(p2.taille || 'petites');
+
+  // Injecter le sélecteur de thèmes
+  const zoneParams = liste.parentElement;
+  // Supprimer un secteur thème déjà injecté (si on rouvre les params)
+  const ancienSecteur = document.getElementById('secteur-themes');
+  if (ancienSecteur) ancienSecteur.remove();
+  const secteur = document.createElement('div');
+  secteur.id = 'secteur-themes';
+  // Insérer après le bloc Affichage (avant les boutons du bas)
+  const btnRetour = zoneParams.querySelector('button[onclick="fermerParametres()"]');
+  if (btnRetour?.parentElement) {
+    btnRetour.parentElement.insertBefore(secteur, btnRetour.parentElement.querySelector('div[style*="gap:16px"]'));
+  } else {
+    zoneParams.appendChild(secteur);
+  }
+  creerSecteurThemes(secteur);
 
   if (estMobile()) {
     document.getElementById('bloc-notification').style.display = 'flex';
@@ -1336,6 +1456,8 @@ function fermerParametres() {
 
 function reinitialiserParametres(){
   localStorage.removeItem('parametres');
+  localStorage.removeItem('replique_ethique_theme');
+  appliquerTheme('defaut');
   _peuplerParametres();
 }
 
@@ -1348,13 +1470,15 @@ function toggleAffichage(){
 function mettreAJourBoutonAffichage(mode){
   const ic=document.getElementById('icone-affichage'); const lb=document.getElementById('label-affichage');
   if(!ic||!lb) return;
+  const cs=getComputedStyle(document.documentElement);
+  const cP=cs.getPropertyValue('--c-primaire').trim()||'#31bebd';
   if(mode==='vignettes'){
     ic.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:4px;width:40px;height:40px;';
-    ic.innerHTML='<div style="width:18px;height:18px;background:#31bebd;border-radius:4px;"></div><div style="width:18px;height:18px;background:#31bebd;border-radius:4px;"></div><div style="width:18px;height:18px;background:#31bebd;border-radius:4px;"></div><div style="width:18px;height:18px;background:#31bebd;border-radius:4px;"></div>';
+    ic.innerHTML=`<div style="width:18px;height:18px;background:${cP};border-radius:4px;"></div><div style="width:18px;height:18px;background:${cP};border-radius:4px;"></div><div style="width:18px;height:18px;background:${cP};border-radius:4px;"></div><div style="width:18px;height:18px;background:${cP};border-radius:4px;"></div>`;
     lb.textContent='galerie';
   } else {
     ic.style.cssText='display:flex;flex-direction:column;gap:4px;width:40px;height:40px;justify-content:space-between;';
-    ic.innerHTML='<div style="width:40px;height:18px;background:#31bebd;border-radius:4px;"></div><div style="width:40px;height:18px;background:#31bebd;border-radius:4px;"></div>';
+    ic.innerHTML=`<div style="width:40px;height:18px;background:${cP};border-radius:4px;"></div><div style="width:40px;height:18px;background:${cP};border-radius:4px;"></div>`;
     lb.textContent='liste';
   }
 }
@@ -1370,11 +1494,13 @@ function mettreAJourBoutonTaille(taille){
   const ic=document.getElementById('icone-taille');
   const lb=document.getElementById('label-taille');
   if(!ic||!lb) return;
+  const cs=getComputedStyle(document.documentElement);
+  const cP=cs.getPropertyValue('--c-primaire').trim()||'#31bebd';
   if(taille==='grandes'){
-    ic.innerHTML='<div style="width:32px;height:32px;background:#31bebd;border-radius:6px;"></div>';
+    ic.innerHTML=`<div style="width:32px;height:32px;background:${cP};border-radius:6px;"></div>`;
     lb.textContent='grandes';
   } else {
-    ic.innerHTML='<div style="width:20px;height:20px;background:#31bebd;border-radius:4px;"></div>';
+    ic.innerHTML=`<div style="width:20px;height:20px;background:${cP};border-radius:4px;"></div>`;
     lb.textContent='petites';
   }
 }
@@ -1391,6 +1517,8 @@ function appliquerTaille(taille){
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
+  // Appliquer le thème sauvegardé dès le chargement
+  appliquerTheme(chargerTheme());
   const bp=document.getElementById('btn-parametres');
   if(bp) bp.addEventListener('click',(e)=>{e.preventDefault();ouvrirParametres();});
 });
