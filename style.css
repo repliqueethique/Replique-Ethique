@@ -95,6 +95,14 @@ body.theme-aqua {
   --fond-favoris:   linear-gradient(135deg, #0077b6, #caf0f8);
   --fond-info:      linear-gradient(135deg, #0077b6, #03045e);
   --fond-params:    linear-gradient(135deg, #0077b6, #03045e);
+  
+  --titre-shadow:
+    0 0 4px  #fff5c0,
+    0 0 8px  #ffe066,
+    0 0 16px #ff8800,
+    0 0 28px #ff4400,
+    0 0 45px #cc1100,
+    0 0 70px #880000;
 }
 
 /* ============================================================
@@ -268,6 +276,7 @@ body {
   color: var(--c-accent); font-size: 2.5em;
   margin: 0; white-space: nowrap;
   letter-spacing: 0.05em;
+  text-shadow: var(--titre-shadow, none);
 }
 .header-liste {
   color: var(--c-accent); padding: 0 10px;
