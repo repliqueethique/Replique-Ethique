@@ -174,6 +174,7 @@ body {
   align-items: center;
   padding-top: 20px;
   overflow: hidden;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 #logo-fixe {
@@ -440,7 +441,9 @@ body {
    ============================================================ */
 .onglet-favoris {
   position: fixed; bottom: -110%; left: 0;
-  width: 100%; height: 100dvh; height: 100vh;
+  width: 100%;
+  height: calc(100dvh - env(safe-area-inset-top, 0px));
+  height: calc(100vh - env(safe-area-inset-top, 0px));
   background: var(--fond-favoris);
   z-index: 9999; display: flex; flex-direction: column;
   transition: bottom 0.6s ease; overflow-y: auto;
@@ -450,6 +453,8 @@ body {
   background: var(--c-sombre); height: 70px;
   display: flex; align-items: center;
   justify-content: center; position: relative; flex-shrink: 0;
+  padding-top: env(safe-area-inset-top, 0px);
+  height: calc(70px + env(safe-area-inset-top, 0px));
 }
 .titre-favoris {
   font-family: 'SF Sports Night', sans-serif;

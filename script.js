@@ -641,13 +641,15 @@ document.addEventListener('touchmove', (e) => {
       lastFavMoveY = currentY;
     }
     const favDy = favDragStartY - currentY;
+    const safeTop = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sat') || '0') || 0;
+    const hauteurFav = screenH - safeTop;
     if (favDirection === 'open') {
-      if (favDy > screenH * 0.33) favPassedThreshold = true;
-      favPanel.style.bottom = favDy <= 0 ? '-110%' : `${Math.min(0, -(screenH - favDy))}px`;
+      if (favDy > hauteurFav * 0.33) favPassedThreshold = true;
+      favPanel.style.bottom = favDy <= 0 ? '-110%' : `${Math.min(0, -(hauteurFav - favDy))}px`;
     }
     if (favDirection === 'close') {
       const favDy2 = currentY - favDragStartY;
-      if (favDy2 > screenH * 0.33) favPassedThreshold = true;
+      if (favDy2 > hauteurFav * 0.33) favPassedThreshold = true;
       favPanel.style.bottom = favDy <= 0 ? '0' : `${Math.min(0, favDy)}px`;
     }
     return;
