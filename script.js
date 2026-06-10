@@ -667,8 +667,8 @@ document.addEventListener('touchmove', (e) => {
       const bar = vWrapper.querySelector('[style*="translateX"]');
       if (bar) {
         bar.style.transition = 'none';
-        const ww = vWrapper.getBoundingClientRect().width;
-        const pct = Math.min(0, -100 + (dx / ww) * 100);
+        const bw = bar.getBoundingClientRect().width;
+        const pct = Math.min(0, -100 + (dx / bw) * 100);
         bar.style.transform = `translateX(${pct}%)`;
       }
     } else if (!document.getElementById('panneau-resultats') || document.getElementById('panneau-resultats').style.display !== 'flex') {
