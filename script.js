@@ -59,6 +59,10 @@ function animerSpin(img) {
   setTimeout(() => img.classList.remove('spin-pop'), 300);
 }
 
+function vibrer() {
+  if (navigator.vibrate) navigator.vibrate(40);
+}
+
 // ============================================================
 // BLOC 2 : BARRES D'ACTION — GALERIE (desktop: bas / mobile: gauche)
 // ============================================================
@@ -83,6 +87,7 @@ function creerBarreGalerie(key, estFavori, wrapper, onFavoriChange) {
       if(navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(url).then(()=>{
           btn.style.opacity='0.4';
+          vibrer();
           afficherToast('Copié !','#00feff', r.left+r.width/2, r.top+r.height/2);
           setTimeout(()=>btn.style.opacity='1',1500);
         }).catch(()=>afficherToast('Erreur copie','#f37321'));
@@ -158,6 +163,7 @@ function creerBarreListe(key, estFavori, wrapper, largeur, onFavoriChange) {
       if(navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(url).then(()=>{
           btn.style.opacity='0.4';
+          vibrer();
           afficherToast('Copié !','#00feff', r.left+r.width/2, r.top+r.height/2);
           setTimeout(()=>btn.style.opacity='1',1500);
         }).catch(()=>afficherToast('Erreur copie','#f37321'));
@@ -236,6 +242,7 @@ function creerBarreGalerieFavoris(key, wrapper) {
       if(navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(url).then(()=>{
           btn.style.opacity='0.4';
+          vibrer();
           afficherToast('Copié !','#00feff', r.left+r.width/2, r.top+r.height/2);
           setTimeout(()=>btn.style.opacity='1',1500);
         }).catch(()=>afficherToast('Erreur copie','#f37321'));
@@ -308,6 +315,7 @@ function creerBarreListeFavoris(key, wrapper, largeur) {
       if(navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(url).then(()=>{
           btn.style.opacity='0.4';
+          vibrer();
           afficherToast('Copié !','#00feff', r.left+r.width/2, r.top+r.height/2);
           setTimeout(()=>btn.style.opacity='1',1500);
         }).catch(()=>afficherToast('Erreur copie','#f37321'));
@@ -1167,6 +1175,7 @@ function ouvrirPageVideo(numero, onRetour) {
     animerPop(this.querySelector('img'));
     navigator.clipboard.writeText(url).then(()=>{
       this.style.opacity='0.4';
+      vibrer();
       afficherToast('Copié !','#00feff', r.left+r.width/2, r.top+r.height/2);
       setTimeout(()=>this.style.opacity='1', 1500);
     });
