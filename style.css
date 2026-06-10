@@ -82,7 +82,7 @@ body.theme-retro {
 body.theme-aqua {
   --c-primaire:   #0077b6;
   --c-sombre:     #001a4d;
-  --c-accent:     #ff5900;
+  --c-accent:     #fff5c0;
   --c-vif:        #00f8f2;
   --c-orange:     #ff0900;
   --c-violet:     #023e8a;
@@ -95,7 +95,7 @@ body.theme-aqua {
   --fond-favoris:   linear-gradient(135deg, #0077b6, #caf0f8);
   --fond-info:      linear-gradient(135deg, #0077b6, #03045e);
   --fond-params:    linear-gradient(135deg, #0077b6, #03045e);
-  
+
   --titre-shadow:
     0 0 4px  #fff5c0,
     0 0 8px  #ffe066,
