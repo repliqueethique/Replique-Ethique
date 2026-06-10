@@ -937,74 +937,76 @@ document.querySelectorAll('.bouton-mot').forEach(b=>{
   b.addEventListener('click',()=>{ b.nextElementSibling?.classList.toggle('show'); b.classList.toggle('active'); });
 });
 
-function genererLexique(){
+function genererLexique() {
+  const conteneur = document.getElementById('conteneurLexique');
+  if (!conteneur || !window.lexiqueData) return;
+  conteneur.innerHTML = '';
 
-    const conteneur =
-        document.getElementById(
-            "conteneurLexique"
-        );
+  window.lexiqueData.forEach(entree => {
+    const bloc = document.createElement('div');
+    bloc.className = 'mot-lexique';
 
-    if(
-        !conteneur ||
-        !window.lexiqueData
-    ) return;
+    // Bouton titre
+    const bouton = document.createElement('button');
+    bouton.className = 'bouton-mot';
 
-    conteneur.innerHTML = "";
+    const labelMot = document.createElement('span');
+    labelMot.textContent = entree.mot;
 
-    window.lexiqueData.forEach(entree => {
+    // Bouton copier
+    const btnCopier = document.createElement('button');
+    btnCopier.className = 'btn-copier-mot';
+    btnCopier.setAttribute('aria-label', 'Copier la définition');
+    btnCopier.innerHTML = '<img src="images/icone-copier.png" alt="Copier" />';
 
-        const bloc =
-            document.createElement("div");
-
-        bloc.className =
-            "mot-lexique";
-
-        bloc.innerHTML = `
-
-            <button
-                class="bouton-mot">
-
-                ${entree.mot}
-
-            </button>
-
-            <div
-                class="definition">
-
-                ${entree.definition}
-
-            </div>
-
-        `;
-
-        conteneur.appendChild(bloc);
-
+    btnCopier.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const r = btnCopier.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const texte = `${entree.mot} : ${entree.definition.replace(/<[^>]*>/g, '')}`;
+      declencherEclat(cx, cy, '#31bebd');
+      animerPop(btnCopier.querySelector('img'));
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(texte).then(() => {
+          afficherToast('Copié !', '#00feff', cx, cy);
+          btnCopier.classList.add('grise');
+          setTimeout(() => btnCopier.classList.remove('grise'), 1500);
+        }).catch(() => afficherToast('Erreur', '#f37321'));
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = texte; ta.style.cssText = 'position:fixed;opacity:0;';
+        document.body.appendChild(ta); ta.focus(); ta.select();
+        try {
+          document.execCommand('copy');
+          afficherToast('Copié !', '#00feff', cx, cy);
+          btnCopier.classList.add('grise');
+          setTimeout(() => btnCopier.classList.remove('grise'), 1500);
+        } catch(err) { afficherToast('Erreur', '#f37321'); }
+        document.body.removeChild(ta);
+      }
     });
 
-    conteneur
-        .querySelectorAll(
-            ".bouton-mot"
-        )
-        .forEach(bouton => {
+    bouton.appendChild(labelMot);
+    bouton.appendChild(btnCopier);
 
-            bouton.addEventListener(
-                "click",
-                () => {
+    // Définition
+    const definition = document.createElement('div');
+    definition.className = 'definition';
+    definition.innerHTML = entree.definition;
 
-                    bouton
-                    .nextElementSibling
-                    ?.classList
-                    .toggle("show");
+    // Toggle au clic sur le bouton (pas sur l'icône copier)
+    bouton.addEventListener('click', (e) => {
+      if (e.target.closest('.btn-copier-mot')) return;
+      const ouvert = definition.classList.toggle('show');
+      bouton.classList.toggle('active', ouvert);
+      btnCopier.classList.toggle('visible', ouvert);
+    });
 
-                    bouton
-                    .classList
-                    .toggle("active");
-
-                }
-            );
-
-        });
-
+    bloc.appendChild(bouton);
+    bloc.appendChild(definition);
+    conteneur.appendChild(bloc);
+  });
 }
 
 genererLexique();
