@@ -1446,7 +1446,12 @@ function _peuplerParametres() {
   creerSecteurThemes(secteur);
 
   if (estMobile()) {
-    document.getElementById('bloc-notification').style.display = 'flex';
+    const blocNotif = document.getElementById('bloc-notification');
+    blocNotif.style.display = 'flex';
+    // Déplacer le bloc notification juste avant les boutons retour/réinitialiser
+    if (divBoutonsBas) {
+      divBoutonsBas.parentElement.insertBefore(blocNotif, divBoutonsBas);
+    }
     const cn = document.getElementById('check-notif');
     cn.checked = p2.notif || false;
     cn.addEventListener('change', (e) => {
