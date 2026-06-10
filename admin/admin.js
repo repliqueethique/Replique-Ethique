@@ -137,6 +137,7 @@ function ouvrirNouvelleVideo(){
     document.getElementById("texte").value = "";
     renderTagsSelection([]);
     document.getElementById("essentiel").checked = false;
+    document.getElementById("cachee").checked = false;
 
     modal.classList.remove("hidden");
 
@@ -325,6 +326,9 @@ function modifierVideo(id){
     document.getElementById("essentiel").checked =
         video.essentiel || false;
 
+    document.getElementById("cachee").checked =
+        video.cachee || false;
+
     modal.classList.remove("hidden");
 }
 
@@ -383,7 +387,10 @@ function sauvegarderVideo(){
             ),
 
         essentiel:
-            document.getElementById("essentiel").checked
+            document.getElementById("essentiel").checked,
+
+        cachee:
+            document.getElementById("cachee").checked,
 
     };
 
@@ -461,6 +468,7 @@ function exporterDataJS(){
     let titresVideos = {};
     let textesVideos = {};
     let lexiqueData = lexique;
+    let videosCachees = {};
 
     videos.forEach(video => {
 
@@ -472,6 +480,9 @@ function exporterDataJS(){
 
         textesVideos[video.id] =
             video.texte || "";
+        
+        videosCachees[video.id] =
+            video.cachee || false;
 
     });
 
@@ -485,6 +496,8 @@ window.titresVideos = ${JSON.stringify(titresVideos, null, 2)};
 window.textesVideos = ${JSON.stringify(textesVideos, null, 2)};
 
 window.lexiqueData = ${JSON.stringify(lexiqueData, null, 2)};
+
+window.videosCachees = ${JSON.stringify(videosCachees, null, 2)};
 `;
 
     const blob = new Blob(
