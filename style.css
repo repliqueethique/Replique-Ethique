@@ -641,26 +641,7 @@ body {
 /* ============================================================
    SÉLECTEUR DE THÈMES (dans page Paramètres)
    ============================================================ */
-.grille-themes {
-  display: flex; flex-wrap: wrap;
-  gap: 12px; justify-content: center;
-  margin: 16px 0;
-}
 .btn-theme {
-  display: flex; flex-direction: column;
-  align-items: center; gap: 6px;
-  background: var(--c-sombre); border: 3px solid #fff;
-  border-radius: 16px; width: 90px; height: 90px;
-  cursor: pointer; justify-content: center;
   transition: transform 0.2s ease;
-  font-family: 'Intro'; color: #fff; font-size: 0.75em;
 }
 .btn-theme:hover { transform: scale(1.07); }
-.btn-theme.actif { border-color: var(--c-accent); border-width: 4px; }
-.apercu-theme {
-  width: 48px; height: 30px; border-radius: 8px;
-  display: flex; overflow: hidden; flex-shrink: 0;
-}
-.apercu-theme span {
-  flex: 1; display: block;
-}

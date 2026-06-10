@@ -65,10 +65,11 @@ function animerSpin(img) {
 
 function creerBarreGalerie(key, estFavori, wrapper, onFavoriChange) {
   const barre = document.createElement('div');
+  const cS = getComputedStyle(document.documentElement).getPropertyValue('--c-sombre').trim() || '#242422';
   if (estMobile()) {
-    barre.style.cssText = `position:absolute;left:0;top:0;bottom:0;width:100%;background:#242422;border-radius:10px;display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;transform:translateX(-100%);transition:transform 0.3s ease;z-index:2;`;
+    barre.style.cssText = `position:absolute;left:0;top:0;bottom:0;width:100%;background:${cS};border-radius:10px;display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;transform:translateX(-100%);transition:transform 0.3s ease;z-index:2;`;
   } else {
-    barre.style.cssText = `position:absolute;bottom:0;left:0;right:0;height:50%;background:#242422;display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;border-radius:0 0 10px 10px;transition:transform 0.3s ease;transform:translateY(100%);z-index:2;`;
+    barre.style.cssText = `position:absolute;bottom:0;left:0;right:0;height:50%;background:${cS};display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;border-radius:0 0 10px 10px;transition:transform 0.3s ease;transform:translateY(100%);z-index:2;`;
   }
 
   [
@@ -143,7 +144,8 @@ function creerBarreGalerie(key, estFavori, wrapper, onFavoriChange) {
 
 function creerBarreListe(key, estFavori, wrapper, largeur, onFavoriChange) {
   const barre = document.createElement('div');
-  barre.style.cssText=`position:absolute;left:0;top:0;bottom:0;width:${largeur}px;background:#242422;border-radius:8px 0 0 8px;display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;transform:translateX(-100%);transition:transform 0.3s ease;z-index:3;`;
+  const cS = getComputedStyle(document.documentElement).getPropertyValue('--c-sombre').trim() || '#242422';
+  barre.style.cssText=`position:absolute;left:0;top:0;bottom:0;width:${largeur}px;background:${cS};border-radius:8px 0 0 8px;display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;transform:translateX(-100%);transition:transform 0.3s ease;z-index:3;`;
 
   [
     { src:'icone-copier.png', onClick:(e)=>{
@@ -216,10 +218,11 @@ function creerBarreListe(key, estFavori, wrapper, largeur, onFavoriChange) {
 
 function creerBarreGalerieFavoris(key, wrapper) {
   const barre = document.createElement('div');
+  const cS = getComputedStyle(document.documentElement).getPropertyValue('--c-sombre').trim() || '#242422';
   if (estMobile()) {
-    barre.style.cssText = `position:absolute;left:0;top:0;bottom:0;width:100%;background:#242422;border-radius:10px;display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;transform:translateX(-100%);transition:transform 0.3s ease;z-index:2;`;
+    barre.style.cssText = `position:absolute;left:0;top:0;bottom:0;width:100%;background:${cS};border-radius:10px;display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;transform:translateX(-100%);transition:transform 0.3s ease;z-index:2;`;
   } else {
-    barre.style.cssText = `position:absolute;bottom:0;left:0;right:0;height:50%;background:#242422;display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;border-radius:0 0 10px 10px;transition:transform 0.3s ease;transform:translateY(100%);z-index:2;`;
+    barre.style.cssText = `position:absolute;bottom:0;left:0;right:0;height:50%;background:${cS};display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;border-radius:0 0 10px 10px;transition:transform 0.3s ease;transform:translateY(100%);z-index:2;`;
   }
 
   [
@@ -291,7 +294,8 @@ function creerBarreGalerieFavoris(key, wrapper) {
 
 function creerBarreListeFavoris(key, wrapper, largeur) {
   const barre = document.createElement('div');
-  barre.style.cssText=`position:absolute;left:0;top:0;bottom:0;width:${largeur}px;background:#242422;border-radius:8px 0 0 8px;display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;transform:translateX(-100%);transition:transform 0.3s ease;z-index:3;`;
+  const cS = getComputedStyle(document.documentElement).getPropertyValue('--c-sombre').trim() || '#242422';
+  barre.style.cssText=`position:absolute;left:0;top:0;bottom:0;width:${largeur}px;background:${cS};border-radius:8px 0 0 8px;display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;transform:translateX(-100%);transition:transform 0.3s ease;z-index:3;`;
 
   [
     { src:'icone-copier.png', onClick:(e)=>{
@@ -1205,27 +1209,32 @@ const THEMES = [
   {
     id: 'defaut',
     label: 'défaut',
-    couleurs: ['#31bebd', '#fce7ac', '#242422']
+    couleurs: ['#31bebd', '#fce7ac', '#242422'],
+    logo: 'images/logo-animation.gif'
   },
   {
     id: 'sombre',
     label: 'sombre',
-    couleurs: ['#1a1a2e', '#7c5cbf', '#e0d0ff']
+    couleurs: ['#1a1a2e', '#7c5cbf', '#e0d0ff'],
+    logo: 'images/logo-animation.gif'
   },
   {
     id: 'neon',
     label: 'néon',
-    couleurs: ['#0a0a0a', '#00ff88', '#ff00ff']
+    couleurs: ['#0a0a0a', '#00ff88', '#ff00ff'],
+    logo: 'images/logo-animation.gif'
   },
   {
     id: 'retro',
     label: 'rétro',
-    couleurs: ['#d4a574', '#c0392b', '#2c1810']
+    couleurs: ['#d4a574', '#c0392b', '#2c1810'],
+    logo: 'images/logo-animation.gif'
   },
   {
     id: 'aqua',
     label: 'aqua',
-    couleurs: ['#0077b6', '#caf0f8', '#03045e']
+    couleurs: ['#0077b6', '#caf0f8', '#03045e'],
+    logo: 'images/30H.png'
   },
 ];
 
@@ -1244,31 +1253,35 @@ function appliquerTheme(id) {
   if (id && id !== 'defaut') {
     document.body.classList.add('theme-' + id);
   }
+  // Mettre à jour le logo
+  const theme = THEMES.find(t => t.id === id) || THEMES[0];
+  const logo = document.getElementById('logo-fixe');
+  if (logo && theme.logo) logo.src = theme.logo;
 }
 
 function creerSecteurThemes(conteneur) {
   const themeActuel = chargerTheme();
 
   const titre = document.createElement('div');
-  titre.style.cssText = "font-family:'Intro';color:#fff;font-size:1em;margin:24px 0 12px;text-align:center;";
+  titre.style.cssText = "font-family:'Intro';color:#fff;font-size:0.9em;margin:16px 0 8px;text-align:center;";
   titre.textContent = 'Thème';
   conteneur.appendChild(titre);
 
   const grille = document.createElement('div');
-  grille.className = 'grille-themes';
+  grille.style.cssText = 'display:flex;flex-direction:row;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;width:100%;';
   conteneur.appendChild(grille);
 
   THEMES.forEach(theme => {
     const btn = document.createElement('button');
     btn.className = 'btn-theme' + (theme.id === themeActuel ? ' actif' : '');
     btn.dataset.themeId = theme.id;
+    btn.style.cssText = 'display:flex;flex-direction:row;align-items:center;gap:6px;background:var(--c-sombre);border:2px solid #fff;border-radius:20px;padding:5px 10px 5px 6px;cursor:pointer;transition:transform 0.2s ease;font-family:\'Intro\';color:#fff;font-size:0.75em;white-space:nowrap;';
 
-    // Aperçu 3 couleurs
     const apercu = document.createElement('div');
-    apercu.className = 'apercu-theme';
+    apercu.style.cssText = 'width:28px;height:18px;border-radius:5px;display:flex;overflow:hidden;flex-shrink:0;';
     theme.couleurs.forEach(c => {
       const span = document.createElement('span');
-      span.style.background = c;
+      span.style.cssText = `flex:1;display:block;background:${c};`;
       apercu.appendChild(span);
     });
 
@@ -1279,15 +1292,25 @@ function creerSecteurThemes(conteneur) {
     btn.appendChild(label);
 
     btn.addEventListener('click', () => {
-      // Retirer .actif de tous
-      grille.querySelectorAll('.btn-theme').forEach(b => b.classList.remove('actif'));
+      grille.querySelectorAll('.btn-theme').forEach(b => {
+        b.classList.remove('actif');
+        b.style.borderColor = '#fff';
+        b.style.borderWidth = '2px';
+      });
       btn.classList.add('actif');
+      btn.style.borderColor = 'var(--c-accent)';
+      btn.style.borderWidth = '3px';
       sauvegarderTheme(theme.id);
       appliquerTheme(theme.id);
-      // Petite animation de confirmation
       btn.style.transform = 'scale(0.92)';
       setTimeout(() => { btn.style.transform = ''; }, 150);
     });
+
+    // État initial du bouton actif
+    if (theme.id === themeActuel) {
+      btn.style.borderColor = 'var(--c-accent)';
+      btn.style.borderWidth = '3px';
+    }
 
     grille.appendChild(btn);
   });
@@ -1401,19 +1424,16 @@ function _peuplerParametres() {
   mettreAJourBoutonAffichage(p2.affichage || 'vignettes');
   mettreAJourBoutonTaille(p2.taille || 'petites');
 
-  // Injecter le sélecteur de thèmes
-  const zoneParams = liste.parentElement;
-  // Supprimer un secteur thème déjà injecté (si on rouvre les params)
+  // Injecter le sélecteur de thèmes juste au-dessus des boutons retour/réinitialiser
   const ancienSecteur = document.getElementById('secteur-themes');
   if (ancienSecteur) ancienSecteur.remove();
   const secteur = document.createElement('div');
   secteur.id = 'secteur-themes';
-  // Insérer après le bloc Affichage (avant les boutons du bas)
-  const btnRetour = zoneParams.querySelector('button[onclick="fermerParametres()"]');
-  if (btnRetour?.parentElement) {
-    btnRetour.parentElement.insertBefore(secteur, btnRetour.parentElement.querySelector('div[style*="gap:16px"]'));
+  const divBoutonsBas = document.querySelector('#page-parametres div[style*="gap:16px"][style*="margin-top:24px"]');
+  if (divBoutonsBas) {
+    divBoutonsBas.parentElement.insertBefore(secteur, divBoutonsBas);
   } else {
-    zoneParams.appendChild(secteur);
+    document.querySelector('#page-parametres div[style*="z-index:1"]')?.appendChild(secteur);
   }
   creerSecteurThemes(secteur);
 
