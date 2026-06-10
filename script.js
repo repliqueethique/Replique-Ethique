@@ -977,6 +977,7 @@ function genererLexique() {
       animerPop(btnCopier.querySelector('img'));
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(texte).then(() => {
+          vibrer();
           afficherToast('Copié !', '#00feff', cx, cy);
           btnCopier.classList.add('grise');
           setTimeout(() => btnCopier.classList.remove('grise'), 1500);
@@ -987,6 +988,7 @@ function genererLexique() {
         document.body.appendChild(ta); ta.focus(); ta.select();
         try {
           document.execCommand('copy');
+          vibrer();
           afficherToast('Copié !', '#00feff', cx, cy);
           btnCopier.classList.add('grise');
           setTimeout(() => btnCopier.classList.remove('grise'), 1500);
