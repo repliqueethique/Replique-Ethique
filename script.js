@@ -473,6 +473,7 @@ function naviguerVers(index, animer=true) {
   }
 
   pageActuelle = index;
+  history.pushState({ page: index }, '', location.href);
 }
 
 document.getElementById('btn-mots-cles')?.addEventListener('click', ()=>naviguerVers(1));
@@ -1602,12 +1603,18 @@ document.addEventListener('DOMContentLoaded',()=>{
       return;
     }
 
-    // Si on est déjà à l'accueil (page 2), laisser quitter
-    if (pageActuelle === 2) return;
+    // Lire la page de démarrage définie dans les paramètres
+    const p = chargerParametres();
+    const pagesDemarrage = {
+      'mots-cles': 1, 'accueil': 2, 'liste': 3, 'essentiel': 4, 'lexique': 5
+    };
+    const pageDemarrage = pagesDemarrage[p.demarrage] ?? 2;
 
-    // Sinon revenir à l'accueil
-    naviguerVers(2);
-    history.pushState(null, '', location.href);
+    // Si on est déjà sur la page de démarrage, laisser quitter
+    if (pageActuelle === pageDemarrage) return;
+
+    // Sinon revenir à la page de démarrage
+    naviguerVers(pageDemarrage);
   });
 
   // Initialiser l'historique pour que popstate se déclenche
