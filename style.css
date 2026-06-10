@@ -81,17 +81,17 @@ body.theme-retro {
 /* ── Thème AQUA ── */
 body.theme-aqua {
   --c-primaire:   #0077b6;
-  --c-sombre:     #03045e;
-  --c-accent:     #caf0f8;
-  --c-vif:        #00b4d8;
-  --c-orange:     #0096c7;
+  --c-sombre:     #001a4d;
+  --c-accent:     #ff5900;
+  --c-vif:        #00f8f2;
+  --c-orange:     #ff0900;
   --c-violet:     #023e8a;
   --c-violet-hover: #0077b6;
 
-  --fond-accueil:   linear-gradient(135deg, #0077b6, #caf0f8);
+  --fond-accueil:   linear-gradient(135deg, #0077b6, #00d9d8);
   --fond-mots-cles: linear-gradient(135deg, #03045e, #0077b6);
-  --fond-essentiel: linear-gradient(135deg, #0096c7, #caf0f8);
-  --fond-lexique:   linear-gradient(135deg, #0077b6, #023e8a);
+  --fond-essentiel: linear-gradient(135deg, #0096c7, #ff5700);
+  --fond-lexique:   linear-gradient(135deg, #0077b6, #11004e);
   --fond-favoris:   linear-gradient(135deg, #0077b6, #caf0f8);
   --fond-info:      linear-gradient(135deg, #0077b6, #03045e);
   --fond-params:    linear-gradient(135deg, #0077b6, #03045e);
