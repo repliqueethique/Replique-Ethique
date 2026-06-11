@@ -69,6 +69,15 @@ body.theme-neon {
     0 0 35px #6600ff,
     0 0 55px #2200cc,
     0 0 80px #0000ff;
+
+  --btn-background:   transparent;
+  --btn-border:       2px solid var(--c-primaire);
+  --btn-shadow:
+    0 0 4px  #00ff88,
+    0 0 10px #00ff88,
+    0 0 20px #00cc66,
+    0 0 35px #009944;
+  --btn-color:        #00ff88;
 }
 
 /* ── Thème RÉTRO ── */
@@ -706,3 +715,26 @@ body {
   transition: transform 0.2s ease;
 }
 .btn-theme:hover { transform: scale(1.07); }
+
+/* ============================================================
+   BOUTONS — surcharges par thème
+   ============================================================ */
+body.theme-neon .menu-buttons button,
+body.theme-neon .search-button,
+body.theme-neon .btn-info {
+  background:  var(--btn-background) !important;
+  border:      var(--btn-border)     !important;
+  color:       var(--btn-color)      !important;
+  box-shadow:  var(--btn-shadow)     !important;
+}
+
+body.theme-neon .menu-buttons button:active,
+body.theme-neon .search-button:active,
+body.theme-neon .btn-info:active {
+  box-shadow:
+    0 0 6px  #00ff88,
+    0 0 16px #00ff88,
+    0 0 32px #00cc66,
+    0 0 55px #009944 !important;
+  transform: scale(0.96);
+}
