@@ -1281,12 +1281,31 @@ function appliquerTheme(id) {
   const logo = document.getElementById('logo-fixe');
   if (logo && theme.logo) logo.src = theme.logo;
   // Mettre à jour les barres de partage déjà dans le DOM
-  const nouvelleCouleur = getComputedStyle(document.documentElement)
-    .getPropertyValue('--c-sombre').trim() || '#242422';
-  document.querySelectorAll(
-    '#conteneur-vignettes [style*="translateX"], .contenu-essentiel [style*="translateX"], #contenu-favoris [style*="translateX"]'
-  ).forEach(barre => {
-    barre.style.background = nouvelleCouleur;
+  // On attend que les variables CSS soient appliquées avant de lire
+  requestAnimationFrame(() => {
+    const cs = getComputedStyle(document.documentElement);
+    const nouvelleCouleur = cs.getPropertyValue('--c-barre').trim()
+      || cs.getPropertyValue('--c-sombre').trim()
+      || '#242422';
+    const hex = nouvelleCouleur.replace('#','');
+    const r = parseInt(hex.substring(0,2),16);
+    const g = parseInt(hex.substring(2,4),16);
+    const b = parseInt(hex.substring(4,6),16);
+    const lum = (r*299 + g*587 + b*114) / 1000;
+    const nouveauFiltre = lum < 128
+      ? 'brightness(0) invert(1)'
+      : 'brightness(0) invert(0.2)';
+    // Cibler toutes les barres par leur classe data ou leur structure
+    document.querySelectorAll(
+      '#conteneur-vignettes div[style*="space-evenly"], ' +
+      '.contenu-essentiel div[style*="space-evenly"], ' +
+      '#contenu-favoris div[style*="space-evenly"]'
+    ).forEach(barre => {
+      barre.style.background = nouvelleCouleur;
+      barre.querySelectorAll('img').forEach(img => {
+        img.style.filter = nouveauFiltre;
+      });
+    });
   });
 }
 
