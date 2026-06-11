@@ -276,6 +276,7 @@ body {
   justify-content: space-between;
   padding: 0 10px; box-sizing: border-box;
   position: relative; z-index: 2;
+  overflow: visible;
 }
 .titre-mots-cles, .titre-essentiel {
   position: absolute; top: 50%; left: 50%;
@@ -284,13 +285,13 @@ body {
   color: var(--c-accent); font-size: 2.5em;
   margin: 0; white-space: nowrap;
   letter-spacing: 0.05em;
+  padding: var(--titre-padding, 0 4px);
   background: var(--titre-gradient, none);
   -webkit-background-clip: var(--titre-clip, border-box);
   background-clip: var(--titre-clip, border-box);
   -webkit-text-fill-color: var(--titre-fill, inherit);
   -webkit-text-stroke: var(--titre-stroke, 0px) var(--c-accent);
   text-shadow: var(--titre-shadow, none);
-  padding: var(--titre-padding, 0);
 }
 .header-liste {
   color: var(--c-accent); padding: 0 10px;
