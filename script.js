@@ -1241,7 +1241,7 @@ const THEMES = [
     id: 'neon',
     label: 'néon',
     couleurs: ['#0a0a0a', '#00ff88', '#ff00ff'],
-    logo: 'images/logo-animation.gif'
+    logo: 'images/logo-neon.png'
   },
   {
     id: 'retro',
