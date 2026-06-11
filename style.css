@@ -20,6 +20,7 @@
   --fond-info:      linear-gradient(135deg, #31bebd, #242422);
   --fond-params:    linear-gradient(135deg, #31bebd, #242422);
   --c-barre:        #242224;
+  --c-texte:        #ffffff;
 }
 
 /* ── Thème CLAIR ── */
@@ -40,6 +41,7 @@ body.theme-clair {
   --fond-info:      linear-gradient(135deg, #d8d8d8, #bebebe);
   --fond-params:    linear-gradient(135deg, #ffffff, #e7e7e7);
   --c-barre:        #2b2b2b;
+  --c-texte:        #1a1a1a;
 }
 
 /* ── Thème SOMBRE ── */
@@ -60,6 +62,7 @@ body.theme-sombre {
   --fond-info:      linear-gradient(135deg, #4a2080, #111111);
   --fond-params:    linear-gradient(135deg, #4a2080, #111111);
   --c-barre:        #4b0089;
+  --c-texte:        #ffffff;
 }
 
 /* ── Thème NÉON ── */
@@ -80,6 +83,7 @@ body.theme-neon {
   --fond-info:      linear-gradient(135deg, #001a33, #003445);
   --fond-params:    linear-gradient(135deg, #001a33, #002d40);
   --c-barre:        #ff0099;
+  --c-texte:        #ffffff;
 
   --titre-gradient: none;
   --titre-clip:     border-box;
@@ -121,6 +125,7 @@ body.theme-retro {
   --fond-info:      linear-gradient(135deg, #8b4513, #2c1810);
   --fond-params:    linear-gradient(135deg, #8b4513, #2c1810);
   --c-barre:        #8b4513;
+  --c-texte:        #ffffff;
 }
 
 /* ── Thème AQUA ── */
@@ -141,6 +146,7 @@ body.theme-aqua {
   --fond-info:      linear-gradient(135deg, #0077b6, #03045e);
   --fond-params:    linear-gradient(135deg, #0077b6, #03045e);
   --c-barre:        #023e8a;
+  --c-texte:        #ffffff;
 
   --titre-gradient: radial-gradient(ellipse 60% 100% at center, #cc2200 0%, #ff5500 30%, #ff9900 60%, #ffdd00 82%, #fff5a0 100%);
   --titre-clip:     text;
@@ -311,6 +317,7 @@ body {
   padding: 0 10px; box-sizing: border-box;
   position: relative; z-index: 2;
   overflow: visible;
+  color: var(--c-texte);
 }
 .titre-mots-cles, .titre-essentiel {
   position: absolute; top: 50%; left: 50%;
@@ -760,4 +767,41 @@ body.theme-neon .btn-info:active {
     0 0 32px #00cc66,
     0 0 55px #009944 !important;
   transform: scale(0.96);
+}
+
+/* ============================================================
+   THÈME CLAIR — surcharges textes
+   ============================================================ */
+body.theme-clair .contenu-mots-cles .bouton-categorie,
+body.theme-clair .contenu-mots-cles .tag,
+body.theme-clair .titre-mots-cles,
+body.theme-clair .titre-essentiel,
+body.theme-clair .titre-favoris,
+body.theme-clair .titre-info,
+body.theme-clair .header-favoris,
+body.theme-clair .header-mots-cles,
+body.theme-clair .header-essentiel,
+body.theme-clair .header-liste {
+  color: var(--c-texte);
+}
+
+body.theme-clair .onglet-favoris,
+body.theme-clair .info-content {
+  color: var(--c-texte);
+}
+
+body.theme-clair #page-parametres h1,
+body.theme-clair #page-parametres div,
+body.theme-clair #page-parametres span,
+body.theme-clair #page-parametres label {
+  color: var(--c-texte) !important;
+}
+
+body.theme-clair .texte-paragraphe,
+body.theme-clair .texte-info {
+  color: var(--c-texte);
+}
+
+body.theme-clair .menu-buttons button {
+  color: var(--c-texte);
 }
