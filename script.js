@@ -65,7 +65,9 @@ function vibrer() {
 
 function couleursBarre() {
   const cs = getComputedStyle(document.documentElement);
-  const bg = cs.getPropertyValue('--c-sombre').trim() || '#242422';
+  const bg = cs.getPropertyValue('--c-barre').trim()
+    || cs.getPropertyValue('--c-sombre').trim()
+    || '#242422';
   // Calculer la luminosité du fond pour choisir icônes blanches ou sombres
   const hex = bg.replace('#','');
   const r = parseInt(hex.substring(0,2),16);
@@ -85,6 +87,7 @@ function couleursBarre() {
 function creerBarreGalerie(key, estFavori, wrapper, onFavoriChange) {
   const { bg, filtre } = couleursBarre();
   const barre = document.createElement('div');
+  barre.dataset.barre = 'true';
   if (estMobile()) {
     barre.style.cssText = `position:absolute;left:0;top:0;bottom:0;width:100%;background:${bg};border-radius:10px;display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;transform:translateX(-100%);transition:transform 0.3s ease;z-index:2;`;
   } else {
@@ -163,6 +166,7 @@ function creerBarreGalerie(key, estFavori, wrapper, onFavoriChange) {
 function creerBarreListe(key, estFavori, wrapper, largeur, onFavoriChange) {
   const { bg, filtre } = couleursBarre();
   const barre = document.createElement('div');
+  barre.dataset.barre = 'true';
   barre.style.cssText=`position:absolute;left:0;top:0;bottom:0;width:${largeur}px;background:${bg};border-radius:8px 0 0 8px;display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;transform:translateX(-100%);transition:transform 0.3s ease;z-index:3;`;
   [
     { src:'icone-copier.png', onClick:(e)=>{
@@ -236,6 +240,7 @@ function creerBarreListe(key, estFavori, wrapper, largeur, onFavoriChange) {
 function creerBarreGalerieFavoris(key, wrapper) {
   const { bg, filtre } = couleursBarre();
   const barre = document.createElement('div');
+  barre.dataset.barre = 'true';
   if (estMobile()) {
     barre.style.cssText = `position:absolute;left:0;top:0;bottom:0;width:100%;background:${bg};border-radius:10px;display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;transform:translateX(-100%);transition:transform 0.3s ease;z-index:2;`;
   } else {
@@ -311,6 +316,7 @@ function creerBarreGalerieFavoris(key, wrapper) {
 function creerBarreListeFavoris(key, wrapper, largeur) {
   const { bg, filtre } = couleursBarre();
   const barre = document.createElement('div');
+  barre.dataset.barre = 'true';
   barre.style.cssText=`position:absolute;left:0;top:0;bottom:0;width:${largeur}px;background:${bg};border-radius:8px 0 0 8px;display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;transform:translateX(-100%);transition:transform 0.3s ease;z-index:3;`;
   [
     { src:'icone-copier.png', onClick:(e)=>{
@@ -1283,24 +1289,8 @@ function appliquerTheme(id) {
   // Mettre à jour les barres de partage déjà dans le DOM
   // On attend que les variables CSS soient appliquées avant de lire
   requestAnimationFrame(() => {
-    const cs = getComputedStyle(document.documentElement);
-    const nouvelleCouleur = cs.getPropertyValue('--c-barre').trim()
-      || cs.getPropertyValue('--c-sombre').trim()
-      || '#242422';
-    const hex = nouvelleCouleur.replace('#','');
-    const r = parseInt(hex.substring(0,2),16);
-    const g = parseInt(hex.substring(2,4),16);
-    const b = parseInt(hex.substring(4,6),16);
-    const lum = (r*299 + g*587 + b*114) / 1000;
-    const nouveauFiltre = lum < 128
-      ? 'brightness(0) invert(1)'
-      : 'brightness(0) invert(0.2)';
-    // Cibler toutes les barres par leur classe data ou leur structure
-    document.querySelectorAll(
-      '#conteneur-vignettes div[style*="space-evenly"], ' +
-      '.contenu-essentiel div[style*="space-evenly"], ' +
-      '#contenu-favoris div[style*="space-evenly"]'
-    ).forEach(barre => {
+    const { bg: nouvelleCouleur, filtre: nouveauFiltre } = couleursBarre();
+    document.querySelectorAll('[data-barre="true"]').forEach(barre => {
       barre.style.background = nouvelleCouleur;
       barre.querySelectorAll('img').forEach(img => {
         img.style.filter = nouveauFiltre;
