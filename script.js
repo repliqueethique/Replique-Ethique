@@ -146,7 +146,8 @@ function creerBarreGalerie(key, estFavori, wrapper, onFavoriChange) {
     const btn=document.createElement('button');
     btn.style.cssText='background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;height:100%;';
     const imgH=estMobile()?'40%':'65%';
-    btn.innerHTML=`<img src="images/${src}" style="width:auto;height:${imgH};max-height:48px;min-height:16px;filter:${filtre};"/>`;
+    const estEtoile = src.includes('etoile');
+    btn.innerHTML=`<img src="images/${src}" style="width:auto;height:${imgH};max-height:48px;min-height:16px;${estEtoile?'':'filter:'+filtre+';'}"/>`;
     btn.addEventListener('mouseenter',()=>btn.style.transform='scale(1.2)');
     btn.addEventListener('mouseleave',()=>btn.style.transform='scale(1)');
     btn.addEventListener('click',onClick);
@@ -220,7 +221,8 @@ function creerBarreListe(key, estFavori, wrapper, largeur, onFavoriChange) {
   ].forEach(({src,onClick})=>{
     const btn=document.createElement('button');
     btn.style.cssText='background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;height:100%;';
-    btn.innerHTML=`<img src="images/${src}" style="width:auto;height:60%;max-height:30px;min-height:14px;filter:${filtre};"/>`;
+    const estEtoile = src.includes('etoile');
+    btn.innerHTML=`<img src="images/${src}" style="width:auto;height:60%;max-height:30px;min-height:14px;${estEtoile?'':'filter:'+filtre+';'}"/>`;
     btn.addEventListener('mouseenter',()=>btn.style.transform='scale(1.2)');
     btn.addEventListener('mouseleave',()=>btn.style.transform='scale(1)');
     btn.addEventListener('click',onClick);
@@ -296,7 +298,8 @@ function creerBarreGalerieFavoris(key, wrapper) {
     const btn=document.createElement('button');
     btn.style.cssText='background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;height:100%;';
     const imgH=estMobile()?'40%':'65%';
-    btn.innerHTML=`<img src="images/${src}" style="width:auto;height:${imgH};max-height:48px;min-height:16px;filter:${filtre};"/>`;
+    const estEtoile = src.includes('etoile');
+    btn.innerHTML=`<img src="images/${src}" style="width:auto;height:${imgH};max-height:48px;min-height:16px;${estEtoile?'':'filter:'+filtre+';'}"/>`;
     btn.addEventListener('mouseenter',()=>btn.style.transform='scale(1.2)');
     btn.addEventListener('mouseleave',()=>btn.style.transform='scale(1)');
     btn.addEventListener('click',onClick);
@@ -367,7 +370,8 @@ function creerBarreListeFavoris(key, wrapper, largeur) {
   ].forEach(({src,onClick})=>{
     const btn=document.createElement('button');
     btn.style.cssText='background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;height:100%;';
-    btn.innerHTML=`<img src="images/${src}" style="width:auto;height:60%;max-height:30px;min-height:14px;filter:${filtre};"/>`;
+    const estEtoile = src.includes('etoile');
+    btn.innerHTML=`<img src="images/${src}" style="width:auto;height:60%;max-height:30px;min-height:14px;${estEtoile?'':'filter:'+filtre+';'}"/>`;
     btn.addEventListener('mouseenter',()=>btn.style.transform='scale(1.2)');
     btn.addEventListener('mouseleave',()=>btn.style.transform='scale(1)');
     btn.addEventListener('click',onClick);
