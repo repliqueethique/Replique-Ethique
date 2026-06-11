@@ -1246,6 +1246,12 @@ const THEMES = [
     logo: 'images/logo-animation.gif'
   },
   {
+    id: 'clair',
+    label: 'clair',
+    couleurs: ['#ffffff', '#31bebd', '#2b2b2b'],
+    logo: 'images/logo-animation.gif'
+  },
+  {
     id: 'sombre',
     label: 'sombre',
     couleurs: ['#1a1a2e', '#7c5cbf', '#e0d0ff'],

@@ -22,6 +22,26 @@
   --c-barre:        #242422;
 }
 
+/* ── Thème CLAIR ── */
+body.theme-clair {
+  --c-primaire:     #31bebd;
+  --c-sombre:       #2b2b2b;
+  --c-accent:       #f5f5f5;
+  --c-vif:          #31bebd;
+  --c-orange:       #31bebd;
+  --c-violet:       #444444;
+  --c-violet-hover: #2b2b2b;
+
+  --fond-accueil:   linear-gradient(135deg, #ffffff, #f0f0f0);
+  --fond-mots-cles: linear-gradient(135deg, #2b2b2b, #444444);
+  --fond-essentiel: linear-gradient(135deg, #31bebd, #f0f0f0);
+  --fond-lexique:   linear-gradient(135deg, #444444, #2b2b2b);
+  --fond-favoris:   linear-gradient(135deg, #ffffff, #e8e8e8);
+  --fond-info:      linear-gradient(135deg, #31bebd, #2b2b2b);
+  --fond-params:    linear-gradient(135deg, #31bebd, #2b2b2b);
+  --c-barre:        #2b2b2b;
+}
+
 /* ── Thème SOMBRE ── */
 body.theme-sombre {
   --c-primaire:   #7c5cbf;
