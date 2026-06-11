@@ -19,6 +19,7 @@
   --fond-favoris:   linear-gradient(135deg, #31bebd, #fce7ac);
   --fond-info:      linear-gradient(135deg, #31bebd, #242422);
   --fond-params:    linear-gradient(135deg, #31bebd, #242422);
+  --c-barre:        #242422;
 }
 
 /* ── Thème SOMBRE ── */
@@ -38,6 +39,7 @@ body.theme-sombre {
   --fond-favoris:   linear-gradient(135deg, #1a1a2e, #4a2080);
   --fond-info:      linear-gradient(135deg, #4a2080, #111111);
   --fond-params:    linear-gradient(135deg, #4a2080, #111111);
+  --c-barre:        #2d1b69;
 }
 
 /* ── Thème NÉON ── */
@@ -57,6 +59,7 @@ body.theme-neon {
   --fond-favoris:   linear-gradient(135deg, #0a0a0a, #004723);
   --fond-info:      linear-gradient(135deg, #001a33, #003445);
   --fond-params:    linear-gradient(135deg, #001a33, #002d40);
+  --c-barre:        #001a0d;
 
   --titre-gradient: none;
   --titre-clip:     border-box;
@@ -97,6 +100,7 @@ body.theme-retro {
   --fond-favoris:   linear-gradient(135deg, #d4a574, #f5deb3);
   --fond-info:      linear-gradient(135deg, #8b4513, #2c1810);
   --fond-params:    linear-gradient(135deg, #8b4513, #2c1810);
+  --c-barre:        #8b4513;
 }
 
 /* ── Thème AQUA ── */
@@ -116,6 +120,7 @@ body.theme-aqua {
   --fond-favoris:   linear-gradient(135deg, #0077b6, #caf0f8);
   --fond-info:      linear-gradient(135deg, #0077b6, #03045e);
   --fond-params:    linear-gradient(135deg, #0077b6, #03045e);
+  --c-barre:        #023e8a;
 
   --titre-gradient: radial-gradient(ellipse 60% 100% at center, #cc2200 0%, #ff5500 30%, #ff9900 60%, #ffdd00 82%, #fff5a0 100%);
   --titre-clip:     text;
