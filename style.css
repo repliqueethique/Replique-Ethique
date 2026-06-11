@@ -96,13 +96,9 @@ body.theme-aqua {
   --fond-info:      linear-gradient(135deg, #0077b6, #03045e);
   --fond-params:    linear-gradient(135deg, #0077b6, #03045e);
 
-  --titre-shadow:
-    0 0 4px  #fff5c0,
-    0 0 8px  #ffe066,
-    0 0 16px #ff8800,
-    0 0 28px #ff4400,
-    0 0 45px #cc1100,
-    0 0 70px #880000;
+  --titre-gradient: radial-gradient(ellipse at center, #cc2200 0%, #ff5500 30%, #ff9900 60%, #ffdd00 82%, #fff5a0 100%);
+  --titre-clip:     text;
+  --titre-fill:     transparent;
 }
 
 /* ============================================================
@@ -276,7 +272,10 @@ body {
   color: var(--c-accent); font-size: 2.5em;
   margin: 0; white-space: nowrap;
   letter-spacing: 0.05em;
-  text-shadow: var(--titre-shadow, none);
+  background: var(--titre-gradient, none);
+  -webkit-background-clip: var(--titre-clip, border-box);
+  background-clip: var(--titre-clip, border-box);
+  -webkit-text-fill-color: var(--titre-fill, inherit);
 }
 .header-liste {
   color: var(--c-accent); padding: 0 10px;
@@ -492,6 +491,10 @@ body {
   font-family: 'SF Sports Night', sans-serif;
   color: var(--c-accent); font-size: 2.5em; margin: 0;
   letter-spacing: 0.05em;
+  background: var(--titre-gradient, none);
+  -webkit-background-clip: var(--titre-clip, border-box);
+  background-clip: var(--titre-clip, border-box);
+  -webkit-text-fill-color: var(--titre-fill, inherit);
 }
 .contenu-favoris {
   display: grid; grid-template-columns: repeat(2, 1fr);
