@@ -19,26 +19,26 @@
   --fond-favoris:   linear-gradient(135deg, #31bebd, #fce7ac);
   --fond-info:      linear-gradient(135deg, #31bebd, #242422);
   --fond-params:    linear-gradient(135deg, #31bebd, #242422);
-  --c-barre:        #242422;
+  --c-barre:        #242224;
 }
 
 /* ── Thème CLAIR ── */
 body.theme-clair {
   --c-primaire:     #31bebd;
-  --c-sombre:       #2b2b2b;
+  --c-sombre:       #c8c8c8;
   --c-accent:       #f5f5f5;
   --c-vif:          #31bebd;
-  --c-orange:       #31bebd;
-  --c-violet:       #444444;
-  --c-violet-hover: #2b2b2b;
+  --c-orange:       #ffffff;
+  --c-violet:       #dadada;
+  --c-violet-hover: #bebebe;
 
   --fond-accueil:   linear-gradient(135deg, #ffffff, #f0f0f0);
-  --fond-mots-cles: linear-gradient(135deg, #2b2b2b, #444444);
-  --fond-essentiel: linear-gradient(135deg, #31bebd, #f0f0f0);
-  --fond-lexique:   linear-gradient(135deg, #444444, #2b2b2b);
+  --fond-mots-cles: linear-gradient(135deg, #ffffff, #ffffff);
+  --fond-essentiel: linear-gradient(135deg, #d2d2d2, #dbdbdb);
+  --fond-lexique:   linear-gradient(135deg, #ffffff, #ffffff);
   --fond-favoris:   linear-gradient(135deg, #ffffff, #e8e8e8);
-  --fond-info:      linear-gradient(135deg, #31bebd, #2b2b2b);
-  --fond-params:    linear-gradient(135deg, #31bebd, #2b2b2b);
+  --fond-info:      linear-gradient(135deg, #d8d8d8, #bebebe);
+  --fond-params:    linear-gradient(135deg, #ffffff, #e7e7e7);
   --c-barre:        #2b2b2b;
 }
 
@@ -59,7 +59,7 @@ body.theme-sombre {
   --fond-favoris:   linear-gradient(135deg, #1a1a2e, #4a2080);
   --fond-info:      linear-gradient(135deg, #4a2080, #111111);
   --fond-params:    linear-gradient(135deg, #4a2080, #111111);
-  --c-barre:        #2d1b69;
+  --c-barre:        #4b0089;
 }
 
 /* ── Thème NÉON ── */
@@ -79,7 +79,7 @@ body.theme-neon {
   --fond-favoris:   linear-gradient(135deg, #0a0a0a, #004723);
   --fond-info:      linear-gradient(135deg, #001a33, #003445);
   --fond-params:    linear-gradient(135deg, #001a33, #002d40);
-  --c-barre:        #001a0d;
+  --c-barre:        #ff0099;
 
   --titre-gradient: none;
   --titre-clip:     border-box;
@@ -126,14 +126,14 @@ body.theme-retro {
 /* ── Thème AQUA ── */
 body.theme-aqua {
   --c-primaire:   #0077b6;
-  --c-sombre:     #001a4d;
+  --c-sombre:     #002265;
   --c-accent:     #fff5c0;
   --c-vif:        #00f8f2;
   --c-orange:     #ff0900;
   --c-violet:     #023e8a;
   --c-violet-hover: #0077b6;
 
-  --fond-accueil:   linear-gradient(135deg, #0077b6, #00d9d8);
+  --fond-accueil:   linear-gradient(135deg, #00d9d8, #006094);
   --fond-mots-cles: linear-gradient(135deg, #03045e, #0077b6);
   --fond-essentiel: linear-gradient(135deg, #0096c7, #ff5700);
   --fond-lexique:   linear-gradient(135deg, #0077b6, #11004e);
