@@ -57,6 +57,18 @@ body.theme-neon {
   --fond-favoris:   linear-gradient(135deg, #0a0a0a, #001a0d);
   --fond-info:      linear-gradient(135deg, #001a33, #0a0a0a);
   --fond-params:    linear-gradient(135deg, #001a33, #0a0a0a);
+
+  --titre-gradient: none;
+  --titre-clip:     border-box;
+  --titre-fill:     transparent;
+  --titre-stroke:   1.5px;
+  --titre-shadow:
+    0 0 4px  #ff44ff,
+    0 0 10px #ff00ff,
+    0 0 20px #cc00ff,
+    0 0 35px #6600ff,
+    0 0 55px #2200cc,
+    0 0 80px #0000ff;
 }
 
 /* ── Thème RÉTRO ── */
@@ -96,7 +108,7 @@ body.theme-aqua {
   --fond-info:      linear-gradient(135deg, #0077b6, #03045e);
   --fond-params:    linear-gradient(135deg, #0077b6, #03045e);
 
-  --titre-gradient: radial-gradient(ellipse at center, #cc2200 0%, #ff5500 30%, #ff9900 60%, #ffdd00 82%, #fff5a0 100%);
+  --titre-gradient: radial-gradient(ellipse 60% 100% at center, #cc2200 0%, #ff5500 30%, #ff9900 60%, #ffdd00 82%, #fff5a0 100%);
   --titre-clip:     text;
   --titre-fill:     transparent;
 }
@@ -276,6 +288,9 @@ body {
   -webkit-background-clip: var(--titre-clip, border-box);
   background-clip: var(--titre-clip, border-box);
   -webkit-text-fill-color: var(--titre-fill, inherit);
+  -webkit-text-stroke: var(--titre-stroke, 0px) var(--c-accent);
+  text-shadow: var(--titre-shadow, none);
+  padding: var(--titre-padding, 0);
 }
 .header-liste {
   color: var(--c-accent); padding: 0 10px;
@@ -495,6 +510,9 @@ body {
   -webkit-background-clip: var(--titre-clip, border-box);
   background-clip: var(--titre-clip, border-box);
   -webkit-text-fill-color: var(--titre-fill, inherit);
+  -webkit-text-stroke: var(--titre-stroke, 0px) var(--c-accent);
+  text-shadow: var(--titre-shadow, none);
+  padding: var(--titre-padding, 0);
 }
 .contenu-favoris {
   display: grid; grid-template-columns: repeat(2, 1fr);
