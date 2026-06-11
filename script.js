@@ -65,16 +65,17 @@ function vibrer() {
 
 function couleursBarre() {
   const cs = getComputedStyle(document.documentElement);
-  const bg = cs.getPropertyValue('--c-sombre').trim() || '#242422';
-  // Calculer la luminosité du fond pour choisir icônes blanches ou sombres
-  const hex = bg.replace('#','');
-  const r = parseInt(hex.substring(0,2),16);
-  const g = parseInt(hex.substring(2,4),16);
-  const b = parseInt(hex.substring(4,6),16);
-  const luminosite = (r * 299 + g * 587 + b * 114) / 1000;
-  const filtre = luminosite < 128
-    ? 'brightness(0) invert(1)'       // fond sombre → icônes blanches
-    : 'brightness(0) invert(0.2)';    // fond clair  → icônes sombres
+  const bg = cs.getPropertyValue('--c-barre').trim()
+    || cs.getPropertyValue('--c-sombre').trim()
+    || '#242422';
+  const hex = bg.replace('#', '');
+  const r = parseInt(hex.substring(0,2), 16) || 0;
+  const g = parseInt(hex.substring(2,4), 16) || 0;
+  const b = parseInt(hex.substring(4,6), 16) || 0;
+  const lum = (r*299 + g*587 + b*114) / 1000;
+  const filtre = lum < 128
+    ? 'brightness(0) invert(1)'
+    : 'brightness(0) invert(0.2)';
   return { bg, filtre };
 }
 
@@ -85,11 +86,13 @@ function couleursBarre() {
 function creerBarreGalerie(key, estFavori, wrapper, onFavoriChange) {
   const { bg, filtre } = couleursBarre();
   const barre = document.createElement('div');
+  barre.dataset.barre = 'true';
   if (estMobile()) {
     barre.style.cssText = `position:absolute;left:0;top:0;bottom:0;width:100%;background:${bg};border-radius:10px;display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;transform:translateX(-100%);transition:transform 0.3s ease;z-index:2;`;
   } else {
     barre.style.cssText = `position:absolute;bottom:0;left:0;right:0;height:50%;background:${bg};display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;border-radius:0 0 10px 10px;transition:transform 0.3s ease;transform:translateY(100%);z-index:2;`;
   }
+
   [
     { src:'icone-copier.png', onClick:(e)=>{
       e.stopPropagation();
@@ -98,17 +101,17 @@ function creerBarreGalerie(key, estFavori, wrapper, onFavoriChange) {
       animerPop(e.currentTarget.querySelector('img'));
       const url=(window.liensVideos||{})[key]||'';
       const btn=e.currentTarget;
-      if(navigator.clipboard&&navigator.clipboard.writeText){
+      if(navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(url).then(()=>{
-          btn.style.opacity='0.4'; vibrer();
-          afficherToast('Copié !','#00feff',r.left+r.width/2,r.top+r.height/2);
+          btn.style.opacity='0.4';
+          afficherToast('Copié !','#00feff', r.left+r.width/2, r.top+r.height/2);
           setTimeout(()=>btn.style.opacity='1',1500);
         }).catch(()=>afficherToast('Erreur copie','#f37321'));
       } else {
         const ta=document.createElement('textarea');
-        ta.value=url; ta.style.cssText='position:fixed;opacity:0;';
+        ta.value=url; ta.style.position='fixed'; ta.style.opacity='0';
         document.body.appendChild(ta); ta.focus(); ta.select();
-        try{ document.execCommand('copy'); vibrer(); afficherToast('Copié !','#00feff',r.left+r.width/2,r.top+r.height/2); }
+        try{ document.execCommand('copy'); afficherToast('Copié !','#00feff', r.left+r.width/2, r.top+r.height/2); }
         catch(err){ afficherToast('Erreur copie','#f37321'); }
         document.body.removeChild(ta);
       }
@@ -128,27 +131,27 @@ function creerBarreGalerie(key, estFavori, wrapper, onFavoriChange) {
       const r=e.currentTarget.getBoundingClientRect();
       declencherEclat(r.left+r.width/2,r.top+r.height/2,'#f37321');
       animerSpin(e.currentTarget.querySelector('img'));
-      vibrer();
       let favoris=JSON.parse(localStorage.getItem('favoris')||'[]');
       const estFav=favoris.includes(key);
       if(estFav){favoris=favoris.filter(f=>f!==key);}else{favoris.push(key);}
       localStorage.setItem('favoris',JSON.stringify(favoris));
       const ajout=favoris.includes(key);
       e.currentTarget.querySelector('img').src=`images/${ajout?'etoile':'etoile vide'}.png`;
-      wrapper.style.outline=ajout?`3px solid ${getComputedStyle(document.documentElement).getPropertyValue('--c-accent').trim()||'#fce7ac'}`:'none';
+      wrapper.style.outline=ajout?'3px solid #fce7ac':'none';
       wrapper.style.outlineOffset='-3px';
       if(onFavoriChange) onFavoriChange(ajout);
     }}
   ].forEach(({src,onClick})=>{
     const btn=document.createElement('button');
     btn.style.cssText='background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;height:100%;';
-    const imgH=estMobile()?'40%':'65%';
+    const imgH = estMobile() ? '40%' : '65%';
     btn.innerHTML=`<img src="images/${src}" style="width:auto;height:${imgH};max-height:48px;min-height:16px;filter:${filtre};"/>`;
     btn.addEventListener('mouseenter',()=>btn.style.transform='scale(1.2)');
     btn.addEventListener('mouseleave',()=>btn.style.transform='scale(1)');
     btn.addEventListener('click',onClick);
     barre.appendChild(btn);
   });
+
   if(!estMobile()){
     wrapper.addEventListener('mouseenter',()=>{barre.style.transform='translateY(0)';wrapper.style.transform='scale(1.05)';});
     wrapper.addEventListener('mouseleave',()=>{barre.style.transform='translateY(100%)';wrapper.style.transform='scale(1)';});
@@ -163,7 +166,9 @@ function creerBarreGalerie(key, estFavori, wrapper, onFavoriChange) {
 function creerBarreListe(key, estFavori, wrapper, largeur, onFavoriChange) {
   const { bg, filtre } = couleursBarre();
   const barre = document.createElement('div');
+  barre.dataset.barre = 'true';
   barre.style.cssText=`position:absolute;left:0;top:0;bottom:0;width:${largeur}px;background:${bg};border-radius:8px 0 0 8px;display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;transform:translateX(-100%);transition:transform 0.3s ease;z-index:3;`;
+
   [
     { src:'icone-copier.png', onClick:(e)=>{
       e.stopPropagation();
@@ -172,17 +177,17 @@ function creerBarreListe(key, estFavori, wrapper, largeur, onFavoriChange) {
       animerPop(e.currentTarget.querySelector('img'));
       const url=(window.liensVideos||{})[key]||'';
       const btn=e.currentTarget;
-      if(navigator.clipboard&&navigator.clipboard.writeText){
+      if(navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(url).then(()=>{
-          btn.style.opacity='0.4'; vibrer();
-          afficherToast('Copié !','#00feff',r.left+r.width/2,r.top+r.height/2);
+          btn.style.opacity='0.4';
+          afficherToast('Copié !','#00feff', r.left+r.width/2, r.top+r.height/2);
           setTimeout(()=>btn.style.opacity='1',1500);
         }).catch(()=>afficherToast('Erreur copie','#f37321'));
       } else {
         const ta=document.createElement('textarea');
-        ta.value=url; ta.style.cssText='position:fixed;opacity:0;';
+        ta.value=url; ta.style.position='fixed'; ta.style.opacity='0';
         document.body.appendChild(ta); ta.focus(); ta.select();
-        try{ document.execCommand('copy'); vibrer(); afficherToast('Copié !','#00feff',r.left+r.width/2,r.top+r.height/2); }
+        try{ document.execCommand('copy'); afficherToast('Copié !','#00feff', r.left+r.width/2, r.top+r.height/2); }
         catch(err){ afficherToast('Erreur copie','#f37321'); }
         document.body.removeChild(ta);
       }
@@ -202,14 +207,13 @@ function creerBarreListe(key, estFavori, wrapper, largeur, onFavoriChange) {
       const r=e.currentTarget.getBoundingClientRect();
       declencherEclat(r.left+r.width/2,r.top+r.height/2,'#f37321');
       animerSpin(e.currentTarget.querySelector('img'));
-      vibrer();
       let favoris=JSON.parse(localStorage.getItem('favoris')||'[]');
       const estFav=favoris.includes(key);
       if(estFav){favoris=favoris.filter(f=>f!==key);}else{favoris.push(key);}
       localStorage.setItem('favoris',JSON.stringify(favoris));
       const ajout=favoris.includes(key);
       e.currentTarget.querySelector('img').src=`images/${ajout?'etoile':'etoile vide'}.png`;
-      wrapper.style.outline=ajout?`3px solid ${getComputedStyle(document.documentElement).getPropertyValue('--c-accent').trim()||'#fce7ac'}`:'none';
+      wrapper.style.outline=ajout?'3px solid #fce7ac':'none';
       wrapper.style.outlineOffset='-3px';
       if(onFavoriChange) onFavoriChange(ajout);
     }}
@@ -222,6 +226,7 @@ function creerBarreListe(key, estFavori, wrapper, largeur, onFavoriChange) {
     btn.addEventListener('click',onClick);
     barre.appendChild(btn);
   });
+
   if(!estMobile()){
     wrapper.addEventListener('mouseenter',()=>{barre.style.transform='translateX(0)';wrapper.style.transform='scale(1.05)';});
     wrapper.addEventListener('mouseleave',()=>{barre.style.transform='translateX(-100%)';wrapper.style.transform='scale(1)';});
@@ -236,11 +241,13 @@ function creerBarreListe(key, estFavori, wrapper, largeur, onFavoriChange) {
 function creerBarreGalerieFavoris(key, wrapper) {
   const { bg, filtre } = couleursBarre();
   const barre = document.createElement('div');
+  barre.dataset.barre = 'true';
   if (estMobile()) {
     barre.style.cssText = `position:absolute;left:0;top:0;bottom:0;width:100%;background:${bg};border-radius:10px;display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;transform:translateX(-100%);transition:transform 0.3s ease;z-index:2;`;
   } else {
     barre.style.cssText = `position:absolute;bottom:0;left:0;right:0;height:50%;background:${bg};display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;border-radius:0 0 10px 10px;transition:transform 0.3s ease;transform:translateY(100%);z-index:2;`;
   }
+
   [
     { src:'icone-copier.png', onClick:(e)=>{
       e.stopPropagation();
@@ -249,17 +256,17 @@ function creerBarreGalerieFavoris(key, wrapper) {
       animerPop(e.currentTarget.querySelector('img'));
       const url=(window.liensVideos||{})[key]||'';
       const btn=e.currentTarget;
-      if(navigator.clipboard&&navigator.clipboard.writeText){
+      if(navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(url).then(()=>{
-          btn.style.opacity='0.4'; vibrer();
-          afficherToast('Copié !','#00feff',r.left+r.width/2,r.top+r.height/2);
+          btn.style.opacity='0.4';
+          afficherToast('Copié !','#00feff', r.left+r.width/2, r.top+r.height/2);
           setTimeout(()=>btn.style.opacity='1',1500);
         }).catch(()=>afficherToast('Erreur copie','#f37321'));
       } else {
         const ta=document.createElement('textarea');
-        ta.value=url; ta.style.cssText='position:fixed;opacity:0;';
+        ta.value=url; ta.style.position='fixed'; ta.style.opacity='0';
         document.body.appendChild(ta); ta.focus(); ta.select();
-        try{ document.execCommand('copy'); vibrer(); afficherToast('Copié !','#00feff',r.left+r.width/2,r.top+r.height/2); }
+        try{ document.execCommand('copy'); afficherToast('Copié !','#00feff', r.left+r.width/2, r.top+r.height/2); }
         catch(err){ afficherToast('Erreur copie','#f37321'); }
         document.body.removeChild(ta);
       }
@@ -279,7 +286,6 @@ function creerBarreGalerieFavoris(key, wrapper) {
       const r=e.currentTarget.getBoundingClientRect();
       declencherEclat(r.left+r.width/2,r.top+r.height/2,'#f37321');
       animerSpin(e.currentTarget.querySelector('img'));
-      vibrer();
       let favoris=JSON.parse(localStorage.getItem('favoris')||'[]');
       favoris=favoris.filter(f=>f!==key);
       localStorage.setItem('favoris',JSON.stringify(favoris));
@@ -290,13 +296,14 @@ function creerBarreGalerieFavoris(key, wrapper) {
   ].forEach(({src,onClick})=>{
     const btn=document.createElement('button');
     btn.style.cssText='background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;height:100%;';
-    const imgH=estMobile()?'40%':'65%';
+    const imgH = estMobile() ? '40%' : '65%';
     btn.innerHTML=`<img src="images/${src}" style="width:auto;height:${imgH};max-height:48px;min-height:16px;filter:${filtre};"/>`;
     btn.addEventListener('mouseenter',()=>btn.style.transform='scale(1.2)');
     btn.addEventListener('mouseleave',()=>btn.style.transform='scale(1)');
     btn.addEventListener('click',onClick);
     barre.appendChild(btn);
   });
+
   if(!estMobile()){
     wrapper.addEventListener('mouseenter',()=>{barre.style.transform='translateY(0)';wrapper.style.transform='scale(1.05)';});
     wrapper.addEventListener('mouseleave',()=>{barre.style.transform='translateY(100%)';wrapper.style.transform='scale(1)';});
@@ -311,7 +318,9 @@ function creerBarreGalerieFavoris(key, wrapper) {
 function creerBarreListeFavoris(key, wrapper, largeur) {
   const { bg, filtre } = couleursBarre();
   const barre = document.createElement('div');
+  barre.dataset.barre = 'true';
   barre.style.cssText=`position:absolute;left:0;top:0;bottom:0;width:${largeur}px;background:${bg};border-radius:8px 0 0 8px;display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;transform:translateX(-100%);transition:transform 0.3s ease;z-index:3;`;
+
   [
     { src:'icone-copier.png', onClick:(e)=>{
       e.stopPropagation();
@@ -320,17 +329,17 @@ function creerBarreListeFavoris(key, wrapper, largeur) {
       animerPop(e.currentTarget.querySelector('img'));
       const url=(window.liensVideos||{})[key]||'';
       const btn=e.currentTarget;
-      if(navigator.clipboard&&navigator.clipboard.writeText){
+      if(navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(url).then(()=>{
-          btn.style.opacity='0.4'; vibrer();
-          afficherToast('Copié !','#00feff',r.left+r.width/2,r.top+r.height/2);
+          btn.style.opacity='0.4';
+          afficherToast('Copié !','#00feff', r.left+r.width/2, r.top+r.height/2);
           setTimeout(()=>btn.style.opacity='1',1500);
         }).catch(()=>afficherToast('Erreur copie','#f37321'));
       } else {
         const ta=document.createElement('textarea');
-        ta.value=url; ta.style.cssText='position:fixed;opacity:0;';
+        ta.value=url; ta.style.position='fixed'; ta.style.opacity='0';
         document.body.appendChild(ta); ta.focus(); ta.select();
-        try{ document.execCommand('copy'); vibrer(); afficherToast('Copié !','#00feff',r.left+r.width/2,r.top+r.height/2); }
+        try{ document.execCommand('copy'); afficherToast('Copié !','#00feff', r.left+r.width/2, r.top+r.height/2); }
         catch(err){ afficherToast('Erreur copie','#f37321'); }
         document.body.removeChild(ta);
       }
@@ -350,7 +359,6 @@ function creerBarreListeFavoris(key, wrapper, largeur) {
       const r=e.currentTarget.getBoundingClientRect();
       declencherEclat(r.left+r.width/2,r.top+r.height/2,'#f37321');
       animerSpin(e.currentTarget.querySelector('img'));
-      vibrer();
       let favoris=JSON.parse(localStorage.getItem('favoris')||'[]');
       favoris=favoris.filter(f=>f!==key);
       localStorage.setItem('favoris',JSON.stringify(favoris));
@@ -367,6 +375,7 @@ function creerBarreListeFavoris(key, wrapper, largeur) {
     btn.addEventListener('click',onClick);
     barre.appendChild(btn);
   });
+
   if(!estMobile()){
     wrapper.addEventListener('mouseenter',()=>{barre.style.transform='translateX(0)';wrapper.style.transform='scale(1.05)';});
     wrapper.addEventListener('mouseleave',()=>{barre.style.transform='translateX(-100%)';wrapper.style.transform='scale(1)';});
@@ -480,7 +489,6 @@ function naviguerVers(index, animer=true) {
   }
 
   pageActuelle = index;
-  history.pushState({ page: index }, '', location.href);
 }
 
 document.getElementById('btn-mots-cles')?.addEventListener('click', ()=>naviguerVers(1));
@@ -657,15 +665,13 @@ document.addEventListener('touchmove', (e) => {
       lastFavMoveY = currentY;
     }
     const favDy = favDragStartY - currentY;
-    const safeTop = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sat') || '0') || 0;
-    const hauteurFav = screenH - safeTop;
     if (favDirection === 'open') {
-      if (favDy > hauteurFav * 0.33) favPassedThreshold = true;
-      favPanel.style.bottom = favDy <= 0 ? '-110%' : `${Math.min(0, -(hauteurFav - favDy))}px`;
+      if (favDy > screenH * 0.33) favPassedThreshold = true;
+      favPanel.style.bottom = favDy <= 0 ? '-110%' : `${Math.min(0, -(screenH - favDy))}px`;
     }
     if (favDirection === 'close') {
       const favDy2 = currentY - favDragStartY;
-      if (favDy2 > hauteurFav * 0.33) favPassedThreshold = true;
+      if (favDy2 > screenH * 0.33) favPassedThreshold = true;
       favPanel.style.bottom = favDy <= 0 ? '0' : `${Math.min(0, favDy)}px`;
     }
     return;
@@ -685,8 +691,8 @@ document.addEventListener('touchmove', (e) => {
       const bar = vWrapper.querySelector('[style*="translateX"]');
       if (bar) {
         bar.style.transition = 'none';
-        const bw = bar.getBoundingClientRect().width;
-        const pct = Math.min(0, -100 + (dx / bw) * 100);
+        const ww = vWrapper.getBoundingClientRect().width;
+        const pct = Math.min(0, -100 + (dx / ww) * 100);
         bar.style.transform = `translateX(${pct}%)`;
       }
     } else if (!document.getElementById('panneau-resultats') || document.getElementById('panneau-resultats').style.display !== 'flex') {
@@ -819,7 +825,7 @@ window.addEventListener('DOMContentLoaded', () => {
   naviguerVers(idx, false);
 
   if (demarrage !== 'accueil') {
-    logoFixe.src = (THEMES.find(t => t.id === chargerTheme()) || THEMES[0]).logo;
+    logoFixe.src = 'images/logo-fixe.png';
     loupeButton?.classList.remove('transition-ready');
     menuBtns.forEach(b => b.classList.remove('transition-ready'));
     footerIcons.forEach(ic => ic.querySelector('img')?.classList.remove('transition-ready'));
@@ -833,7 +839,7 @@ window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => { siteLink?.classList.remove('transition-ready'); siteLink?.classList.add('fade-in-up'); }, 1300);
     setTimeout(() => { footerIcons.forEach((ic,i) => { const img=ic.querySelector('img'); if(img) setTimeout(() => { img.classList.remove('transition-ready'); img.classList.add('pop-smooth'); }, i*80); }); }, 1600);
     setTimeout(() => { const bp=document.getElementById('btn-parametres'); if(bp){ const img=bp.querySelector('img'); if(img){ img.classList.remove('transition-ready'); img.classList.add('pop-smooth'); } } }, 1600);
-    setTimeout(() => { logoFixe.src = (THEMES.find(t => t.id === chargerTheme()) || THEMES[0]).logo; }, 3640);
+    setTimeout(() => { logoFixe.src = 'images/logo-fixe.png'; }, 3640);
   }
 });
 
@@ -953,78 +959,74 @@ document.querySelectorAll('.bouton-mot').forEach(b=>{
   b.addEventListener('click',()=>{ b.nextElementSibling?.classList.toggle('show'); b.classList.toggle('active'); });
 });
 
-function genererLexique() {
-  const conteneur = document.getElementById('conteneurLexique');
-  if (!conteneur || !window.lexiqueData) return;
-  conteneur.innerHTML = '';
+function genererLexique(){
 
-  window.lexiqueData.forEach(entree => {
-    const bloc = document.createElement('div');
-    bloc.className = 'mot-lexique';
+    const conteneur =
+        document.getElementById(
+            "conteneurLexique"
+        );
 
-    // Bouton titre
-    const bouton = document.createElement('button');
-    bouton.className = 'bouton-mot';
+    if(
+        !conteneur ||
+        !window.lexiqueData
+    ) return;
 
-    const labelMot = document.createElement('span');
-    labelMot.textContent = entree.mot;
+    conteneur.innerHTML = "";
 
-    // Bouton copier
-    const btnCopier = document.createElement('button');
-    btnCopier.className = 'btn-copier-mot';
-    btnCopier.setAttribute('aria-label', 'Copier la définition');
-    btnCopier.innerHTML = '<img src="images/icone-copier.png" alt="Copier" />';
+    window.lexiqueData.forEach(entree => {
 
-    btnCopier.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const r = btnCopier.getBoundingClientRect();
-      const cx = r.left + r.width / 2;
-      const cy = r.top + r.height / 2;
-      const texte = `${entree.mot} : ${entree.definition.replace(/<[^>]*>/g, '')}`;
-      declencherEclat(cx, cy, '#31bebd');
-      animerPop(btnCopier.querySelector('img'));
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(texte).then(() => {
-          vibrer();
-          afficherToast('Copié !', '#00feff', cx, cy);
-          btnCopier.classList.add('grise');
-          setTimeout(() => btnCopier.classList.remove('grise'), 1500);
-        }).catch(() => afficherToast('Erreur', '#f37321'));
-      } else {
-        const ta = document.createElement('textarea');
-        ta.value = texte; ta.style.cssText = 'position:fixed;opacity:0;';
-        document.body.appendChild(ta); ta.focus(); ta.select();
-        try {
-          document.execCommand('copy');
-          vibrer();
-          afficherToast('Copié !', '#00feff', cx, cy);
-          btnCopier.classList.add('grise');
-          setTimeout(() => btnCopier.classList.remove('grise'), 1500);
-        } catch(err) { afficherToast('Erreur', '#f37321'); }
-        document.body.removeChild(ta);
-      }
+        const bloc =
+            document.createElement("div");
+
+        bloc.className =
+            "mot-lexique";
+
+        bloc.innerHTML = `
+
+            <button
+                class="bouton-mot">
+
+                ${entree.mot}
+
+            </button>
+
+            <div
+                class="definition">
+
+                ${entree.definition}
+
+            </div>
+
+        `;
+
+        conteneur.appendChild(bloc);
+
     });
 
-    bouton.appendChild(labelMot);
-    bouton.appendChild(btnCopier);
+    conteneur
+        .querySelectorAll(
+            ".bouton-mot"
+        )
+        .forEach(bouton => {
 
-    // Définition
-    const definition = document.createElement('div');
-    definition.className = 'definition';
-    definition.innerHTML = entree.definition;
+            bouton.addEventListener(
+                "click",
+                () => {
 
-    // Toggle au clic sur le bouton (pas sur l'icône copier)
-    bouton.addEventListener('click', (e) => {
-      if (e.target.closest('.btn-copier-mot')) return;
-      const ouvert = definition.classList.toggle('show');
-      bouton.classList.toggle('active', ouvert);
-      btnCopier.classList.toggle('visible', ouvert);
-    });
+                    bouton
+                    .nextElementSibling
+                    ?.classList
+                    .toggle("show");
 
-    bloc.appendChild(bouton);
-    bloc.appendChild(definition);
-    conteneur.appendChild(bloc);
-  });
+                    bouton
+                    .classList
+                    .toggle("active");
+
+                }
+            );
+
+        });
+
 }
 
 genererLexique();
@@ -1185,7 +1187,6 @@ function ouvrirPageVideo(numero, onRetour) {
     animerPop(this.querySelector('img'));
     navigator.clipboard.writeText(url).then(()=>{
       this.style.opacity='0.4';
-      vibrer();
       afficherToast('Copié !','#00feff', r.left+r.width/2, r.top+r.height/2);
       setTimeout(()=>this.style.opacity='1', 1500);
     });
@@ -1232,32 +1233,27 @@ const THEMES = [
   {
     id: 'defaut',
     label: 'défaut',
-    couleurs: ['#31bebd', '#fce7ac', '#242422'],
-    logo: 'images/logo-animation.gif'
+    couleurs: ['#31bebd', '#fce7ac', '#242422']
   },
   {
     id: 'sombre',
     label: 'sombre',
-    couleurs: ['#1a1a2e', '#7c5cbf', '#e0d0ff'],
-    logo: 'images/logo-animation.gif'
+    couleurs: ['#1a1a2e', '#7c5cbf', '#e0d0ff']
   },
   {
     id: 'neon',
     label: 'néon',
-    couleurs: ['#0a0a0a', '#00ff88', '#ff00ff'],
-    logo: 'images/logo-neon.png'
+    couleurs: ['#0a0a0a', '#00ff88', '#ff00ff']
   },
   {
     id: 'retro',
     label: 'rétro',
-    couleurs: ['#d4a574', '#c0392b', '#2c1810'],
-    logo: 'images/logo-animation.gif'
+    couleurs: ['#d4a574', '#c0392b', '#2c1810']
   },
   {
     id: 'aqua',
     label: 'aqua',
-    couleurs: ['#0077b6', '#caf0f8', '#03045e'],
-    logo: 'images/30H.png'
+    couleurs: ['#0077b6', '#caf0f8', '#03045e']
   },
 ];
 
@@ -1270,9 +1266,7 @@ function sauvegarderTheme(id) {
 }
 
 function appliquerTheme(id) {
-  // Retirer toutes les classes de thème existantes
   THEMES.forEach(t => document.body.classList.remove('theme-' + t.id));
-  // Appliquer la nouvelle (sauf "defaut" qui est le :root)
   if (id && id !== 'defaut') {
     document.body.classList.add('theme-' + id);
   }
@@ -1280,30 +1274,13 @@ function appliquerTheme(id) {
   const theme = THEMES.find(t => t.id === id) || THEMES[0];
   const logo = document.getElementById('logo-fixe');
   if (logo && theme.logo) logo.src = theme.logo;
-  // Mettre à jour les barres de partage déjà dans le DOM
-  // On attend que les variables CSS soient appliquées avant de lire
+  // Mettre à jour les barres déjà dans le DOM (après que les variables CSS soient appliquées)
   requestAnimationFrame(() => {
-    const cs = getComputedStyle(document.documentElement);
-    const nouvelleCouleur = cs.getPropertyValue('--c-barre').trim()
-      || cs.getPropertyValue('--c-sombre').trim()
-      || '#242422';
-    const hex = nouvelleCouleur.replace('#','');
-    const r = parseInt(hex.substring(0,2),16);
-    const g = parseInt(hex.substring(2,4),16);
-    const b = parseInt(hex.substring(4,6),16);
-    const lum = (r*299 + g*587 + b*114) / 1000;
-    const nouveauFiltre = lum < 128
-      ? 'brightness(0) invert(1)'
-      : 'brightness(0) invert(0.2)';
-    // Cibler toutes les barres par leur classe data ou leur structure
-    document.querySelectorAll(
-      '#conteneur-vignettes div[style*="space-evenly"], ' +
-      '.contenu-essentiel div[style*="space-evenly"], ' +
-      '#contenu-favoris div[style*="space-evenly"]'
-    ).forEach(barre => {
-      barre.style.background = nouvelleCouleur;
+    const { bg, filtre } = couleursBarre();
+    document.querySelectorAll('[data-barre="true"]').forEach(barre => {
+      barre.style.background = bg;
       barre.querySelectorAll('img').forEach(img => {
-        img.style.filter = nouveauFiltre;
+        img.style.filter = filtre;
       });
     });
   });
@@ -1313,25 +1290,25 @@ function creerSecteurThemes(conteneur) {
   const themeActuel = chargerTheme();
 
   const titre = document.createElement('div');
-  titre.style.cssText = "font-family:'Intro';color:#fff;font-size:0.9em;margin:16px 0 8px;text-align:center;";
+  titre.style.cssText = "font-family:'Intro';color:#fff;font-size:1em;margin:24px 0 12px;text-align:center;";
   titre.textContent = 'Thème';
   conteneur.appendChild(titre);
 
   const grille = document.createElement('div');
-  grille.style.cssText = 'display:flex;flex-direction:row;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;width:100%;';
+  grille.className = 'grille-themes';
   conteneur.appendChild(grille);
 
   THEMES.forEach(theme => {
     const btn = document.createElement('button');
     btn.className = 'btn-theme' + (theme.id === themeActuel ? ' actif' : '');
     btn.dataset.themeId = theme.id;
-    btn.style.cssText = 'display:flex;flex-direction:row;align-items:center;gap:6px;background:var(--c-sombre);border:2px solid #fff;border-radius:20px;padding:5px 10px 5px 6px;cursor:pointer;transition:transform 0.2s ease;font-family:\'Intro\';color:#fff;font-size:0.75em;white-space:nowrap;';
 
+    // Aperçu 3 couleurs
     const apercu = document.createElement('div');
-    apercu.style.cssText = 'width:28px;height:18px;border-radius:5px;display:flex;overflow:hidden;flex-shrink:0;';
+    apercu.className = 'apercu-theme';
     theme.couleurs.forEach(c => {
       const span = document.createElement('span');
-      span.style.cssText = `flex:1;display:block;background:${c};`;
+      span.style.background = c;
       apercu.appendChild(span);
     });
 
@@ -1342,25 +1319,15 @@ function creerSecteurThemes(conteneur) {
     btn.appendChild(label);
 
     btn.addEventListener('click', () => {
-      grille.querySelectorAll('.btn-theme').forEach(b => {
-        b.classList.remove('actif');
-        b.style.borderColor = '#fff';
-        b.style.borderWidth = '2px';
-      });
+      // Retirer .actif de tous
+      grille.querySelectorAll('.btn-theme').forEach(b => b.classList.remove('actif'));
       btn.classList.add('actif');
-      btn.style.borderColor = 'var(--c-accent)';
-      btn.style.borderWidth = '3px';
       sauvegarderTheme(theme.id);
       appliquerTheme(theme.id);
+      // Petite animation de confirmation
       btn.style.transform = 'scale(0.92)';
       setTimeout(() => { btn.style.transform = ''; }, 150);
     });
-
-    // État initial du bouton actif
-    if (theme.id === themeActuel) {
-      btn.style.borderColor = 'var(--c-accent)';
-      btn.style.borderWidth = '3px';
-    }
 
     grille.appendChild(btn);
   });
@@ -1474,26 +1441,24 @@ function _peuplerParametres() {
   mettreAJourBoutonAffichage(p2.affichage || 'vignettes');
   mettreAJourBoutonTaille(p2.taille || 'petites');
 
-  // Injecter le sélecteur de thèmes juste au-dessus des boutons retour/réinitialiser
+  // Injecter le sélecteur de thèmes
+  const zoneParams = liste.parentElement;
+  // Supprimer un secteur thème déjà injecté (si on rouvre les params)
   const ancienSecteur = document.getElementById('secteur-themes');
   if (ancienSecteur) ancienSecteur.remove();
   const secteur = document.createElement('div');
   secteur.id = 'secteur-themes';
-  const divBoutonsBas = document.querySelector('#page-parametres div[style*="gap:16px"][style*="margin-top:24px"]');
-  if (divBoutonsBas) {
-    divBoutonsBas.parentElement.insertBefore(secteur, divBoutonsBas);
+  // Insérer après le bloc Affichage (avant les boutons du bas)
+  const btnRetour = zoneParams.querySelector('button[onclick="fermerParametres()"]');
+  if (btnRetour?.parentElement) {
+    btnRetour.parentElement.insertBefore(secteur, btnRetour.parentElement.querySelector('div[style*="gap:16px"]'));
   } else {
-    document.querySelector('#page-parametres div[style*="z-index:1"]')?.appendChild(secteur);
+    zoneParams.appendChild(secteur);
   }
   creerSecteurThemes(secteur);
 
   if (estMobile()) {
-    const blocNotif = document.getElementById('bloc-notification');
-    blocNotif.style.display = 'flex';
-    // Déplacer le bloc notification juste avant les boutons retour/réinitialiser
-    if (divBoutonsBas) {
-      divBoutonsBas.parentElement.insertBefore(blocNotif, divBoutonsBas);
-    }
+    document.getElementById('bloc-notification').style.display = 'flex';
     const cn = document.getElementById('check-notif');
     cn.checked = p2.notif || false;
     cn.addEventListener('change', (e) => {
@@ -1596,55 +1561,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   appliquerTheme(chargerTheme());
   const bp=document.getElementById('btn-parametres');
   if(bp) bp.addEventListener('click',(e)=>{e.preventDefault();ouvrirParametres();});
-
-  // Bouton retour Android : revenir à l'accueil, quitter seulement si déjà à l'accueil
-  window.addEventListener('popstate', () => {
-    const paramsPanel = document.getElementById('page-parametres');
-    const favPanel    = document.getElementById('favoris-panel');
-    const infoPanel   = document.getElementById('info-panel');
-    const videoPanel  = document.getElementById('page-video');
-
-    // Fermer d'abord les panneaux ouverts, dans l'ordre de priorité
-    if (videoPanel) {
-      videoPanel.remove();
-      history.pushState(null, '', location.href);
-      return;
-    }
-    if (estMobile() ? paramsPanel?.classList.contains('visible') : paramsPanel?.style.display === 'flex') {
-      fermerParametres();
-      history.pushState(null, '', location.href);
-      return;
-    }
-    if (favPanel?.classList.contains('visible')) {
-      favPanel.style.transition = 'bottom 0.4s ease';
-      favPanel.style.bottom = '-110%';
-      favPanel.classList.remove('visible');
-      history.pushState(null, '', location.href);
-      return;
-    }
-    if (infoPanel?.classList.contains('visible')) {
-      infoPanel.style.transform = 'translateY(-110%)';
-      infoPanel.classList.remove('visible');
-      history.pushState(null, '', location.href);
-      return;
-    }
-
-    // Lire la page de démarrage définie dans les paramètres
-    const p = chargerParametres();
-    const pagesDemarrage = {
-      'mots-cles': 1, 'accueil': 2, 'liste': 3, 'essentiel': 4, 'lexique': 5
-    };
-    const pageDemarrage = pagesDemarrage[p.demarrage] ?? 2;
-
-    // Si on est déjà sur la page de démarrage, laisser quitter
-    if (pageActuelle === pageDemarrage) return;
-
-    // Sinon revenir à la page de démarrage
-    naviguerVers(pageDemarrage);
-  });
-
-  // Initialiser l'historique pour que popstate se déclenche
-  history.pushState(null, '', location.href);
 });
 
 // ============================================================
