@@ -50,13 +50,13 @@ body.theme-neon {
   --c-violet:     #cc00ff;
   --c-violet-hover: #ff33ff;
 
-  --fond-accueil:   linear-gradient(135deg, #0a0a0a, #001a0d);
-  --fond-mots-cles: linear-gradient(135deg, #0a0a0a, #001a33);
-  --fond-essentiel: linear-gradient(135deg, #1a0033, #0a0a0a);
-  --fond-lexique:   linear-gradient(135deg, #001a33, #1a0033);
-  --fond-favoris:   linear-gradient(135deg, #0a0a0a, #001a0d);
-  --fond-info:      linear-gradient(135deg, #001a33, #0a0a0a);
-  --fond-params:    linear-gradient(135deg, #001a33, #0a0a0a);
+  --fond-accueil:   linear-gradient(135deg, #0a0a0a, #00673e);
+  --fond-mots-cles: linear-gradient(135deg, #0a0a0a, #00396e);
+  --fond-essentiel: linear-gradient(135deg, #1a0033, #782c00);
+  --fond-lexique:   linear-gradient(135deg, #001a33, #3e0077);
+  --fond-favoris:   linear-gradient(135deg, #0a0a0a, #004723);
+  --fond-info:      linear-gradient(135deg, #001a33, #003445);
+  --fond-params:    linear-gradient(135deg, #001a33, #002d40);
 
   --titre-gradient: none;
   --titre-clip:     border-box;
