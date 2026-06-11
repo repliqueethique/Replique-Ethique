@@ -128,6 +128,7 @@ function creerBarreGalerie(key, estFavori, wrapper, onFavoriChange) {
       const r=e.currentTarget.getBoundingClientRect();
       declencherEclat(r.left+r.width/2,r.top+r.height/2,'#f37321');
       animerSpin(e.currentTarget.querySelector('img'));
+      vibrer();
       let favoris=JSON.parse(localStorage.getItem('favoris')||'[]');
       const estFav=favoris.includes(key);
       if(estFav){favoris=favoris.filter(f=>f!==key);}else{favoris.push(key);}
@@ -201,6 +202,7 @@ function creerBarreListe(key, estFavori, wrapper, largeur, onFavoriChange) {
       const r=e.currentTarget.getBoundingClientRect();
       declencherEclat(r.left+r.width/2,r.top+r.height/2,'#f37321');
       animerSpin(e.currentTarget.querySelector('img'));
+      vibrer();
       let favoris=JSON.parse(localStorage.getItem('favoris')||'[]');
       const estFav=favoris.includes(key);
       if(estFav){favoris=favoris.filter(f=>f!==key);}else{favoris.push(key);}
@@ -277,6 +279,7 @@ function creerBarreGalerieFavoris(key, wrapper) {
       const r=e.currentTarget.getBoundingClientRect();
       declencherEclat(r.left+r.width/2,r.top+r.height/2,'#f37321');
       animerSpin(e.currentTarget.querySelector('img'));
+      vibrer();
       let favoris=JSON.parse(localStorage.getItem('favoris')||'[]');
       favoris=favoris.filter(f=>f!==key);
       localStorage.setItem('favoris',JSON.stringify(favoris));
@@ -347,6 +350,7 @@ function creerBarreListeFavoris(key, wrapper, largeur) {
       const r=e.currentTarget.getBoundingClientRect();
       declencherEclat(r.left+r.width/2,r.top+r.height/2,'#f37321');
       animerSpin(e.currentTarget.querySelector('img'));
+      vibrer();
       let favoris=JSON.parse(localStorage.getItem('favoris')||'[]');
       favoris=favoris.filter(f=>f!==key);
       localStorage.setItem('favoris',JSON.stringify(favoris));
