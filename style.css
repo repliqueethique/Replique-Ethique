@@ -745,7 +745,6 @@ body {
    BOUTONS — surcharges par thème
    ============================================================ */
 body.theme-neon .menu-buttons button,
-body.theme-neon .search-button,
 body.theme-neon .btn-info {
   background:  var(--btn-background) !important;
   border:      var(--btn-border)     !important;
@@ -754,7 +753,6 @@ body.theme-neon .btn-info {
 }
 
 body.theme-neon .menu-buttons button:active,
-body.theme-neon .search-button:active,
 body.theme-neon .btn-info:active {
   box-shadow:
     0 0 6px  #00ff88,
