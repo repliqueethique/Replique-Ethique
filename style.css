@@ -67,7 +67,7 @@ body.theme-sombre {
 
 /* ── Thème NÉON ── */
 body.theme-neon {
-  --c-primaire:   #00ff88;
+  --c-primaire:   #00ffff;
   --c-sombre:     #0a0a0a;
   --c-accent:     #ff00ff;
   --c-vif:        #00ffff;
@@ -75,13 +75,13 @@ body.theme-neon {
   --c-violet:     #cc00ff;
   --c-violet-hover: #ff33ff;
 
-  --fond-accueil:   linear-gradient(135deg, #0a0a0a, #00673e);
-  --fond-mots-cles: linear-gradient(135deg, #0a0a0a, #00396e);
-  --fond-essentiel: linear-gradient(135deg, #1a0033, #782c00);
-  --fond-lexique:   linear-gradient(135deg, #001a33, #3e0077);
-  --fond-favoris:   linear-gradient(135deg, #0a0a0a, #004723);
-  --fond-info:      linear-gradient(135deg, #001a33, #003445);
-  --fond-params:    linear-gradient(135deg, #001a33, #002d40);
+  --fond-accueil:   linear-gradient(135deg, #0a0a0a, #00c4c1);
+  --fond-mots-cles: linear-gradient(135deg, #0a0a0a, #006dd3);
+  --fond-essentiel: linear-gradient(135deg, #1a0033, #b53900);
+  --fond-lexique:   linear-gradient(135deg, #001a33, #5300a1);
+  --fond-favoris:   linear-gradient(135deg, #0a0a0a, #00984c);
+  --fond-info:      linear-gradient(135deg, #001a33, #006c91);
+  --fond-params:    linear-gradient(135deg, #001a33, #006996);
   --c-barre:        #ff0099;
   --c-texte:        #ffffff;
 
@@ -100,11 +100,11 @@ body.theme-neon {
   --btn-background:   transparent;
   --btn-border:       2px solid var(--c-primaire);
   --btn-shadow:
-    0 0 4px  #00ff88,
-    0 0 10px #00ff88,
-    0 0 20px #00cc66,
-    0 0 35px #009944;
-  --btn-color:        #00ff88;
+    0 0 4px  #00ffee,
+    0 0 10px #00d9ff,
+    0 0 20px #00adcc,
+    0 0 35px #210099;
+  --btn-color:        #00fbff;
 }
 
 /* ── Thème RÉTRO ── */
