@@ -1352,6 +1352,9 @@ function creerSecteurThemes(conteneur) {
       btn.style.borderWidth = '3px';
       sauvegarderTheme(theme.id);
       appliquerTheme(theme.id);
+      afficherListe();
+      genererEssentiel();
+      afficherFavoris();
       btn.style.transform = 'scale(0.92)';
       setTimeout(() => { btn.style.transform = ''; }, 150);
     });
