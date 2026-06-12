@@ -72,6 +72,8 @@ body{
     position:fixed;
     inset:0;
     background:rgba(0,0,0,0.8);
+    max-height:90vh;
+    overflow-y:auto;
 
     display:flex;
     justify-content:center;
@@ -83,8 +85,10 @@ body{
 }
 
 .modal-content{
-    width:90%;
+    width:min(900px,95vw);
     max-width:800px;
+    max-height:90vh;
+    overflow-y:auto;
 
     background:white;
     color:black;
@@ -96,6 +100,18 @@ body{
     display:flex;
     flex-direction:column;
     gap:15px;
+}
+
+.modal-header{
+
+    position:sticky;
+
+    top:0;
+
+    background:white;
+
+    z-index:10;
+
 }
 
 input,
