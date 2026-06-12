@@ -64,7 +64,7 @@ function vibrer() {
 }
 
 function couleursBarre() {
-  const cs = getComputedStyle(document.documentElement);
+  const cs = getComputedStyle(document.body);
   const bg = cs.getPropertyValue('--c-barre').trim()
     || cs.getPropertyValue('--c-sombre').trim()
     || '#242422';
@@ -138,7 +138,7 @@ function creerBarreGalerie(key, estFavori, wrapper, onFavoriChange) {
       localStorage.setItem('favoris',JSON.stringify(favoris));
       const ajout=favoris.includes(key);
       e.currentTarget.querySelector('img').src=`images/${ajout?'etoile':'etoile vide'}.png`;
-      wrapper.style.outline=ajout?`3px solid ${getComputedStyle(document.documentElement).getPropertyValue('--c-accent').trim()||'#fce7ac'}`:'none';
+      wrapper.style.outline=ajout?`3px solid ${getComputedStyle(document.body).getPropertyValue('--c-accent').trim()||'#fce7ac'}`:'none';
       wrapper.style.outlineOffset='-3px';
       if(onFavoriChange) onFavoriChange(ajout);
     }}
@@ -214,7 +214,7 @@ function creerBarreListe(key, estFavori, wrapper, largeur, onFavoriChange) {
       localStorage.setItem('favoris',JSON.stringify(favoris));
       const ajout=favoris.includes(key);
       e.currentTarget.querySelector('img').src=`images/${ajout?'etoile':'etoile vide'}.png`;
-      wrapper.style.outline=ajout?`3px solid ${getComputedStyle(document.documentElement).getPropertyValue('--c-accent').trim()||'#fce7ac'}`:'none';
+      wrapper.style.outline=ajout?`3px solid ${getComputedStyle(document.body).getPropertyValue('--c-accent').trim()||'#fce7ac'}`:'none';
       wrapper.style.outlineOffset='-3px';
       if(onFavoriChange) onFavoriChange(ajout);
     }}
@@ -667,7 +667,7 @@ document.addEventListener('touchmove', (e) => {
       lastFavMoveY = currentY;
     }
     const favDy = favDragStartY - currentY;
-    const safeTop = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sat') || '0') || 0;
+    const safeTop = parseInt(getComputedStyle(document.body).getPropertyValue('--sat') || '0') || 0;
     const hauteurFav = screenH - safeTop;
     if (favDirection === 'open') {
       if (favDy > hauteurFav * 0.33) favPassedThreshold = true;
@@ -1413,7 +1413,7 @@ function _peuplerParametres() {
   liste.style.cssText = 'display:grid;grid-template-columns:26px auto 26px;gap:12px;align-items:center;width:fit-content;margin:0 auto;';
 
   // Couleurs CSS actuelles (thème) pour les checkboxes
-  const cs = getComputedStyle(document.documentElement);
+  const cs = getComputedStyle(document.body);
   const cPrim   = cs.getPropertyValue('--c-primaire').trim() || '#31bebd';
   const cSombre = cs.getPropertyValue('--c-sombre').trim()   || '#242422';
 
@@ -1426,7 +1426,7 @@ function _peuplerParametres() {
     ca.addEventListener('click', () => {
       const isC = ca.dataset.checked === 'true';
       ca.dataset.checked = isC ? 'false' : 'true';
-      const cs2 = getComputedStyle(document.documentElement);
+      const cs2 = getComputedStyle(document.body);
       ca.style.background = isC
         ? (cs2.getPropertyValue('--c-sombre').trim() || '#242422')
         : (cs2.getPropertyValue('--c-primaire').trim() || '#31bebd');
@@ -1450,7 +1450,7 @@ function _peuplerParametres() {
       cd.innerHTML = isD ? '✓' : '';
       cd.addEventListener('click', () => {
         const wasC = cd.dataset.checked === 'true';
-        const cs3 = getComputedStyle(document.documentElement);
+        const cs3 = getComputedStyle(document.body);
         const cP3 = cs3.getPropertyValue('--c-primaire').trim() || '#31bebd';
         const cS3 = cs3.getPropertyValue('--c-sombre').trim()   || '#242422';
         liste.querySelectorAll('[data-demarrage]').forEach(c => {
@@ -1545,7 +1545,7 @@ function toggleAffichage(){
 function mettreAJourBoutonAffichage(mode){
   const ic=document.getElementById('icone-affichage'); const lb=document.getElementById('label-affichage');
   if(!ic||!lb) return;
-  const cs=getComputedStyle(document.documentElement);
+  const cs=getComputedStyle(document.body);
   const cP=cs.getPropertyValue('--c-primaire').trim()||'#31bebd';
   if(mode==='vignettes'){
     ic.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:4px;width:40px;height:40px;';
@@ -1569,7 +1569,7 @@ function mettreAJourBoutonTaille(taille){
   const ic=document.getElementById('icone-taille');
   const lb=document.getElementById('label-taille');
   if(!ic||!lb) return;
-  const cs=getComputedStyle(document.documentElement);
+  const cs=getComputedStyle(document.body);
   const cP=cs.getPropertyValue('--c-primaire').trim()||'#31bebd';
   if(taille==='grandes'){
     ic.innerHTML=`<div style="width:32px;height:32px;background:${cP};border-radius:6px;"></div>`;
