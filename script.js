@@ -1128,7 +1128,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   const btnSettings=document.getElementById('btn-info-settings');
   const s2c=document.getElementById('slide-to-comment');
   const s2b=document.getElementById('slide-to-bienvenue');
-  if(btnInfo) btnInfo.addEventListener('click',()=>panel.classList.add('visible'));
+  if(btnInfo) btnInfo.addEventListener('click',(e)=>{ e.preventDefault(); panel.classList.add('visible'); });
   if(btnHome) btnHome.addEventListener('click',()=>panel.classList.remove('visible'));
   if(s2c) s2c.addEventListener('click',()=>{ document.getElementById('contenu-bienvenue').style.display='none'; document.getElementById('contenu-comment').style.display='block'; });
   if(s2b) s2b.addEventListener('click',()=>{ document.getElementById('contenu-comment').style.display='none'; document.getElementById('contenu-bienvenue').style.display='block'; });
