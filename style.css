@@ -41,7 +41,7 @@ body.theme-clair {
   --fond-info:      linear-gradient(135deg, #d8d8d8, #bebebe);
   --fond-params:    linear-gradient(135deg, #ffffff, #e7e7e7);
   --c-barre:        #c2c2c2;
-  --c-texte:        #1a1a1a;
+  --c-texte:        #292929;
 }
 
 /* ── Thème SOMBRE ── */
@@ -806,4 +806,9 @@ body.theme-clair .texte-info {
 
 body.theme-clair .menu-buttons button {
   color: var(--c-texte);
+}
+
+body.theme-clair .search-bar {
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
