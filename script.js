@@ -1358,6 +1358,7 @@ function creerSecteurThemes(conteneur) {
       afficherListe();
       genererEssentiel();
       afficherFavoris();
+      _peuplerParametres();
       btn.style.transform = 'scale(0.92)';
       setTimeout(() => { btn.style.transform = ''; }, 150);
     });
