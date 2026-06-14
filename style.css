@@ -33,13 +33,13 @@ body.theme-clair {
   --c-violet:       #dadada;
   --c-violet-hover: #bebebe;
 
-  --fond-accueil:   linear-gradient(135deg, #ffffff, #f0f0f0);
+  --fond-accueil:   linear-gradient(135deg, #ffffff, #ffffff);
   --fond-mots-cles: linear-gradient(135deg, #ffffff, #ffffff);
-  --fond-essentiel: linear-gradient(135deg, #d2d2d2, #dbdbdb);
+  --fond-essentiel: linear-gradient(135deg, #ffffff, #ffffff);
   --fond-lexique:   linear-gradient(135deg, #ffffff, #ffffff);
-  --fond-favoris:   linear-gradient(135deg, #ffffff, #e8e8e8);
-  --fond-info:      linear-gradient(135deg, #d8d8d8, #bebebe);
-  --fond-params:    linear-gradient(135deg, #ffffff, #e7e7e7);
+  --fond-favoris:   linear-gradient(135deg, #ffffff, #ffffff);
+  --fond-info:      linear-gradient(135deg, #ffffff, #ffffff);
+  --fond-params:    linear-gradient(135deg, #ffffff, #ffffff);
   --c-barre:        #c2c2c2;
   --c-texte:        #292929;
 }
