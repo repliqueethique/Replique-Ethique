@@ -42,7 +42,7 @@
   flex-direction:column;
 ">
   <!-- Header pleine largeur en dehors du conteneur -->
-  <div id="header-params" style="background:#242422; width:100%; height:70px; display:flex; align-items:center; justify-content:space-between; padding:0 10px; box-sizing:border-box; position:relative; flex-shrink:0;">
+  <div id="header-params" style="background:var(--c-sombre); width:100%; height:70px; display:flex; align-items:center; justify-content:space-between; padding:0 10px; box-sizing:border-box; position:relative; flex-shrink:0;">
     <button onclick="fermerParametres()" class="triangle-retour gauche" aria-label="Retour"></button>
     <h1 style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:'SF Sports Night'; color:#fce7ac; font-size:2.5em; margin:0; white-space:nowrap;">Paramètres</h1>
     <div style="width:36px;"></div>
@@ -84,10 +84,10 @@
             transition:transform 0.2s ease;
           ">
             <div id="icone-affichage" style="display:grid; grid-template-columns:1fr 1fr; gap:4px; width:40px; height:40px;">
-              <div style="width:18px; height:18px; background:#31bebd; border-radius:4px;"></div>
-              <div style="width:18px; height:18px; background:#31bebd; border-radius:4px;"></div>
-              <div style="width:18px; height:18px; background:#31bebd; border-radius:4px;"></div>
-              <div style="width:18px; height:18px; background:#31bebd; border-radius:4px;"></div>
+              <div style="width:18px; height:18px; background:var(--c-primaire); border-radius:4px;"></div>
+              <div style="width:18px; height:18px; background:var(--c-primaire); border-radius:4px;"></div>
+              <div style="width:18px; height:18px; background:var(--c-primaire); border-radius:4px;"></div>
+              <div style="width:18px; height:18px; background:var(--c-primaire); border-radius:4px;"></div>
             </div>
             <span id="label-affichage" style="font-family:'Intro'; color:#fff; font-size:1em;">galerie</span>
           </button>
@@ -100,7 +100,7 @@
             transition:transform 0.2s ease;
           ">
             <div id="icone-taille" style="display:flex; align-items:center; justify-content:center; width:40px; height:40px;">
-              <div style="width:20px; height:20px; background:#31bebd; border-radius:4px;"></div>
+              <div style="width:20px; height:20px; background:var(--c-primaire); border-radius:4px;"></div>
             </div>
             <span id="label-taille" style="font-family:'Intro'; color:#fff; font-size:1em;">petites</span>
           </button>
@@ -123,13 +123,13 @@
         <button onclick="fermerParametres()" style="
           flex:1; font-family:'Intro'; font-size:1.1em;
           padding:16px; border-radius:30px; border:none;
-          background:#31bebd; color:#fff; cursor:pointer;
+          background:var(--c-primaire); color:#fff; cursor:pointer;
           transition:transform 0.2s ease;
         ">Retour</button>
         <button onclick="reinitialiserParametres()" style="
           flex:1; font-family:'Intro'; font-size:1.1em;
           padding:16px; border-radius:30px; border:none;
-          background:#31bebd; color:#fff; cursor:pointer;
+          background:var(--c-primaire); color:#fff; cursor:pointer;
           transition:transform 0.2s ease;
         ">Réinitialiser</button>
       </div>
