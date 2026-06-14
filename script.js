@@ -844,6 +844,9 @@ window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => { footerIcons.forEach((ic,i) => { const img=ic.querySelector('img'); if(img) setTimeout(() => { img.classList.remove('transition-ready'); img.classList.add('pop-smooth'); }, i*80); }); }, 1600);
     setTimeout(() => { const bp=document.getElementById('btn-parametres'); if(bp){ const img=bp.querySelector('img'); if(img){ img.classList.remove('transition-ready'); img.classList.add('pop-smooth'); } } }, 1600);
     setTimeout(() => { logoFixe.src = (THEMES.find(t => t.id === chargerTheme()) || THEMES[0]).logo; }, 3640);
+    setTimeout(() => {
+      document.getElementById('header-ghost-lexique')?.style.setProperty('opacity', '1');
+    }, demarrage !== 'accueil' ? 100 : 3640);
   }
 });
 
