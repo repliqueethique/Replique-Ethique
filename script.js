@@ -1429,7 +1429,7 @@ function _peuplerParametres() {
     const ca = document.createElement('div');
     ca.dataset.checked = isA ? 'true' : 'false';
     ca.style.cssText = `width:26px;height:26px;border-radius:6px;border:3px solid #fff;background:${isA ? cPrim : cSombre};cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:16px;`;
-    ca.innerHTML = isA ? '✓' : '';
+    ca.innerHTML = '';
     ca.addEventListener('click', () => {
       const isC = ca.dataset.checked === 'true';
       ca.dataset.checked = isC ? 'false' : 'true';
@@ -1437,7 +1437,7 @@ function _peuplerParametres() {
       ca.style.background = isC
         ? (cs2.getPropertyValue('--c-sombre').trim() || '#242422')
         : (cs2.getPropertyValue('--c-primaire').trim() || '#31bebd');
-      ca.innerHTML = isC ? '' : '✓';
+      cd.innerHTML = '';
       const pp = chargerParametres();
       if (!pp.accueil) pp.accueil = {};
       pp.accueil[opt.id] = !isC;
@@ -1461,10 +1461,10 @@ function _peuplerParametres() {
         const cP3 = cs3.getPropertyValue('--c-primaire').trim() || '#31bebd';
         const cS3 = cs3.getPropertyValue('--c-sombre').trim()   || '#242422';
         liste.querySelectorAll('[data-demarrage]').forEach(c => {
-          c.dataset.checked = 'false'; c.style.background = cS3; c.innerHTML = '';
+          c.dataset.checked = 'false'; c.style.background = cS3;
         });
         if (!wasC) {
-          cd.dataset.checked = 'true'; cd.style.background = cP3; cd.innerHTML = '✓';
+          cd.dataset.checked = 'true'; cd.style.background = cP3;
           const pp = chargerParametres(); pp.demarrage = opt.id; sauvegarderParametres(pp);
         } else {
           const pp = chargerParametres(); pp.demarrage = 'accueil'; sauvegarderParametres(pp);
