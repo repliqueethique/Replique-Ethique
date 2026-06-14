@@ -70,7 +70,7 @@ body.theme-neon {
   --c-primaire:   #00ffff;
   --c-sombre:     #0a0a0a;
   --c-accent:     #ff00ff;
-  --c-vif:        #00ffff;
+  --c-vif:        #ff009d;
   --c-orange:     #ff6600;
   --c-violet:     #cc00ff;
   --c-violet-hover: #ff33ff;
@@ -82,7 +82,7 @@ body.theme-neon {
   --fond-favoris:   linear-gradient(135deg, #0a0a0a, #c700ba);
   --fond-info:      linear-gradient(135deg, #001a33, #006c91);
   --fond-params:    linear-gradient(135deg, #001a33, #006996);
-  --c-barre:        #ff0099;
+  --c-barre:        #ff0080;
   --c-texte:        #ffffff;
 
   --titre-gradient: none;
