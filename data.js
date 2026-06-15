@@ -222,6 +222,65 @@ window.lexiqueData = [
   }
 ];
 
+window.categoriesData = [
+  {
+    "nom": "Arguments moraux",
+    "tags": [
+      "Spécisme",
+      "Sentience",
+      "Considération morale"
+    ]
+  },
+  {
+    "nom": "Communication",
+    "tags": [
+      "Sophisme",
+      "Rhétorique"
+    ]
+  },
+  {
+    "nom": "Pratiques",
+    "tags": [
+      "élevage",
+      "chasse",
+      "pêche",
+      "corrida",
+      "équitation",
+      "expérimentation",
+      "apiculture"
+    ]
+  },
+  {
+    "nom": "Accusations",
+    "tags": [
+      "violence",
+      "intolérance",
+      "extrémisme",
+      "culpabilisation",
+      "Carrences"
+    ]
+  },
+  {
+    "nom": "écologisme",
+    "tags": [
+      "écologisme",
+      "puis de carbone",
+      "souffrance des plantes",
+      "protection des espèces",
+      "soja d'amazonie",
+      "local",
+      "bio"
+    ]
+  }
+];
+
+window.lexiqueData = [
+  {
+    "mot": "Sentience",
+    "definition": "Capacité à ressentir..."
+  }
+];
+
 window.videosCachees = {
   "1": false,
   "2": false,
