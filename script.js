@@ -607,28 +607,28 @@ document.addEventListener('touchstart', (e) => {
   }
 
   // Pré-masquage des pages qui vont être animées
-  if (pageActuelle === 2) {
+  if (pageActuelle === 2) { // Accueil → Mots-clés
     document.querySelectorAll('.contenu-mots-cles .categorie').forEach(el => {
       el.classList.remove('anim-show');
       el.classList.add('anim-hidden');
     });
   }
 
-  if (pageActuelle === 4) {
+  if (pageActuelle === 4) { // Essentiel → Lexique
     document.querySelectorAll('.mot-lexique').forEach(el => {
       el.classList.remove('anim-show');
       el.classList.add('anim-hidden');
     });
   }
 
-  if (pageActuelle === 5) {
+  if (pageActuelle === 5) { // Lexique → Mots-clés (wrap)
     document.querySelectorAll('.contenu-mots-cles .categorie').forEach(el => {
       el.classList.remove('anim-show');
       el.classList.add('anim-hidden');
     });
   }
 
-  if (pageActuelle === 1) {
+  if (pageActuelle === 1) { // Mots-clés → Lexique (wrap)
     document.querySelectorAll('.mot-lexique').forEach(el => {
       el.classList.remove('anim-show');
       el.classList.add('anim-hidden');
@@ -683,7 +683,6 @@ document.addEventListener('touchmove', (e) => {
 
   if (document.getElementById('page-video')) return;
   if (estMobile() ? paramsPanel?.classList.contains('visible') : paramsPanel?.style.display === 'flex') return;
-  // MODIFIÉ : on laisse passer si on est sur une vignette des favoris
   if (favPanel?.classList.contains('visible') && !vWrapper) return;
   if (document.getElementById('info-panel')?.classList.contains('visible')) return;
 
@@ -758,7 +757,7 @@ document.addEventListener('touchend', (e) => {
     return;
   }
 
-  if (estMobile() && vWrapper && vMiddleZone && gestureType === 'carousel' && dx > 0) {
+   if (estMobile() && vWrapper && vMiddleZone && gestureType === 'carousel' && dx > 0) {
     conteneurPages.style.transition = 'transform 0.4s ease';
     conteneurPages.style.transform = `translateX(-${pageActuelle * screenW}px)`;
     const bar = vWrapper.querySelector('[style*="translateX"]');
@@ -784,7 +783,6 @@ document.addEventListener('touchend', (e) => {
   if (document.getElementById('page-video')) return;
   if (estMobile() ? paramsPanel?.classList.contains('visible') : paramsPanel?.style.display === 'flex') return;
   if (document.getElementById('panneau-resultats')?.style.display === 'flex') return;
-  // MODIFIÉ : on laisse passer si on est sur une vignette des favoris
   if (favPanel?.classList.contains('visible') && !vWrapper) return;
   if (document.getElementById('info-panel')?.classList.contains('visible')) return;
 
