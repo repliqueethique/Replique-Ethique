@@ -862,11 +862,14 @@ function afficherListe() {
   if(mode==='liste') conteneurVignettes.classList.add('mode-liste');
   else conteneurVignettes.classList.remove('mode-liste');
 
+  const listeIds = Array.from({length:50}, (_,n)=>n+1);
+
   for(let i=1;i<=50;i++){
     const key=String(i);
     const favoris=JSON.parse(localStorage.getItem('favoris')||'[]');
     const estFavori=favoris.includes(key);
     const wrapper=document.createElement('div');
+    const idxCourant = i-1;
 
     if(mode==='liste'){
       wrapper.style.cssText=`position:relative;display:flex;border-radius:10px;box-shadow:0 0 5px rgba(0,0,0,0.2);align-items:center;transition:transform 0.2s ease;outline:${estFavori?'3px solid #fce7ac':'none'};outline-offset:-3px;overflow:hidden;background:#fff;height:70px;width:90%;max-width:600px;margin:0 auto;`;
@@ -877,15 +880,15 @@ function afficherListe() {
       titre.textContent=(window.titresVideos||{})[key]||`Vidéo ${i}`;
       titre.style.cssText=`font-family:'Intro';color:#242422;font-size:0.95em;padding:0 12px;flex:1;cursor:pointer;line-height:1.3;display:flex;align-items:center;height:100%;`;
       const barre=creerBarreListe(key,estFavori,wrapper,124);
-      img.addEventListener('click',()=>ouvrirPageVideo(i));
-      titre.addEventListener('click',()=>ouvrirPageVideo(i));
+      img.addEventListener('click',()=>ouvrirPageVideo(i,undefined,listeIds,idxCourant));
+      titre.addEventListener('click',()=>ouvrirPageVideo(i,undefined,listeIds,idxCourant));
       wrapper.appendChild(img); wrapper.appendChild(titre); wrapper.appendChild(barre);
     } else {
       wrapper.style.cssText=`position:relative;display:flex;border-radius:10px;box-shadow:0 0 5px rgba(0,0,0,0.2);align-items:stretch;transition:transform 0.2s ease;outline:${estFavori?'3px solid #fce7ac':'none'};outline-offset:-3px;overflow:hidden;aspect-ratio:16/9;`;
       const img=document.createElement('img');
       img.src=`images/vignettes/VE2M ${i} vignette YT.jpg`;
       img.style.cssText='width:100%;height:100%;object-fit:cover;display:block;cursor:pointer;';
-      img.addEventListener('click',()=>ouvrirPageVideo(i));
+      img.addEventListener('click',()=>ouvrirPageVideo(i,undefined,listeIds,idxCourant));
       const barre=creerBarreGalerie(key,estFavori,wrapper);
       wrapper.appendChild(img); wrapper.appendChild(barre);
     }
@@ -910,7 +913,7 @@ function genererEssentiel() {
     contenuEssentiel.style.cssText='';
   }
 
-  videosEssentielles.forEach(num=>{
+  videosEssentielles.forEach((num, idxCourant)=>{
     const key=String(num);
     const favoris=JSON.parse(localStorage.getItem('favoris')||'[]');
     const estFavori=favoris.includes(key);
@@ -925,15 +928,15 @@ function genererEssentiel() {
       titre.textContent=(window.titresVideos||{})[key]||`Vidéo ${num}`;
       titre.style.cssText=`font-family:'Intro';color:#242422;font-size:0.95em;padding:0 12px;flex:1;cursor:pointer;line-height:1.3;text-align:left;display:flex;align-items:center;height:100%;`;
       const barre=creerBarreListe(key,estFavori,wrapper,124);
-      img.addEventListener('click',()=>ouvrirPageVideo(num));
-      titre.addEventListener('click',()=>ouvrirPageVideo(num));
+      img.addEventListener('click',()=>ouvrirPageVideo(num,undefined,videosEssentielles,idxCourant));
+      titre.addEventListener('click',()=>ouvrirPageVideo(num,undefined,videosEssentielles,idxCourant));
       wrapper.appendChild(img); wrapper.appendChild(titre); wrapper.appendChild(barre);
     } else {
       wrapper.style.cssText=`position:relative;display:flex;border-radius:10px;box-shadow:0 0 5px rgba(0,0,0,0.2);align-items:stretch;transition:transform 0.2s ease;outline:${estFavori?'3px solid #fce7ac':'none'};outline-offset:-3px;overflow:hidden;aspect-ratio:16/9;`;
       const img=document.createElement('img');
       img.src=`images/vignettes/VE2M ${num} vignette YT.jpg`;
       img.style.cssText='width:100%;height:100%;object-fit:cover;display:block;cursor:pointer;';
-      img.addEventListener('click',()=>ouvrirPageVideo(num));
+      img.addEventListener('click',()=>ouvrirPageVideo(num,undefined,videosEssentielles,idxCourant));
       const barre=creerBarreGalerie(key,estFavori,wrapper);
       wrapper.appendChild(img); wrapper.appendChild(barre);
     }
@@ -1150,7 +1153,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 // BLOC 15 : PAGE VIDÉO
 // ============================================================
 
-function ouvrirPageVideo(numero, onRetour) {
+function ouvrirPageVideo(numero, onRetour, listeIds, indexCourant) {
   document.getElementById('page-video')?.remove();
   const key=String(parseInt(numero,10));
   const titre=(window.titresVideos||{})[key]||'Titre introuvable';
@@ -1234,6 +1237,117 @@ function ouvrirPageVideo(numero, onRetour) {
     animerSpin(this.querySelector('img'));
     this.querySelector('img').src=`images/${ajout?'etoile':'etoile vide'}.png`;
   });
+
+  // ====== SWIPE : retour bas / précédent (droite) / suivant (gauche) ======
+  if (Array.isArray(listeIds) && listeIds.length > 1 && typeof indexCourant === 'number') {
+
+    let pvStartX = 0, pvStartY = 0, pvStartT = 0;
+    let pvDragging = false;
+    let pvGesture = null; // 'horizontal' | 'vertical-back'
+
+    const screenH = window.innerHeight;
+
+    page.addEventListener('touchstart', (e) => {
+      pvStartX = e.touches[0].clientX;
+      pvStartY = e.touches[0].clientY;
+      pvStartT = Date.now();
+      pvGesture = null;
+
+      // Zone de déclenchement du retour : pas trop haut
+      // (sinon ça entre en conflit avec l'ouverture des paramètres,
+      // qui se déclenche dans les 12.5% supérieurs de l'écran).
+      pvDragging =
+        pvStartY >= screenH * 0.125 &&
+        pvStartY <= screenH * 0.30;
+
+    }, { passive: true });
+
+    page.addEventListener('touchmove', (e) => {
+      const dx = e.touches[0].clientX - pvStartX;
+      const dy = e.touches[0].clientY - pvStartY;
+
+      if (!pvGesture && (Math.abs(dx) > 10 || Math.abs(dy) > 10)) {
+        if (Math.abs(dy) > Math.abs(dx) && dy > 0 && pvDragging) {
+          pvGesture = 'vertical-back';
+        } else if (Math.abs(dx) > Math.abs(dy)) {
+          pvGesture = 'horizontal';
+        } else {
+          pvGesture = 'none';
+        }
+      }
+
+      if (pvGesture === 'vertical-back') {
+        page.style.transition = 'none';
+        page.style.transform = `translateY(${Math.max(0, dy)}px)`;
+      }
+
+      if (pvGesture === 'horizontal') {
+        page.style.transition = 'none';
+        page.style.transform = `translateX(${dx}px)`;
+      }
+
+    }, { passive: true });
+
+    page.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - pvStartX;
+      const dy = e.changedTouches[0].clientY - pvStartY;
+      const dt = Date.now() - pvStartT;
+      const screenW = window.innerWidth;
+      const velocity = Math.abs(dx) / dt;
+      const velocityY = Math.abs(dy) / dt;
+
+      const isFlick = velocity > 0.3 && dt < 300;
+      const isLargeDrag = Math.abs(dx) > screenW * 0.3;
+
+      const isFlickY = velocityY > 0.3 && dt < 300;
+      const isLargeDragY = dy > screenH * 0.25;
+
+      page.style.transition = 'transform 0.3s ease';
+
+      if (pvGesture === 'vertical-back' && (isFlickY || isLargeDragY)) {
+        // Retour à la page précédente
+        page.style.transform = `translateY(100%)`;
+        setTimeout(() => {
+          page.remove();
+          if (typeof onRetour === 'function') onRetour();
+        }, 300);
+        return;
+      }
+
+      if (pvGesture === 'horizontal' && (isFlick || isLargeDrag)) {
+
+        let nouvelIndex;
+        if (dx < 0) {
+          // swipe gauche → vidéo suivante
+          nouvelIndex = indexCourant + 1;
+        } else {
+          // swipe droite → vidéo précédente
+          nouvelIndex = indexCourant - 1;
+        }
+
+        if (nouvelIndex >= 0 && nouvelIndex < listeIds.length) {
+
+          const sortie = dx < 0 ? '-100%' : '100%';
+          page.style.transform = `translateX(${sortie})`;
+
+          setTimeout(() => {
+            ouvrirPageVideo(listeIds[nouvelIndex], onRetour, listeIds, nouvelIndex);
+          }, 300);
+
+        } else {
+          // pas de vidéo suivante/précédente : retour à la position
+          page.style.transform = 'translateX(0)';
+        }
+
+        return;
+      }
+
+      // Aucun geste suffisant : retour à la position initiale
+      page.style.transform = 'translateX(0)';
+
+    }, { passive: true });
+
+  }
 }
 
 // ============================================================
@@ -1761,7 +1875,9 @@ function afficherResultats(scores,lexique,query){
       grille.style.cssText=`display:grid;grid-template-columns:${cols};gap:${gap};margin-bottom:24px;`;
     }
 
-    scores.forEach(({key})=>{
+    const listeIdsResultats = scores.map(({key})=>parseInt(key));
+
+    scores.forEach(({key},idxCourant)=>{
       const num=parseInt(key);
       const favoris=JSON.parse(localStorage.getItem('favoris')||'[]');
       const estFavori=favoris.includes(key);
@@ -1776,15 +1892,15 @@ function afficherResultats(scores,lexique,query){
         titre.textContent=(window.titresVideos||{})[key]||`Vidéo ${num}`;
         titre.style.cssText=`font-family:'Intro';color:#242422;font-size:0.95em;padding:0 12px;flex:1;cursor:pointer;line-height:1.3;display:flex;align-items:center;height:100%;`;
         const barre=creerBarreListe(key,estFavori,wrapper,124);
-        img.addEventListener('click',()=>ouvrirPageVideo(num,()=>{panneauResultats.style.display='flex';}));
-        titre.addEventListener('click',()=>ouvrirPageVideo(num,()=>{panneauResultats.style.display='flex';}));
+        img.addEventListener('click',()=>ouvrirPageVideo(num,()=>{panneauResultats.style.display='flex';},listeIdsResultats,idxCourant));
+        titre.addEventListener('click',()=>ouvrirPageVideo(num,()=>{panneauResultats.style.display='flex';},listeIdsResultats,idxCourant));
         wrapper.appendChild(img); wrapper.appendChild(titre); wrapper.appendChild(barre);
       } else {
         wrapper.style.cssText=`position:relative;display:flex;border-radius:10px;box-shadow:0 0 5px rgba(0,0,0,0.2);align-items:stretch;transition:transform 0.2s ease;outline:${estFavori?'3px solid #fce7ac':'none'};outline-offset:-3px;overflow:hidden;aspect-ratio:16/9;`;
         const img=document.createElement('img');
         img.src=`images/vignettes/VE2M ${num} vignette YT.jpg`;
         img.style.cssText='width:100%;height:100%;object-fit:cover;display:block;cursor:pointer;';
-        img.addEventListener('click',()=>ouvrirPageVideo(num,()=>{panneauResultats.style.display='flex';}));
+        img.addEventListener('click',()=>ouvrirPageVideo(num,()=>{panneauResultats.style.display='flex';},listeIdsResultats,idxCourant));
         const barre=creerBarreGalerie(key,estFavori,wrapper);
         wrapper.appendChild(img); wrapper.appendChild(barre);
       }
