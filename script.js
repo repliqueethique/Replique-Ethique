@@ -946,16 +946,27 @@ function genererEssentiel() {
 // ============================================================
 
 const contenuMotsCles = document.querySelector('.contenu-mots-cles');
+
 if(contenuMotsCles){
-  contenuMotsCles.innerHTML=`
-    <div class="categorie"><button class="bouton-categorie">Éthique</button><div class="tags"><button class="tag">justice</button><button class="tag">droits</button><button class="tag">égalité</button></div></div>
-    <div class="categorie"><button class="bouton-categorie">Écologie</button><div class="tags"><button class="tag">animaux</button><button class="tag">environnement</button><button class="tag">climat</button></div></div>
-    <div class="categorie"><button class="bouton-categorie">Société</button><div class="tags"><button class="tag">féminisme</button><button class="tag">discrimination</button><button class="tag">minorités</button></div></div>
-  `;
+
+  const categories = window.categoriesData || [];
+
+  contenuMotsCles.innerHTML = categories.map(categorie => `
+    <div class="categorie">
+      <button class="bouton-categorie">${categorie.nom}</button>
+      <div class="tags">
+        ${(categorie.tags || []).map(tag =>
+          `<button class="tag" data-tag="${tag}">${tag}</button>`
+        ).join("")}
+      </div>
+    </div>
+  `).join("");
+
   contenuMotsCles.querySelectorAll('.tags').forEach(t=>t.classList.remove('open'));
   contenuMotsCles.querySelectorAll('.bouton-categorie').forEach(b=>{
     b.addEventListener('click',()=>b.nextElementSibling?.classList.toggle('open'));
   });
+
 }
 
 // ============================================================

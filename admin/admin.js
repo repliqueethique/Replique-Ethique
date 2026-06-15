@@ -1283,3 +1283,150 @@ if(inputImportJSON){
     );
 
 }
+
+// NOUVEAU : import direct d'un fichier data.js
+function importerDataJS(event){
+
+    const fichier =
+        event.target.files[0];
+
+    if(!fichier) return;
+
+    const lecteur =
+        new FileReader();
+
+    lecteur.onload = e => {
+
+        try {
+
+            const contenu =
+                e.target.result;
+
+            // On exécute le contenu dans un
+            // contexte isolé pour récupérer
+            // les window.xxx sans polluer
+            // les variables actuelles avant
+            // validation.
+            const sandbox = {};
+
+            const fonction =
+                new Function(
+                    "window",
+                    contenu +
+                    "\nreturn window;"
+                );
+
+            const resultat =
+                fonction(sandbox);
+
+            if(
+                !resultat.titresVideos ||
+                !resultat.liensVideos
+            ){
+                alert(
+                    "Le fichier ne contient pas " +
+                    "les données attendues " +
+                    "(titresVideos / liensVideos)."
+                );
+                return;
+            }
+
+            const nouvellesVideos = [];
+
+            Object.keys(resultat.titresVideos)
+            .forEach(id => {
+
+                nouvellesVideos.push({
+
+                    id,
+
+                    titre:
+                        resultat.titresVideos[id] || "",
+
+                    youtube:
+                        resultat.liensVideos[id] || "",
+
+                    texte:
+                        resultat.textesVideos?.[id] || "",
+
+                    tags:
+                        resultat.tagsVideos?.[id] || [],
+
+                    essentiel:
+                        resultat.essentielVideos?.[id] || false,
+
+                    cachee:
+                        resultat.videosCachees?.[id] || false,
+
+                    vignette: ""
+
+                });
+
+            });
+
+            const nbTextes =
+                nouvellesVideos.filter(
+                    v => v.texte && v.texte.trim()
+                ).length;
+
+            const nbTags =
+                nouvellesVideos.filter(
+                    v => v.tags && v.tags.length
+                ).length;
+
+            const message =
+                `Le fichier contient ${nouvellesVideos.length} vidéo(s), ` +
+                `dont ${nbTextes} avec texte et ${nbTags} avec tags.\n\n` +
+                `Cela remplacera TOUTES les données actuelles ` +
+                `(vidéos, catégories, lexique).\n\n` +
+                `Continuer ?`;
+
+            if(!confirm(message)){
+                return;
+            }
+
+            videos = nouvellesVideos;
+
+            if(resultat.categoriesData){
+                categories = resultat.categoriesData;
+            }
+
+            if(resultat.lexiqueData){
+                lexique = resultat.lexiqueData;
+            }
+
+            sauvegarderLocalement();
+
+            renderVideos();
+            renderCategories();
+            renderLexique();
+            diagnostiquerEtat();
+
+            alert("data.js importé avec succès.");
+
+        } catch(err) {
+
+            alert(
+                "Erreur lors de la lecture du fichier.\n" +
+                err.message
+            );
+
+        }
+
+    };
+
+    lecteur.readAsText(fichier);
+
+}
+
+const inputImportDataJS =
+document.getElementById("inputImportDataJS");
+
+if(inputImportDataJS){
+
+    inputImportDataJS.addEventListener(
+        "change",
+        importerDataJS
+    );
+
+}
