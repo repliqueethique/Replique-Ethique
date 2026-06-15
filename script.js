@@ -675,7 +675,7 @@ document.addEventListener('touchmove', (e) => {
     }
     if (favDirection === 'close') {
       const favDy2 = currentY - favDragStartY;
-      if (favDy2 > screenH * 0.33) favPassedThreshold = true;
+      if (favDy2 > screenH * 0.25) favPassedThreshold = true;
       favPanel.style.bottom = favDy2 <= 0 ? '0' : `-${favDy2}px`;
     }
     return;
