@@ -1153,33 +1153,8 @@ document.addEventListener('DOMContentLoaded',()=>{
 // BLOC 15 : PAGE VIDÉO
 // ============================================================
 
-function ouvrirPageVideo(numero, onRetour, listeIds, indexCourant, positionEntree) {
-  document.getElementById('page-video')?.remove();
-  const key=String(parseInt(numero,10));
-  const titre=(window.titresVideos||{})[key]||'Titre introuvable';
-  const url=(window.liensVideos||{})[key]||'';
-  const texte=(window.textesVideos||{})[key]||'';
-  const tagsVideo=(window.tagsVideos||{})[key]||[];
-  const favoris=JSON.parse(localStorage.getItem('favoris')||'[]');
-  const estFavori=favoris.includes(key);
-  const tagsHTML=tagsVideo.length?tagsVideo.map(t=>`<span class="tag">${t}</span>`).join(''):'<span class="tag">éthique</span><span class="tag">véganisme</span>';
-  const videoId=url.includes('v=')?url.split('v=')[1]:'';
-  const miniature=videoId?`https://img.youtube.com/vi/${videoId}/mqdefault.jpg`:`images/vignettes/VE2M ${numero} vignette YT.jpg`;
-
-  const page=document.createElement('div');
-  page.id='page-video';
-  page.style.cssText='position:fixed;top:0;left:0;width:100%;height:100dvh;overflow-y:auto;background:#e8e8e8;z-index:9999;box-sizing:border-box;';
-
-  // Position de départ pour l'animation d'entrée (carrousel)
-  if (positionEntree === 'gauche') {
-    page.style.transition = 'none';
-    page.style.transform = 'translateX(-100%)';
-  } else if (positionEntree === 'droite') {
-    page.style.transition = 'none';
-    page.style.transform = 'translateX(100%)';
-  }
-
-  page.innerHTML=`
+function creerContenuPageVideo(numero, estFavori, miniature, videoId, titre, texte, tagsHTML, url) {
+  return `
     <div style="max-width:960px;margin:0 auto;padding:16px;box-sizing:border-box;background:#fff;min-height:100dvh;">
       <button id="retour-page-video" class="triangle-retour gauche" style="margin-bottom:12px;"></button>
       <div id="zone-video" style="position:relative;margin-bottom:0;cursor:pointer;border-radius:10px 10px 0 0;overflow:hidden;aspect-ratio:16/9;">
@@ -1203,56 +1178,56 @@ function ouvrirPageVideo(numero, onRetour, listeIds, indexCourant, positionEntre
       <h2 style="font-family:'Intro';color:#242422;margin-bottom:12px;">"${titre}"</h2>
       <div style="font-family:'Graphie';color:#242422;line-height:1.7;font-size:19px;white-space:pre-wrap;">${texte||'Contenu à venir.'}</div>
     </div>`;
-  document.body.appendChild(page);
+}
 
-  // Si la page démarre hors écran, on force le reflow puis on l'anime vers 0
-  if (positionEntree === 'gauche' || positionEntree === 'droite') {
-    void page.offsetWidth;
-    page.style.transition = 'transform 0.3s ease';
-    page.style.transform = 'translateX(0)';
-  }
+function attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, indexCourant) {
+  page.querySelector('#retour-page-video').addEventListener('click', () => {
+    page.remove();
+    if (typeof onRetour === 'function') onRetour();
+  });
 
-  page.querySelector('#retour-page-video').addEventListener('click',()=>{ page.remove(); if(typeof onRetour==='function') onRetour(); });
-  page.querySelector('#zone-video').addEventListener('click',()=>{
-    if(!videoId){alert('Lien introuvable.');return;}
-    const zone=document.getElementById('zone-video');
-    if(!zone) return;
-    const iframe=document.createElement('iframe');
-    iframe.src=`https://www.youtube.com/embed/${videoId}?autoplay=1`;
-    iframe.style.cssText=`width:100%;height:${zone.offsetWidth}px;border:none;display:block;`;
-    iframe.allow='autoplay;encrypted-media';
+  page.querySelector('#zone-video').addEventListener('click', () => {
+    const videoId = url.includes('v=') ? url.split('v=')[1] : '';
+    if (!videoId) { alert('Lien introuvable.'); return; }
+    const zone = document.getElementById('zone-video');
+    if (!zone) return;
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+    iframe.style.cssText = `width:100%;height:${zone.offsetWidth}px;border:none;display:block;`;
+    iframe.allow = 'autoplay;encrypted-media';
     zone.replaceWith(iframe);
   });
-  page.querySelector('#btn-copier-video').addEventListener('click', function(){
+
+  page.querySelector('#btn-copier-video').addEventListener('click', function() {
     const r = this.getBoundingClientRect();
     declencherEclat(r.left+r.width/2, r.top+r.height/2, '#00fffd');
     animerPop(this.querySelector('img'));
-    navigator.clipboard.writeText(url).then(()=>{
-      this.style.opacity='0.4';
+    navigator.clipboard.writeText(url).then(() => {
+      this.style.opacity = '0.4';
       vibrer();
-      afficherToast('Copié !','#00feff', r.left+r.width/2, r.top+r.height/2);
-      setTimeout(()=>this.style.opacity='1', 1500);
+      afficherToast('Copié !', '#00feff', r.left+r.width/2, r.top+r.height/2);
+      setTimeout(() => this.style.opacity = '1', 1500);
     });
   });
 
-  page.querySelector('#btn-partager-video').addEventListener('click', function(){
+  page.querySelector('#btn-partager-video').addEventListener('click', function() {
     const r = this.getBoundingClientRect();
     declencherEclat(r.left+r.width/2, r.top+r.height/2, '#fce7ac');
     animerPop(this.querySelector('img'));
-    if(navigator.share){ navigator.share({title:titre, url}); }
-    else{ navigator.clipboard.writeText(url).then(()=>afficherToast('Lien copié !','#fce7ac')); }
+    if (navigator.share) { navigator.share({ title: titre, url }); }
+    else { navigator.clipboard.writeText(url).then(() => afficherToast('Lien copié !', '#fce7ac')); }
   });
 
-  page.querySelector('#btn-favori-video').addEventListener('click', function(){
+  page.querySelector('#btn-favori-video').addEventListener('click', function() {
     const r = this.getBoundingClientRect();
-    let fav=JSON.parse(localStorage.getItem('favoris')||'[]');
-    const isF=fav.includes(key);
-    if(isF){fav=fav.filter(f=>f!==key);}else{fav.push(key);}
-    localStorage.setItem('favoris',JSON.stringify(fav));
-    const ajout=fav.includes(key);
+    let fav = JSON.parse(localStorage.getItem('favoris') || '[]');
+    const isF = fav.includes(key);
+    if (isF) { fav = fav.filter(f => f !== key); } else { fav.push(key); }
+    localStorage.setItem('favoris', JSON.stringify(fav));
+    const ajout = fav.includes(key);
     declencherEclat(r.left+r.width/2, r.top+r.height/2, '#f37321');
     animerSpin(this.querySelector('img'));
-    this.querySelector('img').src=`images/${ajout?'etoile':'etoile vide'}.png`;
+    this.querySelector('img').src = `images/${ajout ? 'etoile' : 'etoile vide'}.png`;
   });
 
   // ====== SWIPE : retour bas / précédent (droite) / suivant (gauche) ======
@@ -1260,23 +1235,18 @@ function ouvrirPageVideo(numero, onRetour, listeIds, indexCourant, positionEntre
 
     let pvStartX = 0, pvStartY = 0, pvStartT = 0;
     let pvDragging = false;
-    let pvGesture = null; // 'horizontal' | 'vertical-back'
-
+    let pvGesture = null;
     const screenH = window.innerHeight;
+    const screenW = window.innerWidth;
 
     page.addEventListener('touchstart', (e) => {
       pvStartX = e.touches[0].clientX;
       pvStartY = e.touches[0].clientY;
       pvStartT = Date.now();
       pvGesture = null;
-
-      // Zone de déclenchement du retour : pas trop haut
-      // (sinon ça entre en conflit avec l'ouverture des paramètres,
-      // qui se déclenche dans les 12.5% supérieurs de l'écran).
       pvDragging =
         pvStartY >= screenH * 0.125 &&
         pvStartY <= screenH * 0.30;
-
     }, { passive: true });
 
     page.addEventListener('touchmove', (e) => {
@@ -1299,8 +1269,16 @@ function ouvrirPageVideo(numero, onRetour, listeIds, indexCourant, positionEntre
       }
 
       if (pvGesture === 'horizontal') {
+        // Déplacer la page courante ET la page voisine ensemble
+        const pageSuivante = document.getElementById('page-video-next');
         page.style.transition = 'none';
         page.style.transform = `translateX(${dx}px)`;
+        if (pageSuivante) {
+          pageSuivante.style.transition = 'none';
+          // La page voisine est à ±screenW de la courante, on la suit
+          const offset = pageSuivante._offsetDepart || 0;
+          pageSuivante.style.transform = `translateX(${offset + dx}px)`;
+        }
       }
 
     }, { passive: true });
@@ -1309,21 +1287,18 @@ function ouvrirPageVideo(numero, onRetour, listeIds, indexCourant, positionEntre
       const dx = e.changedTouches[0].clientX - pvStartX;
       const dy = e.changedTouches[0].clientY - pvStartY;
       const dt = Date.now() - pvStartT;
-      const screenW = window.innerWidth;
       const velocity = Math.abs(dx) / dt;
       const velocityY = Math.abs(dy) / dt;
 
       const isFlick = velocity > 0.3 && dt < 300;
       const isLargeDrag = Math.abs(dx) > screenW * 0.3;
-
       const isFlickY = velocityY > 0.3 && dt < 300;
       const isLargeDragY = dy > screenH * 0.25;
 
-      page.style.transition = 'transform 0.3s ease';
-
+      // Retour vertical
       if (pvGesture === 'vertical-back' && (isFlickY || isLargeDragY)) {
-        // Retour à la page précédente
-        page.style.transform = `translateY(100%)`;
+        page.style.transition = 'transform 0.3s ease';
+        page.style.transform = 'translateY(100%)';
         setTimeout(() => {
           page.remove();
           if (typeof onRetour === 'function') onRetour();
@@ -1331,40 +1306,140 @@ function ouvrirPageVideo(numero, onRetour, listeIds, indexCourant, positionEntre
         return;
       }
 
+      // Navigation horizontale
       if (pvGesture === 'horizontal' && (isFlick || isLargeDrag)) {
+        const nouvelIndex = dx < 0 ? indexCourant + 1 : indexCourant - 1;
+        const pageSuivante = document.getElementById('page-video-next');
 
-        let nouvelIndex;
-        if (dx < 0) {
-          // swipe gauche → vidéo suivante
-          nouvelIndex = indexCourant + 1;
-        } else {
-          // swipe droite → vidéo précédente
-          nouvelIndex = indexCourant - 1;
-        }
-
-        if (nouvelIndex >= 0 && nouvelIndex < listeIds.length) {
-
+        if (nouvelIndex >= 0 && nouvelIndex < listeIds.length && pageSuivante) {
+          // Animer les deux pages vers leur destination finale
           const sortie = dx < 0 ? '-100%' : '100%';
-          const entree  = dx < 0 ? 'droite' : 'gauche';
+          page.style.transition = 'transform 0.3s ease';
           page.style.transform = `translateX(${sortie})`;
+          pageSuivante.style.transition = 'transform 0.3s ease';
+          pageSuivante.style.transform = 'translateX(0)';
 
           setTimeout(() => {
-            ouvrirPageVideo(listeIds[nouvelIndex], onRetour, listeIds, nouvelIndex, entree);
+            // La page voisine devient la page principale
+            page.remove();
+            pageSuivante.id = 'page-video';
+            // Réattacher les événements sur la nouvelle page principale
+            attacherEvenementsPageVideo(
+              pageSuivante,
+              String(parseInt(listeIds[nouvelIndex], 10)),
+              (window.liensVideos || {})[String(parseInt(listeIds[nouvelIndex], 10))] || '',
+              (window.titresVideos || {})[String(parseInt(listeIds[nouvelIndex], 10))] || '',
+              onRetour,
+              listeIds,
+              nouvelIndex
+            );
+            prechargerPageVoisine(pageSuivante, listeIds, nouvelIndex, onRetour);
           }, 300);
 
         } else {
-          // pas de vidéo suivante/précédente : retour à la position
+          // Pas de voisin : retour élastique
+          page.style.transition = 'transform 0.3s ease';
           page.style.transform = 'translateX(0)';
+          if (pageSuivante) {
+            pageSuivante.style.transition = 'transform 0.3s ease';
+            pageSuivante.style.transform = `translateX(${pageSuivante._offsetDepart}px)`;
+          }
         }
-
         return;
       }
 
-      // Aucun geste suffisant : retour à la position initiale
+      // Aucun geste suffisant : tout revient en place
+      page.style.transition = 'transform 0.3s ease';
       page.style.transform = 'translateX(0)';
+      const pageSuivante = document.getElementById('page-video-next');
+      if (pageSuivante) {
+        pageSuivante.style.transition = 'transform 0.3s ease';
+        pageSuivante.style.transform = `translateX(${pageSuivante._offsetDepart}px)`;
+      }
 
     }, { passive: true });
+  }
+}
 
+function prechargerPageVoisine(pageCourante, listeIds, indexCourant, onRetour) {
+  // Supprimer toute page voisine existante
+  document.getElementById('page-video-next')?.remove();
+
+  // Déterminer quelle page voisine pré-charger
+  // On pré-charge dans les deux sens : on crée une page fantôme
+  // pour la prochaine ET la précédente, mais une seule à la fois
+  // selon le dernier geste. Pour simplifier on pré-charge la suivante.
+  // Au touchmove on déterminera laquelle montrer.
+  // En pratique on crée les deux et on les positionne.
+  [-1, 1].forEach(direction => {
+    const voisinIndex = indexCourant + direction;
+    if (voisinIndex < 0 || voisinIndex >= listeIds.length) return;
+
+    const voisinNum = listeIds[voisinIndex];
+    const voisinKey = String(parseInt(voisinNum, 10));
+    const voisinTitre = (window.titresVideos || {})[voisinKey] || '';
+    const voisinUrl = (window.liensVideos || {})[voisinKey] || '';
+    const voisinTexte = (window.textesVideos || {})[voisinKey] || '';
+    const voisinTags = (window.tagsVideos || {})[voisinKey] || [];
+    const voisinFavoris = JSON.parse(localStorage.getItem('favoris') || '[]');
+    const voisinEstFavori = voisinFavoris.includes(voisinKey);
+    const voisinTagsHTML = voisinTags.length
+      ? voisinTags.map(t => `<span class="tag">${t}</span>`).join('')
+      : '<span class="tag">éthique</span><span class="tag">véganisme</span>';
+    const voisinVideoId = voisinUrl.includes('v=') ? voisinUrl.split('v=')[1] : '';
+    const voisinMiniature = voisinVideoId
+      ? `https://img.youtube.com/vi/${voisinVideoId}/mqdefault.jpg`
+      : `images/vignettes/VE2M ${voisinNum} vignette YT.jpg`;
+
+    const pageVoisine = document.createElement('div');
+    pageVoisine.id = 'page-video-next';
+    pageVoisine.dataset.direction = direction > 0 ? 'droite' : 'gauche';
+    pageVoisine.dataset.index = voisinIndex;
+
+    // Position de départ : collée à droite ou à gauche de l'écran
+    const offsetDepart = direction * screenW;
+    pageVoisine._offsetDepart = offsetDepart;
+
+    pageVoisine.style.cssText = `position:fixed;top:0;left:0;width:100%;height:100dvh;overflow-y:auto;background:#e8e8e8;z-index:9998;box-sizing:border-box;transform:translateX(${offsetDepart}px);transition:none;`;
+    pageVoisine.innerHTML = creerContenuPageVideo(
+      voisinNum, voisinEstFavori, voisinMiniature, voisinVideoId,
+      voisinTitre, voisinTexte, voisinTagsHTML, voisinUrl
+    );
+    document.body.appendChild(pageVoisine);
+  });
+}
+
+function ouvrirPageVideo(numero, onRetour, listeIds, indexCourant) {
+  document.getElementById('page-video')?.remove();
+  document.getElementById('page-video-next')?.remove();
+
+  const key = String(parseInt(numero, 10));
+  const titre = (window.titresVideos || {})[key] || 'Titre introuvable';
+  const url = (window.liensVideos || {})[key] || '';
+  const texte = (window.textesVideos || {})[key] || '';
+  const tagsVideo = (window.tagsVideos || {})[key] || [];
+  const favoris = JSON.parse(localStorage.getItem('favoris') || '[]');
+  const estFavori = favoris.includes(key);
+  const tagsHTML = tagsVideo.length
+    ? tagsVideo.map(t => `<span class="tag">${t}</span>`).join('')
+    : '<span class="tag">éthique</span><span class="tag">véganisme</span>';
+  const videoId = url.includes('v=') ? url.split('v=')[1] : '';
+  const miniature = videoId
+    ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`
+    : `images/vignettes/VE2M ${numero} vignette YT.jpg`;
+
+  const page = document.createElement('div');
+  page.id = 'page-video';
+  page.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100dvh;overflow-y:auto;background:#e8e8e8;z-index:9999;box-sizing:border-box;';
+  page.innerHTML = creerContenuPageVideo(
+    numero, estFavori, miniature, videoId, titre, texte, tagsHTML, url
+  );
+  document.body.appendChild(page);
+
+  attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, indexCourant);
+
+  if (Array.isArray(listeIds) && listeIds.length > 1 && typeof indexCourant === 'number') {
+    prechargerPageVoisine(page, listeIds, indexCourant, onRetour);
   }
 }
 
