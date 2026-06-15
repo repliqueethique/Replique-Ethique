@@ -597,7 +597,7 @@ document.addEventListener('touchstart', (e) => {
     return;
   }
 
-  const w = e.target.closest('#conteneur-vignettes>div,.contenu-essentiel>div,.contenu-favoris>div,.contenu-resultats>div');
+  const w = e.target.closest('#conteneur-vignettes>div,.contenu-essentiel>div,#contenu-favoris>div,.contenu-resultats>div');
   if (w) {
     vWrapper = w;
     const rect = w.getBoundingClientRect();
