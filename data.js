@@ -163,6 +163,58 @@ window.textesVideos = {
   "52": "Paroles et tablature :\nB A G F# \nUn dimanche au grand air\nUne ligne plongée dans l'étang\nEt à côté dans une glacière\nDes poissons agonisants\n\nA Em Bm F#m\nOn néglige tant de souffrances\nOn accepte leur douleur\nEn prétextant leur silence\nEt puisqu'aucun d'eux ne pleure\n\nBm G A F#m\nSans scrupule nous les entassons\nDans des élevages intensifs\nDans leur milieu nous les traquons\nPerpétuons des massacres massifs\n\nBm D F#m G A Bm\nLeur mort est inéluctable\nDe l'écrasement à l'asphyxie\nÉventrés vivants dans les cales\nIngérant nos déchets toxiques\n\nA Em Bm F#m\nSuprémacistes terrestres\nNous menons l'offensive\nContre les peuples de la mer\nSans haine, sans front et sans ogive\n\nBm F#m Em G A\nSi les poissons pouvaient pleurer\nIls n'auraient pas à prendre les armes\nCar les océans déborderaient\nSous les flots de leurs larmes \n\nBm G A F#m x2\nSi notre empathie \nPouvait être à la hauteur\nDe nos capacités cognitives\nNous assurerions leur bonheur (F#)\n\nA Em Bm F#m\nIls ne peuvent se défendre\nContre nos forces déployées\nDerrière nous ne resteront que les cendres\nDu désert marin qu'on a noyé\n\nBm F#m Em G A\nSi les poissons pouvaient pleurer\nIls n'auraient pas à prendre les armes\nCar les océans déborderaient\nSous les flots de leurs larmes\n\nBm G A F#m x2\nSi seulement nous pouvions voir le cœur\nQui bat sous tes écailles\nSans t'infliger l'écueil\nDe te vider de tes entrailles (F#)\n\nA Em Bm F#m\nDes armadas de vaisseaux\nDe l’équateur aux pôles\nNul·le n'est à l'abri dans les eaux\nQue l'on transforme en nécropoles\n\nBm F#m Em G A\nSi les poissons pouvaient pleurer\nIls n'auraient pas à prendre les armes\nCar les océans déborderaient\nSous les flots de leurs larmes\n\nBm G A F#m Bm\nSi les poissons pouvaient crier\nIls n'auraient pas à prendre les armes\nCar nos voix s'effaceraient \nSous leurs hurlements macabres\n\nBm F#m G A Bm\nSi les poissons pouvaient lutter\nIls auraient déjà pris les armes\nCar face à tant d'atrocités\nOn ne peut pas s'attendre au calme\n\nA Em Bm F#m\nEt nous, nous sommes bien à l'abri\nLes pieds secs comme nos cœurs  \nCar sur la terre seule la pluie\nVient témoigner de leur malheur\n\nBm G A F# Bm\nL'hécatombe ne prendra fin  \nQue lorsqu'on aura exterminé\nLes sentients des fonds marins\nNous emportant dans leur tracé\n\nA G Em F# Bm\nDeux-mille-milliards de morts chaque année\nSans voir les victimes saigner\nC'est comme si l'humanité\nToutes les trente heures s'éteignait.",
 };
 
+window.categoriesData = [
+  {
+    "nom": "Arguments moraux",
+    "tags": [
+      "Spécisme",
+      "Sentience",
+      "Considération morale"
+    ]
+  },
+  {
+    "nom": "Communication",
+    "tags": [
+      "Sophisme",
+      "Rhétorique"
+    ]
+  },
+  {
+    "nom": "Pratiques",
+    "tags": [
+      "élevage",
+      "chasse",
+      "pêche",
+      "corrida",
+      "équitation",
+      "expérimentation",
+      "apiculture"
+    ]
+  },
+  {
+    "nom": "Accusations",
+    "tags": [
+      "violence",
+      "intolérance",
+      "extrémisme",
+      "culpabilisation",
+      "Carrences"
+    ]
+  },
+  {
+    "nom": "écologisme",
+    "tags": [
+      "écologisme",
+      "puis de carbone",
+      "souffrance des plantes",
+      "protection des espèces",
+      "soja d'amazonie",
+      "local",
+      "bio"
+    ]
+  }
+];
+
 window.lexiqueData = [
   {
     "mot": "Animalisme",
@@ -219,65 +271,6 @@ window.lexiqueData = [
   {
     "mot": "Végane",
     "definition": "Qualification ou nom commun désignant un mode de vie excluant autant que possible les produits, services et pratiques issus de l'exploitation des animaux spécisés. Par extension, le terme désigne les personnes ayant ce mode de vie, ainsi que les pratiques ou objets qui ne sont pas issues de l'exploitation des autres animaux."
-  }
-];
-
-window.categoriesData = [
-  {
-    "nom": "Arguments moraux",
-    "tags": [
-      "Spécisme",
-      "Sentience",
-      "Considération morale"
-    ]
-  },
-  {
-    "nom": "Communication",
-    "tags": [
-      "Sophisme",
-      "Rhétorique"
-    ]
-  },
-  {
-    "nom": "Pratiques",
-    "tags": [
-      "élevage",
-      "chasse",
-      "pêche",
-      "corrida",
-      "équitation",
-      "expérimentation",
-      "apiculture"
-    ]
-  },
-  {
-    "nom": "Accusations",
-    "tags": [
-      "violence",
-      "intolérance",
-      "extrémisme",
-      "culpabilisation",
-      "Carrences"
-    ]
-  },
-  {
-    "nom": "écologisme",
-    "tags": [
-      "écologisme",
-      "puis de carbone",
-      "souffrance des plantes",
-      "protection des espèces",
-      "soja d'amazonie",
-      "local",
-      "bio"
-    ]
-  }
-];
-
-window.lexiqueData = [
-  {
-    "mot": "Sentience",
-    "definition": "Capacité à ressentir..."
   }
 ];
 
