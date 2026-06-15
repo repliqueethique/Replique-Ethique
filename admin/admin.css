@@ -366,3 +366,14 @@ textarea{
     box-sizing:border-box;
 
 }
+
+.bandeau-etat{
+    padding:10px;
+    font-size:0.85rem;
+    color:#aaa;
+}
+
+.bandeau-etat.alerte{
+    color:#ff7100;
+    font-weight:bold;
+}

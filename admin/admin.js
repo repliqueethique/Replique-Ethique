@@ -57,6 +57,50 @@ function chargerLocalement() {
 
 }
 
+// NOUVEAU : affiche un résumé de l'état chargé, pour détecter
+// immédiatement un problème de sauvegarde locale.
+function diagnostiquerEtat(){
+
+    const nbVideos = videos.length;
+
+    const nbTextes = videos.filter(
+        v => v.texte && v.texte.trim()
+    ).length;
+
+    const nbTags = videos.filter(
+        v => v.tags && v.tags.length
+    ).length;
+
+    const nbMots = lexique.length;
+
+    console.log(
+        `[Réplique Éthique] État chargé : ` +
+        `${nbVideos} vidéos, ` +
+        `${nbTextes} avec texte, ` +
+        `${nbTags} avec tags, ` +
+        `${nbMots} mots dans le lexique.`
+    );
+
+    const bandeau =
+        document.getElementById("bandeauEtat");
+
+    if(bandeau){
+
+        bandeau.textContent =
+            `${nbVideos} vidéos chargées ` +
+            `(${nbTextes} avec texte, ` +
+            `${nbTags} avec tags) — ` +
+            `${nbMots} mots dans le lexique.`;
+
+        bandeau.classList.toggle(
+            "alerte",
+            nbVideos > 0 && nbTextes === 0
+        );
+
+    }
+
+}
+
 const listeVideos =
 document.getElementById("listeVideos");
 
@@ -347,6 +391,8 @@ function supprimerVideo(id){
         video => video.id !== id
     );
 
+    sauvegarderLocalement();
+    
     renderVideos();
 
 }
@@ -362,6 +408,8 @@ if(videos.length === 0){
     renderVideos();
 
 }
+
+diagnostiquerEtat();
 
 function sauvegarderVideo(){
 
@@ -464,9 +512,37 @@ function convertirVersModeleUnique(){
 
 function exporterDataJS(){
 
+    const nbTextes = videos.filter(
+        v => v.texte && v.texte.trim()
+    ).length;
+
+    const nbTags = videos.filter(
+        v => v.tags && v.tags.length
+    ).length;
+
+    // Avertissement si l'export semble vide
+    // alors que des vidéos existent
+    if(
+        videos.length > 0 &&
+        nbTextes === 0 &&
+        nbTags === 0
+    ){
+
+        const continuer = confirm(
+            "Attention : aucune vidéo n'a de texte " +
+            "ni de tags dans les données actuelles.\n\n" +
+            "L'export risque d'être vide. " +
+            "Voulez-vous continuer quand même ?"
+        );
+
+        if(!continuer) return;
+
+    }
+
     let liensVideos = {};
     let titresVideos = {};
     let textesVideos = {};
+    let tagsVideos = {};
     let lexiqueData = lexique;
     let videosCachees = {};
 
@@ -480,7 +556,10 @@ function exporterDataJS(){
 
         textesVideos[video.id] =
             video.texte || "";
-        
+
+        tagsVideos[video.id] =
+            video.tags || [];
+
         videosCachees[video.id] =
             video.cachee || false;
 
@@ -494,6 +573,10 @@ window.liensVideos = ${JSON.stringify(liensVideos, null, 2)};
 window.titresVideos = ${JSON.stringify(titresVideos, null, 2)};
 
 window.textesVideos = ${JSON.stringify(textesVideos, null, 2)};
+
+window.tagsVideos = ${JSON.stringify(tagsVideos, null, 2)};
+
+window.categoriesData = ${JSON.stringify(categories, null, 2)};
 
 window.lexiqueData = ${JSON.stringify(lexiqueData, null, 2)};
 
@@ -1024,17 +1107,37 @@ function sauvegarderLocalement(){
         JSON.stringify(lexique)
     );
 
+    // NOUVEAU : horodatage de la dernière sauvegarde
+    localStorage.setItem(
+        "replique_ethique_derniere_sauvegarde",
+        new Date().toISOString()
+    );
+
 }
 
 document
 .getElementById("btnResetLocal")
 .onclick = () => {
 
-    if(
-        !confirm(
-            "Effacer toutes les données locales ?"
-        )
-    ){
+    const nbVideosAvecContenu =
+        videos.filter(
+            v =>
+                (v.texte && v.texte.trim()) ||
+                (v.tags && v.tags.length)
+        ).length;
+
+    const message =
+        nbVideosAvecContenu > 0
+            ? `Attention : ${nbVideosAvecContenu} vidéo(s) ` +
+              `contiennent du texte et/ou des tags.\n\n` +
+              `Cette action effacera DÉFINITIVEMENT toutes ` +
+              `les données locales (vidéos, tags, catégories, lexique).\n\n` +
+              `Pensez à faire d'abord une sauvegarde JSON ` +
+              `("Sauvegarder une copie JSON") ou un export data.js.\n\n` +
+              `Continuer quand même ?`
+            : "Effacer toutes les données locales ?";
+
+    if(!confirm(message)){
         return;
     }
 
@@ -1057,6 +1160,126 @@ function trierLexique(){
             )
     );
 
+    sauvegarderLocalement();
+
     renderLexique();
+
+}
+
+// NOUVEAU : export JSON complet, indépendant de data.js,
+// pour servir de filet de sécurité régulier.
+function sauvegarderCopieJSON(){
+
+    const contenu = JSON.stringify(
+        {
+            videos,
+            categories,
+            lexique,
+            dateExport: new Date().toISOString()
+        },
+        null,
+        2
+    );
+
+    const blob = new Blob(
+        [contenu],
+        {
+            type:"application/json"
+        }
+    );
+
+    const lien =
+        document.createElement("a");
+
+    lien.href =
+        URL.createObjectURL(blob);
+
+    lien.download =
+        `replique_ethique_sauvegarde_${
+            new Date()
+                .toISOString()
+                .slice(0,10)
+        }.json`;
+
+    lien.click();
+
+}
+
+const btnSauvegardeJSON =
+document.getElementById("btnSauvegardeJSON");
+
+if(btnSauvegardeJSON){
+
+    btnSauvegardeJSON.onclick =
+        sauvegarderCopieJSON;
+
+}
+
+// NOUVEAU : import d'une sauvegarde JSON pour restaurer
+// videos/categories/lexique
+function importerCopieJSON(event){
+
+    const fichier =
+        event.target.files[0];
+
+    if(!fichier) return;
+
+    const lecteur =
+        new FileReader();
+
+    lecteur.onload = e => {
+
+        try {
+
+            const donnees =
+                JSON.parse(
+                    e.target.result
+                );
+
+            if(donnees.videos){
+                videos = donnees.videos;
+            }
+
+            if(donnees.categories){
+                categories = donnees.categories;
+            }
+
+            if(donnees.lexique){
+                lexique = donnees.lexique;
+            }
+
+            sauvegarderLocalement();
+
+            renderVideos();
+            renderCategories();
+            renderLexique();
+            diagnostiquerEtat();
+
+            alert("Sauvegarde importée avec succès.");
+
+        } catch(err) {
+
+            alert(
+                "Erreur : fichier invalide.\n" +
+                err.message
+            );
+
+        }
+
+    };
+
+    lecteur.readAsText(fichier);
+
+}
+
+const inputImportJSON =
+document.getElementById("inputImportJSON");
+
+if(inputImportJSON){
+
+    inputImportJSON.addEventListener(
+        "change",
+        importerCopieJSON
+    );
 
 }
