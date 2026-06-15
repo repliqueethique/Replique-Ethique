@@ -1437,7 +1437,6 @@ function _peuplerParametres() {
       ca.style.background = isC
         ? (cs2.getPropertyValue('--c-sombre').trim() || '#242422')
         : (cs2.getPropertyValue('--c-primaire').trim() || '#31bebd');
-      cd.innerHTML = '';
       const pp = chargerParametres();
       if (!pp.accueil) pp.accueil = {};
       pp.accueil[opt.id] = !isC;
