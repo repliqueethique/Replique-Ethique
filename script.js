@@ -1153,7 +1153,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 // BLOC 15 : PAGE VIDÉO
 // ============================================================
 
-function ouvrirPageVideo(numero, onRetour, listeIds, indexCourant) {
+function ouvrirPageVideo(numero, onRetour, listeIds, indexCourant, positionEntree) {
   document.getElementById('page-video')?.remove();
   const key=String(parseInt(numero,10));
   const titre=(window.titresVideos||{})[key]||'Titre introuvable';
@@ -1169,6 +1169,16 @@ function ouvrirPageVideo(numero, onRetour, listeIds, indexCourant) {
   const page=document.createElement('div');
   page.id='page-video';
   page.style.cssText='position:fixed;top:0;left:0;width:100%;height:100dvh;overflow-y:auto;background:#e8e8e8;z-index:9999;box-sizing:border-box;';
+
+  // Position de départ pour l'animation d'entrée (carrousel)
+  if (positionEntree === 'gauche') {
+    page.style.transition = 'none';
+    page.style.transform = 'translateX(-100%)';
+  } else if (positionEntree === 'droite') {
+    page.style.transition = 'none';
+    page.style.transform = 'translateX(100%)';
+  }
+
   page.innerHTML=`
     <div style="max-width:960px;margin:0 auto;padding:16px;box-sizing:border-box;background:#fff;min-height:100dvh;">
       <button id="retour-page-video" class="triangle-retour gauche" style="margin-bottom:12px;"></button>
@@ -1194,6 +1204,13 @@ function ouvrirPageVideo(numero, onRetour, listeIds, indexCourant) {
       <div style="font-family:'Graphie';color:#242422;line-height:1.7;font-size:19px;white-space:pre-wrap;">${texte||'Contenu à venir.'}</div>
     </div>`;
   document.body.appendChild(page);
+
+  // Si la page démarre hors écran, on force le reflow puis on l'anime vers 0
+  if (positionEntree === 'gauche' || positionEntree === 'droite') {
+    void page.offsetWidth;
+    page.style.transition = 'transform 0.3s ease';
+    page.style.transform = 'translateX(0)';
+  }
 
   page.querySelector('#retour-page-video').addEventListener('click',()=>{ page.remove(); if(typeof onRetour==='function') onRetour(); });
   page.querySelector('#zone-video').addEventListener('click',()=>{
@@ -1328,10 +1345,11 @@ function ouvrirPageVideo(numero, onRetour, listeIds, indexCourant) {
         if (nouvelIndex >= 0 && nouvelIndex < listeIds.length) {
 
           const sortie = dx < 0 ? '-100%' : '100%';
+          const entree  = dx < 0 ? 'droite' : 'gauche';
           page.style.transform = `translateX(${sortie})`;
 
           setTimeout(() => {
-            ouvrirPageVideo(listeIds[nouvelIndex], onRetour, listeIds, nouvelIndex);
+            ouvrirPageVideo(listeIds[nouvelIndex], onRetour, listeIds, nouvelIndex, entree);
           }, 300);
 
         } else {
