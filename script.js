@@ -1270,11 +1270,11 @@ function attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, 
     }
 
     if (pvGesture === 'horizontal') {
-      const screenW = window.innerWidth;
       page.style.transition = 'none';
       page.style.transform = `translateX(${dx}px)`;
-      // Déplacer aussi la page voisine dans la même direction
-      const voisin = document.getElementById('page-video-next');
+      // Chercher la voisine selon la direction du doigt
+      const idVoisin = dx < 0 ? 'page-video-next' : 'page-video-prev';
+      const voisin = document.getElementById(idVoisin);
       if (voisin) {
         const offsetDepart = voisin._offsetDepart || 0;
         voisin.style.transition = 'none';
@@ -1311,19 +1311,10 @@ function attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, 
     // Navigation horizontale
     if (pvGesture === 'horizontal' && (isFlick || isLargeDrag)) {
       const nouvelIndex = dx < 0 ? indexCourant + 1 : indexCourant - 1;
-      const voisin = document.getElementById('page-video-next');
+      const idVoisin = dx < 0 ? 'page-video-next' : 'page-video-prev';
+      const voisin = document.getElementById(idVoisin);
 
       if (nouvelIndex >= 0 && nouvelIndex < listeIds.length && voisin) {
-        // Vérifier que la page voisine correspond bien à la bonne direction
-        const directionAttendue = dx < 0 ? 'droite' : 'gauche';
-        if (voisin.dataset.direction !== directionAttendue) {
-          // Mauvaise page voisine affichée, annuler
-          page.style.transition = 'transform 0.3s ease';
-          page.style.transform = 'translateX(0)';
-          voisin.style.transition = 'transform 0.3s ease';
-          voisin.style.transform = `translateX(${voisin._offsetDepart}px)`;
-          return;
-        }
         const sortie = dx < 0 ? `-${screenW}px` : `${screenW}px`;
         page.style.transition = 'transform 0.3s ease';
         page.style.transform = `translateX(${sortie})`;
@@ -1332,6 +1323,9 @@ function attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, 
         voisin.style.zIndex = '9999';
 
         setTimeout(() => {
+          // Supprimer les deux voisins et la page courante
+          document.getElementById('page-video-prev')?.remove();
+          document.getElementById('page-video-next')?.remove();
           page.remove();
           voisin.id = 'page-video';
           const newKey = String(parseInt(listeIds[nouvelIndex], 10));
@@ -1342,13 +1336,17 @@ function attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, 
         }, 300);
 
       } else {
-        // Pas de voisin dans cette direction : rebond
+        // Rebond : remettre tout en place
         page.style.transition = 'transform 0.3s ease';
         page.style.transform = 'translateX(0)';
-        if (voisin) {
-          voisin.style.transition = 'transform 0.3s ease';
-          voisin.style.transform = `translateX(${voisin._offsetDepart}px)`;
-        }
+        const autreId = dx < 0 ? 'page-video-prev' : 'page-video-next';
+        [idVoisin, autreId].forEach(id => {
+          const v = document.getElementById(id);
+          if (v) {
+            v.style.transition = 'transform 0.3s ease';
+            v.style.transform = `translateX(${v._offsetDepart}px)`;
+          }
+        });
       }
       return;
     }
@@ -1356,15 +1354,16 @@ function attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, 
     // Aucun geste suffisant : tout revient en place
     page.style.transition = 'transform 0.3s ease';
     page.style.transform = 'translateX(0)';
-    const voisin = document.getElementById('page-video-next');
-    if (voisin) {
-      voisin.style.transition = 'transform 0.3s ease';
-      voisin.style.transform = `translateX(${voisin._offsetDepart}px)`;
-    }
-  }, { passive: true });
-}
+    ['page-video-prev', 'page-video-next'].forEach(id => {
+      const v = document.getElementById(id);
+      if (v) {
+        v.style.transition = 'transform 0.3s ease';
+        v.style.transform = `translateX(${v._offsetDepart}px)`;
+      }
+    });
 
 function prechargerPageVoisine(listeIds, indexCourant, onRetour) {
+  document.getElementById('page-video-prev')?.remove();
   document.getElementById('page-video-next')?.remove();
   const screenW = window.innerWidth;
 
@@ -1389,7 +1388,8 @@ function prechargerPageVoisine(listeIds, indexCourant, onRetour) {
       : `images/vignettes/VE2M ${voisinNum} vignette YT.jpg`;
 
     const pageVoisine = document.createElement('div');
-    pageVoisine.id = 'page-video-next';
+    // Id distinct selon la direction
+    pageVoisine.id = direction > 0 ? 'page-video-next' : 'page-video-prev';
     pageVoisine.dataset.direction = direction > 0 ? 'droite' : 'gauche';
     pageVoisine.dataset.index = voisinIndex;
 
