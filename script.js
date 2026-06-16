@@ -1330,14 +1330,15 @@ function attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, 
         setTimeout(() => {
           const idAutreVoisin = dx < 0 ? 'page-video-prev' : 'page-video-next';
           document.getElementById(idAutreVoisin)?.remove();
-          page.remove();
           voisin.id = 'page-video';
+          voisin.style.zIndex = '10000';
+          page.remove();
           const newKey = String(parseInt(listeIds[nouvelIndex], 10));
           const newUrl = (window.liensVideos || {})[newKey] || '';
           const newTitre = (window.titresVideos || {})[newKey] || '';
           attacherEvenementsPageVideo(voisin, newKey, newUrl, newTitre, onRetour, listeIds, nouvelIndex);
           prechargerPageVoisine(listeIds, nouvelIndex, onRetour);
-          transitionVideoEnCours = false; // NOUVEAU
+          transitionVideoEnCours = false;
         }, 300);
 
       } else {
