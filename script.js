@@ -1185,6 +1185,7 @@ function creerContenuPageVideo(numero, estFavori, miniature, videoId, titre, tex
 function attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, indexCourant) {
 
   page.querySelector('#retour-page-video').addEventListener('click', () => {
+    document.getElementById('page-video-prev')?.remove();
     document.getElementById('page-video-next')?.remove();
     page.remove();
     if (typeof onRetour === 'function') onRetour();
@@ -1272,7 +1273,7 @@ function attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, 
     if (pvGesture === 'horizontal') {
       page.style.transition = 'none';
       page.style.transform = `translateX(${dx}px)`;
-      // Chercher la voisine selon la direction du doigt
+      // Déplacer la voisine correspondant à la direction du doigt
       const idVoisin = dx < 0 ? 'page-video-next' : 'page-video-prev';
       const voisin = document.getElementById(idVoisin);
       if (voisin) {
@@ -1301,6 +1302,7 @@ function attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, 
       page.style.transition = 'transform 0.3s ease';
       page.style.transform = 'translateY(100%)';
       setTimeout(() => {
+        document.getElementById('page-video-prev')?.remove();
         document.getElementById('page-video-next')?.remove();
         page.remove();
         if (typeof onRetour === 'function') onRetour();
@@ -1323,7 +1325,6 @@ function attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, 
         voisin.style.zIndex = '9999';
 
         setTimeout(() => {
-          // Supprimer les deux voisins et la page courante
           document.getElementById('page-video-prev')?.remove();
           document.getElementById('page-video-next')?.remove();
           page.remove();
@@ -1336,11 +1337,10 @@ function attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, 
         }, 300);
 
       } else {
-        // Rebond : remettre tout en place
+        // Pas de voisin dans cette direction : rebond
         page.style.transition = 'transform 0.3s ease';
         page.style.transform = 'translateX(0)';
-        const autreId = dx < 0 ? 'page-video-prev' : 'page-video-next';
-        [idVoisin, autreId].forEach(id => {
+        ['page-video-prev', 'page-video-next'].forEach(id => {
           const v = document.getElementById(id);
           if (v) {
             v.style.transition = 'transform 0.3s ease';
@@ -1361,6 +1361,9 @@ function attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, 
         v.style.transform = `translateX(${v._offsetDepart}px)`;
       }
     });
+
+  }, { passive: true });
+}
 
 function prechargerPageVoisine(listeIds, indexCourant, onRetour) {
   document.getElementById('page-video-prev')?.remove();
@@ -1388,7 +1391,6 @@ function prechargerPageVoisine(listeIds, indexCourant, onRetour) {
       : `images/vignettes/VE2M ${voisinNum} vignette YT.jpg`;
 
     const pageVoisine = document.createElement('div');
-    // Id distinct selon la direction
     pageVoisine.id = direction > 0 ? 'page-video-next' : 'page-video-prev';
     pageVoisine.dataset.direction = direction > 0 ? 'droite' : 'gauche';
     pageVoisine.dataset.index = voisinIndex;
@@ -1407,6 +1409,7 @@ function prechargerPageVoisine(listeIds, indexCourant, onRetour) {
 
 function ouvrirPageVideo(numero, onRetour, listeIds, indexCourant) {
   document.getElementById('page-video')?.remove();
+  document.getElementById('page-video-prev')?.remove();
   document.getElementById('page-video-next')?.remove();
 
   const key = String(parseInt(numero, 10));
