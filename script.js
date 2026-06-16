@@ -1319,13 +1319,12 @@ function attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, 
 
       if (nouvelIndex >= 0 && nouvelIndex < listeIds.length && voisin) {
         const sortie = dx < 0 ? `-${screenW}px` : `${screenW}px`;
+        transitionVideoEnCours = true;
         page.style.transition = 'transform 0.3s ease';
         page.style.transform = `translateX(${sortie})`;
         voisin.style.transition = 'transform 0.3s ease';
         voisin.style.transform = 'translateX(0)';
-        voisin.style.zIndex = '9999';
-
-        transitionVideoEnCours = true; // NOUVEAU
+        voisin.style.zIndex = '9999';     
 
         setTimeout(() => {
           document.getElementById('page-video-prev')?.remove();
