@@ -543,13 +543,16 @@ document.addEventListener('touchstart', (e) => {
   lastFavMoveDirection = null;
   favPassedThreshold = false;
 
+  // Si une page vidéo est ouverte, le swipe est entièrement géré par
+  // ses propres listeners — on ne touche à rien ici.
+  if (document.getElementById('page-video')) return;
+
   const favPanel = document.getElementById('favoris-panel');
   const paramsPanel = document.getElementById('page-parametres');
   const screenH = window.innerHeight;
 
   if (estMobile() &&
       tStartY < screenH * 0.125 &&
-      !document.getElementById('page-video') &&
       !favPanel?.classList.contains('visible') &&
       !paramsPanel?.classList.contains('visible')) {
     draggingParams = true;
@@ -572,8 +575,7 @@ document.addEventListener('touchstart', (e) => {
   }
 
   if (!favPanel?.classList.contains('visible') &&
-      tStartY > screenH * 0.875 &&
-      !document.getElementById('page-video')) {
+      tStartY > screenH * 0.875) {
     draggingFav = true;
     favDirection = 'open';
     favDragStartY = tStartY;
@@ -607,28 +609,28 @@ document.addEventListener('touchstart', (e) => {
   }
 
   // Pré-masquage des pages qui vont être animées
-  if (pageActuelle === 2) { // Accueil → Mots-clés
+  if (pageActuelle === 2) {
     document.querySelectorAll('.contenu-mots-cles .categorie').forEach(el => {
       el.classList.remove('anim-show');
       el.classList.add('anim-hidden');
     });
   }
 
-  if (pageActuelle === 4) { // Essentiel → Lexique
+  if (pageActuelle === 4) {
     document.querySelectorAll('.mot-lexique').forEach(el => {
       el.classList.remove('anim-show');
       el.classList.add('anim-hidden');
     });
   }
 
-  if (pageActuelle === 5) { // Lexique → Mots-clés (wrap)
+  if (pageActuelle === 5) {
     document.querySelectorAll('.contenu-mots-cles .categorie').forEach(el => {
       el.classList.remove('anim-show');
       el.classList.add('anim-hidden');
     });
   }
 
-  if (pageActuelle === 1) { // Mots-clés → Lexique (wrap)
+  if (pageActuelle === 1) {
     document.querySelectorAll('.mot-lexique').forEach(el => {
       el.classList.remove('anim-show');
       el.classList.add('anim-hidden');
@@ -757,7 +759,7 @@ document.addEventListener('touchend', (e) => {
     return;
   }
 
-   if (estMobile() && vWrapper && vMiddleZone && gestureType === 'carousel' && dx > 0) {
+  if (estMobile() && vWrapper && vMiddleZone && gestureType === 'carousel' && dx > 0) {
     conteneurPages.style.transition = 'transform 0.4s ease';
     conteneurPages.style.transform = `translateX(-${pageActuelle * screenW}px)`;
     const bar = vWrapper.querySelector('[style*="translateX"]');
