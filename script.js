@@ -520,6 +520,7 @@ let gestureType = null;
 let lastFavMoveY = 0;
 let lastFavMoveDirection = null;
 let favPassedThreshold = false;
+let transitionVideoEnCours = false;
 
 // Listener non-passif dédié pour bloquer le scroll pendant le drag favoris/params
 document.addEventListener('touchmove', (e) => {
@@ -782,7 +783,7 @@ document.addEventListener('touchend', (e) => {
   }
 
   // Checks de panels (après vignettes)
-  if (document.getElementById('page-video')) return;
+  if (document.getElementById('page-video') || transitionVideoEnCours) return;
   if (estMobile() ? paramsPanel?.classList.contains('visible') : paramsPanel?.style.display === 'flex') return;
   if (document.getElementById('panneau-resultats')?.style.display === 'flex') return;
   if (favPanel?.classList.contains('visible') && !vWrapper) return;
@@ -1324,6 +1325,8 @@ function attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, 
         voisin.style.transform = 'translateX(0)';
         voisin.style.zIndex = '9999';
 
+        transitionVideoEnCours = true; // NOUVEAU
+
         setTimeout(() => {
           document.getElementById('page-video-prev')?.remove();
           document.getElementById('page-video-next')?.remove();
@@ -1334,6 +1337,7 @@ function attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, 
           const newTitre = (window.titresVideos || {})[newKey] || '';
           attacherEvenementsPageVideo(voisin, newKey, newUrl, newTitre, onRetour, listeIds, nouvelIndex);
           prechargerPageVoisine(listeIds, nouvelIndex, onRetour);
+          transitionVideoEnCours = false; // NOUVEAU
         }, 300);
 
       } else {
