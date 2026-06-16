@@ -1155,7 +1155,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 // BLOC 15 : PAGE VIDÉO
 // ============================================================
 
-function creerContenuPageVideo(numero, estFavori, miniature, videoId, titre, texte, tagsHTML, url) {
+function creerContenuPageVideo(numero, estFavori, miniature, videoId, titre, texte, tagsHTML) {
   return `
     <div style="max-width:960px;margin:0 auto;padding:16px;box-sizing:border-box;background:#fff;min-height:100dvh;">
       <button id="retour-page-video" class="triangle-retour gauche" style="margin-bottom:12px;"></button>
@@ -1183,7 +1183,9 @@ function creerContenuPageVideo(numero, estFavori, miniature, videoId, titre, tex
 }
 
 function attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, indexCourant) {
+
   page.querySelector('#retour-page-video').addEventListener('click', () => {
+    document.getElementById('page-video-next')?.remove();
     page.remove();
     if (typeof onRetour === 'function') onRetour();
   });
@@ -1233,146 +1235,139 @@ function attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, 
   });
 
   // ====== SWIPE : retour bas / précédent (droite) / suivant (gauche) ======
-  if (Array.isArray(listeIds) && listeIds.length > 1 && typeof indexCourant === 'number') {
+  if (!Array.isArray(listeIds) || listeIds.length <= 1 || typeof indexCourant !== 'number') return;
 
-    let pvStartX = 0, pvStartY = 0, pvStartT = 0;
-    let pvDragging = false;
-    let pvGesture = null;
-    const screenH = window.innerHeight;
+  let pvStartX = 0, pvStartY = 0, pvStartT = 0;
+  let pvDragging = false;
+  let pvGesture = null;
+  const screenH = window.innerHeight;
+
+  page.addEventListener('touchstart', (e) => {
+    pvStartX = e.touches[0].clientX;
+    pvStartY = e.touches[0].clientY;
+    pvStartT = Date.now();
+    pvGesture = null;
+    pvDragging = pvStartY >= screenH * 0.125 && pvStartY <= screenH * 0.30;
+  }, { passive: true });
+
+  page.addEventListener('touchmove', (e) => {
+    const dx = e.touches[0].clientX - pvStartX;
+    const dy = e.touches[0].clientY - pvStartY;
+
+    if (!pvGesture && (Math.abs(dx) > 10 || Math.abs(dy) > 10)) {
+      if (Math.abs(dy) > Math.abs(dx) && dy > 0 && pvDragging) {
+        pvGesture = 'vertical-back';
+      } else if (Math.abs(dx) > Math.abs(dy)) {
+        pvGesture = 'horizontal';
+      } else {
+        pvGesture = 'none';
+      }
+    }
+
+    if (pvGesture === 'vertical-back') {
+      page.style.transition = 'none';
+      page.style.transform = `translateY(${Math.max(0, dy)}px)`;
+    }
+
+    if (pvGesture === 'horizontal') {
+      const screenW = window.innerWidth;
+      page.style.transition = 'none';
+      page.style.transform = `translateX(${dx}px)`;
+      // Déplacer aussi la page voisine dans la même direction
+      const voisin = document.getElementById('page-video-next');
+      if (voisin) {
+        const offsetDepart = voisin._offsetDepart || 0;
+        voisin.style.transition = 'none';
+        voisin.style.transform = `translateX(${offsetDepart + dx}px)`;
+      }
+    }
+  }, { passive: true });
+
+  page.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - pvStartX;
+    const dy = e.changedTouches[0].clientY - pvStartY;
+    const dt = Date.now() - pvStartT;
     const screenW = window.innerWidth;
+    const velocity = Math.abs(dx) / dt;
+    const velocityY = Math.abs(dy) / dt;
 
-    page.addEventListener('touchstart', (e) => {
-      pvStartX = e.touches[0].clientX;
-      pvStartY = e.touches[0].clientY;
-      pvStartT = Date.now();
-      pvGesture = null;
-      pvDragging =
-        pvStartY >= screenH * 0.125 &&
-        pvStartY <= screenH * 0.30;
-    }, { passive: true });
+    const isFlick = velocity > 0.3 && dt < 300;
+    const isLargeDrag = Math.abs(dx) > screenW * 0.3;
+    const isFlickY = velocityY > 0.3 && dt < 300;
+    const isLargeDragY = dy > screenH * 0.25;
 
-    page.addEventListener('touchmove', (e) => {
-      const dx = e.touches[0].clientX - pvStartX;
-      const dy = e.touches[0].clientY - pvStartY;
+    // Retour vertical
+    if (pvGesture === 'vertical-back' && (isFlickY || isLargeDragY)) {
+      page.style.transition = 'transform 0.3s ease';
+      page.style.transform = 'translateY(100%)';
+      setTimeout(() => {
+        document.getElementById('page-video-next')?.remove();
+        page.remove();
+        if (typeof onRetour === 'function') onRetour();
+      }, 300);
+      return;
+    }
 
-      if (!pvGesture && (Math.abs(dx) > 10 || Math.abs(dy) > 10)) {
-        if (Math.abs(dy) > Math.abs(dx) && dy > 0 && pvDragging) {
-          pvGesture = 'vertical-back';
-        } else if (Math.abs(dx) > Math.abs(dy)) {
-          pvGesture = 'horizontal';
-        } else {
-          pvGesture = 'none';
-        }
-      }
+    // Navigation horizontale
+    if (pvGesture === 'horizontal' && (isFlick || isLargeDrag)) {
+      const nouvelIndex = dx < 0 ? indexCourant + 1 : indexCourant - 1;
+      const voisin = document.getElementById('page-video-next');
 
-      if (pvGesture === 'vertical-back') {
-        page.style.transition = 'none';
-        page.style.transform = `translateY(${Math.max(0, dy)}px)`;
-      }
-
-      if (pvGesture === 'horizontal') {
-        // Déplacer la page courante ET la page voisine ensemble
-        const pageSuivante = document.getElementById('page-video-next');
-        page.style.transition = 'none';
-        page.style.transform = `translateX(${dx}px)`;
-        if (pageSuivante) {
-          pageSuivante.style.transition = 'none';
-          // La page voisine est à ±screenW de la courante, on la suit
-          const offset = pageSuivante._offsetDepart || 0;
-          pageSuivante.style.transform = `translateX(${offset + dx}px)`;
-        }
-      }
-
-    }, { passive: true });
-
-    page.addEventListener('touchend', (e) => {
-      const dx = e.changedTouches[0].clientX - pvStartX;
-      const dy = e.changedTouches[0].clientY - pvStartY;
-      const dt = Date.now() - pvStartT;
-      const velocity = Math.abs(dx) / dt;
-      const velocityY = Math.abs(dy) / dt;
-
-      const isFlick = velocity > 0.3 && dt < 300;
-      const isLargeDrag = Math.abs(dx) > screenW * 0.3;
-      const isFlickY = velocityY > 0.3 && dt < 300;
-      const isLargeDragY = dy > screenH * 0.25;
-
-      // Retour vertical
-      if (pvGesture === 'vertical-back' && (isFlickY || isLargeDragY)) {
-        page.style.transition = 'transform 0.3s ease';
-        page.style.transform = 'translateY(100%)';
-        setTimeout(() => {
-          page.remove();
-          if (typeof onRetour === 'function') onRetour();
-        }, 300);
-        return;
-      }
-
-      // Navigation horizontale
-      if (pvGesture === 'horizontal' && (isFlick || isLargeDrag)) {
-        const nouvelIndex = dx < 0 ? indexCourant + 1 : indexCourant - 1;
-        const pageSuivante = document.getElementById('page-video-next');
-
-        if (nouvelIndex >= 0 && nouvelIndex < listeIds.length && pageSuivante) {
-          // Animer les deux pages vers leur destination finale
-          const sortie = dx < 0 ? '-100%' : '100%';
-          page.style.transition = 'transform 0.3s ease';
-          page.style.transform = `translateX(${sortie})`;
-          pageSuivante.style.transition = 'transform 0.3s ease';
-          pageSuivante.style.transform = 'translateX(0)';
-
-          setTimeout(() => {
-            // La page voisine devient la page principale
-            page.remove();
-            pageSuivante.id = 'page-video';
-            // Réattacher les événements sur la nouvelle page principale
-            attacherEvenementsPageVideo(
-              pageSuivante,
-              String(parseInt(listeIds[nouvelIndex], 10)),
-              (window.liensVideos || {})[String(parseInt(listeIds[nouvelIndex], 10))] || '',
-              (window.titresVideos || {})[String(parseInt(listeIds[nouvelIndex], 10))] || '',
-              onRetour,
-              listeIds,
-              nouvelIndex
-            );
-            prechargerPageVoisine(pageSuivante, listeIds, nouvelIndex, onRetour);
-          }, 300);
-
-        } else {
-          // Pas de voisin : retour élastique
+      if (nouvelIndex >= 0 && nouvelIndex < listeIds.length && voisin) {
+        // Vérifier que la page voisine correspond bien à la bonne direction
+        const directionAttendue = dx < 0 ? 'droite' : 'gauche';
+        if (voisin.dataset.direction !== directionAttendue) {
+          // Mauvaise page voisine affichée, annuler
           page.style.transition = 'transform 0.3s ease';
           page.style.transform = 'translateX(0)';
-          if (pageSuivante) {
-            pageSuivante.style.transition = 'transform 0.3s ease';
-            pageSuivante.style.transform = `translateX(${pageSuivante._offsetDepart}px)`;
-          }
+          voisin.style.transition = 'transform 0.3s ease';
+          voisin.style.transform = `translateX(${voisin._offsetDepart}px)`;
+          return;
         }
-        return;
-      }
+        const sortie = dx < 0 ? `-${screenW}px` : `${screenW}px`;
+        page.style.transition = 'transform 0.3s ease';
+        page.style.transform = `translateX(${sortie})`;
+        voisin.style.transition = 'transform 0.3s ease';
+        voisin.style.transform = 'translateX(0)';
+        voisin.style.zIndex = '9999';
 
-      // Aucun geste suffisant : tout revient en place
-      page.style.transition = 'transform 0.3s ease';
-      page.style.transform = 'translateX(0)';
-      const pageSuivante = document.getElementById('page-video-next');
-      if (pageSuivante) {
-        pageSuivante.style.transition = 'transform 0.3s ease';
-        pageSuivante.style.transform = `translateX(${pageSuivante._offsetDepart}px)`;
-      }
+        setTimeout(() => {
+          page.remove();
+          voisin.id = 'page-video';
+          const newKey = String(parseInt(listeIds[nouvelIndex], 10));
+          const newUrl = (window.liensVideos || {})[newKey] || '';
+          const newTitre = (window.titresVideos || {})[newKey] || '';
+          attacherEvenementsPageVideo(voisin, newKey, newUrl, newTitre, onRetour, listeIds, nouvelIndex);
+          prechargerPageVoisine(listeIds, nouvelIndex, onRetour);
+        }, 300);
 
-    }, { passive: true });
-  }
+      } else {
+        // Pas de voisin dans cette direction : rebond
+        page.style.transition = 'transform 0.3s ease';
+        page.style.transform = 'translateX(0)';
+        if (voisin) {
+          voisin.style.transition = 'transform 0.3s ease';
+          voisin.style.transform = `translateX(${voisin._offsetDepart}px)`;
+        }
+      }
+      return;
+    }
+
+    // Aucun geste suffisant : tout revient en place
+    page.style.transition = 'transform 0.3s ease';
+    page.style.transform = 'translateX(0)';
+    const voisin = document.getElementById('page-video-next');
+    if (voisin) {
+      voisin.style.transition = 'transform 0.3s ease';
+      voisin.style.transform = `translateX(${voisin._offsetDepart}px)`;
+    }
+  }, { passive: true });
 }
 
-function prechargerPageVoisine(pageCourante, listeIds, indexCourant, onRetour) {
-  // Supprimer toute page voisine existante
+function prechargerPageVoisine(listeIds, indexCourant, onRetour) {
   document.getElementById('page-video-next')?.remove();
+  const screenW = window.innerWidth;
 
-  // Déterminer quelle page voisine pré-charger
-  // On pré-charge dans les deux sens : on crée une page fantôme
-  // pour la prochaine ET la précédente, mais une seule à la fois
-  // selon le dernier geste. Pour simplifier on pré-charge la suivante.
-  // Au touchmove on déterminera laquelle montrer.
-  // En pratique on crée les deux et on les positionne.
   [-1, 1].forEach(direction => {
     const voisinIndex = indexCourant + direction;
     if (voisinIndex < 0 || voisinIndex >= listeIds.length) return;
@@ -1398,14 +1393,13 @@ function prechargerPageVoisine(pageCourante, listeIds, indexCourant, onRetour) {
     pageVoisine.dataset.direction = direction > 0 ? 'droite' : 'gauche';
     pageVoisine.dataset.index = voisinIndex;
 
-    // Position de départ : collée à droite ou à gauche de l'écran
     const offsetDepart = direction * screenW;
     pageVoisine._offsetDepart = offsetDepart;
 
     pageVoisine.style.cssText = `position:fixed;top:0;left:0;width:100%;height:100dvh;overflow-y:auto;background:#e8e8e8;z-index:9998;box-sizing:border-box;transform:translateX(${offsetDepart}px);transition:none;`;
     pageVoisine.innerHTML = creerContenuPageVideo(
       voisinNum, voisinEstFavori, voisinMiniature, voisinVideoId,
-      voisinTitre, voisinTexte, voisinTagsHTML, voisinUrl
+      voisinTitre, voisinTexte, voisinTagsHTML
     );
     document.body.appendChild(pageVoisine);
   });
@@ -1433,15 +1427,13 @@ function ouvrirPageVideo(numero, onRetour, listeIds, indexCourant) {
   const page = document.createElement('div');
   page.id = 'page-video';
   page.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100dvh;overflow-y:auto;background:#e8e8e8;z-index:9999;box-sizing:border-box;';
-  page.innerHTML = creerContenuPageVideo(
-    numero, estFavori, miniature, videoId, titre, texte, tagsHTML, url
-  );
+  page.innerHTML = creerContenuPageVideo(numero, estFavori, miniature, videoId, titre, texte, tagsHTML);
   document.body.appendChild(page);
 
   attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, indexCourant);
 
   if (Array.isArray(listeIds) && listeIds.length > 1 && typeof indexCourant === 'number') {
-    prechargerPageVoisine(page, listeIds, indexCourant, onRetour);
+    prechargerPageVoisine(listeIds, indexCourant, onRetour);
   }
 }
 
