@@ -759,6 +759,8 @@ document.addEventListener('touchend', (e) => {
     draggingFav = false; favDirection = null;
     return;
   }
+  
+  if (document.getElementById('page-video') || transitionVideoEnCours) return;
 
   if (estMobile() && vWrapper && vMiddleZone && gestureType === 'carousel' && dx > 0) {
     conteneurPages.style.transition = 'transform 0.4s ease';
@@ -783,7 +785,6 @@ document.addEventListener('touchend', (e) => {
   }
 
   // Checks de panels (après vignettes)
-  if (document.getElementById('page-video') || transitionVideoEnCours) return;
   if (estMobile() ? paramsPanel?.classList.contains('visible') : paramsPanel?.style.display === 'flex') return;
   if (document.getElementById('panneau-resultats')?.style.display === 'flex') return;
   if (favPanel?.classList.contains('visible') && !vWrapper) return;
