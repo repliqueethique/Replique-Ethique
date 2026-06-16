@@ -1328,8 +1328,8 @@ function attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, 
         voisin.style.zIndex = '9999';     
 
         setTimeout(() => {
-          document.getElementById('page-video-prev')?.remove();
-          document.getElementById('page-video-next')?.remove();
+          const idAutreVoisin = dx < 0 ? 'page-video-prev' : 'page-video-next';
+          document.getElementById(idAutreVoisin)?.remove();
           page.remove();
           voisin.id = 'page-video';
           const newKey = String(parseInt(listeIds[nouvelIndex], 10));
