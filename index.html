@@ -141,7 +141,7 @@
   <!-- BLOC 2 : Conteneur carrousel -->
   <div id="conteneur-pages">
 
-    <!-- Ghost lexique -->
+    <!-- Ghost lexique (0) -->
     <div class="page" style="pointer-events:none;">
       <div class="header-mots-cles" id="header-ghost-lexique" style="opacity:0; transition: opacity 0.5s ease;">
         <div style="width:24px;"></div>
@@ -150,7 +150,7 @@
       </div>
     </div>
 
-    <!-- Page Mots-clés -->
+    <!-- Page Mots-clés (1) -->
     <section id="page-mots-cles" class="page">
       <header class="header-mots-cles">
         <button id="retour-accueil" class="triangle-retour gauche" aria-label="Retour accueil"></button>
@@ -163,7 +163,45 @@
       <img src="images/clés.png" alt="illustration clés" class="image-cles" />
     </section>
 
-    <!-- Page Liste -->
+    <!-- Page Accueil (2) -->
+    <main id="accueil" class="page visible">
+      <img id="logo-fixe" src="images/logo-animation.gif" alt="Logo Réplique Éthique" />
+
+      <div class="search-bar">
+        <input type="text" placeholder="Que cherches-tu ?" />
+        <button class="search-button transition-ready">
+          <img src="images/icone-loupe.png" alt="Search" />
+        </button>
+      </div>
+
+      <div class="menu-buttons">
+        <button class="transition-ready" id="btn-mots-cles">Mots-clés</button>
+        <button class="transition-ready" id="btn-liste">Liste</button>
+        <button class="transition-ready" id="btn-essentiel">L'essentiel</button>
+        <button class="transition-ready" id="btn-lexique">Lexique</button>
+        <button class="transition-ready">Favoris</button>
+      </div>
+
+      <div class="footer-bar">
+        <div style="width:40px; flex-shrink:0;"></div>
+        <div style="display:flex; gap:6px; align-items:center; margin:0 auto;">
+          <a href="#" id="btn-info"><img src="images/icone-info.png" alt="Info" class="transition-ready" /></a>
+          <a href="mailto:orlandohb@replique-ethique.fr" target="_blank"><img src="images/icone-mail.png" alt="Mail" class="transition-ready" /></a>
+          <a href="https://oc.todon.fr/@RepliqueEthique" target="_blank"><img src="images/icone-mastodon.png" alt="Mastodon" class="transition-ready" /></a>
+          <a href="https://bsky.app/profile/repliqueethique.bsky.social" target="_blank"><img src="images/icone-bluesky.png" alt="Bluesky" class="transition-ready" /></a>
+          <a href="#"><img src="images/icone-discord.png" alt="Discord" class="transition-ready" /></a>
+          <a href="https://www.youtube.com/c/RépliqueÉthique/videos" target="_blank"><img src="images/icone-youtube.png" alt="YouTube" class="transition-ready" /></a>
+          <a href="https://www.instagram.com/replique_ethique/" target="_blank"><img src="images/icone-instagram.png" alt="Instagram" class="transition-ready" /></a>
+        </div>
+        <a href="#" id="btn-parametres" style="margin-right:15px; flex-shrink:0;">
+          <img src="images/rouage.png" alt="Paramètres" class="transition-ready" style="width:24px; height:24px;" />
+        </a>
+      </div>
+
+      <a href="https://www.replique-ethique.fr" class="site-link transition-ready">Réplique Éthique</a>
+    </main>
+
+    <!-- Page Liste (3) -->
     <section id="page-liste" class="page">
       <div class="header-liste" id="header-liste">
         <div class="triangle-retour gauche" id="retour-accueil-liste"></div>
@@ -175,7 +213,7 @@
       <div class="conteneur-vignettes" id="conteneur-vignettes"></div>
     </section>
 
-    <!-- Page Essentiel -->
+    <!-- Page Essentiel (4) -->
     <div id="page-essentiel" class="page">
       <div class="header-essentiel" id="header-essentiel">
         <div class="triangle-retour gauche" id="retour-accueil-essentiel"></div>
@@ -187,7 +225,7 @@
       <div class="contenu-essentiel colonne-unique"></div>
     </div>
 
-    <!-- Page Lexique -->
+    <!-- Page Lexique (5) -->
     <div id="page-lexique" class="page">
       <div class="header-mots-cles" id="header-lexique">
         <button id="retour-accueil-lexique" class="triangle-retour gauche" aria-label="Retour accueil"></button>
@@ -199,14 +237,14 @@
       <div class="contenu-lexique" id="conteneurLexique"></div>
     </div>
 
-    <!-- Ghost mots-clés -->
+    <!-- Ghost mots-clés (6) -->
     <div class="page" style="pointer-events:none;">
       <div class="header-mots-cles">
         <div style="width:24px;"></div>
         <h1 class="titre-mots-cles">mots-clés</h1>
         <div style="width:24px;"></div>
       </div>
-    </div>    
+    </div>
 
   </div>
   
