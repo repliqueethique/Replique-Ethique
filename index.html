@@ -152,7 +152,7 @@
 
     <!-- Page Mots-clés -->
     <section id="page-mots-cles" class="page">
-      <header class="header-mots-cles">
+      <header class="header-mots-cles" id="header-fixe-mots-cles">
         <button id="retour-accueil" class="triangle-retour gauche" aria-label="Retour accueil"></button>
         <h1 class="titre-mots-cles">mots-clés</h1>
         <a href="#" onclick="ouvrirParametres(); return false;" style="margin-right:15px; flex-shrink:0;">
@@ -179,7 +179,7 @@
       <div class="menu-buttons">
         <button class="transition-ready" id="btn-mots-cles">Mots-clés</button>
         <button class="transition-ready" id="btn-liste">Liste</button>
-        <button class="transition-ready" id="btn-essentiel">L’essentiel</button>
+        <button class="transition-ready" id="btn-essentiel">L'essentiel</button>
         <button class="transition-ready" id="btn-lexique">Lexique</button>
         <button class="transition-ready">Favoris</button>
       </div>
@@ -212,37 +212,34 @@
           <img src="images/rouage.png" style="width:24px; height:24px;" />
         </a>
       </div>
-
-      <section id="page-liste" class="page">
-        <div class="padding-header" id="padding-liste"></div>
-        <div class="conteneur-vignettes" id="conteneur-vignettes"></div>
-      </section>
+      <div class="padding-header" id="padding-liste"></div>
+      <div class="conteneur-vignettes" id="conteneur-vignettes"></div>
+    </section>
 
     <!-- Page Essentiel -->
     <div id="page-essentiel" class="page">
-      <div class="header-fixe" id="header-essentiel">
-       <div class="triangle-retour gauche" id="retour-accueil-essentiel"></div>
+      <div class="header-fixe" id="header-fixe-essentiel">
+        <div class="triangle-retour gauche" id="retour-accueil-essentiel"></div>
         <h1 class="titre-essentiel">L'essentiel</h1>
         <a href="#" onclick="ouvrirParametres(); return false;" style="margin-right:15px; flex-shrink:0;">
           <img src="images/rouage.png" style="width:24px; height:24px;" />
         </a>
       </div>
-      
+      <div class="padding-header" id="padding-essentiel"></div>
       <div class="contenu-essentiel colonne-unique"></div>
     </div>
 
     <!-- Page Lexique -->
     <div id="page-lexique" class="page">
-      <div class="header-fixe" id="header-mots-cles">
+      <div class="header-fixe" id="header-fixe-lexique">
         <button id="retour-accueil-lexique" class="triangle-retour gauche" aria-label="Retour accueil"></button>
         <h1 class="titre-mots-cles">lexique</h1>
         <a href="#" onclick="ouvrirParametres(); return false;" style="margin-right:15px; flex-shrink:0;">
           <img src="images/rouage.png" style="width:24px; height:24px;" />
         </a>
       </div>
-
-      <div class="contenu-lexique" id="conteneurLexique">
-      </div>
+      <div class="padding-header" id="padding-lexique"></div>
+      <div class="contenu-lexique" id="conteneurLexique"></div>
     </div>
 
     <!-- Ghost mots-clés -->
