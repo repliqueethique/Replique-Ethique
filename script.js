@@ -522,7 +522,10 @@ let lastFavMoveDirection = null;
 let favPassedThreshold = false;
 let transitionVideoEnCours = false;
 let pinchDistanceDepart = 0;
-let pinchDéclenché = false;
+let pinchDistanceCourante = 0;
+let pinchActif = false;
+let pinchTailleDepart = 'petites';
+let pinchCibleEl = null;
 
 // Listener non-passif dédié pour bloquer le scroll pendant le drag favoris/params
 document.addEventListener('touchmove', (e) => {
@@ -548,10 +551,31 @@ document.addEventListener('touchstart', (e) => {
 
   // Pinch : mémoriser la distance initiale entre les 2 doigts
   if (e.touches.length === 2) {
-    const dx = e.touches[0].clientX - e.touches[1].clientX;
-    const dy = e.touches[0].clientY - e.touches[1].clientY;
-    pinchDistanceDepart = Math.hypot(dx, dy);
-    pinchDéclenché = false;
+    const ddx = e.touches[0].clientX - e.touches[1].clientX;
+    const ddy = e.touches[0].clientY - e.touches[1].clientY;
+    pinchDistanceDepart = Math.hypot(ddx, ddy);
+    pinchDistanceCourante = pinchDistanceDepart;
+    pinchActif = true;
+    const p = chargerParametres();
+    pinchTailleDepart = p.taille || 'petites';
+
+    // Trouver le conteneur concerné
+    const conteneurs = [
+      document.getElementById('conteneur-vignettes'),
+      document.querySelector('.contenu-essentiel'),
+      document.getElementById('contenu-favoris'),
+    ];
+    pinchCibleEl = conteneurs.find(c => c && c.contains(e.target)) || null;
+    if (!pinchCibleEl) {
+      if (pageActuelle === 3) pinchCibleEl = document.getElementById('conteneur-vignettes');
+      else if (pageActuelle === 4) pinchCibleEl = document.querySelector('.contenu-essentiel');
+      else if (document.getElementById('favoris-panel')?.classList.contains('visible'))
+        pinchCibleEl = document.getElementById('contenu-favoris');
+    }
+    if (pinchCibleEl) {
+      pinchCibleEl.style.transition = 'none';
+      pinchCibleEl.style.transformOrigin = 'top center';
+    }
     return;
   }
 
@@ -627,21 +651,18 @@ document.addEventListener('touchstart', (e) => {
       el.classList.add('anim-hidden');
     });
   }
-
   if (pageActuelle === 4) {
     document.querySelectorAll('.mot-lexique').forEach(el => {
       el.classList.remove('anim-show');
       el.classList.add('anim-hidden');
     });
   }
-
   if (pageActuelle === 5) {
     document.querySelectorAll('.contenu-mots-cles .categorie').forEach(el => {
       el.classList.remove('anim-show');
       el.classList.add('anim-hidden');
     });
   }
-
   if (pageActuelle === 1) {
     document.querySelectorAll('.mot-lexique').forEach(el => {
       el.classList.remove('anim-show');
@@ -652,8 +673,6 @@ document.addEventListener('touchstart', (e) => {
 }, { passive: true });
 
 document.addEventListener('touchmove', (e) => {
-  const dx = e.touches[0].clientX - tStartX;
-  const dy = e.touches[0].clientY - tStartY;
   const favPanel = document.getElementById('favoris-panel');
   const paramsPanel = document.getElementById('page-parametres');
   const screenH = window.innerHeight;
@@ -695,28 +714,33 @@ document.addEventListener('touchmove', (e) => {
     return;
   }
 
-  if (e.touches.length === 2) {
-    const dx = e.touches[0].clientX - e.touches[1].clientX;
-    const dy = e.touches[0].clientY - e.touches[1].clientY;
-    const distActuelle = Math.hypot(dx, dy);
+  // Pinch : scale visuel en temps réel
+  if (e.touches.length === 2 && pinchActif && pinchCibleEl) {
+    const ddx = e.touches[0].clientX - e.touches[1].clientX;
+    const ddy = e.touches[0].clientY - e.touches[1].clientY;
+    const distActuelle = Math.hypot(ddx, ddy);
+    pinchDistanceCourante = distActuelle;
     const ratio = distActuelle / pinchDistanceDepart;
 
-    if (!pinchDéclenché && Math.abs(ratio - 1) > 0.25) {
-      pinchDéclenché = true;
-      const p = chargerParametres();
-      const nouvelleTaille = ratio > 1 ? 'grandes' : 'petites';
-      if (nouvelleTaille !== (p.taille || 'petites')) {
-        p.taille = nouvelleTaille;
-        sauvegarderParametres(p);
-        appliquerTaille(nouvelleTaille);
-        afficherListe();
-        genererEssentiel();
-        afficherFavoris();
-        mettreAJourBoutonTaille(nouvelleTaille);
-      }
+    // Scale entre 0.8 et 1.3 selon le geste, ancré sur la taille de départ
+    const scaleDepart = pinchTailleDepart === 'grandes' ? 1.3 : 1;
+    const scaleCible  = pinchTailleDepart === 'grandes' ? 1   : 1.3;
+    // On interpole le scale courant selon le ratio du pinch
+    let scaleCourant;
+    if (pinchTailleDepart === 'petites') {
+      // écarter → agrandir
+      scaleCourant = Math.min(1.3, Math.max(0.85, ratio));
+    } else {
+      // pincer → réduire
+      scaleCourant = Math.min(1.3, Math.max(0.85, ratio));
     }
+
+    pinchCibleEl.style.transform = `scale(${scaleCourant})`;
     return;
   }
+
+  const dx = e.touches[0].clientX - tStartX;
+  const dy = e.touches[0].clientY - tStartY;
 
   if (document.getElementById('page-video')) return;
   if (estMobile() ? paramsPanel?.classList.contains('visible') : paramsPanel?.style.display === 'flex') return;
@@ -793,7 +817,53 @@ document.addEventListener('touchend', (e) => {
     draggingFav = false; favDirection = null;
     return;
   }
-  
+
+  // Pinch : décision au relâcher
+  if (pinchActif && pinchCibleEl) {
+    pinchActif = false;
+    const ratio = pinchDistanceCourante / pinchDistanceDepart;
+    // Seuil : 20% d'écart pour confirmer le changement
+    const seuil = 0.2;
+    const versGrandes = ratio > 1 + seuil;
+    const versPetites = ratio < 1 - seuil;
+    const nouvelleTaille =
+      versGrandes ? 'grandes' :
+      versPetites ? 'petites' :
+      pinchTailleDepart;
+
+    if (nouvelleTaille !== pinchTailleDepart) {
+      // Confirmer : animer vers le scale cible puis reconstruire
+      const scaleFinal = nouvelleTaille === 'grandes' ? 1.3 : 0.85;
+      pinchCibleEl.style.transition = 'transform 0.25s ease';
+      pinchCibleEl.style.transform = `scale(${scaleFinal})`;
+      setTimeout(() => {
+        pinchCibleEl.style.transition = '';
+        pinchCibleEl.style.transform = '';
+        pinchCibleEl.style.transformOrigin = '';
+        const p = chargerParametres();
+        p.taille = nouvelleTaille;
+        sauvegarderParametres(p);
+        appliquerTaille(nouvelleTaille);
+        afficherListe();
+        genererEssentiel();
+        afficherFavoris();
+        mettreAJourBoutonTaille(nouvelleTaille);
+        pinchCibleEl = null;
+      }, 250);
+    } else {
+      // Annuler : revenir à scale(1)
+      pinchCibleEl.style.transition = 'transform 0.25s ease';
+      pinchCibleEl.style.transform = 'scale(1)';
+      setTimeout(() => {
+        pinchCibleEl.style.transition = '';
+        pinchCibleEl.style.transform = '';
+        pinchCibleEl.style.transformOrigin = '';
+        pinchCibleEl = null;
+      }, 250);
+    }
+    return;
+  }
+
   if (document.getElementById('page-video') || transitionVideoEnCours) return;
 
   if (estMobile() && vWrapper && vMiddleZone && gestureType === 'carousel' && dx > 0) {
