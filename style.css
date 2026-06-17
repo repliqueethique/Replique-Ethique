@@ -316,12 +316,13 @@ body {
   display: flex; align-items: center;
   justify-content: space-between;
   padding: 0 10px; box-sizing: border-box;
-  position: sticky;   /* ← était sans position */
-  top: 0;             /* ← colle en haut au scroll */
+  position: sticky;
+  top: 0;
   z-index: 10;
   overflow: visible;
   color: var(--c-texte);
-  transition: height 0.3s ease, padding 0.3s ease;  /* ← pour le rétrécissement */
+  transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: height;
 }
 
 .header-mots-cles.compact, .header-essentiel.compact, .header-liste.compact {

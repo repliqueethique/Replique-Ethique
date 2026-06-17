@@ -930,11 +930,12 @@ window.addEventListener('DOMContentLoaded', () => {
     { page: document.getElementById('page-lexique'),   header: document.querySelector('#page-lexique .header-mots-cles') },
   ].forEach(({ page, header }) => {
     if (!page || !header) return;
+    let estCompact = false;
     page.addEventListener('scroll', () => {
-      if (page.scrollTop > 10) {
-        header.classList.add('compact');
-      } else {
-        header.classList.remove('compact');
+      const devraitEtreCompact = page.scrollTop > 10;
+      if (devraitEtreCompact !== estCompact) {
+        estCompact = devraitEtreCompact;
+        header.classList.toggle('compact', estCompact);
       }
     }, { passive: true });
   });
