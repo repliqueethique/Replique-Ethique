@@ -205,31 +205,35 @@
 
     <!-- Page Liste -->
     <section id="page-liste" class="page">
-      <div class="header-liste">
+      <div class="header-fixe" id="header-fixe-liste">
         <div class="triangle-retour gauche" id="retour-accueil-liste"></div>
         <h1 class="titre-mots-cles">liste</h1>
         <a href="#" onclick="ouvrirParametres(); return false;" style="margin-right:15px; flex-shrink:0;">
           <img src="images/rouage.png" style="width:24px; height:24px;" />
         </a>
       </div>
-      <div class="conteneur-vignettes" id="conteneur-vignettes"></div>
-    </section>
+
+      <section id="page-liste" class="page">
+        <div class="padding-header" id="padding-liste"></div>
+        <div class="conteneur-vignettes" id="conteneur-vignettes"></div>
+      </section>
 
     <!-- Page Essentiel -->
     <div id="page-essentiel" class="page">
-      <div class="header-essentiel">
+      <div class="header-fixe" id="header-essentiel">
        <div class="triangle-retour gauche" id="retour-accueil-essentiel"></div>
         <h1 class="titre-essentiel">L'essentiel</h1>
         <a href="#" onclick="ouvrirParametres(); return false;" style="margin-right:15px; flex-shrink:0;">
           <img src="images/rouage.png" style="width:24px; height:24px;" />
         </a>
       </div>
+      
       <div class="contenu-essentiel colonne-unique"></div>
     </div>
 
     <!-- Page Lexique -->
     <div id="page-lexique" class="page">
-      <div class="header-mots-cles">
+      <div class="header-fixe" id="header-mots-cles">
         <button id="retour-accueil-lexique" class="triangle-retour gauche" aria-label="Retour accueil"></button>
         <h1 class="titre-mots-cles">lexique</h1>
         <a href="#" onclick="ouvrirParametres(); return false;" style="margin-right:15px; flex-shrink:0;">

@@ -924,11 +924,27 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Rétrécissement des headers au scroll
   [
-    { page: document.getElementById('page-liste'),     header: document.querySelector('#page-liste .header-liste') },
-    { page: document.getElementById('page-essentiel'), header: document.querySelector('#page-essentiel .header-essentiel') },
-    { page: document.getElementById('page-mots-cles'), header: document.querySelector('#page-mots-cles .header-mots-cles') },
-    { page: document.getElementById('page-lexique'),   header: document.querySelector('#page-lexique .header-mots-cles') },
-  ].forEach(({ page, header }) => {
+    {
+      page: document.getElementById('page-liste'),
+      header: document.getElementById('header-fixe-liste'),
+      padding: document.getElementById('padding-liste'),
+    },
+    {
+      page: document.getElementById('page-essentiel'),
+      header: document.getElementById('header-fixe-essentiel'),
+      padding: document.getElementById('padding-essentiel'),
+    },
+    {
+      page: document.getElementById('page-mots-cles'),
+      header: document.getElementById('header-fixe-mots-cles'),
+      padding: document.getElementById('padding-mots-cles'),
+    },
+    {
+      page: document.getElementById('page-lexique'),
+      header: document.getElementById('header-fixe-lexique'),
+      padding: document.getElementById('padding-lexique'),
+    },
+  ].forEach(({ page, header, padding }) => {
     if (!page || !header) return;
     let estCompact = false;
     page.addEventListener('scroll', () => {
@@ -936,6 +952,7 @@ window.addEventListener('DOMContentLoaded', () => {
       if (devraitEtreCompact !== estCompact) {
         estCompact = devraitEtreCompact;
         header.classList.toggle('compact', estCompact);
+        padding?.classList.toggle('compact', estCompact);
       }
     }, { passive: true });
   });
