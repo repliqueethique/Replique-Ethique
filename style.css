@@ -311,14 +311,23 @@ body {
    ============================================================ */
 .header-mots-cles, .header-essentiel, .header-liste {
   background: var(--c-sombre); width: 100%;
-  flex-shrink: 0; height: 70px;
+  flex-shrink: 0;
+  height: 70px;
   display: flex; align-items: center;
   justify-content: space-between;
   padding: 0 10px; box-sizing: border-box;
-  position: relative; z-index: 2;
+  position: sticky;   /* ← était sans position */
+  top: 0;             /* ← colle en haut au scroll */
+  z-index: 10;
   overflow: visible;
   color: var(--c-texte);
+  transition: height 0.3s ease, padding 0.3s ease;  /* ← pour le rétrécissement */
 }
+
+.header-mots-cles.compact, .header-essentiel.compact, .header-liste.compact {
+  height: 44px;
+}
+
 .titre-mots-cles, .titre-essentiel {
   position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%);

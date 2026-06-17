@@ -852,6 +852,23 @@ window.addEventListener('DOMContentLoaded', () => {
   conteneurVignettes = document.getElementById('conteneur-vignettes');
   contenuEssentiel   = document.querySelector('.contenu-essentiel');
 
+  // Rétrécissement des headers au scroll
+  [
+    { page: document.getElementById('page-liste'),     header: document.querySelector('#page-liste .header-liste') },
+    { page: document.getElementById('page-essentiel'), header: document.querySelector('#page-essentiel .header-essentiel') },
+    { page: document.getElementById('page-mots-cles'), header: document.querySelector('#page-mots-cles .header-mots-cles') },
+    { page: document.getElementById('page-lexique'),   header: document.querySelector('#page-lexique .header-mots-cles') },
+  ].forEach(({ page, header }) => {
+    if (!page || !header) return;
+    page.addEventListener('scroll', () => {
+      if (page.scrollTop > 10) {
+        header.classList.add('compact');
+      } else {
+        header.classList.remove('compact');
+      }
+    }, { passive: true });
+  });
+
   const logoFixe    = document.getElementById('logo-fixe');
   const loupeButton = document.querySelector('.search-button');
   const menuBtns    = document.querySelectorAll('.menu-buttons button');
