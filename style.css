@@ -350,7 +350,14 @@ body {
   -webkit-text-fill-color: var(--titre-fill, inherit);
   -webkit-text-stroke: var(--titre-stroke, 0px) var(--c-accent);
   text-shadow: var(--titre-shadow, none);
+  transition: font-size 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+.compact .titre-mots-cles,
+.compact .titre-essentiel {
+  font-size: 1.6em;
+}
+
 .header-liste {
   color: var(--c-accent); padding: 0 10px;
 }
