@@ -359,7 +359,7 @@ body {
 }
 
 .compact .triangle-retour {
-  transform: scaleY(1.587);
+  transform: scaleY(1.587) scaleX(0.63);
 }
 
 .header-liste {
