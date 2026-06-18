@@ -358,6 +358,10 @@ body {
   transform: translate(-50%, -50%) scaleY(1.587) scale(0.64);
 }
 
+.compact .triangle-retour {
+  transform: scaleY(1.587);
+}
+
 .header-liste {
   color: var(--c-accent); padding: 0 10px;
 }
