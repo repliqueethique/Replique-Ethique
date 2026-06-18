@@ -322,16 +322,17 @@ body {
   position: sticky;
   top: 0;
   z-index: 10;
-  overflow: hidden;
+  overflow: visible;
   color: var(--c-texte);
-  transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: height;
+  transform-origin: top center;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
 .header-mots-cles.compact,
 .header-essentiel.compact,
 .header-liste.compact {
-  height: 44px;
+  transform: scaleY(0.63);
 }
 
 .titre-mots-cles, .titre-essentiel {
@@ -352,11 +353,10 @@ body {
   will-change: transform;
 }
 
-
+.compact .titre-mots-cles,
 .compact .titre-essentiel {
   transform: translate(-50%, -50%) scaleY(1.587) scale(0.64);
 }
-
 
 .header-liste {
   color: var(--c-accent); padding: 0 10px;

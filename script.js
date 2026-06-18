@@ -945,11 +945,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Rétrécissement des headers au scroll
   [
-    { page: document.getElementById('page-liste'),     header: document.getElementById('header-liste') },
-    { page: document.getElementById('page-essentiel'), header: document.getElementById('header-essentiel') },
-    { page: document.getElementById('page-mots-cles'), header: document.querySelector('#page-mots-cles .header-mots-cles') },
-    { page: document.getElementById('page-lexique'),   header: document.getElementById('header-lexique') },
-  ].forEach(({ page, header }) => {
+    { page: document.getElementById('page-liste'),     header: document.getElementById('header-liste'),     fleche: document.getElementById('retour-accueil-liste') },
+    { page: document.getElementById('page-essentiel'), header: document.getElementById('header-essentiel'), fleche: document.getElementById('retour-accueil-essentiel') },
+    { page: document.getElementById('page-mots-cles'), header: document.querySelector('#page-mots-cles .header-mots-cles'), fleche: document.getElementById('retour-accueil') },
+    { page: document.getElementById('page-lexique'),   header: document.getElementById('header-lexique'),   fleche: document.getElementById('retour-accueil-lexique') },
+  ].forEach(({ page, header, fleche }) => {
     if (!page || !header) return;
     let estCompact = false;
     page.addEventListener('scroll', () => {
@@ -957,6 +957,12 @@ window.addEventListener('DOMContentLoaded', () => {
       if (devraitEtreCompact !== estCompact) {
         estCompact = devraitEtreCompact;
         header.classList.toggle('compact', estCompact);
+        // Contre-scaler la flèche pour qu'elle garde sa taille et forme originales
+        if (fleche) {
+          fleche.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+          fleche.style.transform = estCompact ? 'scaleY(1.587)' : '';
+          fleche.style.transformOrigin = 'center center';
+        }
       }
     }, { passive: true });
   });
