@@ -1940,58 +1940,59 @@ function appliquerTaille(taille){
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
-  // Appliquer le thème sauvegardé dès le chargement
   appliquerTheme(chargerTheme());
   const bp=document.getElementById('btn-parametres');
   if(bp) bp.addEventListener('click',(e)=>{e.preventDefault();ouvrirParametres();});
 
-  // Bouton retour Android : revenir à l'accueil, quitter seulement si déjà à l'accueil
   window.addEventListener('popstate', () => {
     const paramsPanel = document.getElementById('page-parametres');
     const favPanel    = document.getElementById('favoris-panel');
     const infoPanel   = document.getElementById('info-panel');
     const videoPanel  = document.getElementById('page-video');
 
-    // Fermer d'abord les panneaux ouverts, dans l'ordre de priorité
+    // Toujours repousser un état pour que le bouton retour reste actif
+    history.pushState(null, '', location.href);
+
+    // Fermer les panneaux ouverts en priorité
     if (videoPanel) {
+      document.getElementById('page-video-prev')?.remove();
+      document.getElementById('page-video-next')?.remove();
       videoPanel.remove();
-      history.pushState(null, '', location.href);
       return;
     }
     if (estMobile() ? paramsPanel?.classList.contains('visible') : paramsPanel?.style.display === 'flex') {
       fermerParametres();
-      history.pushState(null, '', location.href);
       return;
     }
     if (favPanel?.classList.contains('visible')) {
       favPanel.style.transition = 'bottom 0.4s ease';
       favPanel.style.bottom = '-110%';
       favPanel.classList.remove('visible');
-      history.pushState(null, '', location.href);
       return;
     }
     if (infoPanel?.classList.contains('visible')) {
-      infoPanel.style.transform = 'translateY(-110%)';
       infoPanel.classList.remove('visible');
-      history.pushState(null, '', location.href);
       return;
     }
 
-    // Lire la page de démarrage définie dans les paramètres
+    // Lire la page de démarrage configurée
     const p = chargerParametres();
     const pagesDemarrage = {
       'mots-cles': 1, 'accueil': 2, 'liste': 3, 'essentiel': 4, 'lexique': 5
     };
     const pageDemarrage = pagesDemarrage[p.demarrage] ?? 2;
 
-    // Si on est déjà sur la page de démarrage, laisser quitter
-    if (pageActuelle === pageDemarrage) return;
+    // Si déjà sur la page de démarrage, laisser quitter l'app
+    if (pageActuelle === pageDemarrage) {
+      history.back();
+      return;
+    }
 
     // Sinon revenir à la page de démarrage
     naviguerVers(pageDemarrage);
   });
 
-  // Initialiser l'historique pour que popstate se déclenche
+  // Pousser un état initial
   history.pushState(null, '', location.href);
 });
 
