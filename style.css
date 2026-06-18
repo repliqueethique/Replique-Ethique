@@ -322,17 +322,16 @@ body {
   position: sticky;
   top: 0;
   z-index: 10;
-  overflow: visible;
+  overflow: hidden;
   color: var(--c-texte);
-  transform-origin: top center;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
+  transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: height;
 }
 
 .header-mots-cles.compact,
 .header-essentiel.compact,
 .header-liste.compact {
-  transform: scaleY(0.63);
+  height: 44px;
 }
 
 .titre-mots-cles, .titre-essentiel {
@@ -353,14 +352,11 @@ body {
   will-change: transform;
 }
 
-.compact .titre-mots-cles,
+
 .compact .titre-essentiel {
   transform: translate(-50%, -50%) scaleY(1.587) scale(0.64);
 }
 
-.compact .triangle-retour {
-  transform: scaleY(1.587) scaleX(0.63);
-}
 
 .header-liste {
   color: var(--c-accent); padding: 0 10px;
