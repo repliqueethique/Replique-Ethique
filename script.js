@@ -526,6 +526,7 @@ let pinchDistanceCourante = 0;
 let pinchActif = false;
 let pinchTailleDepart = 'petites';
 let pinchCibleEl = null;
+let draggingSecrets = false, secretsDragStartY = 0;
 
 // Listener non-passif dédié pour bloquer le scroll pendant le drag favoris/params
 document.addEventListener('touchmove', (e) => {
@@ -548,6 +549,16 @@ document.addEventListener('touchstart', (e) => {
   lastFavMoveY = tStartY;
   lastFavMoveDirection = null;
   favPassedThreshold = false;
+
+  // Swipe haut depuis le haut de la page secrets (1er quart) → fermer
+  if (document.getElementById('page-secrets')?.classList.contains('visible') &&
+      tStartY <= screenH * 0.25) {
+    draggingSecretsClose = true;
+    secretsCloseDragStartY = tStartY;
+    const panel = document.getElementById('page-secrets');
+    panel.style.transition = 'none';
+    return;
+  }
 
   // Pinch : mémoriser la distance initiale entre les 2 doigts
   if (e.touches.length === 2) {
@@ -576,6 +587,20 @@ document.addEventListener('touchstart', (e) => {
       pinchCibleEl.style.transition = 'none';
       pinchCibleEl.style.transformOrigin = 'top center';
     }
+    return;
+  }
+
+  // Swipe bas depuis le centre de l'accueil (quarts 2 et 3)
+  if (pageActuelle === 2 &&
+      !document.getElementById('favoris-panel')?.classList.contains('visible') &&
+      !document.getElementById('page-parametres')?.classList.contains('visible') &&
+      tStartY >= screenH * 0.25 && tStartY <= screenH * 0.75) {
+    draggingSecrets = true;
+    secretsDragStartY = tStartY;
+    const panel = document.getElementById('page-secrets');
+    genererSecrets();
+    panel.style.transition = 'none';
+    panel.style.transform = 'translateY(100%)';
     return;
   }
 
@@ -729,6 +754,18 @@ document.addEventListener('touchmove', (e) => {
     return;
   }
 
+  if (draggingSecrets) {
+    const dy = e.touches[0].clientY - secretsDragStartY;
+    const panel = document.getElementById('page-secrets');
+    if (dy > 0) {
+      const pct = (dy / screenH) * 100;
+      panel.style.transform = `translateY(${Math.min(100, 100 - pct)}%)`;
+    } else {
+      panel.style.transform = 'translateY(0%)';
+    }
+    return;
+  }
+
   // Pinch : scale visuel en temps réel
   if (e.touches.length === 2 && pinchActif && pinchCibleEl) {
     const ddx = e.touches[0].clientX - e.touches[1].clientX;
@@ -793,6 +830,23 @@ document.addEventListener('touchend', (e) => {
   const paramsPanel = document.getElementById('page-parametres');
   const velocity = Math.abs(dx) / dt;
 
+  if (draggingSecretsClose) {
+    const dy = e.changedTouches[0].clientY - secretsCloseDragStartY;
+    const panel = document.getElementById('page-secrets');
+    panel.style.transition = 'transform 0.4s ease';
+    if (dy < -(screenH * 0.25) || (Math.abs(dy) / dt > 0.3 && dy < 0)) {
+      panel.style.transform = 'translateY(-100%)';
+      setTimeout(() => {
+        panel.classList.remove('visible');
+        panel.style.transform = 'translateY(100%)';
+      }, 400);
+    } else {
+      panel.style.transform = 'translateY(0)';
+    }
+    draggingSecretsClose = false;
+    return;
+  }
+
   if (draggingParams) {
     const paramsDy = e.changedTouches[0].clientY - paramsDragStartY;
     paramsPanel.style.transition = 'transform 0.4s ease';
@@ -836,6 +890,23 @@ document.addEventListener('touchend', (e) => {
       }
     }
     draggingFav = false; favDirection = null;
+    return;
+  }
+
+  if (draggingSecrets) {
+    const dy = e.changedTouches[0].clientY - secretsDragStartY;
+    const panel = document.getElementById('page-secrets');
+    panel.style.transition = 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)';
+    if (dy > screenH * 0.25 || (Math.abs(dy) / dt) > 0.3) {
+      panel.classList.add('visible');
+      panel.style.transform = 'translateY(0)';
+      history.pushState({ page: 'secrets' }, '', location.href);
+      setTimeout(() => animerSecrets(), 100);
+    } else {
+      panel.style.transform = 'translateY(100%)';
+      panel.classList.remove('visible');
+    }
+    draggingSecrets = false;
     return;
   }
 
@@ -1976,6 +2047,11 @@ document.addEventListener('DOMContentLoaded',()=>{
     const favPanel    = document.getElementById('favoris-panel');
     const infoPanel   = document.getElementById('info-panel');
     const videoPanel  = document.getElementById('page-video');
+    const secretsPanel = document.getElementById('page-secrets');
+    if (secretsPanel?.classList.contains('visible')) {
+      fermerPageSecrets();
+      return;
+    }
 
     // Toujours repousser un état pour que le bouton retour reste actif
     history.pushState(null, '', location.href);
@@ -2194,3 +2270,87 @@ if(searchInput){
     if(e.key==='Escape'){panneauResultats.style.display='none';searchInput.value='';}
   });
 }
+
+// ============================================================
+// BLOC 18 : PAGE SECRETS
+// ============================================================
+
+const LISTE_SECRETS = [
+  // Format : { id: 'secret_1', nom: 'Secret 1', fichier: 'secret_1.png' }
+  // À compléter quand tu ajouteras des secrets dans images/secrets/
+];
+
+function chargerSecretsDecouvertes() {
+  return JSON.parse(localStorage.getItem('secrets_decouverts') || '[]');
+}
+
+function genererSecrets() {
+  const galerie = document.getElementById('galerie-secrets');
+  const compteur = document.getElementById('compteur-secrets');
+  if (!galerie) return;
+
+  galerie.innerHTML = '';
+  const decouverts = chargerSecretsDecouvertes();
+  const total = LISTE_SECRETS.length;
+  const nbDecouverts = decouverts.filter(id => LISTE_SECRETS.find(s => s.id === id)).length;
+
+  if (total === 0) {
+    galerie.innerHTML = `<div style="grid-column:1/-1;text-align:center;font-family:'SF Sports Night';color:var(--c-accent);font-size:1.6em;padding:40px 20px;opacity:0.7;">Bientôt...</div>`;
+    compteur.textContent = '0/0';
+    return;
+  }
+
+  LISTE_SECRETS.forEach(secret => {
+    const estDecouvert = decouverts.includes(secret.id);
+    const item = document.createElement('div');
+    item.className = 'secret-item ' + (estDecouvert ? 'decouvert' : 'cache');
+    item.dataset.secretId = secret.id;
+
+    const img = document.createElement('img');
+    img.src = `images/secrets/${secret.fichier}`;
+    img.alt = estDecouvert ? secret.nom : '?';
+    img.draggable = false;
+
+    item.appendChild(img);
+    galerie.appendChild(item);
+  });
+
+  compteur.textContent = `${nbDecouverts}/${total}`;
+
+  // Scroll compact header
+  const pageSecrets = document.getElementById('page-secrets');
+  const headerSecrets = document.getElementById('header-secrets');
+  const retourSecrets = document.getElementById('retour-secrets');
+  pageSecrets.scrollTop = 0;
+  pageSecrets.onscroll = null;
+  pageSecrets.addEventListener('scroll', () => {
+    const compact = pageSecrets.scrollTop > 10;
+    headerSecrets.classList.toggle('compact', compact);
+    if (retourSecrets) {
+      retourSecrets.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+      retourSecrets.style.transform = compact ? 'scaleY(1.587)' : '';
+      retourSecrets.style.transformOrigin = 'center center';
+    }
+  }, { passive: true });
+}
+
+function animerSecrets() {
+  const items = document.querySelectorAll('.secret-item');
+  items.forEach((item, i) => {
+    setTimeout(() => {
+      item.classList.add('anim-entree');
+    }, i * 80);
+  });
+}
+
+function fermerPageSecrets() {
+  const panel = document.getElementById('page-secrets');
+  panel.style.transition = 'transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)';
+  panel.style.transform = 'translateY(100%)';
+  setTimeout(() => panel.classList.remove('visible'), 450);
+}
+
+// Bouton retour de la page secrets
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('retour-secrets')?.addEventListener('click', fermerPageSecrets);
+});

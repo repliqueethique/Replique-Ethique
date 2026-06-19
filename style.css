@@ -21,6 +21,7 @@
   --fond-params:    linear-gradient(135deg, #31bebd, #242422);
   --c-barre:        #242224;
   --c-texte:        #ffffff;
+  --fond-secrets: linear-gradient(135deg, #5c205f, #242422);
 }
 
 /* ── Thème CLAIR ── */
@@ -42,6 +43,8 @@ body.theme-clair {
   --fond-params:    linear-gradient(135deg, #ffffff, #ffffff);
   --c-barre:        #757575;
   --c-texte:        #292929;
+  --fond-secrets: linear-gradient(135deg, #ffffff, #d6d6d6);
+
 }
 
 /* ── Thème SOMBRE ── */
@@ -63,6 +66,8 @@ body.theme-sombre {
   --fond-params:    linear-gradient(135deg, #4a2080, #111111);
   --c-barre:        #4b0089;
   --c-texte:        #ffffff;
+  --fond-secrets: linear-gradient(135deg, #111111, #2d1b69);
+
 }
 
 /* ── Thème NÉON ── */
@@ -84,6 +89,8 @@ body.theme-neon {
   --fond-params:    linear-gradient(135deg, #001a33, #006996);
   --c-barre:        #ff0080;
   --c-texte:        #ffffff;
+  --fond-secrets: linear-gradient(135deg, #0a0a0a, #cc00ff);
+
 
   --titre-gradient: none;
   --titre-clip:     border-box;
@@ -126,6 +133,8 @@ body.theme-retro {
   --fond-params:    linear-gradient(135deg, #8b4513, #2c1810);
   --c-barre:        #8b4513;
   --c-texte:        #ffffff;
+  --fond-secrets: linear-gradient(135deg, #2c1810, #8b4513);
+
 }
 
 /* ── Thème AQUA ── */
@@ -147,6 +156,8 @@ body.theme-aqua {
   --fond-params:    linear-gradient(135deg, #0077b6, #03045e);
   --c-barre:        #023e8a;
   --c-texte:        #ffffff;
+  --fond-secrets: linear-gradient(135deg, #03045e, #0077b6);
+
 
   --titre-gradient: radial-gradient(ellipse 60% 100% at center, #cc2200 0%, #ff5500 30%, #ff9900 60%, #ffdd00 82%, #fff5a0 100%);
   --titre-clip:     text;
@@ -835,4 +846,111 @@ body.theme-clair .menu-buttons button {
 body.theme-clair .search-bar {
   border: 1px solid #e0e0e0;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================================
+   PAGE SECRETS (slide depuis le bas sur accueil)
+   ============================================================ */
+#page-secrets {
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100dvh;
+  background: var(--fond-secrets);
+  z-index: 9998;
+  display: flex; flex-direction: column;
+  transform: translateY(100%);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow-y: auto;
+}
+#page-secrets.visible {
+  transform: translateY(0);
+}
+
+.header-secrets {
+  background: var(--c-sombre);
+  height: 70px; flex-shrink: 0;
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 0 10px; box-sizing: border-box;
+  position: sticky; top: 0; z-index: 10;
+  transform-origin: top center;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+.header-secrets.compact {
+  transform: scaleY(0.63);
+}
+.titre-secrets {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'SF Sports Night', sans-serif;
+  color: var(--c-accent); font-size: 2.5em;
+  margin: 0; white-space: nowrap;
+  letter-spacing: 0.05em;
+  background: var(--titre-gradient, none);
+  -webkit-background-clip: var(--titre-clip, border-box);
+  background-clip: var(--titre-clip, border-box);
+  -webkit-text-fill-color: var(--titre-fill, inherit);
+  -webkit-text-stroke: var(--titre-stroke, 0px) var(--c-accent);
+  text-shadow: var(--titre-shadow, none);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+.compact .titre-secrets {
+  transform: translate(-50%, -50%) scaleY(1.587) scale(0.64);
+}
+
+.galerie-secrets {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px; padding: 20px;
+  box-sizing: border-box; width: 100%;
+}
+@media (min-width: 600px) {
+  .galerie-secrets {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+}
+
+.secret-item {
+  aspect-ratio: 1;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.15);
+  opacity: 0;
+  transform: scale(0.5) rotate(-8deg);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.secret-item.decouvert {
+  filter: none;
+}
+.secret-item.cache {
+  filter: grayscale(1) brightness(0.4);
+}
+.secret-item img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+
+/* Animation d'entrée en cascade */
+.secret-item.anim-entree {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.compteur-secrets {
+  font-family: 'SF Sports Night', sans-serif;
+  font-size: 2.2em;
+  color: var(--c-accent);
+  text-align: center;
+  padding: 24px 0 32px;
+  letter-spacing: 0.08em;
+  text-shadow: var(--titre-shadow, none);
+}
+
+.image-secrets {
+  width: 60%; max-width: 260px;
+  opacity: 0.18;
+  display: block;
+  margin: 0 auto 16px;
+  pointer-events: none;
 }
