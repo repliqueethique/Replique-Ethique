@@ -2351,20 +2351,27 @@ function genererSecrets() {
 function animerSecrets() {
   const panel = document.getElementById('page-secrets');
 
-  // État de départ : petit et invisible
+  // Forcer l'état de départ en inline (écrase temporairement .visible)
   panel.style.transition = 'none';
   panel.style.opacity = '0';
   panel.style.transform = 'scale(0.75)';
 
-  // Lancer les étoiles immédiatement
+  // Lancer les étoiles
   declencherEtoiles();
 
-  // Un frame plus tard : déclencher le pop smooth
+  // Double rAF : laisser le navigateur peindre l'état de départ,
+  // puis retirer les styles inline pour que .visible + transition CSS prennent le relais
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       panel.style.transition = 'opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)';
       panel.style.opacity = '1';
       panel.style.transform = 'scale(1)';
+      // Nettoyer les styles inline après la transition pour ne pas bloquer les réouvertures
+      setTimeout(() => {
+        panel.style.transition = '';
+        panel.style.opacity = '';
+        panel.style.transform = '';
+      }, 500);
     });
   });
 
@@ -2392,16 +2399,25 @@ function animerSecrets() {
 
 function fermerPageSecrets() {
   const panel = document.getElementById('page-secrets');
-  panel.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
-  panel.style.opacity = '0';
-  panel.style.transform = 'scale(0.85)';
-  setTimeout(() => {
-    panel.classList.remove('visible');
-    // Nettoyer les styles inline pour que la prochaine ouverture repart de zéro
-    panel.style.transition = '';
-    panel.style.opacity = '';
-    panel.style.transform = '';
-  }, 350);
+  // Forcer l'état visible en inline avant d'animer vers la fermeture
+  panel.style.transition = 'none';
+  panel.style.opacity = '1';
+  panel.style.transform = 'scale(1)';
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      panel.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+      panel.style.opacity = '0';
+      panel.style.transform = 'scale(0.85)';
+      setTimeout(() => {
+        panel.classList.remove('visible');
+        // Tout nettoyer pour que la prochaine ouverture reparte proprement
+        panel.style.transition = '';
+        panel.style.opacity = '';
+        panel.style.transform = '';
+      }, 350);
+    });
+  });
 }
 
 document.addEventListener('DOMContentLoaded', () => {

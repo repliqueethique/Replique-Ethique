@@ -864,8 +864,6 @@ body.theme-clair .search-bar {
   overflow-y: auto;
 }
 #page-secrets.visible {
-  opacity: 1;
-  transform: scale(1);
   pointer-events: all;
 }
 
