@@ -905,12 +905,11 @@ document.addEventListener('touchend', (e) => {
     draggingSecrets = false;
     const panel = document.getElementById('page-secrets');
     if (dy > screenH * 0.2 || (dy > 0 && Math.abs(dy) / dt > 0.3)) {
-      // Confirmer l'ouverture
       panel.classList.add('visible');
       history.pushState({ page: 'secrets' }, '', location.href);
       setTimeout(() => animerSecrets(), 20);
     } else {
-      // Annuler : remettre à zéro
+      // Annuler : fondu vers invisible puis nettoyer
       panel.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
       panel.style.opacity = '0';
       panel.style.transform = 'scale(0.75)';
@@ -2351,26 +2350,22 @@ function genererSecrets() {
 function animerSecrets() {
   const panel = document.getElementById('page-secrets');
 
-  // Forcer l'état de départ en inline (écrase temporairement .visible)
+  // État de départ
   panel.style.transition = 'none';
   panel.style.opacity = '0';
   panel.style.transform = 'scale(0.75)';
 
-  // Lancer les étoiles
   declencherEtoiles();
 
-  // Double rAF : laisser le navigateur peindre l'état de départ,
-  // puis retirer les styles inline pour que .visible + transition CSS prennent le relais
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       panel.style.transition = 'opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)';
       panel.style.opacity = '1';
       panel.style.transform = 'scale(1)';
-      // Nettoyer les styles inline après la transition pour ne pas bloquer les réouvertures
+      // On retire SEULEMENT la transition, pas opacity ni transform
+      // pour que la page reste visible via les styles inline
       setTimeout(() => {
         panel.style.transition = '';
-        panel.style.opacity = '';
-        panel.style.transform = '';
       }, 500);
     });
   });
@@ -2399,7 +2394,8 @@ function animerSecrets() {
 
 function fermerPageSecrets() {
   const panel = document.getElementById('page-secrets');
-  // Forcer l'état visible en inline avant d'animer vers la fermeture
+
+  // Forcer l'état visible en inline avant d'animer la fermeture
   panel.style.transition = 'none';
   panel.style.opacity = '1';
   panel.style.transform = 'scale(1)';
@@ -2411,7 +2407,7 @@ function fermerPageSecrets() {
       panel.style.transform = 'scale(0.85)';
       setTimeout(() => {
         panel.classList.remove('visible');
-        // Tout nettoyer pour que la prochaine ouverture reparte proprement
+        // Nettoyer TOUT maintenant que la page est invisible
         panel.style.transition = '';
         panel.style.opacity = '';
         panel.style.transform = '';
