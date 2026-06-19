@@ -527,6 +527,7 @@ let pinchActif = false;
 let pinchTailleDepart = 'petites';
 let pinchCibleEl = null;
 let draggingSecrets = false, secretsDragStartY = 0;
+let draggingSecretsClose = false, secretsCloseDragStartY = 0;
 
 // Listener non-passif dédié pour bloquer le scroll pendant le drag favoris/params
 document.addEventListener('touchmove', (e) => {
@@ -536,11 +537,15 @@ document.addEventListener('touchmove', (e) => {
 }, { passive: false });
 
 document.addEventListener('touchstart', (e) => {
+  const screenH = window.innerHeight;
+
   tStartX = e.touches[0].clientX;
   tStartY = e.touches[0].clientY;
   tStartT = Date.now();
   draggingFav = false;
   draggingParams = false;
+  draggingSecrets = false;
+  draggingSecretsClose = false;
   favDirection = null;
   paramsDirection = null;
   vWrapper = null;
@@ -550,7 +555,7 @@ document.addEventListener('touchstart', (e) => {
   lastFavMoveDirection = null;
   favPassedThreshold = false;
 
-  // Swipe haut depuis le haut de la page secrets (1er quart) → fermer
+  // Swipe depuis le haut de la page secrets → préparer fermeture
   if (document.getElementById('page-secrets')?.classList.contains('visible') &&
       tStartY <= screenH * 0.25) {
     draggingSecretsClose = true;
@@ -559,6 +564,9 @@ document.addEventListener('touchstart', (e) => {
     panel.style.transition = 'none';
     return;
   }
+
+  // Si page secrets visible, bloquer tout le reste
+  if (document.getElementById('page-secrets')?.classList.contains('visible')) return;
 
   // Pinch : mémoriser la distance initiale entre les 2 doigts
   if (e.touches.length === 2) {
@@ -570,7 +578,6 @@ document.addEventListener('touchstart', (e) => {
     const p = chargerParametres();
     pinchTailleDepart = p.taille || 'petites';
 
-    // Trouver le conteneur concerné
     const conteneurs = [
       document.getElementById('conteneur-vignettes'),
       document.querySelector('.contenu-essentiel'),
@@ -590,27 +597,11 @@ document.addEventListener('touchstart', (e) => {
     return;
   }
 
-  // Swipe bas depuis le centre de l'accueil (quarts 2 et 3)
-  if (pageActuelle === 2 &&
-      !document.getElementById('favoris-panel')?.classList.contains('visible') &&
-      !document.getElementById('page-parametres')?.classList.contains('visible') &&
-      tStartY >= screenH * 0.25 && tStartY <= screenH * 0.75) {
-    draggingSecrets = true;
-    secretsDragStartY = tStartY;
-    const panel = document.getElementById('page-secrets');
-    genererSecrets();
-    panel.style.transition = 'none';
-    panel.style.transform = 'translateY(100%)';
-    return;
-  }
-
-  // Si une page vidéo est ouverte, le swipe est entièrement géré par
-  // ses propres listeners — on ne touche à rien ici.
+  // Si une page vidéo est ouverte, le swipe est entièrement géré par ses propres listeners
   if (document.getElementById('page-video')) return;
 
   const favPanel = document.getElementById('favoris-panel');
   const paramsPanel = document.getElementById('page-parametres');
-  const screenH = window.innerHeight;
 
   if (estMobile() &&
       tStartY < screenH * 0.125 &&
@@ -713,6 +704,16 @@ document.addEventListener('touchmove', (e) => {
   const screenH = window.innerHeight;
   const screenW = window.innerWidth;
 
+  if (draggingSecretsClose) {
+    const dy = e.touches[0].clientY - secretsCloseDragStartY;
+    const panel = document.getElementById('page-secrets');
+    if (dy < 0) {
+      const pct = Math.abs(dy) / screenH * 100;
+      panel.style.transform = `translateY(-${Math.min(100, pct)}%)`;
+    }
+    return;
+  }
+
   if (draggingParams) {
     const paramsDy = e.touches[0].clientY - paramsDragStartY;
     if (paramsDirection === 'open') {
@@ -754,18 +755,6 @@ document.addEventListener('touchmove', (e) => {
     return;
   }
 
-  if (draggingSecrets) {
-    const dy = e.touches[0].clientY - secretsDragStartY;
-    const panel = document.getElementById('page-secrets');
-    if (dy > 0) {
-      const pct = (dy / screenH) * 100;
-      panel.style.transform = `translateY(${Math.min(100, 100 - pct)}%)`;
-    } else {
-      panel.style.transform = 'translateY(0%)';
-    }
-    return;
-  }
-
   // Pinch : scale visuel en temps réel
   if (e.touches.length === 2 && pinchActif && pinchCibleEl) {
     const ddx = e.touches[0].clientX - e.touches[1].clientX;
@@ -773,20 +762,12 @@ document.addEventListener('touchmove', (e) => {
     const distActuelle = Math.hypot(ddx, ddy);
     pinchDistanceCourante = distActuelle;
     const ratio = distActuelle / pinchDistanceDepart;
-
-    // Scale entre 0.8 et 1.3 selon le geste, ancré sur la taille de départ
-    const scaleDepart = pinchTailleDepart === 'grandes' ? 1.3 : 1;
-    const scaleCible  = pinchTailleDepart === 'grandes' ? 1   : 1.3;
-    // On interpole le scale courant selon le ratio du pinch
     let scaleCourant;
     if (pinchTailleDepart === 'petites') {
-      // écarter → agrandir
       scaleCourant = Math.min(1.3, Math.max(0.85, ratio));
     } else {
-      // pincer → réduire
       scaleCourant = Math.min(1.3, Math.max(0.85, ratio));
     }
-
     pinchCibleEl.style.transform = `scale(${scaleCourant})`;
     return;
   }
@@ -801,6 +782,30 @@ document.addEventListener('touchmove', (e) => {
 
   if (!gestureType && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
     gestureType = Math.abs(dx) > Math.abs(dy) * 0.8 ? 'carousel' : 'vertical';
+  }
+
+  // Déclenchement secrets ici, une fois le geste vertical confirmé
+  if (gestureType === 'vertical' &&
+      pageActuelle === 2 &&
+      dy > 0 &&
+      !draggingSecrets &&
+      tStartY >= screenH * 0.25 && tStartY <= screenH * 0.75 &&
+      !document.getElementById('favoris-panel')?.classList.contains('visible') &&
+      !document.getElementById('page-parametres')?.classList.contains('visible')) {
+    draggingSecrets = true;
+    secretsDragStartY = tStartY;
+    const panel = document.getElementById('page-secrets');
+    genererSecrets();
+    panel.style.transition = 'none';
+    panel.style.transform = 'translateY(100%)';
+  }
+
+  if (draggingSecrets) {
+    const panel = document.getElementById('page-secrets');
+    const progress = Math.max(0, dy);
+    const pct = 100 - (progress / screenH) * 100;
+    panel.style.transform = `translateY(${Math.max(0, pct)}%)`;
+    return;
   }
 
   if (gestureType === 'carousel') {
@@ -831,7 +836,6 @@ document.addEventListener('touchend', (e) => {
   const velocity = Math.abs(dx) / dt;
 
   if (draggingSecretsClose) {
-    const dy = e.changedTouches[0].clientY - secretsCloseDragStartY;
     const panel = document.getElementById('page-secrets');
     panel.style.transition = 'transform 0.4s ease';
     if (dy < -(screenH * 0.25) || (Math.abs(dy) / dt > 0.3 && dy < 0)) {
@@ -894,10 +898,9 @@ document.addEventListener('touchend', (e) => {
   }
 
   if (draggingSecrets) {
-    const dy = e.changedTouches[0].clientY - secretsDragStartY;
     const panel = document.getElementById('page-secrets');
     panel.style.transition = 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)';
-    if (dy > screenH * 0.25 || (Math.abs(dy) / dt) > 0.3) {
+    if (dy > screenH * 0.25 || (dy > 0 && Math.abs(dy) / dt > 0.3)) {
       panel.classList.add('visible');
       panel.style.transform = 'translateY(0)';
       history.pushState({ page: 'secrets' }, '', location.href);
@@ -914,7 +917,6 @@ document.addEventListener('touchend', (e) => {
   if (pinchActif && pinchCibleEl) {
     pinchActif = false;
     const ratio = pinchDistanceCourante / pinchDistanceDepart;
-    // Seuil : 20% d'écart pour confirmer le changement
     const seuil = 0.2;
     const versGrandes = ratio > 1 + seuil;
     const versPetites = ratio < 1 - seuil;
@@ -924,7 +926,6 @@ document.addEventListener('touchend', (e) => {
       pinchTailleDepart;
 
     if (nouvelleTaille !== pinchTailleDepart) {
-      // Confirmer : animer vers le scale cible puis reconstruire
       const scaleFinal = nouvelleTaille === 'grandes' ? 1.3 : 0.85;
       pinchCibleEl.style.transition = 'transform 0.25s ease';
       pinchCibleEl.style.transform = `scale(${scaleFinal})`;
@@ -943,7 +944,6 @@ document.addEventListener('touchend', (e) => {
         pinchCibleEl = null;
       }, 250);
     } else {
-      // Annuler : revenir à scale(1)
       pinchCibleEl.style.transition = 'transform 0.25s ease';
       pinchCibleEl.style.transform = 'scale(1)';
       setTimeout(() => {
@@ -980,13 +980,11 @@ document.addEventListener('touchend', (e) => {
     return;
   }
 
-  // Checks de panels (après vignettes)
   if (estMobile() ? paramsPanel?.classList.contains('visible') : paramsPanel?.style.display === 'flex') return;
   if (document.getElementById('panneau-resultats')?.style.display === 'flex') return;
   if (favPanel?.classList.contains('visible') && !vWrapper) return;
   if (document.getElementById('info-panel')?.classList.contains('visible')) return;
 
-  // Navigation carrousel
   const isFlick = velocity > 0.3 && dt < 300;
   const isLargeDrag = Math.abs(dx) > screenW * 0.35;
 
