@@ -2274,15 +2274,27 @@ if(searchInput){
 // ============================================================
 
 const LISTE_SECRETS = [
-  // Exemple : { id: 'secret_1', nom: 'Secret 1', fichier: 'secret_1.png' }
-  // Ajouter ici au fur et à mesure
+  { id: 'secret_page', nom: 'Page secrète', fichier: 'secrets.png' },
+  // Ajouter ici les prochains secrets : { id: 'secret_x', nom: 'Nom', fichier: 'secret_x.png' }
 ];
+
+// Déverrouiller automatiquement le premier secret (avoir trouvé la page)
+function deverrouillerSecret(id) {
+  const decouverts = chargerSecretsDecouverts();
+  if (!decouverts.includes(id)) {
+    decouverts.push(id);
+    localStorage.setItem('secrets_decouverts', JSON.stringify(decouverts));
+  }
+}
 
 function chargerSecretsDecouverts() {
   return JSON.parse(localStorage.getItem('secrets_decouverts') || '[]');
 }
 
 function genererSecrets() {
+  // Déverrouiller le secret "avoir trouvé la page"
+  deverrouillerSecret('secret_page');
+
   const galerie = document.getElementById('galerie-secrets');
   const compteur = document.getElementById('compteur-secrets');
   if (!galerie) return;
@@ -2291,12 +2303,6 @@ function genererSecrets() {
   const decouverts = chargerSecretsDecouverts();
   const total = LISTE_SECRETS.length;
   const nbDecouverts = decouverts.filter(id => LISTE_SECRETS.find(s => s.id === id)).length;
-
-  if (total === 0) {
-    galerie.innerHTML = `<div style="grid-column:1/-1;text-align:center;font-family:'SF Sports Night';color:var(--c-accent);font-size:1.6em;padding:40px 20px;opacity:0.7;">Bientôt...</div>`;
-    if (compteur) compteur.textContent = '0/0';
-    return;
-  }
 
   LISTE_SECRETS.forEach(secret => {
     const estDecouvert = decouverts.includes(secret.id);
@@ -2318,8 +2324,10 @@ function genererSecrets() {
   const headerSecrets = document.getElementById('header-secrets');
   const retourSecrets = document.getElementById('retour-secrets');
   pageSecrets.scrollTop = 0;
-  pageSecrets.onscroll = null;
-  pageSecrets.addEventListener('scroll', () => {
+  // Retirer l'ancien listener de scroll pour éviter les doublons
+  const ancienScroll = pageSecrets._scrollSecrets;
+  if (ancienScroll) pageSecrets.removeEventListener('scroll', ancienScroll);
+  const scrollHandler = () => {
     const compact = pageSecrets.scrollTop > 10;
     headerSecrets.classList.toggle('compact', compact);
     if (retourSecrets) {
@@ -2327,68 +2335,83 @@ function genererSecrets() {
       retourSecrets.style.transform = compact ? 'scaleY(1.587)' : '';
       retourSecrets.style.transformOrigin = 'center center';
     }
-  }, { passive: true });
+  };
+  pageSecrets._scrollSecrets = scrollHandler;
+  pageSecrets.addEventListener('scroll', scrollHandler, { passive: true });
 }
 
-// Particules mystérieuses qui montent de partout
-function declencherParticulesSecrets() {
-  const couleurs = ['#9b59b6', '#8e44ad', '#6c3483', '#d7bde2', '#f39c12', '#e8daef', '#ffffff'];
-  const nb = 40;
+// Étoiles qui jaillissent depuis le centre de l'écran
+function declencherEtoiles() {
+  const symboles = ['★', '✦', '✧', '✨', '⋆', '·', '✵', '✴'];
+  const couleurs = ['#fce7ac', '#ffffff', '#f37321', '#c39bd3', '#a9cce3', '#f9e79f', '#d7bde2'];
+  const cx = window.innerWidth / 2;
+  const cy = window.innerHeight / 2;
+  const nb = 55;
+
   for (let i = 0; i < nb; i++) {
     setTimeout(() => {
       const p = document.createElement('div');
-      p.className = 'particule-secret';
-      const taille = 4 + Math.random() * 10;
-      const x = Math.random() * window.innerWidth;
-      const y = window.innerHeight * 0.4 + Math.random() * window.innerHeight * 0.6;
-      const dx = (Math.random() - 0.5) * 160;
-      const dy = -(80 + Math.random() * 220);
-      const duree = 1.0 + Math.random() * 0.8;
+      p.className = 'particule-etoile';
+      const angle = Math.random() * 360;
+      const distance = 80 + Math.random() * Math.max(window.innerWidth, window.innerHeight) * 0.6;
+      const dx = Math.cos(angle * Math.PI / 180) * distance;
+      const dy = Math.sin(angle * Math.PI / 180) * distance;
+      const taille = 10 + Math.random() * 22;
+      const duree = 0.7 + Math.random() * 0.8;
+      const rot = (Math.random() - 0.5) * 540 + 'deg';
+      const symbole = symboles[Math.floor(Math.random() * symboles.length)];
       const couleur = couleurs[Math.floor(Math.random() * couleurs.length)];
+      p.textContent = symbole;
       p.style.cssText = `
-        left:${x}px; top:${y}px;
-        width:${taille}px; height:${taille}px;
-        background:${couleur};
+        left:${cx}px; top:${cy}px;
         --dx:${dx}px; --dy:${dy}px;
-        --duree:${duree}s;
-        opacity:0.9;
+        --duree:${duree}s; --rot:${rot};
+        --taille:${taille}px;
+        color:${couleur};
+        text-shadow: 0 0 6px ${couleur};
       `;
       document.body.appendChild(p);
       setTimeout(() => p.remove(), duree * 1000 + 100);
-    }, i * 35);
+    }, i * 18);
   }
 }
 
-// Révélation des icônes en cascade avec effet "apparition dans le brouillard"
+// Apparition des icônes depuis le flou
 function animerSecrets() {
-  declencherParticulesSecrets();
+  declencherEtoiles();
   const items = document.querySelectorAll('.secret-item');
   items.forEach((item, i) => {
-    // Reset pour rejouer l'animation
     item.style.opacity = '0';
     item.style.transform = 'scale(0.3) rotate(-12deg)';
     item.style.filter = item.classList.contains('decouvert')
-      ? 'blur(8px) brightness(2)'
-      : 'grayscale(1) brightness(0) blur(8px)';
+      ? 'blur(10px) brightness(2)'
+      : 'grayscale(1) brightness(0) blur(10px)';
     item.style.transition = 'none';
 
     setTimeout(() => {
-      item.style.transition = `opacity 0.6s ease ${i * 0.08}s, transform 0.6s cubic-bezier(0.34,1.56,0.64,1) ${i * 0.08}s, filter 0.8s ease ${i * 0.08}s`;
+      item.style.transition = `opacity 0.6s ease, transform 0.6s cubic-bezier(0.34,1.56,0.64,1), filter 0.8s ease`;
       item.style.opacity = '1';
       item.style.transform = 'scale(1) rotate(0deg)';
       item.style.filter = item.classList.contains('decouvert')
         ? 'none'
         : 'grayscale(1) brightness(0.4)';
       item.classList.add('anim-entree');
-    }, 200 + i * 80);
+    }, 150 + i * 80);
   });
 }
 
 function fermerPageSecrets() {
   const panel = document.getElementById('page-secrets');
-  panel.style.transition = 'transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)';
-  panel.style.transform = 'translateY(100%)';
-  setTimeout(() => panel.classList.remove('visible'), 450);
+  panel.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+  panel.style.opacity = '0';
+  panel.style.transform = 'scale(0.85)';
+  setTimeout(() => {
+    panel.classList.remove('visible');
+    // Remettre à zéro pour la prochaine ouverture
+    panel.style.transition = 'none';
+    panel.style.opacity = '0';
+    panel.style.transform = 'scale(0.85)';
+  }, 350);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -2397,33 +2420,39 @@ document.addEventListener('DOMContentLoaded', () => {
   // Swipe vers le bas depuis le header pour fermer
   const headerSecrets = document.getElementById('header-secrets');
   if (headerSecrets) {
-    let hsStartY = 0, hsDragging = false;
+    let hsStartY = 0, hsDragging = false, hsStartT = 0;
+
     headerSecrets.addEventListener('touchstart', (e) => {
       if (!document.getElementById('page-secrets')?.classList.contains('visible')) return;
       hsStartY = e.touches[0].clientY;
+      hsStartT = Date.now();
       hsDragging = true;
-      document.getElementById('page-secrets').style.transition = 'none';
     }, { passive: true });
+
     headerSecrets.addEventListener('touchmove', (e) => {
       if (!hsDragging) return;
       const dy = e.touches[0].clientY - hsStartY;
+      if (dy <= 0) return;
       const panel = document.getElementById('page-secrets');
-      if (dy > 0) {
-        panel.style.transform = `translateY(${dy}px)`;
-      }
+      // Traduire le drag en diminution d'opacité + léger dezoom, sans translation
+      const progress = Math.min(1, dy / (window.innerHeight * 0.4));
+      panel.style.transition = 'none';
+      panel.style.opacity = String(1 - progress * 0.7);
+      panel.style.transform = `scale(${1 - progress * 0.12})`;
     }, { passive: true });
+
     headerSecrets.addEventListener('touchend', (e) => {
       if (!hsDragging) return;
       hsDragging = false;
       const dy = e.changedTouches[0].clientY - hsStartY;
-      const dt = Date.now() - tStartT;
+      const dt = Date.now() - hsStartT;
       const panel = document.getElementById('page-secrets');
-      panel.style.transition = 'transform 0.4s ease';
-      if (dy > window.innerHeight * 0.2 || (dy > 30 && Math.abs(dy) / dt > 0.3)) {
-        panel.style.transform = 'translateY(100%)';
-        setTimeout(() => panel.classList.remove('visible'), 400);
+      if (dy > window.innerHeight * 0.2 || (dy > 30 && dy / dt > 0.3)) {
+        fermerPageSecrets();
       } else {
-        panel.style.transform = 'translateY(0)';
+        panel.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        panel.style.opacity = '1';
+        panel.style.transform = 'scale(1)';
       }
     }, { passive: true });
   }
