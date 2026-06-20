@@ -2291,11 +2291,24 @@ if(searchInput){
 // ============================================================
 
 const LISTE_SECRETS = [
-  { id: 'secret_page', nom: 'Page secrète', fichier: 'secrets.png' },
-  // Ajouter ici les prochains secrets : { id: 'secret_x', nom: 'Nom', fichier: 'secret_x.png' }
+  {
+    id: 'secret_page',
+    nom: 'Page secrète',
+    fichier: 'secrets.png',
+    comment: 'Découvre la page des secrets',
+    bonus: 'Tu peux réinitialiser la découverte des secrets',
+    bonusAction: null,
+  },
+  {
+    id: 'secret_30h',
+    nom: '30 Heures',
+    fichier: '30H.png',
+    comment: 'Trouve le clip de 30H',
+    bonus: 'Donne accès au thème aqua',
+    bonusAction: null,
+  },
 ];
 
-// Déverrouiller automatiquement le premier secret (avoir trouvé la page)
 function deverrouillerSecret(id) {
   const decouverts = chargerSecretsDecouverts();
   if (!decouverts.includes(id)) {
@@ -2306,6 +2319,87 @@ function deverrouillerSecret(id) {
 
 function chargerSecretsDecouverts() {
   return JSON.parse(localStorage.getItem('secrets_decouverts') || '[]');
+}
+
+function reinitialiserSecrets() {
+  localStorage.removeItem('secrets_decouverts');
+  // Redéverrouiller automatiquement le secret de base
+  deverrouillerSecret('secret_page');
+  genererSecrets();
+}
+
+function ouvrirPopupSecret(secret, itemEl) {
+  // Overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'popup-secret-overlay';
+  overlay.addEventListener('click', () => fermerPopupSecret(overlay, popup));
+  document.body.appendChild(overlay);
+
+  // Popup
+  const popup = document.createElement('div');
+  popup.className = 'popup-secret';
+
+  // Position d'origine depuis l'icône
+  const rect = itemEl.getBoundingClientRect();
+  const ox = ((rect.left + rect.width / 2) / window.innerWidth * 100).toFixed(1) + '%';
+  const oy = ((rect.top + rect.height / 2) / window.innerHeight * 100).toFixed(1) + '%';
+  popup.style.setProperty('--origin-x', ox);
+  popup.style.setProperty('--origin-y', oy);
+
+  // Centrer le popup
+  popup.style.cssText += `
+    position:fixed;
+    top:50%; left:50%;
+    transform-origin:${ox} ${oy};
+    translate:-50% -50%;
+  `;
+
+  // Icône
+  const img = document.createElement('img');
+  img.src = `images/secrets/${secret.fichier}`;
+  img.className = 'popup-secret-icone';
+  popup.appendChild(img);
+
+  // Nom
+  const nom = document.createElement('div');
+  nom.className = 'popup-secret-nom';
+  nom.textContent = secret.nom;
+  popup.appendChild(nom);
+
+  // Comment
+  const comment = document.createElement('div');
+  comment.className = 'popup-secret-comment';
+  comment.textContent = secret.comment;
+  popup.appendChild(comment);
+
+  // Bonus
+  if (secret.bonus) {
+    const bonus = document.createElement('div');
+    bonus.className = 'popup-secret-bonus';
+    bonus.textContent = '🔓 ' + secret.bonus;
+    popup.appendChild(bonus);
+  }
+
+  // Bouton fermer
+  const btnFermer = document.createElement('button');
+  btnFermer.className = 'popup-secret-fermer';
+  btnFermer.textContent = 'Fermer';
+  btnFermer.addEventListener('click', () => fermerPopupSecret(overlay, popup));
+  popup.appendChild(btnFermer);
+
+  document.body.appendChild(popup);
+}
+
+function fermerPopupSecret(overlay, popup) {
+  overlay.style.transition = 'opacity 0.2s ease';
+  overlay.style.opacity = '0';
+  popup.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+  popup.style.opacity = '0';
+  popup.style.transform = 'translate(-50%, -50%) scale(0.8)';
+  setTimeout(() => {
+    overlay.remove();
+    popup.remove();
+  }, 200);
 }
 
 function genererSecrets() {
@@ -2325,11 +2419,19 @@ function genererSecrets() {
     const item = document.createElement('div');
     item.className = 'secret-item ' + (estDecouvert ? 'decouvert' : 'cache');
     item.dataset.secretId = secret.id;
+
     const img = document.createElement('img');
     img.src = `images/secrets/${secret.fichier}`;
     img.alt = estDecouvert ? secret.nom : '?';
     img.draggable = false;
     item.appendChild(img);
+
+    // Clic sur secret découvert → popup
+    if (estDecouvert) {
+      item.addEventListener('click', () => ouvrirPopupSecret(secret, item));
+      item.style.cursor = 'pointer';
+    }
+
     galerie.appendChild(item);
   });
 
@@ -2358,7 +2460,7 @@ function genererSecrets() {
 function declencherEtoiles() {
   const couleurs = ['#fce7ac', '#ffffff', '#f37321', '#c39bd3', '#a9cce3', '#f9e79f', '#d7bde2', '#31bebd'];
   const nb = 55;
-  const marges = 60; // zone sur les bords
+  const marges = 60;
 
   for (let i = 0; i < nb; i++) {
     setTimeout(() => {
@@ -2368,18 +2470,17 @@ function declencherEtoiles() {
       const taille = 16 + Math.random() * 28;
       const couleur = couleurs[Math.floor(Math.random() * couleurs.length)];
 
-      // Position sur les bords de l'écran
       const cote = Math.floor(Math.random() * 4);
       let x, y;
-      if (cote === 0) { x = Math.random() * window.innerWidth; y = Math.random() * marges; }
+      if (cote === 0)      { x = Math.random() * window.innerWidth; y = Math.random() * marges; }
       else if (cote === 1) { x = window.innerWidth - Math.random() * marges; y = Math.random() * window.innerHeight; }
       else if (cote === 2) { x = Math.random() * window.innerWidth; y = window.innerHeight - Math.random() * marges; }
-      else { x = Math.random() * marges; y = Math.random() * window.innerHeight; }
+      else                 { x = Math.random() * marges; y = Math.random() * window.innerHeight; }
 
-      // Direction vers l'intérieur
+      // Vers l'extérieur
       const cx = window.innerWidth / 2;
       const cy = window.innerHeight / 2;
-      const angle = Math.atan2(y - cy, x - cx); // inversé : bord → extérieur
+      const angle = Math.atan2(y - cy, x - cx);
       const distance = 80 + Math.random() * 180;
       const dx = Math.cos(angle) * distance * (0.5 + Math.random());
       const dy = Math.sin(angle) * distance * (0.5 + Math.random());
@@ -2402,14 +2503,13 @@ function declencherEtoiles() {
 function animerIconesSecrets() {
   const items = document.querySelectorAll('.secret-item');
   items.forEach((item, i) => {
-    // Reset complet avec reflow forcé
     item.style.transition = 'none';
     item.style.opacity = '0';
     item.style.transform = 'scale(0.3) rotate(-12deg)';
     item.style.filter = item.classList.contains('decouvert')
       ? 'blur(10px) brightness(2)'
       : 'grayscale(1) brightness(0) blur(10px)';
-    void item.offsetWidth; // force reflow
+    void item.offsetWidth;
 
     setTimeout(() => {
       item.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.34,1.56,0.64,1), filter 0.8s ease';
@@ -2460,6 +2560,20 @@ function fermerPageSecrets() {
     });
   });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('retour-secrets')?.addEventListener('click', fermerPageSecrets);
+
+  document.getElementById('btn-reset-secrets')?.addEventListener('click', () => {
+    declencherEclat(
+      window.innerWidth / 2,
+      window.innerHeight * 0.85,
+      '#fce7ac'
+    );
+    vibrer();
+    reinitialiserSecrets();
+  });
+});
 
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('retour-secrets')?.addEventListener('click', fermerPageSecrets);

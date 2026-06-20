@@ -982,3 +982,92 @@ body.theme-clair .search-bar {
   0%   { opacity: 1; transform: translate(0, 0) scale(1) rotate(0deg); }
   100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.2) rotate(var(--rot)); }
 }
+
+/* Popup secret découvert */
+.popup-secret {
+  position: fixed;
+  z-index: 99999;
+  background: var(--c-sombre);
+  border-radius: 24px;
+  padding: 28px 24px 24px;
+  width: 80vw; max-width: 320px;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 12px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  transform-origin: var(--origin-x, 50%) var(--origin-y, 50%);
+  animation: popSmooth 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+.popup-secret-overlay {
+  position: fixed; inset: 0;
+  z-index: 99998;
+  background: rgba(0,0,0,0.5);
+  animation: fadeOverlay 0.3s ease forwards;
+}
+@keyframes fadeOverlay {
+  from { opacity: 0; } to { opacity: 1; }
+}
+.popup-secret-icone {
+  width: 80px; height: 80px;
+  object-fit: cover; border-radius: 14px;
+}
+.popup-secret-nom {
+  font-family: 'SF Sports Night', sans-serif;
+  color: var(--c-accent);
+  font-size: 1.6em;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+.popup-secret-comment {
+  font-family: 'Graphie', sans-serif;
+  color: #ffffff;
+  font-size: 0.95em;
+  text-align: center;
+  line-height: 1.5;
+  opacity: 0.85;
+}
+.popup-secret-bonus {
+  font-family: 'Intro', sans-serif;
+  color: var(--c-primaire);
+  font-size: 0.9em;
+  text-align: center;
+  line-height: 1.4;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 12px;
+  width: 100%; box-sizing: border-box;
+}
+.popup-secret-fermer {
+  background: var(--c-primaire); color: #fff;
+  font-family: 'Intro'; font-size: 1em;
+  border: none; border-radius: 20px;
+  padding: 10px 28px; cursor: pointer;
+  margin-top: 4px;
+  transition: transform 0.2s ease;
+}
+.popup-secret-fermer:active { transform: scale(0.95); }
+
+/* Bouton reset secrets */
+.btn-reset-secrets {
+  font-family: 'Intro'; font-size: 0.9em;
+  background: transparent;
+  border: 2px solid var(--c-accent);
+  color: var(--c-accent);
+  border-radius: 20px;
+  padding: 8px 22px;
+  cursor: pointer;
+  margin: 8px 0 0;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0.7;
+}
+.btn-reset-secrets:active { transform: scale(0.95); opacity: 1; }
+
+/* Texte intro secrets */
+.intro-secrets {
+  font-family: 'Graphie', sans-serif;
+  color: var(--c-accent);
+  font-size: 0.9em;
+  text-align: center;
+  line-height: 1.5;
+  padding: 14px 20px 4px;
+  opacity: 0.85;
+}
