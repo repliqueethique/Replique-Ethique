@@ -905,20 +905,17 @@ document.addEventListener('touchend', (e) => {
     draggingSecrets = false;
     const panel = document.getElementById('page-secrets');
     if (dy > screenH * 0.2 || (dy > 0 && Math.abs(dy) / dt > 0.3)) {
-      // Confirmer : finir l'animation depuis l'état courant du drag
       panel.classList.add('visible');
       panel.style.transition = 'opacity 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
       panel.style.opacity = '1';
       panel.style.transform = 'scale(1)';
       setTimeout(() => {
         panel.style.transition = '';
-        // NE PAS effacer opacity et transform — les laisser à 1 / scale(1)
         declencherEtoiles();
         animerIconesSecrets();
         history.pushState({ page: 'secrets' }, '', location.href);
       }, 320);
     } else {
-      // Annuler
       panel.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
       panel.style.opacity = '0';
       panel.style.transform = 'scale(0.75)';
@@ -2349,15 +2346,61 @@ function genererSecrets() {
   pageSecrets.addEventListener('scroll', scrollHandler, { passive: true });
 }
 
+function declencherEtoiles() {
+  const couleurs = ['#fce7ac', '#ffffff', '#f37321', '#c39bd3', '#a9cce3', '#f9e79f', '#d7bde2', '#31bebd'];
+  const nb = 55;
+  const marges = 60; // zone sur les bords
+
+  for (let i = 0; i < nb; i++) {
+    setTimeout(() => {
+      const p = document.createElement('div');
+      p.className = 'particule-etoile';
+
+      const taille = 16 + Math.random() * 28;
+      const couleur = couleurs[Math.floor(Math.random() * couleurs.length)];
+
+      // Position sur les bords de l'écran
+      const cote = Math.floor(Math.random() * 4);
+      let x, y;
+      if (cote === 0) { x = Math.random() * window.innerWidth; y = Math.random() * marges; }
+      else if (cote === 1) { x = window.innerWidth - Math.random() * marges; y = Math.random() * window.innerHeight; }
+      else if (cote === 2) { x = Math.random() * window.innerWidth; y = window.innerHeight - Math.random() * marges; }
+      else { x = Math.random() * marges; y = Math.random() * window.innerHeight; }
+
+      // Direction vers l'intérieur
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      const angle = Math.atan2(cy - y, cx - x);
+      const distance = 80 + Math.random() * 180;
+      const dx = Math.cos(angle) * distance * (0.5 + Math.random());
+      const dy = Math.sin(angle) * distance * (0.5 + Math.random());
+      const duree = 0.8 + Math.random() * 0.7;
+      const rot = (Math.random() - 0.5) * 720 + 'deg';
+
+      p.style.cssText = `
+        left:${x}px; top:${y}px;
+        --dx:${dx}px; --dy:${dy}px;
+        --duree:${duree}s; --rot:${rot};
+        --taille:${taille}px;
+        --couleur:${couleur};
+      `;
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), (duree * 1000) + 100);
+    }, i * 18);
+  }
+}
+
 function animerIconesSecrets() {
   const items = document.querySelectorAll('.secret-item');
   items.forEach((item, i) => {
+    // Reset complet avec reflow forcé
+    item.style.transition = 'none';
     item.style.opacity = '0';
     item.style.transform = 'scale(0.3) rotate(-12deg)';
     item.style.filter = item.classList.contains('decouvert')
       ? 'blur(10px) brightness(2)'
       : 'grayscale(1) brightness(0) blur(10px)';
-    item.style.transition = 'none';
+    void item.offsetWidth; // force reflow
 
     setTimeout(() => {
       item.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.34,1.56,0.64,1), filter 0.8s ease';
@@ -2366,7 +2409,6 @@ function animerIconesSecrets() {
       item.style.filter = item.classList.contains('decouvert')
         ? 'none'
         : 'grayscale(1) brightness(0.4)';
-      item.classList.add('anim-entree');
     }, 200 + i * 80);
   });
 }
@@ -2384,7 +2426,6 @@ function animerSecrets() {
       panel.style.transform = 'scale(1)';
       setTimeout(() => {
         panel.style.transition = '';
-        // Laisser opacity:1 et scale(1) en inline
       }, 500);
       animerIconesSecrets();
     });
@@ -2411,29 +2452,10 @@ function fermerPageSecrets() {
   });
 }
 
-function fermerPageSecrets() {
-  const panel = document.getElementById('page-secrets');
-
-  // Forcer l'état visible en inline avant d'animer la fermeture
-  panel.style.transition = 'none';
-  panel.style.opacity = '1';
-  panel.style.transform = 'scale(1)';
-
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      panel.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
-      panel.style.opacity = '0';
-      panel.style.transform = 'scale(0.85)';
-      setTimeout(() => {
-        panel.classList.remove('visible');
-        // Nettoyer TOUT maintenant que la page est invisible
-        panel.style.transition = '';
-        panel.style.opacity = '';
-        panel.style.transform = '';
-      }, 350);
-    });
-  });
-}
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('retour-secrets')?.addEventListener('click', fermerPageSecrets);
+  // Pas de listeners touch sur le header ici — géré uniquement par draggingSecretsClose dans le BLOC 7
+});
 
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('retour-secrets')?.addEventListener('click', fermerPageSecrets);

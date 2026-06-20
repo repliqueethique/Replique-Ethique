@@ -965,13 +965,20 @@ body.theme-clair .search-bar {
 .particule-etoile {
   position: fixed;
   pointer-events: none;
-  z-index: 9997;
+  z-index: 99999;
+  width: var(--taille, 20px);
+  height: var(--taille, 20px);
+  opacity: 1;
   animation: etoile-envol var(--duree, 1.2s) ease-out forwards;
-  font-size: var(--taille, 18px);
-  line-height: 1;
-  user-select: none;
+}
+.particule-etoile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--couleur, #fce7ac);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
 }
 @keyframes etoile-envol {
-  0%   { opacity: 1;   transform: translate(0, 0) scale(1) rotate(0deg); }
-  100% { opacity: 0;   transform: translate(var(--dx), var(--dy)) scale(0.2) rotate(var(--rot)); }
+  0%   { opacity: 1; transform: translate(0, 0) scale(1) rotate(0deg); }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.2) rotate(var(--rot)); }
 }
