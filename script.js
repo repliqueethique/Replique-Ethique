@@ -906,10 +906,13 @@ document.addEventListener('touchend', (e) => {
     const panel = document.getElementById('page-secrets');
     if (dy > screenH * 0.2 || (dy > 0 && Math.abs(dy) / dt > 0.3)) {
       panel.classList.add('visible');
-      history.pushState({ page: 'secrets' }, '', location.href);
+      // pushState après un délai pour éviter que popstate
+      // ne se déclenche avant animerSecrets sur iOS/Safari PWA
+      setTimeout(() => {
+        history.pushState({ page: 'secrets' }, '', location.href);
+      }, 100);
       setTimeout(() => animerSecrets(), 20);
     } else {
-      // Annuler : fondu vers invisible puis nettoyer
       panel.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
       panel.style.opacity = '0';
       panel.style.transform = 'scale(0.75)';
@@ -2050,20 +2053,19 @@ document.addEventListener('DOMContentLoaded',()=>{
   if(bp) bp.addEventListener('click',(e)=>{e.preventDefault();ouvrirParametres();});
 
   window.addEventListener('popstate', () => {
-    const paramsPanel = document.getElementById('page-parametres');
-    const favPanel    = document.getElementById('favoris-panel');
-    const infoPanel   = document.getElementById('info-panel');
-    const videoPanel  = document.getElementById('page-video');
+    const paramsPanel  = document.getElementById('page-parametres');
+    const favPanel     = document.getElementById('favoris-panel');
+    const infoPanel    = document.getElementById('info-panel');
+    const videoPanel   = document.getElementById('page-video');
     const secretsPanel = document.getElementById('page-secrets');
+
+    // Toujours repousser un état en premier
+    history.pushState(null, '', location.href);
+
     if (secretsPanel?.classList.contains('visible')) {
       fermerPageSecrets();
       return;
     }
-
-    // Toujours repousser un état pour que le bouton retour reste actif
-    history.pushState(null, '', location.href);
-
-    // Fermer les panneaux ouverts en priorité
     if (videoPanel) {
       document.getElementById('page-video-prev')?.remove();
       document.getElementById('page-video-next')?.remove();
@@ -2084,21 +2086,15 @@ document.addEventListener('DOMContentLoaded',()=>{
       infoPanel.classList.remove('visible');
       return;
     }
-
-    // Lire la page de démarrage configurée
     const p = chargerParametres();
     const pagesDemarrage = {
       'mots-cles': 1, 'accueil': 2, 'liste': 3, 'essentiel': 4, 'lexique': 5
     };
     const pageDemarrage = pagesDemarrage[p.demarrage] ?? 2;
-
-    // Si déjà sur la page de démarrage, laisser quitter l'app
     if (pageActuelle === pageDemarrage) {
       history.back();
       return;
     }
-
-    // Sinon revenir à la page de démarrage
     naviguerVers(pageDemarrage);
   });
 
