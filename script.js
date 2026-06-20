@@ -705,10 +705,9 @@ document.addEventListener('touchmove', (e) => {
       const dy = e.touches[0].clientY - secretsCloseDragStartY;
       const panel = document.getElementById('page-secrets');
       if (dy > 0) {
-        const progress = Math.min(1, dy / (screenH * 0.4));
         panel.style.transition = 'none';
-        panel.style.opacity = String(1 - progress * 0.8);
-        panel.style.transform = `scale(${1 - progress * 0.12})`;
+        panel.style.opacity = String(Math.max(0, 1 - dy / (screenH * 0.5)));
+        panel.style.transform = `scale(${Math.max(0.85, 1 - dy / (screenH * 2))})`;
       }
     }
     return;
@@ -835,10 +834,20 @@ document.addEventListener('touchend', (e) => {
     if (draggingSecretsClose) {
       const dy = e.changedTouches[0].clientY - secretsCloseDragStartY;
       const dt = Date.now() - tStartT;
+      const panel = document.getElementById('page-secrets');
       if (dy > screenH * 0.2 || (dy > 30 && dy / dt > 0.3)) {
-        fermerPageSecrets();
+        // Finir la fermeture depuis l'état courant, sans 2ème animation
+        panel.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+        panel.style.opacity = '0';
+        panel.style.transform = 'scale(0.85)';
+        setTimeout(() => {
+          panel.classList.remove('visible');
+          panel.style.transition = '';
+          panel.style.opacity = '';
+          panel.style.transform = '';
+        }, 250);
       } else {
-        const panel = document.getElementById('page-secrets');
+        // Annuler : revenir à l'état visible
         panel.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
         panel.style.opacity = '1';
         panel.style.transform = 'scale(1)';
@@ -2370,7 +2379,7 @@ function declencherEtoiles() {
       // Direction vers l'intérieur
       const cx = window.innerWidth / 2;
       const cy = window.innerHeight / 2;
-      const angle = Math.atan2(cy - y, cx - x);
+      const angle = Math.atan2(y - cy, x - cx); // inversé : bord → extérieur
       const distance = 80 + Math.random() * 180;
       const dx = Math.cos(angle) * distance * (0.5 + Math.random());
       const dy = Math.sin(angle) * distance * (0.5 + Math.random());
