@@ -905,14 +905,20 @@ document.addEventListener('touchend', (e) => {
     draggingSecrets = false;
     const panel = document.getElementById('page-secrets');
     if (dy > screenH * 0.2 || (dy > 0 && Math.abs(dy) / dt > 0.3)) {
+      // Confirmer : finir l'animation depuis l'état courant du drag
       panel.classList.add('visible');
-      // pushState après un délai pour éviter que popstate
-      // ne se déclenche avant animerSecrets sur iOS/Safari PWA
+      panel.style.transition = 'opacity 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+      panel.style.opacity = '1';
+      panel.style.transform = 'scale(1)';
       setTimeout(() => {
+        panel.style.transition = '';
+        // NE PAS effacer opacity et transform — les laisser à 1 / scale(1)
+        declencherEtoiles();
+        animerIconesSecrets();
         history.pushState({ page: 'secrets' }, '', location.href);
-      }, 100);
-      setTimeout(() => animerSecrets(), 20);
+      }, 320);
     } else {
+      // Annuler
       panel.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
       panel.style.opacity = '0';
       panel.style.transform = 'scale(0.75)';
@@ -2343,30 +2349,7 @@ function genererSecrets() {
   pageSecrets.addEventListener('scroll', scrollHandler, { passive: true });
 }
 
-function animerSecrets() {
-  const panel = document.getElementById('page-secrets');
-
-  // État de départ
-  panel.style.transition = 'none';
-  panel.style.opacity = '0';
-  panel.style.transform = 'scale(0.75)';
-
-  declencherEtoiles();
-
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      panel.style.transition = 'opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)';
-      panel.style.opacity = '1';
-      panel.style.transform = 'scale(1)';
-      // On retire SEULEMENT la transition, pas opacity ni transform
-      // pour que la page reste visible via les styles inline
-      setTimeout(() => {
-        panel.style.transition = '';
-      }, 500);
-    });
-  });
-
-  // Apparition des icônes en cascade
+function animerIconesSecrets() {
   const items = document.querySelectorAll('.secret-item');
   items.forEach((item, i) => {
     item.style.opacity = '0';
@@ -2385,6 +2368,46 @@ function animerSecrets() {
         : 'grayscale(1) brightness(0.4)';
       item.classList.add('anim-entree');
     }, 200 + i * 80);
+  });
+}
+
+function animerSecrets() {
+  const panel = document.getElementById('page-secrets');
+  panel.style.transition = 'none';
+  panel.style.opacity = '0';
+  panel.style.transform = 'scale(0.75)';
+  declencherEtoiles();
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      panel.style.transition = 'opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)';
+      panel.style.opacity = '1';
+      panel.style.transform = 'scale(1)';
+      setTimeout(() => {
+        panel.style.transition = '';
+        // Laisser opacity:1 et scale(1) en inline
+      }, 500);
+      animerIconesSecrets();
+    });
+  });
+}
+
+function fermerPageSecrets() {
+  const panel = document.getElementById('page-secrets');
+  panel.style.transition = 'none';
+  panel.style.opacity = '1';
+  panel.style.transform = 'scale(1)';
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      panel.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+      panel.style.opacity = '0';
+      panel.style.transform = 'scale(0.85)';
+      setTimeout(() => {
+        panel.classList.remove('visible');
+        panel.style.transition = '';
+        panel.style.opacity = '';
+        panel.style.transform = '';
+      }, 350);
+    });
   });
 }
 
