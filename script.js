@@ -2450,7 +2450,7 @@ function afficherResultats(scores, scoresInterventions, scoresAutre, lexique, qu
   if (scoresAutre.length > 0) {
     const ts = document.createElement('div');
     ts.style.cssText = "font-family:'SF Sports Night';color:#5c205f;font-size:1.4em;margin-bottom:12px;";
-    ts.textContent = `Autre (${scoresAutre.length})`;
+    ts.textContent = `Bonus (${scoresAutre.length})`;
     inner.appendChild(ts);
 
     const grille = document.createElement('div');
