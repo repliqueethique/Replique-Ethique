@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Réplique Éthique - Administration</title>
-
 <link rel="stylesheet" href="admin.css">
 </head>
 
@@ -19,23 +18,30 @@
 
     <aside class="sidebar">
 
-        <button class="menu-btn active"
-                data-section="videos">
+        <button class="menu-btn active" data-section="videos">
             Vidéos
         </button>
 
-        <button class="menu-btn"
-                data-section="tags">
+        <button class="menu-btn" data-section="interventions">
+            Interventions
+        </button>
+
+        <button class="menu-btn" data-section="autre">
+            Autre
+        </button>
+
+        <button class="menu-btn" data-section="tags">
             Tags
         </button>
 
-        <button class="menu-btn"
-                data-section="lexique">
+        <button class="menu-btn" data-section="lexique">
             Lexique
         </button>
+
         <button id="btnResetLocal">
             Réinitialiser sauvegarde locale
         </button>
+
         <button id="btnSauvegardeJSON">
             Sauvegarder une copie JSON
         </button>
@@ -43,22 +49,12 @@
         <label for="inputImportJSON" class="menu-btn" style="text-align:center;">
             Importer une sauvegarde JSON
         </label>
-        <input
-            id="inputImportJSON"
-            type="file"
-            accept="application/json"
-            style="display:none;"
-        >
+        <input id="inputImportJSON" type="file" accept="application/json" style="display:none;">
 
         <label for="inputImportDataJS" class="menu-btn" style="text-align:center;">
             Importer un data.js
         </label>
-        <input
-            id="inputImportDataJS"
-            type="file"
-            accept=".js,application/javascript"
-            style="display:none;"
-        >
+        <input id="inputImportDataJS" type="file" accept=".js,application/javascript" style="display:none;">
 
         <div id="bandeauEtat" class="bandeau-etat"></div>
 
@@ -66,70 +62,62 @@
 
     <section class="content">
 
+        <!-- ===== VIDÉOS ===== -->
         <div id="section-videos">
-
             <section class="toolbar">
-
-                <button id="btnNouvelleVideo">
-                    + Nouvelle vidéo
-                </button>
-
-                <button id="btnExporter">
-                    Export Data.JS
-                </button>
-
+                <button id="btnNouvelleVideo">+ Nouvelle vidéo</button>
+                <button id="btnExporter">Export Data.JS</button>
             </section>
-            <input
-                id="rechercheVideo"
-                placeholder="Rechercher une vidéo..."
-            >
-
+            <input id="rechercheVideo" class="champ-recherche" placeholder="Rechercher une vidéo...">
             <section id="listeVideos"></section>
-
         </div>
 
+        <!-- ===== INTERVENTIONS ===== -->
+        <div id="section-interventions" class="hidden">
+            <section class="toolbar">
+                <button id="btnNouvelleIntervention">+ Nouvelle intervention</button>
+            </section>
+            <input id="rechercheIntervention" class="champ-recherche" placeholder="Rechercher une intervention...">
+            <section id="listeInterventions"></section>
+        </div>
+
+        <!-- ===== AUTRE ===== -->
+        <div id="section-autre" class="hidden">
+            <section class="toolbar">
+                <button id="btnNouvelAutre">+ Nouvel élément</button>
+            </section>
+            <input id="rechercheAutre" class="champ-recherche" placeholder="Rechercher...">
+            <section id="listeAutre"></section>
+        </div>
+
+        <!-- ===== TAGS ===== -->
         <div id="section-tags" class="hidden">
-
             <div class="toolbar">
-
-                <button id="btnNouvelleCategorie">
-                    + Catégorie
-                </button>
-
+                <button id="btnNouvelleCategorie">+ Catégorie</button>
             </div>
-
-            <div id="listeCategories">
-
-            </div>
-
+            <div id="listeCategories"></div>
         </div>
 
+        <!-- ===== LEXIQUE ===== -->
         <div id="section-lexique" class="hidden">
-
             <div class="toolbar">
-
-                <button id="btnNouveauMot">
-                    + Nouveau mot
-                </button>
-                <button id="btnTrierLexique">
-                    Trier A → Z
-                </button>
-
+                <button id="btnNouveauMot">+ Nouveau mot</button>
+                <button id="btnTrierLexique">Trier A → Z</button>
             </div>
-
             <div id="listeLexique"></div>
-
         </div>
 
     </section>
 
 </main>
 
+<!-- Modal partagée (vidéos / interventions / autre) -->
 <div id="modal" class="hidden">
-
     <div class="modal-content">
 
-        <h2>Vidéo</h2>
+        <div class="modal-header">
+            <h2 id="modalTitre">Vidéo</h2>
+        </div>
 
         <label>
             Titre
@@ -142,13 +130,8 @@
         </label>
 
         <label>
-
             Tags
-
-            <div id="tagsSelection">
-
-            </div>
-
+            <div id="tagsSelection"></div>
         </label>
 
         <label>
@@ -167,78 +150,43 @@
         </label>
 
         <label>
-            <input
-                type="checkbox"
-                id="cachee"
-            >
+            <input type="checkbox" id="cachee">
             Cachée
         </label>
 
         <div class="actions">
-
-            <button id="btnSave">
-                Enregistrer
-            </button>
-
-            <button id="btnCancel">
-                Annuler
-            </button>
-
+            <button id="btnSave">Enregistrer</button>
+            <button id="btnCancel">Annuler</button>
         </div>
 
     </div>
-
 </div>
 
-<script src="../data.js"></script>
+<!-- Modal lexique -->
 <div id="lexiqueModal" class="hidden">
-
     <div class="modal-content">
 
-        <h2 id="lexiqueTitre">
-            Nouveau terme
-        </h2>
+        <h2 id="lexiqueTitre">Nouveau terme</h2>
 
         <label>
-
             Mot
-
-            <input
-                id="lexiqueMot">
-
+            <input id="lexiqueMot">
         </label>
 
         <label>
-
             Définition
-
-            <textarea
-                id="lexiqueDefinition"
-                class="grand-texte">
-
-            </textarea>
-
+            <textarea id="lexiqueDefinition" class="grand-texte"></textarea>
         </label>
 
         <div class="actions">
-
-            <button id="btnSaveLexique">
-
-                Enregistrer
-
-            </button>
-
-            <button id="btnCancelLexique">
-
-                Annuler
-
-            </button>
-
+            <button id="btnSaveLexique">Enregistrer</button>
+            <button id="btnCancelLexique">Annuler</button>
         </div>
 
     </div>
-
 </div>
+
+<script src="../data.js"></script>
 <script src="admin.js"></script>
 
 </body>

@@ -2118,171 +2118,407 @@ document.addEventListener('DOMContentLoaded',()=>{
 // BLOC 17 : RECHERCHE
 // ============================================================
 
-const searchInput=document.querySelector('.search-bar input');
-const panneauResultats=document.createElement('div');
-panneauResultats.id='panneau-resultats';
-panneauResultats.style.cssText='position:fixed;top:0;left:0;width:100%;height:100dvh;background:#fff;z-index:9998;overflow-y:auto;display:none;flex-direction:column;box-sizing:border-box;';
+const searchInput = document.querySelector('.search-bar input');
+const panneauResultats = document.createElement('div');
+panneauResultats.id = 'panneau-resultats';
+panneauResultats.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100dvh;background:#fff;z-index:9998;overflow-y:auto;display:none;flex-direction:column;box-sizing:border-box;';
 document.body.appendChild(panneauResultats);
 
-function rechercherVideos(query){
-  if(!query||query.trim().length<2){panneauResultats.style.display='none';return;}
-  const termes=query.toLowerCase().trim().split(/\s+/);
-  const titres=window.titresVideos||{};
-  const textes=window.textesVideos||{};
-  const scores=[];
-  for(let i=1;i<=50;i++){
-    const key=String(i);
-    const t=(titres[key]||'').toLowerCase();
-    const tx=(textes[key]||'').toLowerCase();
-    let score=0;
-    termes.forEach(terme=>{
-      if(t===terme) score+=10; else if(t.includes(terme)) score+=6;
-      score+=(tx.match(new RegExp(terme,'g'))||[]).length;
+// ── Recherche dans une collection (autreData / interventionsData)
+// Retourne un tableau {item, score} trié
+function rechercherDansCollection(collection, termes) {
+  if (!Array.isArray(collection)) return [];
+  const scores = [];
+  collection.forEach(item => {
+    const t  = (item.titre || '').toLowerCase();
+    const tx = (item.texte || '').toLowerCase();
+    let score = 0;
+    termes.forEach(terme => {
+      if (t === terme)          score += 10;
+      else if (t.includes(terme)) score += 6;
+      score += (tx.match(new RegExp(terme, 'g')) || []).length;
     });
-    if(score>0) scores.push({key,score});
+    if (score > 0) scores.push({ item, score });
+  });
+  scores.sort((a, b) => b.score - a.score);
+  return scores;
+}
+
+function rechercherVideos(query) {
+  if (!query || query.trim().length < 2) {
+    panneauResultats.style.display = 'none';
+    return;
   }
-  scores.sort((a,b)=>b.score-a.score);
-  const lex=[];
-  document.querySelectorAll('.bouton-mot').forEach(btn=>{
-    const mot=btn.textContent.toLowerCase();
-    const def=btn.nextElementSibling?.textContent.toLowerCase()||'';
-    termes.forEach(terme=>{
-      if((mot.includes(terme)||def.includes(terme))&&!lex.find(r=>r.mot===btn.textContent)){
-        lex.push({mot:btn.textContent,definition:btn.nextElementSibling?.textContent||''});
+  const termes  = query.toLowerCase().trim().split(/\s+/);
+  const titres  = window.titresVideos || {};
+  const textes  = window.textesVideos || {};
+  const scores  = [];
+
+  // ── Vidéos principales (liensVideos / titresVideos)
+  for (let i = 1; i <= 50; i++) {
+    const key = String(i);
+    const t   = (titres[key] || '').toLowerCase();
+    const tx  = (textes[key] || '').toLowerCase();
+    let score = 0;
+    termes.forEach(terme => {
+      if (t === terme)            score += 10;
+      else if (t.includes(terme)) score += 6;
+      score += (tx.match(new RegExp(terme, 'g')) || []).length;
+    });
+    if (score > 0) scores.push({ key, score });
+  }
+  scores.sort((a, b) => b.score - a.score);
+
+  // ── Interventions
+  const scoresInterventions = rechercherDansCollection(window.interventionsData, termes);
+
+  // ── Autre
+  const scoresAutre = rechercherDansCollection(window.autreData, termes);
+
+  // ── Lexique
+  const lex = [];
+  document.querySelectorAll('.bouton-mot').forEach(btn => {
+    const mot = btn.textContent.toLowerCase();
+    const def = btn.nextElementSibling?.textContent.toLowerCase() || '';
+    termes.forEach(terme => {
+      if (
+        (mot.includes(terme) || def.includes(terme)) &&
+        !lex.find(r => r.mot === btn.textContent)
+      ) {
+        lex.push({ mot: btn.textContent, definition: btn.nextElementSibling?.textContent || '' });
       }
     });
   });
-  afficherResultats(scores,lex,query);
+
+  afficherResultats(scores, scoresInterventions, scoresAutre, lex, query);
 }
 
-function afficherResultats(scores,lexique,query){
-  panneauResultats.style.display='flex';
-  panneauResultats.innerHTML='';
-  const inner=document.createElement('div');
-  inner.style.cssText='max-width:960px;margin:0 auto;padding:16px;box-sizing:border-box;width:100%;';
+// ── Construit une vignette/ligne pour un item générique (interventions / autre)
+function creerCarteGenerique(item, contexte) {
+  const key     = String(item.id);
+  const num     = parseInt(key, 10);
+  const params  = chargerParametres();
+  const mode    = params.affichage || 'vignettes';
+  const wrapper = document.createElement('div');
 
-  const barreHaut=document.createElement('div');
-  barreHaut.style.cssText='display:flex;align-items:center;gap:10px;margin-bottom:20px;';
-  const btnF=document.createElement('button');
-  btnF.className='triangle-retour gauche';
-  btnF.style.cssText='flex-shrink:0;';
-  btnF.addEventListener('click',()=>{panneauResultats.style.display='none';if(searchInput)searchInput.value='';});
-  const bInput=document.createElement('div');
-  bInput.style.cssText='flex:1;display:flex;align-items:center;background:#fff;border-radius:990px;padding:5px 10px;height:50px;box-shadow:0 2px 8px rgba(0,0,0,0.1);';
-  const inp=document.createElement('input');
-  inp.value=query;
-  inp.style.cssText='flex:1;border:none;outline:none;font-family:\'MoonFlower\';font-size:1.5em;color:#31bebd;background:transparent;text-align:center;padding:0 8px;';
-  inp.addEventListener('keydown',(e)=>{if(e.key==='Enter')rechercherVideos(inp.value);if(e.key==='Escape'){panneauResultats.style.display='none';if(searchInput)searchInput.value='';}});
-  inp.addEventListener('focus',()=>inp.style.textAlign='left');
-  inp.addEventListener('blur',()=>inp.style.textAlign='center');
-  const loupe=document.createElement('button');
-  loupe.style.cssText='background:none;border:none;cursor:pointer;display:flex;align-items:center;flex-shrink:0;';
-  loupe.innerHTML='<img src="images/icone-loupe.png" style="width:32px;height:32px;"/>';
-  loupe.addEventListener('click',()=>rechercherVideos(inp.value));
-  bInput.appendChild(inp); bInput.appendChild(loupe);
-  barreHaut.appendChild(btnF); barreHaut.appendChild(bInput);
+  // Miniature YouTube ou vignette locale
+  const url      = item.youtube || '';
+  const videoId  = url.includes('v=')
+    ? url.split('v=')[1]
+    : (url.includes('youtu.be/')
+        ? url.split('youtu.be/')[1]?.split('?')[0]
+        : '');
+  const miniature = videoId
+    ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`
+    : `images/vignettes/VE2M ${num} vignette YT.jpg`;
+
+  const titre = item.titre || `(sans titre)`;
+
+  if (mode === 'liste') {
+    wrapper.style.cssText = `position:relative;display:flex;border-radius:10px;box-shadow:0 0 5px rgba(0,0,0,0.2);align-items:center;overflow:hidden;background:#fff;height:70px;width:90%;max-width:600px;margin:0 auto;`;
+    const img = document.createElement('img');
+    img.src = miniature;
+    img.style.cssText = 'width:124px;height:70px;object-fit:cover;background:#000;border-radius:8px 0 0 8px;flex-shrink:0;cursor:pointer;';
+
+    const titreEl = document.createElement('div');
+    titreEl.textContent = titre;
+    titreEl.style.cssText = `font-family:'Intro';color:#242422;font-size:0.95em;padding:0 12px;flex:1;cursor:pointer;line-height:1.3;display:flex;align-items:center;height:100%;`;
+
+    const ouvrir = () => ouvrirPageVideoGenerique(item);
+    img.addEventListener('click', ouvrir);
+    titreEl.addEventListener('click', ouvrir);
+    wrapper.appendChild(img);
+    wrapper.appendChild(titreEl);
+  } else {
+    wrapper.style.cssText = `position:relative;display:flex;border-radius:10px;box-shadow:0 0 5px rgba(0,0,0,0.2);align-items:stretch;overflow:hidden;aspect-ratio:16/9;`;
+    const img = document.createElement('img');
+    img.src = miniature;
+    img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;cursor:pointer;';
+    img.addEventListener('click', () => ouvrirPageVideoGenerique(item));
+    wrapper.appendChild(img);
+  }
+
+  return wrapper;
+}
+
+// ── Ouvre une page vidéo simplifiée pour un item générique
+function ouvrirPageVideoGenerique(item) {
+  document.getElementById('page-video')?.remove();
+
+  const url     = item.youtube || '';
+  const videoId = url.includes('v=')
+    ? url.split('v=')[1]
+    : (url.includes('youtu.be/')
+        ? url.split('youtu.be/')[1]?.split('?')[0]
+        : '');
+  const miniature = videoId
+    ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`
+    : '';
+  const titre   = item.titre || '';
+  const texte   = item.texte || '';
+  const tags    = item.tags || [];
+  const tagsHTML = tags.length
+    ? tags.map(t => `<span class="tag">${t}</span>`).join('')
+    : '';
+  const key     = String(item.id);
+  const favoris = JSON.parse(localStorage.getItem('favoris') || '[]');
+  const estFavori = favoris.includes(`extra_${key}`);
+
+  const page = document.createElement('div');
+  page.id = 'page-video';
+  page.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100dvh;overflow-y:auto;background:#e8e8e8;z-index:9999;box-sizing:border-box;';
+  page.innerHTML = creerContenuPageVideo(
+    item.id, estFavori, miniature, videoId, titre, texte, tagsHTML
+  );
+  document.body.appendChild(page);
+
+  // Retour
+  page.querySelector('#retour-page-video').addEventListener('click', () => {
+    page.remove();
+    panneauResultats.style.display = 'flex';
+  });
+
+  // Lecture vidéo
+  page.querySelector('#zone-video')?.addEventListener('click', () => {
+    if (!videoId) { alert('Lien introuvable.'); return; }
+    const zone = page.querySelector('#zone-video');
+    if (!zone) return;
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+    iframe.style.cssText = `width:100%;height:${zone.offsetWidth}px;border:none;display:block;`;
+    iframe.allow = 'autoplay;encrypted-media';
+    zone.replaceWith(iframe);
+  });
+
+  // Copier
+  page.querySelector('#btn-copier-video')?.addEventListener('click', function () {
+    const r = this.getBoundingClientRect();
+    declencherEclat(r.left + r.width / 2, r.top + r.height / 2, '#00fffd');
+    animerPop(this.querySelector('img'));
+    navigator.clipboard?.writeText(url).then(() => {
+      this.style.opacity = '0.4';
+      vibrer();
+      afficherToast('Copié !', '#00feff', r.left + r.width / 2, r.top + r.height / 2);
+      setTimeout(() => this.style.opacity = '1', 1500);
+    });
+  });
+
+  // Partager
+  page.querySelector('#btn-partager-video')?.addEventListener('click', function () {
+    const r = this.getBoundingClientRect();
+    declencherEclat(r.left + r.width / 2, r.top + r.height / 2, '#fce7ac');
+    animerPop(this.querySelector('img'));
+    if (navigator.share) navigator.share({ title: titre, url });
+    else navigator.clipboard?.writeText(url).then(() => afficherToast('Lien copié !', '#fce7ac'));
+  });
+}
+
+function afficherResultats(scores, scoresInterventions, scoresAutre, lexique, query) {
+  panneauResultats.style.display = 'flex';
+  panneauResultats.innerHTML = '';
+
+  const inner = document.createElement('div');
+  inner.style.cssText = 'max-width:960px;margin:0 auto;padding:16px;box-sizing:border-box;width:100%;';
+
+  // ── Barre de recherche en haut
+  const barreHaut = document.createElement('div');
+  barreHaut.style.cssText = 'display:flex;align-items:center;gap:10px;margin-bottom:20px;';
+
+  const btnF = document.createElement('button');
+  btnF.className = 'triangle-retour gauche';
+  btnF.style.cssText = 'flex-shrink:0;';
+  btnF.addEventListener('click', () => {
+    panneauResultats.style.display = 'none';
+    if (searchInput) searchInput.value = '';
+  });
+
+  const bInput = document.createElement('div');
+  bInput.style.cssText = 'flex:1;display:flex;align-items:center;background:#fff;border-radius:990px;padding:5px 10px;height:50px;box-shadow:0 2px 8px rgba(0,0,0,0.1);';
+
+  const inp = document.createElement('input');
+  inp.value = query;
+  inp.style.cssText = "flex:1;border:none;outline:none;font-family:'MoonFlower';font-size:1.5em;color:#31bebd;background:transparent;text-align:center;padding:0 8px;";
+  inp.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter')   rechercherVideos(inp.value);
+    if (e.key === 'Escape') { panneauResultats.style.display = 'none'; if (searchInput) searchInput.value = ''; }
+  });
+  inp.addEventListener('focus', () => inp.style.textAlign = 'left');
+  inp.addEventListener('blur',  () => inp.style.textAlign = 'center');
+
+  const loupe = document.createElement('button');
+  loupe.style.cssText = 'background:none;border:none;cursor:pointer;display:flex;align-items:center;flex-shrink:0;';
+  loupe.innerHTML = '<img src="images/icone-loupe.png" style="width:32px;height:32px;"/>';
+  loupe.addEventListener('click', () => rechercherVideos(inp.value));
+
+  bInput.appendChild(inp);
+  bInput.appendChild(loupe);
+  barreHaut.appendChild(btnF);
+  barreHaut.appendChild(bInput);
   inner.appendChild(barreHaut);
 
-  const tr=document.createElement('div');
-  tr.style.cssText='font-family:\'Intro\';color:#242422;font-size:1em;margin-bottom:16px;';
-  tr.textContent=`Résultats pour "${query}"`;
+  const tr = document.createElement('div');
+  tr.style.cssText = "font-family:'Intro';color:#242422;font-size:1em;margin-bottom:16px;";
+  tr.textContent = `Résultats pour "${query}"`;
   inner.appendChild(tr);
 
-  if(scores.length>0){
-    const ts=document.createElement('div');
-    ts.style.cssText='font-family:\'SF Sports Night\';color:#31bebd;font-size:1.4em;margin-bottom:12px;';
-    ts.textContent=`Vidéos (${scores.length})`;
+  const params = chargerParametres();
+  const mode   = params.affichage || 'vignettes';
+  const taille = params.taille    || 'petites';
+
+  const cols = estMobile()
+    ? (taille === 'grandes' ? 'repeat(2,1fr)' : 'repeat(3,1fr)')
+    : 'repeat(auto-fill,minmax(160px,1fr))';
+  const gap = estMobile() ? '8px' : '12px';
+
+  // ─────────────────────────────────────────────
+  // Section VIDÉOS
+  // ─────────────────────────────────────────────
+  if (scores.length > 0) {
+    const ts = document.createElement('div');
+    ts.style.cssText = "font-family:'SF Sports Night';color:#31bebd;font-size:1.4em;margin-bottom:12px;";
+    ts.textContent = `Vidéos (${scores.length})`;
     inner.appendChild(ts);
 
-    const params=chargerParametres();
-    const mode=params.affichage||'vignettes';
-    const taille=params.taille||'petites';
+    const grille = document.createElement('div');
+    grille.className = 'contenu-resultats';
+    grille.style.cssText = mode === 'liste'
+      ? 'display:flex;flex-direction:column;gap:10px;margin-bottom:24px;'
+      : `display:grid;grid-template-columns:${cols};gap:${gap};margin-bottom:24px;`;
 
-    const grille=document.createElement('div');
-    grille.className='contenu-resultats';
+    const listeIdsResultats = scores.map(({ key }) => parseInt(key));
 
-    if(mode==='liste'){
-      grille.style.cssText='display:flex;flex-direction:column;gap:10px;margin-bottom:24px;';
-    } else {
-      const cols = estMobile()
-        ? (taille==='grandes' ? 'repeat(2,1fr)' : 'repeat(3,1fr)')
-        : 'repeat(auto-fill,minmax(160px,1fr))';
-      const gap = estMobile() ? '8px' : '12px';
-      grille.style.cssText=`display:grid;grid-template-columns:${cols};gap:${gap};margin-bottom:24px;`;
-    }
+    scores.forEach(({ key }, idxCourant) => {
+      const num = parseInt(key);
+      const favoris = JSON.parse(localStorage.getItem('favoris') || '[]');
+      const estFavori = favoris.includes(key);
+      const wrapper = document.createElement('div');
 
-    const listeIdsResultats = scores.map(({key})=>parseInt(key));
-
-    scores.forEach(({key},idxCourant)=>{
-      const num=parseInt(key);
-      const favoris=JSON.parse(localStorage.getItem('favoris')||'[]');
-      const estFavori=favoris.includes(key);
-      const wrapper=document.createElement('div');
-
-      if(mode==='liste'){
-        wrapper.style.cssText=`position:relative;display:flex;border-radius:10px;box-shadow:0 0 5px rgba(0,0,0,0.2);align-items:center;transition:transform 0.2s ease;outline:${estFavori?'3px solid #fce7ac':'none'};outline-offset:-3px;overflow:hidden;background:#fff;height:70px;width:90%;max-width:600px;margin:0 auto;`;
-        const img=document.createElement('img');
-        img.src=`images/vignettes/VE2M ${num} vignette YT.jpg`;
-        img.style.cssText='width:124px;height:70px;object-fit:contain;background:#000;border-radius:8px 0 0 8px;flex-shrink:0;cursor:pointer;';
-        const titre=document.createElement('div');
-        titre.textContent=(window.titresVideos||{})[key]||`Vidéo ${num}`;
-        titre.style.cssText=`font-family:'Intro';color:#242422;font-size:0.95em;padding:0 12px;flex:1;cursor:pointer;line-height:1.3;display:flex;align-items:center;height:100%;`;
-        const barre=creerBarreListe(key,estFavori,wrapper,124);
-        img.addEventListener('click',()=>ouvrirPageVideo(num,()=>{panneauResultats.style.display='flex';},listeIdsResultats,idxCourant));
-        titre.addEventListener('click',()=>ouvrirPageVideo(num,()=>{panneauResultats.style.display='flex';},listeIdsResultats,idxCourant));
-        wrapper.appendChild(img); wrapper.appendChild(titre); wrapper.appendChild(barre);
+      if (mode === 'liste') {
+        wrapper.style.cssText = `position:relative;display:flex;border-radius:10px;box-shadow:0 0 5px rgba(0,0,0,0.2);align-items:center;transition:transform 0.2s ease;outline:${estFavori ? '3px solid #fce7ac' : 'none'};outline-offset:-3px;overflow:hidden;background:#fff;height:70px;width:90%;max-width:600px;margin:0 auto;`;
+        const img = document.createElement('img');
+        img.src = `images/vignettes/VE2M ${num} vignette YT.jpg`;
+        img.style.cssText = 'width:124px;height:70px;object-fit:contain;background:#000;border-radius:8px 0 0 8px;flex-shrink:0;cursor:pointer;';
+        const titreEl = document.createElement('div');
+        titreEl.textContent = (window.titresVideos || {})[key] || `Vidéo ${num}`;
+        titreEl.style.cssText = `font-family:'Intro';color:#242422;font-size:0.95em;padding:0 12px;flex:1;cursor:pointer;line-height:1.3;display:flex;align-items:center;height:100%;`;
+        const barre = creerBarreListe(key, estFavori, wrapper, 124);
+        img.addEventListener('click',    () => ouvrirPageVideo(num, () => { panneauResultats.style.display = 'flex'; }, listeIdsResultats, idxCourant));
+        titreEl.addEventListener('click', () => ouvrirPageVideo(num, () => { panneauResultats.style.display = 'flex'; }, listeIdsResultats, idxCourant));
+        wrapper.appendChild(img);
+        wrapper.appendChild(titreEl);
+        wrapper.appendChild(barre);
       } else {
-        wrapper.style.cssText=`position:relative;display:flex;border-radius:10px;box-shadow:0 0 5px rgba(0,0,0,0.2);align-items:stretch;transition:transform 0.2s ease;outline:${estFavori?'3px solid #fce7ac':'none'};outline-offset:-3px;overflow:hidden;aspect-ratio:16/9;`;
-        const img=document.createElement('img');
-        img.src=`images/vignettes/VE2M ${num} vignette YT.jpg`;
-        img.style.cssText='width:100%;height:100%;object-fit:cover;display:block;cursor:pointer;';
-        img.addEventListener('click',()=>ouvrirPageVideo(num,()=>{panneauResultats.style.display='flex';},listeIdsResultats,idxCourant));
-        const barre=creerBarreGalerie(key,estFavori,wrapper);
-        wrapper.appendChild(img); wrapper.appendChild(barre);
+        wrapper.style.cssText = `position:relative;display:flex;border-radius:10px;box-shadow:0 0 5px rgba(0,0,0,0.2);align-items:stretch;transition:transform 0.2s ease;outline:${estFavori ? '3px solid #fce7ac' : 'none'};outline-offset:-3px;overflow:hidden;aspect-ratio:16/9;`;
+        const img = document.createElement('img');
+        img.src = `images/vignettes/VE2M ${num} vignette YT.jpg`;
+        img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;cursor:pointer;';
+        img.addEventListener('click', () => ouvrirPageVideo(num, () => { panneauResultats.style.display = 'flex'; }, listeIdsResultats, idxCourant));
+        const barre = creerBarreGalerie(key, estFavori, wrapper);
+        wrapper.appendChild(img);
+        wrapper.appendChild(barre);
       }
       grille.appendChild(wrapper);
     });
     inner.appendChild(grille);
   }
 
-  if(lexique.length>0){
-    const ts=document.createElement('div');
-    ts.style.cssText='font-family:\'SF Sports Night\';color:#5c205f;font-size:1.4em;margin-bottom:12px;';
-    ts.textContent=`Définitions (${lexique.length})`;
+  // ─────────────────────────────────────────────
+  // Section INTERVENTIONS
+  // ─────────────────────────────────────────────
+  if (scoresInterventions.length > 0) {
+    const ts = document.createElement('div');
+    ts.style.cssText = "font-family:'SF Sports Night';color:#f37321;font-size:1.4em;margin-bottom:12px;";
+    ts.textContent = `Interventions (${scoresInterventions.length})`;
     inner.appendChild(ts);
-    lexique.forEach(({mot,definition})=>{
-      const bloc=document.createElement('div');
-      bloc.style.cssText='border-radius:10px;overflow:hidden;margin-bottom:10px;';
-      const bm=document.createElement('div');
-      bm.textContent=mot;
-      bm.style.cssText='background:#5c205f;color:#fff;font-family:\'Intro\';padding:14px 16px;';
-      const df=document.createElement('div');
-      df.textContent=definition;
-      df.style.cssText='background:#fff;padding:14px 16px;font-family:\'Graphie\';color:#242422;font-size:0.95em;line-height:1.6;';
-      bloc.appendChild(bm); bloc.appendChild(df); inner.appendChild(bloc);
+
+    const grille = document.createElement('div');
+    grille.className = 'contenu-resultats';
+    grille.style.cssText = mode === 'liste'
+      ? 'display:flex;flex-direction:column;gap:10px;margin-bottom:24px;'
+      : `display:grid;grid-template-columns:${cols};gap:${gap};margin-bottom:24px;`;
+
+    scoresInterventions.forEach(({ item }) => {
+      grille.appendChild(creerCarteGenerique(item, 'interventions'));
+    });
+    inner.appendChild(grille);
+  }
+
+  // ─────────────────────────────────────────────
+  // Section AUTRE
+  // ─────────────────────────────────────────────
+  if (scoresAutre.length > 0) {
+    const ts = document.createElement('div');
+    ts.style.cssText = "font-family:'SF Sports Night';color:#5c205f;font-size:1.4em;margin-bottom:12px;";
+    ts.textContent = `Autre (${scoresAutre.length})`;
+    inner.appendChild(ts);
+
+    const grille = document.createElement('div');
+    grille.className = 'contenu-resultats';
+    grille.style.cssText = mode === 'liste'
+      ? 'display:flex;flex-direction:column;gap:10px;margin-bottom:24px;'
+      : `display:grid;grid-template-columns:${cols};gap:${gap};margin-bottom:24px;`;
+
+    scoresAutre.forEach(({ item }) => {
+      grille.appendChild(creerCarteGenerique(item, 'autre'));
+    });
+    inner.appendChild(grille);
+  }
+
+  // ─────────────────────────────────────────────
+  // Section LEXIQUE
+  // ─────────────────────────────────────────────
+  if (lexique.length > 0) {
+    const ts = document.createElement('div');
+    ts.style.cssText = "font-family:'SF Sports Night';color:#5c205f;font-size:1.4em;margin-bottom:12px;";
+    ts.textContent = `Définitions (${lexique.length})`;
+    inner.appendChild(ts);
+
+    lexique.forEach(({ mot, definition }) => {
+      const bloc = document.createElement('div');
+      bloc.style.cssText = 'border-radius:10px;overflow:hidden;margin-bottom:10px;';
+      const bm = document.createElement('div');
+      bm.textContent = mot;
+      bm.style.cssText = "background:#5c205f;color:#fff;font-family:'Intro';padding:14px 16px;";
+      const df = document.createElement('div');
+      df.textContent = definition;
+      df.style.cssText = "background:#fff;padding:14px 16px;font-family:'Graphie';color:#242422;font-size:0.95em;line-height:1.6;";
+      bloc.appendChild(bm);
+      bloc.appendChild(df);
+      inner.appendChild(bloc);
     });
   }
 
-  if(scores.length===0&&lexique.length===0){
-    const v=document.createElement('div');
-    v.style.cssText='font-family:\'SF Sports Night\';color:#242422;font-size:1.8em;text-align:center;margin-top:60px;';
-    v.textContent='Aucun résultat trouvé';
+  // ─────────────────────────────────────────────
+  // Aucun résultat
+  // ─────────────────────────────────────────────
+  if (
+    scores.length === 0 &&
+    scoresInterventions.length === 0 &&
+    scoresAutre.length === 0 &&
+    lexique.length === 0
+  ) {
+    const v = document.createElement('div');
+    v.style.cssText = "font-family:'SF Sports Night';color:#242422;font-size:1.8em;text-align:center;margin-top:60px;";
+    v.textContent = 'Aucun résultat trouvé';
     inner.appendChild(v);
   }
+
   panneauResultats.appendChild(inner);
 }
 
-function lancerRecherche(){
-  const q=searchInput?.value||'';
-  if(q.trim().length<2) return;
+function lancerRecherche() {
+  const q = searchInput?.value || '';
+  if (q.trim().length < 2) return;
   rechercherVideos(q);
 }
-const loupeBtn=document.querySelector('.search-button');
-if(loupeBtn) loupeBtn.addEventListener('click',lancerRecherche);
-if(searchInput){
-  searchInput.addEventListener('keydown',(e)=>{
-    if(e.key==='Enter') lancerRecherche();
-    if(e.key==='Escape'){panneauResultats.style.display='none';searchInput.value='';}
+
+const loupeBtn = document.querySelector('.search-button');
+if (loupeBtn) loupeBtn.addEventListener('click', lancerRecherche);
+
+if (searchInput) {
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter')   lancerRecherche();
+    if (e.key === 'Escape') { panneauResultats.style.display = 'none'; searchInput.value = ''; }
   });
 }
 
