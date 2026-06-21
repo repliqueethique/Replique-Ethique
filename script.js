@@ -2144,53 +2144,71 @@ function rechercherDansCollection(collection, termes) {
   return scores;
 }
 
-function rechercherVideos(query) {
-  if (!query || query.trim().length < 2) {
-    panneauResultats.style.display = 'none';
-    return;
-  }
-  const termes  = query.toLowerCase().trim().split(/\s+/);
-  const titres  = window.titresVideos || {};
-  const textes  = window.textesVideos || {};
-  const scores  = [];
+function rechercherVideos(query){
+  if(!query||query.trim().length<2){panneauResultats.style.display='none';return;}
+  const termes=query.toLowerCase().trim().split(/\s+/);
+  const titres=window.titresVideos||{};
+  const textes=window.textesVideos||{};
+  const scores=[];
 
-  // ── Vidéos principales (liensVideos / titresVideos)
-  for (let i = 1; i <= 50; i++) {
-    const key = String(i);
-    const t   = (titres[key] || '').toLowerCase();
-    const tx  = (textes[key] || '').toLowerCase();
-    let score = 0;
-    termes.forEach(terme => {
-      if (t === terme)            score += 10;
-      else if (t.includes(terme)) score += 6;
-      score += (tx.match(new RegExp(terme, 'g')) || []).length;
+  // Vidéos normales 1–50
+  for(let i=1;i<=50;i++){
+    const key=String(i);
+    const t=(titres[key]||'').toLowerCase();
+    const tx=(textes[key]||'').toLowerCase();
+    let score=0;
+    termes.forEach(terme=>{
+      if(t===terme) score+=10; else if(t.includes(terme)) score+=6;
+      score+=(tx.match(new RegExp(terme,'g'))||[]).length;
     });
-    if (score > 0) scores.push({ key, score });
+    if(score>0) scores.push({key, score, type:'normale'});
   }
-  scores.sort((a, b) => b.score - a.score);
 
-  // ── Interventions
-  const scoresInterventions = rechercherDansCollection(window.interventionsData, termes);
+  // Vidéos cachées : interventions
+  (window.interventionsData||[]).forEach(v=>{
+    const t=(v.titre||'').toLowerCase();
+    const tx=(v.texte||'').toLowerCase();
+    const tags=(v.tags||[]).join(' ').toLowerCase();
+    let score=0;
+    termes.forEach(terme=>{
+      if(t===terme) score+=10; else if(t.includes(terme)) score+=6;
+      if(tags.includes(terme)) score+=4;
+      score+=(tx.match(new RegExp(terme,'g'))||[]).length;
+    });
+    if(score>0) scores.push({key:v.id, score, type:'intervention', data:v});
+  });
 
-  // ── Autre
-  const scoresAutre = rechercherDansCollection(window.autreData, termes);
+  // Vidéos cachées : autres
+  (window.autreData||[]).forEach(v=>{
+    const t=(v.titre||'').toLowerCase();
+    const tx=(v.texte||'').toLowerCase();
+    const tags=(v.tags||[]).join(' ').toLowerCase();
+    let score=0;
+    termes.forEach(terme=>{
+      if(t===terme) score+=10; else if(t.includes(terme)) score+=6;
+      if(tags.includes(terme)) score+=4;
+      score+=(tx.match(new RegExp(terme,'g'))||[]).length;
+    });
+    if(score>0){
+      scores.push({key:v.id, score, type:'autre', data:v});
+      // Vérifier si cette vidéo cachée correspond à un secret
+      _verifierSecretVideo(v);
+    }
+  });
 
-  // ── Lexique
-  const lex = [];
-  document.querySelectorAll('.bouton-mot').forEach(btn => {
-    const mot = btn.textContent.toLowerCase();
-    const def = btn.nextElementSibling?.textContent.toLowerCase() || '';
-    termes.forEach(terme => {
-      if (
-        (mot.includes(terme) || def.includes(terme)) &&
-        !lex.find(r => r.mot === btn.textContent)
-      ) {
-        lex.push({ mot: btn.textContent, definition: btn.nextElementSibling?.textContent || '' });
+  scores.sort((a,b)=>b.score-a.score);
+
+  const lex=[];
+  document.querySelectorAll('.bouton-mot').forEach(btn=>{
+    const mot=btn.textContent.toLowerCase();
+    const def=btn.nextElementSibling?.textContent.toLowerCase()||'';
+    termes.forEach(terme=>{
+      if((mot.includes(terme)||def.includes(terne))&&!lex.find(r=>r.mot===btn.textContent)){
+        lex.push({mot:btn.textContent,definition:btn.nextElementSibling?.textContent||''});
       }
     });
   });
-
-  afficherResultats(scores, scoresInterventions, scoresAutre, lex, query);
+  afficherResultats(scores,lex,query);
 }
 
 // ── Construit une vignette/ligne pour un item générique (interventions / autre)
