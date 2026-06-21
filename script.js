@@ -1751,18 +1751,18 @@ function sauvegarderTheme(id) {
 }
 
 function appliquerTheme(id) {
-  // Retirer toutes les classes de thème existantes
+  // Si aqua non débloqué, forcer défaut
+  if (id === 'aqua' && !chargerSecretsDecouverts().includes('secret_30h')) {
+    id = 'defaut';
+    sauvegarderTheme('defaut');
+  }
   THEMES.forEach(t => document.body.classList.remove('theme-' + t.id));
-  // Appliquer la nouvelle (sauf "defaut" qui est le :root)
   if (id && id !== 'defaut') {
     document.body.classList.add('theme-' + id);
   }
-  // Mettre à jour le logo
   const theme = THEMES.find(t => t.id === id) || THEMES[0];
   const logo = document.getElementById('logo-fixe');
   if (logo && theme.logo) logo.src = theme.logo;
-  // Mettre à jour les barres de partage déjà dans le DOM
-  // On attend que les variables CSS soient appliquées avant de lire
   requestAnimationFrame(() => {
     const { bg: nouvelleCouleur, filtre: nouveauFiltre } = couleursBarre();
     document.querySelectorAll('[data-barre="true"]').forEach(barre => {
@@ -1786,7 +1786,11 @@ function creerSecteurThemes(conteneur) {
   grille.style.cssText = 'display:flex;flex-direction:row;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;width:100%;';
   conteneur.appendChild(grille);
 
+  const decouverts = chargerSecretsDecouverts();
+
   THEMES.forEach(theme => {
+    // Thème aqua verrouillé si secret_30h pas découvert
+    if (theme.id === 'aqua' && !decouverts.includes('secret_30h')) return;
     const btn = document.createElement('button');
     btn.className = 'btn-theme' + (theme.id === themeActuel ? ' actif' : '');
     btn.dataset.themeId = theme.id;
