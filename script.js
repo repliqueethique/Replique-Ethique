@@ -2148,71 +2148,50 @@ function rechercherDansCollection(collection, termes) {
   return scores;
 }
 
-function rechercherVideos(query){
-  if(!query||query.trim().length<2){panneauResultats.style.display='none';return;}
-  const termes=query.toLowerCase().trim().split(/\s+/);
-  const titres=window.titresVideos||{};
-  const textes=window.textesVideos||{};
-  const scores=[];
+function rechercherVideos(query) {
+  if (!query || query.trim().length < 2) { panneauResultats.style.display = 'none'; return; }
+  const termes = query.toLowerCase().trim().split(/\s+/);
+  const titres = window.titresVideos || {};
+  const textes = window.textesVideos || {};
 
   // Vidéos normales 1–50
-  for(let i=1;i<=50;i++){
-    const key=String(i);
-    const t=(titres[key]||'').toLowerCase();
-    const tx=(textes[key]||'').toLowerCase();
-    let score=0;
-    termes.forEach(terme=>{
-      if(t===terme) score+=10; else if(t.includes(terme)) score+=6;
-      score+=(tx.match(new RegExp(terme,'g'))||[]).length;
+  const scores = [];
+  for (let i = 1; i <= 50; i++) {
+    const key = String(i);
+    const t  = (titres[key] || '').toLowerCase();
+    const tx = (textes[key] || '').toLowerCase();
+    let score = 0;
+    termes.forEach(terme => {
+      if (t === terme) score += 10; else if (t.includes(terme)) score += 6;
+      score += (tx.match(new RegExp(terme, 'g')) || []).length;
     });
-    if(score>0) scores.push({key, score, type:'normale'});
+    if (score > 0) scores.push({ key, score });
   }
+  scores.sort((a, b) => b.score - a.score);
 
   // Vidéos cachées : interventions
-  (window.interventionsData||[]).forEach(v=>{
-    const t=(v.titre||'').toLowerCase();
-    const tx=(v.texte||'').toLowerCase();
-    const tags=(v.tags||[]).join(' ').toLowerCase();
-    let score=0;
-    termes.forEach(terme=>{
-      if(t===terme) score+=10; else if(t.includes(terme)) score+=6;
-      if(tags.includes(terme)) score+=4;
-      score+=(tx.match(new RegExp(terme,'g'))||[]).length;
-    });
-    if(score>0) scores.push({key:v.id, score, type:'intervention', data:v});
-  });
+  const scoresInterventions = rechercherDansCollection(window.interventionsData || [], termes);
 
   // Vidéos cachées : autres
-  (window.autreData||[]).forEach(v=>{
-    const t=(v.titre||'').toLowerCase();
-    const tx=(v.texte||'').toLowerCase();
-    const tags=(v.tags||[]).join(' ').toLowerCase();
-    let score=0;
-    termes.forEach(terme=>{
-      if(t===terme) score+=10; else if(t.includes(terme)) score+=6;
-      if(tags.includes(terme)) score+=4;
-      score+=(tx.match(new RegExp(terme,'g'))||[]).length;
-    });
-    if(score>0){
-      scores.push({key:v.id, score, type:'autre', data:v});
-      // Vérifier si cette vidéo cachée correspond à un secret
-      _verifierSecretVideo(v);
-    }
-  });
+  const scoresAutre = rechercherDansCollection(window.autreData || [], termes);
 
-  scores.sort((a,b)=>b.score-a.score);
+  // Vérifier les secrets pour les vidéos cachées trouvées
+  scoresAutre.forEach(({ item }) => _verifierSecretVideo(item));
+  scoresInterventions.forEach(({ item }) => _verifierSecretVideo(item));
 
-  const lex=[];
-  document.querySelectorAll('.bouton-mot').forEach(btn=>{
-    const mot=btn.textContent.toLowerCase();
-    const def=btn.nextElementSibling?.textContent.toLowerCase()||'';
-    termes.forEach(terme=>{
-      if((mot.includes(terme)||def.includes(terne))&&!lex.find(r=>r.mot===btn.textContent)){
-        lex.push({mot:btn.textContent,definition:btn.nextElementSibling?.textContent||''});
+  // Lexique
+  const lex = [];
+  document.querySelectorAll('.bouton-mot').forEach(btn => {
+    const mot = btn.textContent.toLowerCase();
+    const def = btn.nextElementSibling?.textContent.toLowerCase() || '';
+    termes.forEach(terme => {
+      if ((mot.includes(terme) || def.includes(terme)) && !lex.find(r => r.mot === btn.textContent)) {
+        lex.push({ mot: btn.textContent, definition: btn.nextElementSibling?.textContent || '' });
       }
     });
   });
-  afficherResultats(scores,lex,query);
+
+  afficherResultats(scores, scoresInterventions, scoresAutre, lex, query);
 }
 
 // ── Construit une vignette/ligne pour un item générique (interventions / autre)
@@ -2804,22 +2783,23 @@ function declencherEtoiles() {
 function animerIconesSecrets() {
   const items = document.querySelectorAll('.secret-item');
   items.forEach((item, i) => {
-    item.style.transition = 'none';
+    // État de départ
     item.style.opacity = '0';
-    item.style.transform = 'scale(0.3) rotate(-12deg)';
-    item.style.filter = item.classList.contains('decouvert')
-      ? 'blur(10px) brightness(2)'
-      : 'grayscale(1) brightness(0) blur(10px)';
-    void item.offsetWidth;
+    item.style.transform = 'scale(0)';
+    item.style.transition = 'none';
+    void item.offsetWidth; // force reflow
 
     setTimeout(() => {
-      item.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.34,1.56,0.64,1), filter 0.8s ease';
+      // Pop smooth : scale 0 → 1.15 → 0.95 → 1
+      item.style.transition = 'none';
       item.style.opacity = '1';
-      item.style.transform = 'scale(1) rotate(0deg)';
-      item.style.filter = item.classList.contains('decouvert')
-        ? 'none'
-        : 'grayscale(1) brightness(0.4)';
-    }, 200 + i * 80);
+      item.style.transform = 'scale(0)';
+      void item.offsetWidth;
+
+      item.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease';
+      item.style.opacity = '1';
+      item.style.transform = 'scale(1)';
+    }, 150 + i * 100);
   });
 }
 

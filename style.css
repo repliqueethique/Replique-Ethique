@@ -920,20 +920,18 @@ body.theme-clair .search-bar {
 
 .secret-item {
   aspect-ratio: 1;
-  border-radius: 14px;
-  overflow: hidden;
   display: flex; align-items: center; justify-content: center;
-  background: rgba(0,0,0,0.15);
+  background: transparent;
   opacity: 0;
-  transform: scale(0.5) rotate(-8deg);
-  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 .secret-item.decouvert { filter: none; }
-.secret-item.cache { filter: grayscale(1) brightness(0.4); }
-.secret-item img { width: 100%; height: 100%; object-fit: cover; }
-.secret-item.anim-entree {
-  opacity: 1;
-  transform: scale(1) rotate(0deg);
+.secret-item.cache img {
+  /* Silhouette anthracite : on écrase toutes les couleurs vers #2a2a2a */
+  filter: brightness(0) saturate(0) invert(0.15);
+}
+.secret-item img {
+  width: 80%; height: 80%;
+  object-fit: contain;
 }
 
 .bas-page-secrets {
