@@ -1005,8 +1005,8 @@ body.theme-clair .search-bar {
   from { opacity: 0; } to { opacity: 1; }
 }
 .popup-secret-icone {
-  width: 80px; height: 80px;
-  object-fit: cover; border-radius: 14px;
+  width: 160px; height: 160px;
+  object-fit: cover; border-radius: 20px;
 }
 .popup-secret-nom {
   font-family: 'SF Sports Night', sans-serif;

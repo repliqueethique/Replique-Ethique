@@ -2652,16 +2652,15 @@ if (loupeBtn) loupeBtn.addEventListener('click', () => {
   const q = searchInput?.value || '';
   if (q.trim().length < 2) {
     const decouverts = JSON.parse(localStorage.getItem('secrets_decouverts') || '[]');
-    if (decouverts.includes('secret_sentiverse')) {
-      // Appel différé pour s'assurer que ouvrirSentiverse est définie
-      if (typeof ouvrirSentiverse === 'function') {
-        ouvrirSentiverse();
-      }
-    } else {
-      // Première découverte — appel différé aussi
-      if (typeof afficherPopupNouveauSecret === 'function') {
-        afficherPopupNouveauSecret('secret_sentiverse');
-      }
+    const estNouveau = !decouverts.includes('secret_sentiverse');
+
+    if (estNouveau && typeof afficherPopupNouveauSecret === 'function') {
+      afficherPopupNouveauSecret('secret_sentiverse');
+    }
+
+    // Ouvrir la page dans tous les cas
+    if (typeof ouvrirSentiverse === 'function') {
+      ouvrirSentiverse();
     }
     return;
   }
@@ -3083,6 +3082,45 @@ function genererSentiverse() {
   };
   pageSentiverse._scrollSentiverse = scrollHandler;
   pageSentiverse.addEventListener('scroll', scrollHandler, { passive: true });
+
+  // Swipe vers le bas depuis le header pour fermer
+  if (!pageSentiverse._swipeSentiverse) {
+    pageSentiverse._swipeSentiverse = true;
+    let hsStartY = 0, hsDragging = false, hsStartT = 0;
+
+    headerSentiverse.addEventListener('touchstart', (e) => {
+      if (!document.getElementById('page-sentiverse')?.classList.contains('visible')) return;
+      hsStartY = e.touches[0].clientY;
+      hsStartT = Date.now();
+      hsDragging = true;
+    }, { passive: true });
+
+    headerSentiverse.addEventListener('touchmove', (e) => {
+      if (!hsDragging) return;
+      const dy = e.touches[0].clientY - hsStartY;
+      if (dy <= 0) return;
+      const panel = document.getElementById('page-sentiverse');
+      const progress = Math.min(1, dy / (window.innerHeight * 0.4));
+      panel.style.transition = 'none';
+      panel.style.opacity = String(1 - progress * 0.8);
+      panel.style.transform = `scale(${1 - progress * 0.12})`;
+    }, { passive: true });
+
+    headerSentiverse.addEventListener('touchend', (e) => {
+      if (!hsDragging) return;
+      hsDragging = false;
+      const dy = e.changedTouches[0].clientY - hsStartY;
+      const dt = Date.now() - hsStartT;
+      const panel = document.getElementById('page-sentiverse');
+      if (dy > window.innerHeight * 0.2 || (dy > 30 && dy / dt > 0.3)) {
+        fermerSentiverse();
+      } else {
+        panel.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        panel.style.opacity = '1';
+        panel.style.transform = 'scale(1)';
+      }
+    }, { passive: true });
+  }
 }
 
 function ouvrirSentiverse() {
