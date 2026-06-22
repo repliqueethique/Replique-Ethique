@@ -2653,7 +2653,15 @@ if (loupeBtn) loupeBtn.addEventListener('click', () => {
   if (q.trim().length < 2) {
     const decouverts = JSON.parse(localStorage.getItem('secrets_decouverts') || '[]');
     if (decouverts.includes('secret_sentiverse')) {
-      ouvrirSentiverse();
+      // Appel différé pour s'assurer que ouvrirSentiverse est définie
+      if (typeof ouvrirSentiverse === 'function') {
+        ouvrirSentiverse();
+      }
+    } else {
+      // Première découverte — appel différé aussi
+      if (typeof afficherPopupNouveauSecret === 'function') {
+        afficherPopupNouveauSecret('secret_sentiverse');
+      }
     }
     return;
   }
@@ -3078,30 +3086,16 @@ function genererSentiverse() {
 }
 
 function ouvrirSentiverse() {
-  const decouverts = typeof chargerSecretsDecouverts === 'function'
-    ? chargerSecretsDecouverts()
-    : JSON.parse(localStorage.getItem('secrets_decouverts') || '[]');
-
-  if (!decouverts.includes('secret_sentiverse')) {
-    afficherPopupNouveauSecret('secret_sentiverse');
-    return;
-  }
-
   const panel = document.getElementById('page-sentiverse');
   if (!panel) return;
 
-  // 1. Mettre visible immédiatement pour activer pointer-events
   panel.classList.add('visible');
-
-  // 2. Forcer l'état de départ en inline
   panel.style.transition = 'none';
   panel.style.opacity = '0';
   panel.style.transform = 'scale(0.75)';
 
-  // 3. Générer le contenu
   genererSentiverse();
 
-  // 4. Double rAF : laisser le navigateur peindre l'état de départ, puis animer
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       panel.style.transition = 'opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)';
@@ -3109,7 +3103,6 @@ function ouvrirSentiverse() {
       panel.style.transform = 'scale(1)';
       setTimeout(() => {
         panel.style.transition = '';
-        // Laisser opacity:1 et scale(1) en inline pour que la page reste visible
       }, 500);
       history.pushState({ page: 'sentiverse' }, '', location.href);
     });
