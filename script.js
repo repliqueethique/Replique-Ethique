@@ -1541,7 +1541,7 @@ function attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, 
     pvStartY = e.touches[0].clientY;
     pvStartT = Date.now();
     pvGesture = null;
-    pvDragging = pvStartY >= screenH * 0.125 && pvStartY <= screenH * 0.30;
+    pvDragging = pvStartY <= window.innerHeight * 0.35;
   }, { passive: true });
 
   page.addEventListener('touchmove', (e) => {
@@ -1561,6 +1561,8 @@ function attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, 
     if (pvGesture === 'vertical-back') {
       page.style.transition = 'none';
       page.style.transform = `translateY(${Math.max(0, dy)}px)`;
+      const progress = Math.min(1, dy / (window.innerHeight * 0.5));
+      page.style.opacity = String(1 - progress * 0.3);
     }
 
     if (pvGesture === 'horizontal') {
@@ -1591,15 +1593,24 @@ function attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, 
     const isLargeDragY = dy > screenH * 0.25;
 
     // Retour vertical
-    if (pvGesture === 'vertical-back' && (isFlickY || isLargeDragY)) {
-      page.style.transition = 'transform 0.3s ease';
-      page.style.transform = 'translateY(100%)';
-      setTimeout(() => {
-        document.getElementById('page-video-prev')?.remove();
-        document.getElementById('page-video-next')?.remove();
-        page.remove();
-        if (typeof onRetour === 'function') onRetour();
-      }, 300);
+    if (pvGesture === 'vertical-back') {
+      if (isFlickY || isLargeDragY) {
+        // Confirmer la fermeture depuis l'état courant du drag
+        page.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+        page.style.transform = `translateY(${screenH}px)`;
+        page.style.opacity = '0';
+        setTimeout(() => {
+          document.getElementById('page-video-prev')?.remove();
+          document.getElementById('page-video-next')?.remove();
+          page.remove();
+          if (typeof onRetour === 'function') onRetour();
+        }, 300);
+      } else {
+        // Annuler : revenir en place
+        page.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+        page.style.transform = 'translateY(0)';
+        page.style.opacity = '1';
+      }
       return;
     }
 
