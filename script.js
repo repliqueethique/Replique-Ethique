@@ -1311,67 +1311,115 @@ const ongletFavoris = document.getElementById('favoris-panel');
 const fermerFavoris = document.getElementById('fermer-favoris');
 
 function afficherFavoris() {
-  const contenu=document.getElementById('contenu-favoris');
-  if(!contenu) return;
-  const favoris=JSON.parse(localStorage.getItem('favoris')||'[]');
-  const params=chargerParametres();
-  const mode=params.affichage||'vignettes';
-  const taille=params.taille||'petites';
-  contenu.innerHTML='';
+  const contenu = document.getElementById('contenu-favoris');
+  if (!contenu) return;
+  const favoris = JSON.parse(localStorage.getItem('favoris') || '[]');
+  const params  = chargerParametres();
+  const mode    = params.affichage || 'vignettes';
+  const taille  = params.taille    || 'petites';
+  contenu.innerHTML = '';
 
-  if(favoris.length===0){
-    contenu.style.cssText='display:flex;align-items:center;justify-content:center;height:60vh;';
-    contenu.innerHTML='<p style="font-family:\'SF Sports Night\';color:#fff;text-align:center;font-size:2em;line-height:1.4;max-width:300px;">Ajoutez des vidéos favorites en cliquant sur l\'étoile ★</p>';
+  if (favoris.length === 0) {
+    contenu.style.cssText = 'display:flex;align-items:center;justify-content:center;height:60vh;';
+    contenu.innerHTML = '<p style="font-family:\'SF Sports Night\';color:#fff;text-align:center;font-size:2em;line-height:1.4;max-width:300px;">Ajoutez des vidéos favorites en cliquant sur l\'étoile ★</p>';
     return;
   }
 
-  if(mode==='liste'){
-    contenu.style.cssText='display:flex;flex-direction:column;gap:10px;padding:20px;box-sizing:border-box;';
+  if (mode === 'liste') {
+    contenu.style.cssText = 'display:flex;flex-direction:column;gap:10px;padding:20px;box-sizing:border-box;';
   } else {
     const cols = estMobile()
-      ? (taille==='grandes' ? 'repeat(2,1fr)' : 'repeat(3,1fr)')
+      ? (taille === 'grandes' ? 'repeat(2,1fr)' : 'repeat(3,1fr)')
       : 'repeat(auto-fill,minmax(160px,1fr))';
     const gap = estMobile() ? '8px' : '20px';
     const pad = estMobile() ? '10px' : '20px';
-    contenu.style.cssText=`display:grid;grid-template-columns:${cols};gap:${gap};padding:${pad};box-sizing:border-box;`;
+    contenu.style.cssText = `display:grid;grid-template-columns:${cols};gap:${gap};padding:${pad};box-sizing:border-box;`;
   }
 
-  favoris.forEach(key=>{
-    const num=parseInt(key,10);
-    const wrapper=document.createElement('div');
-    if(mode==='liste'){
-      wrapper.style.cssText=`position:relative;display:flex;border-radius:10px;box-shadow:0 0 5px rgba(0,0,0,0.2);align-items:center;transition:transform 0.2s ease;outline:3px solid #fce7ac;outline-offset:-3px;overflow:hidden;background:#fff;height:70px;width:90%;max-width:600px;margin:0 auto;`;
-      const img=document.createElement('img');
-      img.src=`images/vignettes/VE2M ${num} vignette YT.jpg`;
-      img.style.cssText='width:124px;height:70px;object-fit:contain;background:#000;border-radius:8px 0 0 8px;flex-shrink:0;cursor:pointer;';
-      const titre=document.createElement('div');
-      titre.textContent=(window.titresVideos||{})[key]||`Vidéo ${num}`;
-      titre.style.cssText=`font-family:'Intro';color:#242422;font-size:0.95em;padding:0 12px;flex:1;cursor:pointer;line-height:1.3;text-align:left;display:flex;align-items:center;height:100%;`;
-      const barre=creerBarreListeFavoris(key,wrapper,124);
-      img.addEventListener('click',()=>ouvrirPageVideo(num));
-      titre.addEventListener('click',()=>ouvrirPageVideo(num));
-      wrapper.appendChild(img); wrapper.appendChild(titre); wrapper.appendChild(barre);
+  favoris.forEach(key => {
+    // Vidéos génériques (bonus / interventions)
+    if (key.startsWith('extra_')) {
+      const id   = key.replace('extra_', '');
+      const item = (window.autreData || []).find(v => String(v.id) === id)
+                || (window.interventionsData || []).find(v => String(v.id) === id);
+      if (!item) return;
+
+      const wrapper = creerCarteGenerique(item, 'favoris');
+
+      // Remplacer le bouton étoile par une version "retirer des favoris"
+      const barre = wrapper.querySelector('[data-barre="true"]');
+      if (barre) {
+        barre.querySelectorAll('button').forEach(btn => {
+          const img = btn.querySelector('img');
+          if (!img || !img.src.includes('etoile')) return;
+          const newBtn = btn.cloneNode(true);
+          btn.parentNode.replaceChild(newBtn, btn);
+          newBtn.querySelector('img').src = 'images/etoile.png';
+          newBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const r = newBtn.getBoundingClientRect();
+            declencherEclat(r.left + r.width / 2, r.top + r.height / 2, '#f37321');
+            animerSpin(newBtn.querySelector('img'));
+            vibrer();
+            let fav = JSON.parse(localStorage.getItem('favoris') || '[]');
+            fav = fav.filter(f => f !== key);
+            localStorage.setItem('favoris', JSON.stringify(fav));
+            wrapper.remove();
+            const c = document.getElementById('contenu-favoris');
+            if (c && c.children.length === 0) afficherFavoris();
+          });
+        });
+      }
+
+      // Outline favori
+      const accentColor = getComputedStyle(document.body).getPropertyValue('--c-accent').trim() || '#fce7ac';
+      wrapper.style.outline = `3px solid ${accentColor}`;
+      wrapper.style.outlineOffset = '-3px';
+
+      contenu.appendChild(wrapper);
+      return;
+    }
+
+    // Vidéos normales
+    const num     = parseInt(key, 10);
+    const wrapper = document.createElement('div');
+
+    if (mode === 'liste') {
+      wrapper.style.cssText = `position:relative;display:flex;border-radius:10px;box-shadow:0 0 5px rgba(0,0,0,0.2);align-items:center;transition:transform 0.2s ease;outline:3px solid #fce7ac;outline-offset:-3px;overflow:hidden;background:#fff;height:70px;width:90%;max-width:600px;margin:0 auto;`;
+      const img = document.createElement('img');
+      img.src = `images/vignettes/VE2M ${num} vignette YT.jpg`;
+      img.style.cssText = 'width:124px;height:70px;object-fit:contain;background:#000;border-radius:8px 0 0 8px;flex-shrink:0;cursor:pointer;';
+      const titre = document.createElement('div');
+      titre.textContent = (window.titresVideos || {})[key] || `Vidéo ${num}`;
+      titre.style.cssText = `font-family:'Intro';color:#242422;font-size:0.95em;padding:0 12px;flex:1;cursor:pointer;line-height:1.3;text-align:left;display:flex;align-items:center;height:100%;`;
+      const barre = creerBarreListeFavoris(key, wrapper, 124);
+      img.addEventListener('click', () => ouvrirPageVideo(num));
+      titre.addEventListener('click', () => ouvrirPageVideo(num));
+      wrapper.appendChild(img);
+      wrapper.appendChild(titre);
+      wrapper.appendChild(barre);
     } else {
-      wrapper.style.cssText=`position:relative;display:flex;border-radius:10px;box-shadow:0 0 5px rgba(0,0,0,0.2);align-items:stretch;transition:transform 0.2s ease;outline:3px solid #fce7ac;outline-offset:-3px;overflow:hidden;aspect-ratio:16/9;`;
-      const img=document.createElement('img');
-      img.src=`images/vignettes/VE2M ${num} vignette YT.jpg`;
-      img.style.cssText='width:100%;height:100%;object-fit:cover;display:block;cursor:pointer;';
-      img.addEventListener('click',()=>ouvrirPageVideo(num));
-      const barre=creerBarreGalerieFavoris(key,wrapper);
-      wrapper.appendChild(img); wrapper.appendChild(barre);
+      wrapper.style.cssText = `position:relative;display:flex;border-radius:10px;box-shadow:0 0 5px rgba(0,0,0,0.2);align-items:stretch;transition:transform 0.2s ease;outline:3px solid #fce7ac;outline-offset:-3px;overflow:hidden;aspect-ratio:16/9;`;
+      const img = document.createElement('img');
+      img.src = `images/vignettes/VE2M ${num} vignette YT.jpg`;
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;cursor:pointer;';
+      img.addEventListener('click', () => ouvrirPageVideo(num));
+      const barre = creerBarreGalerieFavoris(key, wrapper);
+      wrapper.appendChild(img);
+      wrapper.appendChild(barre);
     }
     contenu.appendChild(wrapper);
   });
 }
 
-if(boutonFavoris) boutonFavoris.addEventListener('click', () => {
+if (boutonFavoris) boutonFavoris.addEventListener('click', () => {
   afficherFavoris();
   ongletFavoris.style.transition = 'bottom 0.4s ease';
   ongletFavoris.style.bottom = '0';
   ongletFavoris.classList.add('visible');
 });
 
-if(fermerFavoris) fermerFavoris.addEventListener('click', () => {
+if (fermerFavoris) fermerFavoris.addEventListener('click', () => {
   ongletFavoris.style.transition = 'bottom 0.4s ease';
   ongletFavoris.style.bottom = '-110%';
   ongletFavoris.classList.remove('visible');
@@ -2196,50 +2244,96 @@ function rechercherVideos(query) {
 
 // ── Construit une vignette/ligne pour un item générique (interventions / autre)
 function creerCarteGenerique(item, contexte) {
-  const key     = String(item.id);
-  const num     = parseInt(key, 10);
-  const params  = chargerParametres();
-  const mode    = params.affichage || 'vignettes';
-  const wrapper = document.createElement('div');
+  const key    = `extra_${item.id}`;
+  const params = chargerParametres();
+  const mode   = params.affichage || 'vignettes';
 
-  // Miniature YouTube ou vignette locale
-  const url      = item.youtube || '';
-  const videoId  = url.includes('v=')
+  const url     = item.youtube || '';
+  const videoId = url.includes('v=')
     ? url.split('v=')[1]
     : (url.includes('youtu.be/')
         ? url.split('youtu.be/')[1]?.split('?')[0]
         : '');
   const miniature = videoId
     ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`
-    : `images/vignettes/VE2M ${num} vignette YT.jpg`;
+    : `images/secrets/${item.titre?.replace(/\s/g,'')}.png`;
 
-  const titre = item.titre || `(sans titre)`;
+  const titre   = item.titre || '(sans titre)';
+  const favoris = JSON.parse(localStorage.getItem('favoris') || '[]');
+  const estFavori = favoris.includes(key);
+  const accentColor = () => getComputedStyle(document.body).getPropertyValue('--c-accent').trim() || '#fce7ac';
+
+  const wrapper = document.createElement('div');
+
+  const onFavoriChange = (ajout) => {
+    wrapper.style.outline = ajout ? `3px solid ${accentColor()}` : 'none';
+    wrapper.style.outlineOffset = '-3px';
+  };
 
   if (mode === 'liste') {
-    wrapper.style.cssText = `position:relative;display:flex;border-radius:10px;box-shadow:0 0 5px rgba(0,0,0,0.2);align-items:center;overflow:hidden;background:#fff;height:70px;width:90%;max-width:600px;margin:0 auto;`;
+    wrapper.style.cssText = `position:relative;display:flex;border-radius:10px;box-shadow:0 0 5px rgba(0,0,0,0.2);align-items:center;transition:transform 0.2s ease;outline:${estFavori ? `3px solid ${accentColor()}` : 'none'};outline-offset:-3px;overflow:hidden;background:#fff;height:70px;width:90%;max-width:600px;margin:0 auto;`;
     const img = document.createElement('img');
     img.src = miniature;
     img.style.cssText = 'width:124px;height:70px;object-fit:cover;background:#000;border-radius:8px 0 0 8px;flex-shrink:0;cursor:pointer;';
-
     const titreEl = document.createElement('div');
     titreEl.textContent = titre;
     titreEl.style.cssText = `font-family:'Intro';color:#242422;font-size:0.95em;padding:0 12px;flex:1;cursor:pointer;line-height:1.3;display:flex;align-items:center;height:100%;`;
-
-    const ouvrir = () => ouvrirPageVideoGenerique(item);
-    img.addEventListener('click', ouvrir);
-    titreEl.addEventListener('click', ouvrir);
+    const barre = creerBarreListe(key, estFavori, wrapper, 124, onFavoriChange);
+    _patchBarreGenerique(barre, url, titre);
+    img.addEventListener('click', () => ouvrirPageVideoGenerique(item));
+    titreEl.addEventListener('click', () => ouvrirPageVideoGenerique(item));
     wrapper.appendChild(img);
     wrapper.appendChild(titreEl);
+    wrapper.appendChild(barre);
   } else {
-    wrapper.style.cssText = `position:relative;display:flex;border-radius:10px;box-shadow:0 0 5px rgba(0,0,0,0.2);align-items:stretch;overflow:hidden;aspect-ratio:16/9;`;
+    wrapper.style.cssText = `position:relative;display:flex;border-radius:10px;box-shadow:0 0 5px rgba(0,0,0,0.2);align-items:stretch;transition:transform 0.2s ease;outline:${estFavori ? `3px solid ${accentColor()}` : 'none'};outline-offset:-3px;overflow:hidden;aspect-ratio:16/9;`;
     const img = document.createElement('img');
     img.src = miniature;
     img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;cursor:pointer;';
     img.addEventListener('click', () => ouvrirPageVideoGenerique(item));
+    const barre = creerBarreGalerie(key, estFavori, wrapper, onFavoriChange);
+    _patchBarreGenerique(barre, url, titre);
     wrapper.appendChild(img);
+    wrapper.appendChild(barre);
   }
 
   return wrapper;
+}
+
+// ── Rebranche copier/partager sur l'URL générique
+function _patchBarreGenerique(barre, url, titre) {
+  barre.querySelectorAll('button').forEach(btn => {
+    const img = btn.querySelector('img');
+    if (!img) return;
+    if (img.src.includes('icone-copier')) {
+      const newBtn = btn.cloneNode(true);
+      btn.parentNode.replaceChild(newBtn, btn);
+      newBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const r = newBtn.getBoundingClientRect();
+        declencherEclat(r.left + r.width / 2, r.top + r.height / 2, '#00fffd');
+        animerPop(newBtn.querySelector('img'));
+        navigator.clipboard?.writeText(url).then(() => {
+          newBtn.style.opacity = '0.4';
+          vibrer();
+          afficherToast('Copié !', '#00feff', r.left + r.width / 2, r.top + r.height / 2);
+          setTimeout(() => newBtn.style.opacity = '1', 1500);
+        });
+      });
+    }
+    if (img.src.includes('icone-partager')) {
+      const newBtn = btn.cloneNode(true);
+      btn.parentNode.replaceChild(newBtn, btn);
+      newBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const r = newBtn.getBoundingClientRect();
+        declencherEclat(r.left + r.width / 2, r.top + r.height / 2, '#fce7ac');
+        animerPop(newBtn.querySelector('img'));
+        if (navigator.share) navigator.share({ title: titre, url });
+        else navigator.clipboard?.writeText(url).then(() => afficherToast('Lien copié !', '#fce7ac'));
+      });
+    }
+  });
 }
 
 // ── Ouvre une page vidéo simplifiée pour un item générique
@@ -2255,31 +2349,25 @@ function ouvrirPageVideoGenerique(item) {
   const miniature = videoId
     ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`
     : '';
-  const titre   = item.titre || '';
-  const texte   = item.texte || '';
-  const tags    = item.tags || [];
-  const tagsHTML = tags.length
-    ? tags.map(t => `<span class="tag">${t}</span>`).join('')
-    : '';
-  const key     = String(item.id);
-  const favoris = JSON.parse(localStorage.getItem('favoris') || '[]');
-  const estFavori = favoris.includes(`extra_${key}`);
+  const titre    = item.titre || '';
+  const texte    = item.texte || '';
+  const tags     = item.tags || [];
+  const tagsHTML = tags.length ? tags.map(t => `<span class="tag">${t}</span>`).join('') : '';
+  const key      = `extra_${item.id}`;
+  const favoris  = JSON.parse(localStorage.getItem('favoris') || '[]');
+  const estFavori = favoris.includes(key);
 
   const page = document.createElement('div');
   page.id = 'page-video';
   page.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100dvh;overflow-y:auto;background:#e8e8e8;z-index:9999;box-sizing:border-box;';
-  page.innerHTML = creerContenuPageVideo(
-    item.id, estFavori, miniature, videoId, titre, texte, tagsHTML
-  );
+  page.innerHTML = creerContenuPageVideo(item.id, estFavori, miniature, videoId, titre, texte, tagsHTML);
   document.body.appendChild(page);
 
-  // Retour
   page.querySelector('#retour-page-video').addEventListener('click', () => {
     page.remove();
     panneauResultats.style.display = 'flex';
   });
 
-  // Lecture vidéo
   page.querySelector('#zone-video')?.addEventListener('click', () => {
     if (!videoId) { alert('Lien introuvable.'); return; }
     const zone = page.querySelector('#zone-video');
@@ -2291,7 +2379,6 @@ function ouvrirPageVideoGenerique(item) {
     zone.replaceWith(iframe);
   });
 
-  // Copier
   page.querySelector('#btn-copier-video')?.addEventListener('click', function () {
     const r = this.getBoundingClientRect();
     declencherEclat(r.left + r.width / 2, r.top + r.height / 2, '#00fffd');
@@ -2304,13 +2391,25 @@ function ouvrirPageVideoGenerique(item) {
     });
   });
 
-  // Partager
   page.querySelector('#btn-partager-video')?.addEventListener('click', function () {
     const r = this.getBoundingClientRect();
     declencherEclat(r.left + r.width / 2, r.top + r.height / 2, '#fce7ac');
     animerPop(this.querySelector('img'));
     if (navigator.share) navigator.share({ title: titre, url });
     else navigator.clipboard?.writeText(url).then(() => afficherToast('Lien copié !', '#fce7ac'));
+  });
+
+  // Favori
+  page.querySelector('#btn-favori-video')?.addEventListener('click', function () {
+    const r = this.getBoundingClientRect();
+    let fav = JSON.parse(localStorage.getItem('favoris') || '[]');
+    const isF = fav.includes(key);
+    if (isF) { fav = fav.filter(f => f !== key); } else { fav.push(key); }
+    localStorage.setItem('favoris', JSON.stringify(fav));
+    const ajout = fav.includes(key);
+    declencherEclat(r.left + r.width / 2, r.top + r.height / 2, '#f37321');
+    animerSpin(this.querySelector('img'));
+    this.querySelector('img').src = `images/${ajout ? 'etoile' : 'etoile vide'}.png`;
   });
 }
 
