@@ -563,8 +563,9 @@ document.addEventListener('touchstart', (e) => {
       document.getElementById('page-secrets').style.transition = 'none';
     }
     return;
-    if (document.getElementById('page-sentiverse')?.classList.contains('visible')) return;
   }
+
+  if (document.getElementById('page-sentiverse')?.classList.contains('visible')) return;
 
   // Pinch : mémoriser la distance initiale entre les 2 doigts
   if (e.touches.length === 2) {
@@ -714,6 +715,8 @@ document.addEventListener('touchmove', (e) => {
     return;
   }
 
+  if (document.getElementById('page-sentiverse')?.classList.contains('visible')) return;
+
   const favPanel = document.getElementById('favoris-panel');
   const paramsPanel = document.getElementById('page-parametres');
 
@@ -857,8 +860,9 @@ document.addEventListener('touchend', (e) => {
       draggingSecretsClose = false;
     }
     return;
-    if (document.getElementById('page-sentiverse')?.classList.contains('visible')) return;
   }
+
+  if (document.getElementById('page-sentiverse')?.classList.contains('visible')) return;
 
   const dx = e.changedTouches[0].clientX - tStartX;
   const dy = e.changedTouches[0].clientY - tStartY;
@@ -2647,8 +2651,9 @@ const loupeBtn = document.querySelector('.search-button');
 if (loupeBtn) loupeBtn.addEventListener('click', () => {
   const q = searchInput?.value || '';
   if (q.trim().length < 2) {
-    // Champ vide → ouvrir Sentiverse si secret découvert
-    const decouverts = chargerSecretsDecouverts();
+    const decouverts = typeof chargerSecretsDecouverts === 'function'
+      ? chargerSecretsDecouverts()
+      : JSON.parse(localStorage.getItem('secrets_decouverts') || '[]');
     if (decouverts.includes('secret_sentiverse')) {
       ouvrirSentiverse();
     }
