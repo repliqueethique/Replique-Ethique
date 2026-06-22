@@ -3113,7 +3113,16 @@ function genererSentiverse() {
       const dt = Date.now() - hsStartT;
       const panel = document.getElementById('page-sentiverse');
       if (dy > window.innerHeight * 0.2 || (dy > 30 && dy / dt > 0.3)) {
-        fermerSentiverse();
+        // Finir depuis l'état courant sans relancer fermerSentiverse()
+        panel.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+        panel.style.opacity = '0';
+        panel.style.transform = 'scale(0.85)';
+        setTimeout(() => {
+          panel.classList.remove('visible');
+          panel.style.transition = '';
+          panel.style.opacity = '';
+          panel.style.transform = '';
+        }, 250);
       } else {
         panel.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
         panel.style.opacity = '1';
