@@ -2651,9 +2651,7 @@ const loupeBtn = document.querySelector('.search-button');
 if (loupeBtn) loupeBtn.addEventListener('click', () => {
   const q = searchInput?.value || '';
   if (q.trim().length < 2) {
-    const decouverts = typeof chargerSecretsDecouverts === 'function'
-      ? chargerSecretsDecouverts()
-      : JSON.parse(localStorage.getItem('secrets_decouverts') || '[]');
+    const decouverts = JSON.parse(localStorage.getItem('secrets_decouverts') || '[]');
     if (decouverts.includes('secret_sentiverse')) {
       ouvrirSentiverse();
     }
@@ -3080,29 +3078,38 @@ function genererSentiverse() {
 }
 
 function ouvrirSentiverse() {
-  // Vérifier découverte du secret
-  const decouverts = chargerSecretsDecouverts();
+  const decouverts = typeof chargerSecretsDecouverts === 'function'
+    ? chargerSecretsDecouverts()
+    : JSON.parse(localStorage.getItem('secrets_decouverts') || '[]');
+
   if (!decouverts.includes('secret_sentiverse')) {
-    // Première découverte
     afficherPopupNouveauSecret('secret_sentiverse');
     return;
   }
 
   const panel = document.getElementById('page-sentiverse');
-  genererSentiverse();
+  if (!panel) return;
 
+  // 1. Mettre visible immédiatement pour activer pointer-events
+  panel.classList.add('visible');
+
+  // 2. Forcer l'état de départ en inline
   panel.style.transition = 'none';
   panel.style.opacity = '0';
   panel.style.transform = 'scale(0.75)';
 
+  // 3. Générer le contenu
+  genererSentiverse();
+
+  // 4. Double rAF : laisser le navigateur peindre l'état de départ, puis animer
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
-      panel.classList.add('visible');
       panel.style.transition = 'opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)';
       panel.style.opacity = '1';
       panel.style.transform = 'scale(1)';
       setTimeout(() => {
         panel.style.transition = '';
+        // Laisser opacity:1 et scale(1) en inline pour que la page reste visible
       }, 500);
       history.pushState({ page: 'sentiverse' }, '', location.href);
     });
