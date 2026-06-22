@@ -1455,7 +1455,7 @@ function creerContenuPageVideo(numero, estFavori, miniature, videoId, titre, tex
       <div id="zone-video" style="position:relative;margin-bottom:0;cursor:pointer;border-radius:10px 10px 0 0;overflow:hidden;aspect-ratio:16/9;">
         <img id="vignette-img" src="${miniature}" style="width:100%;height:100%;object-fit:cover;display:block;"/>
         <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.2);">
-          <div style="width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;"><span style="font-size:26px;margin-left:5px;">&#9654;</span></div>
+          <img src="images/lecture.png" style="width:64px;height:64px;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.4));" />
         </div>
       </div>
       <div style="display:flex;justify-content:center;gap:24px;margin-bottom:12px;background:#242422;padding:12px;border-radius:0 0 10px 10px;">
@@ -1561,8 +1561,6 @@ function attacherEvenementsPageVideo(page, key, url, titre, onRetour, listeIds, 
     if (pvGesture === 'vertical-back') {
       page.style.transition = 'none';
       page.style.transform = `translateY(${Math.max(0, dy)}px)`;
-      const progress = Math.min(1, dy / (window.innerHeight * 0.5));
-      page.style.opacity = String(1 - progress * 0.3);
     }
 
     if (pvGesture === 'horizontal') {
