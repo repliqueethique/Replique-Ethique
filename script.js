@@ -563,6 +563,7 @@ document.addEventListener('touchstart', (e) => {
       document.getElementById('page-secrets').style.transition = 'none';
     }
     return;
+    if (document.getElementById('page-sentiverse')?.classList.contains('visible')) return;
   }
 
   // Pinch : mémoriser la distance initiale entre les 2 doigts
@@ -856,6 +857,7 @@ document.addEventListener('touchend', (e) => {
       draggingSecretsClose = false;
     }
     return;
+    if (document.getElementById('page-sentiverse')?.classList.contains('visible')) return;
   }
 
   const dx = e.changedTouches[0].clientX - tStartX;
@@ -1760,6 +1762,15 @@ const optionsParams=[
   {id:'tutos',          label:'tutos',               demarrage:false},
 ];
 
+// Injecter dynamiquement l'option sentiverse si secret découvert
+function _optionsParamsEffectives() {
+  const opts = [...optionsParams];
+  if (chargerSecretsDecouverts().includes('secret_sentiverse')) {
+    opts.push({ id: 'sentiverse', label: 'sentiverse', demarrage: false });
+  }
+  return opts;
+}
+
 // ── Thèmes disponibles ──
 const THEMES = [
   {
@@ -1935,6 +1946,11 @@ function appliquerParametres(){
     }
   }
   if(bp){bp.style.display='';bp.style.marginRight='15px';}
+  // Bouton sentiverse
+  const btnS = document.getElementById('btn-sentiverse');
+  if (btnS) {
+    btnS.style.display = (p.accueil?.['sentiverse'] && chargerSecretsDecouverts().includes('secret_sentiverse')) ? '' : 'none';
+  }
 }
 
 function _peuplerParametres() {
@@ -1948,7 +1964,7 @@ function _peuplerParametres() {
   const cPrim   = cs.getPropertyValue('--c-primaire').trim() || '#31bebd';
   const cSombre = cs.getPropertyValue('--c-sombre').trim()   || '#242422';
 
-  optionsParams.forEach(opt => {
+  _optionsParamsEffectives().forEach(opt => {
     const isA = p.accueil?.[opt.id] !== false;
     const ca = document.createElement('div');
     ca.dataset.checked = isA ? 'true' : 'false';
@@ -2132,6 +2148,11 @@ document.addEventListener('DOMContentLoaded',()=>{
     const infoPanel    = document.getElementById('info-panel');
     const videoPanel   = document.getElementById('page-video');
     const secretsPanel = document.getElementById('page-secrets');
+    const sentiversePanel = document.getElementById('page-sentiverse');
+    if (sentiversePanel?.classList.contains('visible')) {
+      fermerSentiverse();
+      return;
+    }
 
     // Toujours repousser un état en premier
     history.pushState(null, '', location.href);
@@ -2623,7 +2644,18 @@ function lancerRecherche() {
 }
 
 const loupeBtn = document.querySelector('.search-button');
-if (loupeBtn) loupeBtn.addEventListener('click', lancerRecherche);
+if (loupeBtn) loupeBtn.addEventListener('click', () => {
+  const q = searchInput?.value || '';
+  if (q.trim().length < 2) {
+    // Champ vide → ouvrir Sentiverse si secret découvert
+    const decouverts = chargerSecretsDecouverts();
+    if (decouverts.includes('secret_sentiverse')) {
+      ouvrirSentiverse();
+    }
+    return;
+  }
+  lancerRecherche();
+});
 
 if (searchInput) {
   searchInput.addEventListener('keydown', (e) => {
@@ -2652,6 +2684,14 @@ const LISTE_SECRETS = [
     comment: 'Trouve le clip de 30H',
     bonus: 'Donne accès au thème aqua',
     videoId: '1',
+  },
+  {
+    id: 'secret_sentiverse',
+    nom: 'Sentiverse',
+    fichier: 'sentiverse.png',
+    comment: 'Trouve la page Sentiverse',
+    bonus: 'Permet d\'ajouter le bouton Sentiverse à l\'accueil depuis les paramètres',
+    videoId: null,
   },
 ];
 
@@ -2959,4 +2999,137 @@ document.addEventListener('DOMContentLoaded', () => {
     vibrer();
     reinitialiserSecrets();
   });
+});
+
+// ============================================================
+// BLOC 19 : PAGE SENTIVERSE
+// ============================================================
+
+const PARTENAIRES_SENTIVERSE = [
+  { nom: 'Comme un poisson dans l\'eau', fichier: 'Comme un poisson dans l eau.png', lien: 'https://linktr.ee/poissonpodcast' },
+  { nom: 'Éthique et Psycho',            fichier: 'Ethique et Psycho.png',           lien: 'https://www.youtube.com/@EthiqueEtPsycho' },
+  { nom: 'Florence Dellerie',            fichier: 'Florence Dellerie.png',           lien: 'https://linktr.ee/florencedellerie' },
+  { nom: 'Projet Méduses',               fichier: 'Projet Meduses.png',              lien: 'https://projet-meduses.com' },
+  { nom: 'Raie Futée',                   fichier: 'Raie Futee.png',                  lien: 'https://linktr.ee/raie.futee' },
+  { nom: 'Sarah Zanaz',                  fichier: 'Sarah Zanaz.png',                 lien: 'https://www.instagram.com/sarahzanaz/' },
+];
+
+function genererSentiverse() {
+  const grille = document.getElementById('grille-sentiverse');
+  if (!grille) return;
+  grille.innerHTML = '';
+
+  // Tri alphabétique
+  const tries = [...PARTENAIRES_SENTIVERSE].sort((a, b) =>
+    a.nom.localeCompare(b.nom, 'fr', { sensitivity: 'base' })
+  );
+
+  tries.forEach((p, i) => {
+    const carte = document.createElement('div');
+    carte.className = 'carte-partenaire';
+    carte.style.opacity = '0';
+    carte.style.transform = 'scale(0)';
+
+    const img = document.createElement('img');
+    img.src = `images/sentiverse/${p.fichier}`;
+    img.alt = p.nom;
+    img.draggable = false;
+
+    const label = document.createElement('span');
+    label.textContent = p.nom;
+
+    carte.appendChild(img);
+    carte.appendChild(label);
+    carte.addEventListener('click', () => {
+      window.open(p.lien, '_blank');
+    });
+
+    grille.appendChild(carte);
+
+    // Animation pop smooth en cascade
+    setTimeout(() => {
+      carte.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease';
+      carte.style.opacity = '1';
+      carte.style.transform = 'scale(1)';
+    }, 200 + i * 80);
+  });
+
+  // Header compact au scroll
+  const pageSentiverse = document.getElementById('page-sentiverse');
+  const headerSentiverse = document.getElementById('header-sentiverse');
+  const retourSentiverse = document.getElementById('retour-sentiverse');
+  pageSentiverse.scrollTop = 0;
+  const ancienScroll = pageSentiverse._scrollSentiverse;
+  if (ancienScroll) pageSentiverse.removeEventListener('scroll', ancienScroll);
+  const scrollHandler = () => {
+    const compact = pageSentiverse.scrollTop > 10;
+    headerSentiverse.classList.toggle('compact', compact);
+    if (retourSentiverse) {
+      retourSentiverse.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+      retourSentiverse.style.transform = compact ? 'scaleY(1.587)' : '';
+      retourSentiverse.style.transformOrigin = 'center center';
+    }
+  };
+  pageSentiverse._scrollSentiverse = scrollHandler;
+  pageSentiverse.addEventListener('scroll', scrollHandler, { passive: true });
+}
+
+function ouvrirSentiverse() {
+  // Vérifier découverte du secret
+  const decouverts = chargerSecretsDecouverts();
+  if (!decouverts.includes('secret_sentiverse')) {
+    // Première découverte
+    afficherPopupNouveauSecret('secret_sentiverse');
+    return;
+  }
+
+  const panel = document.getElementById('page-sentiverse');
+  genererSentiverse();
+
+  panel.style.transition = 'none';
+  panel.style.opacity = '0';
+  panel.style.transform = 'scale(0.75)';
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      panel.classList.add('visible');
+      panel.style.transition = 'opacity 0.45s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)';
+      panel.style.opacity = '1';
+      panel.style.transform = 'scale(1)';
+      setTimeout(() => {
+        panel.style.transition = '';
+      }, 500);
+      history.pushState({ page: 'sentiverse' }, '', location.href);
+    });
+  });
+}
+
+function fermerSentiverse() {
+  const panel = document.getElementById('page-sentiverse');
+  panel.style.transition = 'none';
+  panel.style.opacity = '1';
+  panel.style.transform = 'scale(1)';
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      panel.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+      panel.style.opacity = '0';
+      panel.style.transform = 'scale(0.85)';
+      setTimeout(() => {
+        panel.classList.remove('visible');
+        panel.style.transition = '';
+        panel.style.opacity = '';
+        panel.style.transform = '';
+      }, 350);
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('retour-sentiverse')?.addEventListener('click', fermerSentiverse);
+
+  // Bouton sentiverse à l'accueil (visible si option activée dans paramètres)
+  const btnSentiverse = document.getElementById('btn-sentiverse');
+  if (btnSentiverse) {
+    btnSentiverse.addEventListener('click', () => ouvrirSentiverse());
+  }
 });

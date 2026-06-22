@@ -1069,3 +1069,91 @@ body.theme-clair .search-bar {
   padding: 14px 20px 4px;
   opacity: 0.85;
 }
+
+/* ============================================================
+   PAGE SENTIVERSE
+   ============================================================ */
+#page-sentiverse {
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100dvh;
+  background: #f5e6c8;
+  z-index: 9998;
+  display: flex; flex-direction: column;
+  opacity: 0;
+  transform: scale(0.85);
+  pointer-events: none;
+  transition: none;
+  overflow-y: auto;
+}
+#page-sentiverse.visible {
+  pointer-events: all;
+}
+
+.header-sentiverse {
+  background: var(--c-sombre);
+  height: 70px; flex-shrink: 0;
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 0 10px; box-sizing: border-box;
+  position: sticky; top: 0; z-index: 10;
+  transform-origin: top center;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+.header-sentiverse.compact { transform: scaleY(0.63); }
+
+.titre-sentiverse {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'SF Sports Night', sans-serif;
+  color: var(--c-accent); font-size: 2.5em;
+  margin: 0; white-space: nowrap;
+  letter-spacing: 0.05em;
+  background: var(--titre-gradient, none);
+  -webkit-background-clip: var(--titre-clip, border-box);
+  background-clip: var(--titre-clip, border-box);
+  -webkit-text-fill-color: var(--titre-fill, inherit);
+  -webkit-text-stroke: var(--titre-stroke, 0px) var(--c-accent);
+  text-shadow: var(--titre-shadow, none);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+.compact .titre-sentiverse {
+  transform: translate(-50%, -50%) scaleY(1.587) scale(0.64);
+}
+
+.grille-sentiverse {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding: 24px;
+  box-sizing: border-box;
+}
+@media (min-width: 600px) {
+  .grille-sentiverse {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+}
+
+.carte-partenaire {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.carte-partenaire:active { transform: scale(0.95); }
+
+.carte-partenaire img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  border-radius: 16px;
+}
+
+.carte-partenaire span {
+  font-family: 'Graphie', sans-serif;
+  font-size: 0.8em;
+  color: #3a2a10;
+  text-align: center;
+  line-height: 1.3;
+}
