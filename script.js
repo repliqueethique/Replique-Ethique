@@ -793,7 +793,8 @@ document.addEventListener('touchmove', (e) => {
       pageActuelle === 2 &&
       tStartY >= screenH * 0.25 && tStartY <= screenH * 0.75 &&
       !document.getElementById('favoris-panel')?.classList.contains('visible') &&
-      !document.getElementById('page-parametres')?.classList.contains('visible')) {
+      !document.getElementById('page-parametres')?.classList.contains('visible') &&
+      document.getElementById('panneau-resultats')?.style.display !== 'flex') {
     draggingSecrets = true;
     secretsDragStartY = tStartY;
     genererSecrets();
