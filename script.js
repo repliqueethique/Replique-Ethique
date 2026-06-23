@@ -1223,6 +1223,176 @@ if(contenuMotsCles){
     b.addEventListener('click',()=>b.nextElementSibling?.classList.toggle('open'));
   });
 
+  // Clic sur un tag → ouvrir la page des vidéos avec ce tag
+  contenuMotsCles.querySelectorAll('.tag[data-tag]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      ouvrirPageTag(btn.dataset.tag);
+    });
+  });
+
+}
+
+// ============================================================
+// BLOC 11b : PAGE TAG (vidéos filtrées par tag)
+// ============================================================
+
+function ouvrirPageTag(tag) {
+  // Éviter les doublons
+  document.getElementById('page-tag')?.remove();
+
+  // Trouver les vidéos ayant ce tag
+  const tagsVideos = window.tagsVideos || {};
+  const idsAvecTag = Object.keys(tagsVideos).filter(key => {
+    const tags = tagsVideos[key];
+    return Array.isArray(tags) && tags.includes(tag);
+  }).map(key => parseInt(key, 10)).filter(n => !isNaN(n));
+
+  const params  = chargerParametres();
+  const mode    = params.affichage || 'vignettes';
+  const taille  = params.taille    || 'petites';
+
+  const cols = estMobile()
+    ? (taille === 'grandes' ? 'repeat(2,1fr)' : 'repeat(3,1fr)')
+    : 'repeat(auto-fill,minmax(160px,1fr))';
+  const gap = estMobile() ? '8px' : '12px';
+  const pad = estMobile() ? '10px' : '20px';
+
+  const cs        = getComputedStyle(document.body);
+  const cPrimaire = cs.getPropertyValue('--c-primaire').trim() || '#31bebd';
+  const cSombre   = cs.getPropertyValue('--c-sombre').trim()   || '#242422';
+  const cAccent   = cs.getPropertyValue('--c-accent').trim()   || '#fce7ac';
+  const fondMC    = cs.getPropertyValue('--fond-mots-cles').trim() || 'linear-gradient(135deg,#242422,#31bebd)';
+
+  const page = document.createElement('div');
+  page.id = 'page-tag';
+  page.style.cssText = `position:fixed;top:0;left:0;width:100%;height:100dvh;overflow-y:auto;z-index:9999;box-sizing:border-box;background:${fondMC};opacity:0;transform:scale(0.9);transition:opacity 0.3s ease,transform 0.3s cubic-bezier(0.34,1.56,0.64,1);`;
+
+  // Header
+  const header = document.createElement('div');
+  header.style.cssText = `position:sticky;top:0;z-index:10;background:${cSombre};display:flex;align-items:center;justify-content:space-between;padding:0 15px;height:60px;box-sizing:border-box;flex-shrink:0;`;
+
+  const btnRetour = document.createElement('button');
+  btnRetour.className = 'triangle-retour gauche';
+  btnRetour.setAttribute('aria-label', 'Retour');
+  btnRetour.addEventListener('click', fermerPageTag);
+
+  const titre = document.createElement('h1');
+  titre.textContent = tag;
+  titre.style.cssText = `font-family:'SF Sports Night';color:${cAccent};font-size:1.6em;margin:0;text-align:center;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 10px;`;
+
+  const placeholder = document.createElement('div');
+  placeholder.style.cssText = 'width:36px;flex-shrink:0;';
+
+  header.appendChild(btnRetour);
+  header.appendChild(titre);
+  header.appendChild(placeholder);
+  page.appendChild(header);
+
+  // Conteneur vidéos
+  const conteneur = document.createElement('div');
+
+  if (idsAvecTag.length === 0) {
+    conteneur.style.cssText = 'display:flex;align-items:center;justify-content:center;height:60vh;';
+    const msg = document.createElement('p');
+    msg.textContent = 'Aucune vidéo avec ce tag pour l\'instant.';
+    msg.style.cssText = `font-family:'SF Sports Night';color:#fff;font-size:1.5em;text-align:center;max-width:280px;line-height:1.4;`;
+    conteneur.appendChild(msg);
+  } else {
+    if (mode === 'liste') {
+      conteneur.style.cssText = `display:flex;flex-direction:column;gap:10px;padding:${pad};box-sizing:border-box;`;
+    } else {
+      conteneur.style.cssText = `display:grid;grid-template-columns:${cols};gap:${gap};padding:${pad};box-sizing:border-box;`;
+    }
+
+    idsAvecTag.forEach((num, idxCourant) => {
+      const key      = String(num);
+      const favoris  = JSON.parse(localStorage.getItem('favoris') || '[]');
+      const estFavori = favoris.includes(key);
+      const wrapper  = document.createElement('div');
+
+      if (mode === 'liste') {
+        wrapper.style.cssText = `position:relative;display:flex;border-radius:10px;box-shadow:0 0 5px rgba(0,0,0,0.2);align-items:center;transition:transform 0.2s ease;outline:${estFavori ? '3px solid ' + cAccent : 'none'};outline-offset:-3px;overflow:hidden;background:#fff;height:70px;width:90%;max-width:600px;margin:0 auto;`;
+        const img = document.createElement('img');
+        img.src = `images/vignettes/VE2M ${num} vignette YT.jpg`;
+        img.style.cssText = 'width:124px;height:70px;object-fit:contain;background:#000;border-radius:8px 0 0 8px;flex-shrink:0;cursor:pointer;';
+        const titreEl = document.createElement('div');
+        titreEl.textContent = (window.titresVideos || {})[key] || `Vidéo ${num}`;
+        titreEl.style.cssText = `font-family:'Intro';color:#242422;font-size:0.95em;padding:0 12px;flex:1;cursor:pointer;line-height:1.3;display:flex;align-items:center;height:100%;`;
+        const barre = creerBarreListe(key, estFavori, wrapper, 124);
+        img.addEventListener('click',    () => ouvrirPageVideo(num, () => { page.style.display = 'block'; }, idsAvecTag, idxCourant));
+        titreEl.addEventListener('click', () => ouvrirPageVideo(num, () => { page.style.display = 'block'; }, idsAvecTag, idxCourant));
+        wrapper.appendChild(img);
+        wrapper.appendChild(titreEl);
+        wrapper.appendChild(barre);
+      } else {
+        wrapper.style.cssText = `position:relative;display:flex;border-radius:10px;box-shadow:0 0 5px rgba(0,0,0,0.2);align-items:stretch;transition:transform 0.2s ease;outline:${estFavori ? '3px solid ' + cAccent : 'none'};outline-offset:-3px;overflow:hidden;aspect-ratio:16/9;`;
+        const img = document.createElement('img');
+        img.src = `images/vignettes/VE2M ${num} vignette YT.jpg`;
+        img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;cursor:pointer;';
+        img.addEventListener('click', () => ouvrirPageVideo(num, () => { page.style.display = 'block'; }, idsAvecTag, idxCourant));
+        const barre = creerBarreGalerie(key, estFavori, wrapper);
+        wrapper.appendChild(img);
+        wrapper.appendChild(barre);
+      }
+      conteneur.appendChild(wrapper);
+    });
+  }
+
+  page.appendChild(conteneur);
+  document.body.appendChild(page);
+
+  // Animation d'entrée
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      page.style.opacity = '1';
+      page.style.transform = 'scale(1)';
+      setTimeout(() => { page.style.transition = ''; }, 350);
+    });
+  });
+
+  // Swipe-bas depuis le header pour fermer
+  let ptStartY = 0, ptDragging = false;
+  header.addEventListener('touchstart', (e) => {
+    ptStartY   = e.touches[0].clientY;
+    ptDragging = true;
+    page.style.transition = 'none';
+  }, { passive: true });
+  header.addEventListener('touchmove', (e) => {
+    if (!ptDragging) return;
+    const dy = e.touches[0].clientY - ptStartY;
+    if (dy <= 0) return;
+    const progress = Math.min(1, dy / (window.innerHeight * 0.4));
+    page.style.opacity    = String(1 - progress * 0.8);
+    page.style.transform  = `scale(${1 - progress * 0.12})`;
+  }, { passive: true });
+  header.addEventListener('touchend', (e) => {
+    if (!ptDragging) return;
+    ptDragging = false;
+    const dy = e.changedTouches[0].clientY - ptStartY;
+    if (dy > window.innerHeight * 0.2) {
+      page.style.transition = 'opacity 0.25s ease,transform 0.25s ease';
+      page.style.opacity   = '0';
+      page.style.transform = 'scale(0.85)';
+      setTimeout(() => page.remove(), 260);
+    } else {
+      page.style.transition = 'opacity 0.3s ease,transform 0.3s ease';
+      page.style.opacity   = '1';
+      page.style.transform = 'scale(1)';
+    }
+  }, { passive: true });
+
+  // Bouton retour Android
+  history.pushState({ page: 'tag', tag }, '', location.href);
+}
+
+function fermerPageTag() {
+  const page = document.getElementById('page-tag');
+  if (!page) return;
+  page.style.transition = 'opacity 0.3s ease,transform 0.3s ease';
+  page.style.opacity   = '0';
+  page.style.transform = 'scale(0.85)';
+  setTimeout(() => page.remove(), 310);
 }
 
 // ============================================================
@@ -2153,6 +2323,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     const videoPanel   = document.getElementById('page-video');
     const secretsPanel = document.getElementById('page-secrets');
     const sentiversePanel = document.getElementById('page-sentiverse');
+    const tagPanel     = document.getElementById('page-tag');
     if (sentiversePanel?.classList.contains('visible')) {
       fermerSentiverse();
       return;
@@ -2161,6 +2332,10 @@ document.addEventListener('DOMContentLoaded',()=>{
     // Toujours repousser un état en premier
     history.pushState(null, '', location.href);
 
+    if (tagPanel) {
+      fermerPageTag();
+      return;
+    }
     if (secretsPanel?.classList.contains('visible')) {
       fermerPageSecrets();
       return;
