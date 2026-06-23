@@ -394,6 +394,10 @@ let pageActuelle = 2;
 const conteneurPages = document.getElementById('conteneur-pages');
 conteneurPages.style.transition = 'none';
 conteneurPages.style.transform = `translateX(-${2 * window.innerWidth}px)`;
+window.addEventListener('resize', () => {
+  conteneurPages.style.transition = 'none';
+  conteneurPages.style.transform = `translateX(-${pageActuelle * window.innerWidth}px)`;
+});
 
 const fondAccueil   = document.querySelector('.fond-accueil');
 const fondMotsCles  = document.querySelector('.fond-mots-cles');
