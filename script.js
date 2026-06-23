@@ -1220,7 +1220,10 @@ if(contenuMotsCles){
 
   contenuMotsCles.querySelectorAll('.tags').forEach(t=>t.classList.remove('open'));
   contenuMotsCles.querySelectorAll('.bouton-categorie').forEach(b=>{
-    b.addEventListener('click',()=>b.nextElementSibling?.classList.toggle('open'));
+    b.addEventListener('click',()=>{
+      const estOuvert = b.nextElementSibling?.classList.toggle('open');
+      b.classList.toggle('open', estOuvert);
+    });
   });
 
   // Clic sur un tag → ouvrir la page des vidéos avec ce tag

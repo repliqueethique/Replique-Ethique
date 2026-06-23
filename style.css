@@ -423,7 +423,7 @@ body {
   cursor: pointer; box-sizing: border-box;
   transition: transform 0.2s ease, background-color 0.3s ease;
 }
-.bouton-categorie:hover { background-color: var(--c-vif); transform: scale(1.05); }
+.bouton-categorie.open { background-color: var(--c-vif); }
 .tags {
   display: grid; grid-auto-flow: row;
   grid-template-columns: repeat(auto-fit, minmax(100px, auto));
