@@ -960,10 +960,15 @@ body.theme-clair .search-bar {
 }
 
 .image-sentiverse {
-  display: block;
-  width: min(320px, 80%);
-  margin: 24px auto 8px;
-  object-fit: contain;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  max-width: 320px;
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* Particules étoiles */
