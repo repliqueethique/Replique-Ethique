@@ -444,8 +444,10 @@ body {
 }
 .tag:hover { background-color: var(--c-vif); transform: scale(1.05); }
 .image-cles {
-  margin-top: auto; width: 100%; max-width: 1000px;
-  opacity: 0.5; pointer-events: none; margin-bottom: 20px;
+  position: fixed; bottom: 12%; left: 50%;
+  transform: translateX(-50%);
+  width: 70%; max-width: 400px;
+  opacity: 0.15; pointer-events: none; z-index: 0;
 }
 
 /* ============================================================
@@ -599,8 +601,10 @@ body {
   box-sizing: border-box; width: 100%;
 }
 .image-favoris {
-  margin-top: auto; width: 100%; max-width: 1000px;
-  opacity: 0.5; pointer-events: none; margin-bottom: 20px;
+  position: fixed; bottom: 12%; left: 50%;
+  transform: translateX(-50%);
+  width: 70%; max-width: 400px;
+  opacity: 0.15; pointer-events: none; z-index: 0;
 }
 
 /* ============================================================
@@ -953,22 +957,17 @@ body.theme-clair .search-bar {
 }
 
 .image-secrets {
-  width: 55%; max-width: 240px;
-  opacity: 0.2;
-  display: block;
-  pointer-events: none;
+  position: fixed; bottom: 12%; left: 50%;
+  transform: translateX(-50%);
+  width: 70%; max-width: 400px;
+  opacity: 0.15; pointer-events: none; z-index: 0;
 }
 
 .image-sentiverse {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
+  position: fixed; bottom: 12%; left: 50%;
   transform: translateX(-50%);
-  width: 70%;
-  max-width: 320px;
-  opacity: 0.12;
-  pointer-events: none;
-  z-index: 0;
+  width: 70%; max-width: 400px;
+  opacity: 0.15; pointer-events: none; z-index: 0;
 }
 
 /* Particules étoiles */
