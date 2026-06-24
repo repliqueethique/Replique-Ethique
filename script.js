@@ -456,7 +456,7 @@ function naviguerVers(index, animer=true) {
 
   fondsDePage[index]?.();
   if(index === 3) afficherListe();
-  if(index === 4) genererEssentiel();
+  if(index === 4) { if(laBaseActive) { laBaseActive = false; document.getElementById('btn-essentiel').textContent = "L'essentiel"; } genererEssentiel(); }
 
   if (!animer) {
     conteneurPages.style.transition = 'none';
@@ -2887,6 +2887,14 @@ const LISTE_SECRETS = [
     bonus: 'Permet d\'ajouter le bouton Sentiverse à l\'accueil depuis les paramètres',
     videoId: null,
   },
+  {
+    id: 'secret_labase',
+    nom: 'La Base',
+    fichier: 'la base.png',
+    comment: 'Trouve la page "La Base" cachée dans "L\'Essentiel"',
+    bonus: 'Donne accès à la websérie Chronique Éthique',
+    videoId: null,
+  },
 ];
 
 function deverrouillerSecret(id) {
@@ -3196,6 +3204,178 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ============================================================
+// BLOC 18b : PAGE LA BASE
+// ============================================================
+
+let laBaseActive = false;
+
+function animerTitre(el, ancienTexte, nouveauTexte, callback) {
+  const lettres = el.querySelectorAll('.lettre-titre');
+  const dureeLettre = 80;
+
+  // Disparition lettre par lettre
+  lettres.forEach((l, i) => {
+    setTimeout(() => {
+      l.style.transition = 'transform 0.18s ease-in, opacity 0.18s ease-in';
+      l.style.transform = 'scale(2.5)';
+      l.style.opacity = '0';
+    }, i * dureeLettre);
+  });
+
+  const dureeDisparition = lettres.length * dureeLettre + 200;
+
+  setTimeout(() => {
+    // Construire les nouvelles lettres
+    el.innerHTML = '';
+    [...nouveauTexte].forEach((c, i) => {
+      const span = document.createElement('span');
+      span.className = 'lettre-titre';
+      span.textContent = c === ' ' ? '\u00A0' : c;
+      span.style.cssText = 'display:inline-block;transform:scale(0);opacity:0;transition:none;';
+      el.appendChild(span);
+    });
+
+    // Apparition lettre par lettre
+    setTimeout(() => {
+      el.querySelectorAll('.lettre-titre').forEach((l, i) => {
+        setTimeout(() => {
+          l.style.transition = 'transform 0.25s cubic-bezier(0.34,1.56,0.64,1), opacity 0.15s ease-out';
+          l.style.transform = 'scale(1)';
+          l.style.opacity = '1';
+        }, i * dureeLettre);
+      });
+      if (callback) setTimeout(callback, nouveauTexte.length * dureeLettre + 300);
+    }, 50);
+  }, dureeDisparition);
+}
+
+function basculerLaBase() {
+  const pageEssentiel  = document.getElementById('page-essentiel');
+  const titreEl        = pageEssentiel.querySelector('.titre-essentiel');
+  const contenu        = pageEssentiel.querySelector('.contenu-essentiel');
+  const btnEssentiel   = document.getElementById('btn-essentiel');
+
+  if (!laBaseActive) {
+    // → Aller vers La Base
+
+    // Popup secret si première découverte
+    const decouverts = chargerSecretsDecouverts();
+    if (!decouverts.includes('secret_labase')) {
+      setTimeout(() => afficherPopupNouveauSecret('secret_labase'), 600);
+    }
+
+    laBaseActive = true;
+    if (btnEssentiel) btnEssentiel.textContent = 'La Base';
+
+    // Animation titre
+    animerTitre(titreEl, "L'essentiel", 'La Base', null);
+
+    // Disparition des vignettes
+    const vignettes = Array.from(contenu.children);
+    vignettes.forEach((v, i) => {
+      setTimeout(() => {
+        v.style.transition = 'transform 0.2s ease-in, opacity 0.2s ease-in';
+        v.style.transform = 'scale(0.7)';
+        v.style.opacity = '0';
+      }, i * 60);
+    });
+
+    setTimeout(() => {
+      contenu.innerHTML = '';
+      contenu.style.cssText = 'display:flex;flex-direction:column;align-items:center;padding:0;box-sizing:border-box;';
+
+      // Trouver Chronique Éthique dans autreData
+      const item = (window.autreData || []).find(v => v.titre === 'Chronique Éthique');
+      if (!item) return;
+
+      const url     = item.youtube || '';
+      const videoId = url.includes('youtu.be/') ? url.split('youtu.be/')[1].split('?')[0] : (url.includes('v=') ? url.split('v=')[1] : '');
+      const miniature = videoId ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg` : '';
+
+      // Zone vidéo pleine largeur
+      const zoneVideo = document.createElement('div');
+      zoneVideo.id = 'zone-video-labase';
+      zoneVideo.style.cssText = 'width:100%;aspect-ratio:16/9;position:relative;cursor:pointer;overflow:hidden;background:#000;';
+
+      const img = document.createElement('img');
+      img.src = miniature;
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+
+      const overlay = document.createElement('div');
+      overlay.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.2);';
+      overlay.innerHTML = '<img src="images/lecture.png" style="width:64px;height:64px;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.4));"/>';
+
+      zoneVideo.appendChild(img);
+      zoneVideo.appendChild(overlay);
+      zoneVideo.addEventListener('click', () => {
+        if (!videoId) return;
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+        iframe.style.cssText = 'width:100%;height:100%;border:none;display:block;position:absolute;top:0;left:0;';
+        iframe.allow = 'autoplay;encrypted-media';
+        zoneVideo.innerHTML = '';
+        zoneVideo.appendChild(iframe);
+      });
+
+      // Apparition avec animation
+      zoneVideo.style.opacity = '0';
+      zoneVideo.style.transform = 'scale(0.9)';
+      contenu.appendChild(zoneVideo);
+
+      // Illustration La Base en bas
+      const illusWrapper = document.createElement('div');
+      illusWrapper.style.cssText = 'position:sticky;bottom:15%;align-self:center;margin-top:auto;width:70%;max-width:400px;pointer-events:none;z-index:0;';
+      const illus = document.createElement('img');
+      illus.src = 'images/secrets/la base.png';
+      illus.style.cssText = 'width:100%;opacity:0.15;display:block;';
+      illusWrapper.appendChild(illus);
+      contenu.appendChild(illusWrapper);
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          zoneVideo.style.transition = 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.34,1.56,0.64,1)';
+          zoneVideo.style.opacity = '1';
+          zoneVideo.style.transform = 'scale(1)';
+        });
+      });
+
+    }, Math.max(vignettes.length * 60 + 250, 400));
+
+  } else {
+    // → Retour vers L'Essentiel
+    laBaseActive = false;
+    if (btnEssentiel) btnEssentiel.textContent = "L'essentiel";
+
+    animerTitre(titreEl, 'La Base', "L'essentiel", null);
+
+    // Disparition contenu La Base
+    const items = Array.from(contenu.children);
+    items.forEach((v, i) => {
+      setTimeout(() => {
+        v.style.transition = 'transform 0.2s ease-in, opacity 0.2s ease-in';
+        v.style.transform = 'scale(0.7)';
+        v.style.opacity = '0';
+      }, i * 60);
+    });
+
+    setTimeout(() => {
+      genererEssentiel();
+      // Animer l'apparition des nouvelles vignettes
+      const nouvellesVignettes = Array.from(contenu.children);
+      nouvellesVignettes.forEach((v, i) => {
+        v.style.opacity = '0';
+        v.style.transform = 'scale(0.7)';
+        setTimeout(() => {
+          v.style.transition = 'opacity 0.25s ease, transform 0.25s cubic-bezier(0.34,1.56,0.64,1)';
+          v.style.opacity = '1';
+          v.style.transform = 'scale(1)';
+        }, i * 60);
+      });
+    }, Math.max(items.length * 60 + 250, 400));
+  }
+}
+
+// ============================================================
 // BLOC 19 : PAGE SENTIVERSE
 // ============================================================
 
@@ -3362,6 +3542,10 @@ function fermerSentiverse() {
 
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('retour-sentiverse')?.addEventListener('click', fermerSentiverse);
+  document.getElementById('header-essentiel')?.addEventListener('click', (e) => {
+    if (e.target.closest('#retour-accueil-essentiel') || e.target.closest('a')) return;
+    basculerLaBase();
+  });
 
   // Bouton sentiverse à l'accueil (visible si option activée dans paramètres)
   const btnSentiverse = document.getElementById('btn-sentiverse');

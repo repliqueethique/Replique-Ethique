@@ -466,5 +466,15 @@ window.autreData = [
     "essentiel": false,
     "cachee": true,
     "vignette": ""
+  },
+  {
+    "id": "2",
+    "titre": "Chronique Éthique",
+    "youtube": "https://youtu.be/HV3aPaOJ-is",
+    "texte": "",
+    "tags": [],
+    "essentiel": false,
+    "cachee": true,
+    "vignette": ""
   }
 ];
