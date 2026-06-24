@@ -518,6 +518,7 @@ document.querySelectorAll('.bouton-categorie').forEach(b=>{
 let tStartX = 0, tStartY = 0, tStartT = 0;
 let vWrapper = null;
 let vMiddleZone = false;
+let vBottomZone = false;
 let draggingFav = false, favDragStartY = 0, favDirection = null;
 let draggingParams = false, paramsDragStartY = 0, paramsDirection = null;
 let gestureType = null;
@@ -554,6 +555,7 @@ document.addEventListener('touchstart', (e) => {
   paramsDirection = null;
   vWrapper = null;
   vMiddleZone = false;
+  vBottomZone = false;
   gestureType = null;
   lastFavMoveY = tStartY;
   lastFavMoveDirection = null;
@@ -672,6 +674,7 @@ document.addEventListener('touchstart', (e) => {
     const quarter = rect.height / 4;
     const relY = tStartY - rect.top;
     vMiddleZone = relY >= quarter && relY <= quarter * 3;
+    vBottomZone = relY > quarter * 3;
   }
 
   // Pré-masquage des pages qui vont être animées
@@ -993,6 +996,18 @@ document.addEventListener('touchend', (e) => {
   }
 
   if (document.getElementById('page-video') || transitionVideoEnCours) return;
+
+  if (estMobile() && vWrapper && vBottomZone && gestureType === 'vertical' && dy < 0) {
+    const favP = document.getElementById('favoris-panel');
+    if (favP && !favP.classList.contains('visible')) {
+      afficherFavoris();
+      favP.style.transition = 'bottom 0.4s ease';
+      favP.style.bottom = '0';
+      favP.classList.add('visible');
+    }
+    vWrapper = null; vBottomZone = false; gestureType = null;
+    return;
+  }
 
   if (estMobile() && vWrapper && vMiddleZone && gestureType === 'carousel' && dx > 0) {
     conteneurPages.style.transition = 'transform 0.4s ease';
