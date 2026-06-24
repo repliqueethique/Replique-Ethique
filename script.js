@@ -517,7 +517,6 @@ function naviguerVers(index, animer=true) {
   }
 
   pageActuelle = index;
-  history.pushState({ page: index }, '', location.href);
 }
 
 document.getElementById('btn-mots-cles')?.addEventListener('click', ()=>naviguerVers(1));
@@ -958,7 +957,6 @@ document.addEventListener('touchend', (e) => {
         panel.style.transition = '';
         declencherEtoiles();
         animerIconesSecrets();
-        history.pushState({ page: 'secrets' }, '', location.href);
         if (!chargerSecretsDecouverts().includes('secret_page')) {
           setTimeout(() => afficherPopupNouveauSecret('secret_page'), 600);
         }
@@ -1416,9 +1414,6 @@ function ouvrirPageTag(tag) {
       page.style.transform = 'scale(1)';
     }
   }, { passive: true });
-
-  // Bouton retour Android
-  history.pushState({ page: 'tag', tag }, '', location.href);
 }
 
 function fermerPageTag() {
@@ -2352,38 +2347,36 @@ document.addEventListener('DOMContentLoaded',()=>{
   if(bp) bp.addEventListener('click',(e)=>{e.preventDefault();ouvrirParametres();});
 
   window.addEventListener('popstate', () => {
-    const paramsPanel  = document.getElementById('page-parametres');
-    const favPanel     = document.getElementById('favoris-panel');
-    const infoPanel    = document.getElementById('info-panel');
-    const videoPanel   = document.getElementById('page-video');
-    const secretsPanel = document.getElementById('page-secrets');
-    const sentiversePanel = document.getElementById('page-sentiverse');
-    const tagPanel     = document.getElementById('page-tag');
-    if (sentiversePanel?.classList.contains('visible')) {
-      fermerSentiverse();
-      return;
-    }
-
-    // Toujours repousser un état en premier
+    // Toujours repousser immédiatement pour maintenir l'état permanent
     history.pushState(null, '', location.href);
 
-    if (tagPanel) {
-      fermerPageTag();
-      return;
-    }
-    if (secretsPanel?.classList.contains('visible')) {
-      fermerPageSecrets();
-      return;
-    }
+    const paramsPanel     = document.getElementById('page-parametres');
+    const favPanel        = document.getElementById('favoris-panel');
+    const infoPanel       = document.getElementById('info-panel');
+    const videoPanel      = document.getElementById('page-video');
+    const secretsPanel    = document.getElementById('page-secrets');
+    const sentiversePanel = document.getElementById('page-sentiverse');
+    const tagPanel        = document.getElementById('page-tag');
+    const panneauResultats = document.getElementById('panneau-resultats');
+
+    // Priorité 1 : onglets flottants (du plus au moins prioritaire)
+    if (sentiversePanel?.classList.contains('visible')) { fermerSentiverse(); return; }
+    if (secretsPanel?.classList.contains('visible'))    { fermerPageSecrets(); return; }
+    if (tagPanel)                                        { fermerPageTag(); return; }
     if (videoPanel) {
       document.getElementById('page-video-prev')?.remove();
       document.getElementById('page-video-next')?.remove();
       videoPanel.remove();
       return;
     }
-    if (estMobile() ? paramsPanel?.classList.contains('visible') : paramsPanel?.style.display === 'flex') {
-      fermerParametres();
+    if (panneauResultats?.style.display === 'flex') {
+      panneauResultats.style.display = 'none';
+      const searchInput = document.querySelector('.search-bar input');
+      if (searchInput) searchInput.value = '';
       return;
+    }
+    if (estMobile() ? paramsPanel?.classList.contains('visible') : paramsPanel?.style.display === 'flex') {
+      fermerParametres(); return;
     }
     if (favPanel?.classList.contains('visible')) {
       favPanel.style.transition = 'bottom 0.4s ease';
@@ -2392,22 +2385,21 @@ document.addEventListener('DOMContentLoaded',()=>{
       return;
     }
     if (infoPanel?.classList.contains('visible')) {
-      infoPanel.classList.remove('visible');
+      infoPanel.classList.remove('visible'); return;
+    }
+
+    // Priorité 2 : navigation carrousel
+    if (pageActuelle === 2) {
+      // On est sur l'accueil → quitter l'application
+      // On retire l'état qu'on vient de repousser pour laisser le navigateur quitter
+      history.go(-2);
       return;
     }
-    const p = chargerParametres();
-    const pagesDemarrage = {
-      'mots-cles': 1, 'accueil': 2, 'liste': 3, 'essentiel': 4, 'lexique': 5
-    };
-    const pageDemarrage = pagesDemarrage[p.demarrage] ?? 2;
-    if (pageActuelle === pageDemarrage) {
-      history.back();
-      return;
-    }
-    naviguerVers(pageDemarrage);
+    // Sur toute autre page → revenir à l'accueil
+    naviguerVers(2);
   });
 
-  // Pousser un état initial
+  // État permanent initial
   history.pushState(null, '', location.href);
 });
 
@@ -3568,7 +3560,6 @@ function ouvrirSentiverse() {
       setTimeout(() => {
         panel.style.transition = '';
       }, 500);
-      history.pushState({ page: 'sentiverse' }, '', location.href);
     });
   });
 }
