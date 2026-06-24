@@ -959,6 +959,13 @@ body.theme-clair .search-bar {
   pointer-events: none;
 }
 
+.image-sentiverse {
+  display: block;
+  width: min(320px, 80%);
+  margin: 24px auto 8px;
+  object-fit: contain;
+}
+
 /* Particules étoiles */
 .particule-etoile {
   position: fixed;
