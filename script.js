@@ -959,6 +959,9 @@ document.addEventListener('touchend', (e) => {
         declencherEtoiles();
         animerIconesSecrets();
         history.pushState({ page: 'secrets' }, '', location.href);
+        if (!chargerSecretsDecouverts().includes('secret_page')) {
+          setTimeout(() => afficherPopupNouveauSecret('secret_page'), 600);
+        }
       }, 320);
     } else {
       panel.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
@@ -2934,7 +2937,6 @@ function chargerSecretsDecouverts() {
 
 function reinitialiserSecrets() {
   localStorage.removeItem('secrets_decouverts');
-  deverrouillerSecret('secret_page');
   genererSecrets();
 }
 
