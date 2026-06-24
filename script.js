@@ -639,9 +639,12 @@ document.addEventListener('touchstart', (e) => {
     return;
   }
 
+  const modeAffichage = chargerParametres().affichage || 'vignettes';
+  const seuilFav = modeAffichage === 'vignettes' ? 0.75 : 0.875;
+  const surVignette = !!e.target.closest('#conteneur-vignettes > div, .contenu-essentiel > div');
   if (!favPanel?.classList.contains('visible') &&
-      tStartY > screenH * 0.875 &&
-      !e.target.closest('#conteneur-vignettes > div, .contenu-essentiel > div')) {
+      tStartY > screenH * seuilFav &&
+      !(modeAffichage === 'liste' && surVignette)) {
     draggingFav = true;
     favDirection = 'open';
     favDragStartY = tStartY;
