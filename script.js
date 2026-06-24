@@ -3280,7 +3280,7 @@ function afficherContenuLaBase() {
   if (!fondBase) {
     fondBase = document.createElement('div');
     fondBase.id = 'fond-la-base';
-    fondBase.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:#2a2a2a;z-index:1;pointer-events:none;opacity:0;transition:opacity 0.5s ease;';
+    fondBase.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:#0d0d0d;z-index:1;pointer-events:none;opacity:0;transition:opacity 0.5s ease;';
     document.body.appendChild(fondBase);
   }
   requestAnimationFrame(() => { fondBase.style.opacity = '1'; });
@@ -3316,7 +3316,7 @@ function afficherContenuLaBase() {
   const cAccent   = cs.getPropertyValue('--c-accent').trim()   || '#fce7ac';
 
   const btnLecture = document.createElement('button');
-  btnLecture.style.cssText = `z-index:3;position:relative;margin-top:16px;background:var(--c-primaire);color:var(--c-texte);font-family:'SF Sports Night';font-size:1.6em;letter-spacing:0.08em;border:none;border-radius:30px;padding:10px 32px;cursor:pointer;transition:transform 0.2s ease, background 0.2s ease;`;
+  btnLecture.style.cssText = `z-index:3;position:relative;margin-top:16px;background:var(--c-primaire);color:var(--c-texte);font-family:'Intro';font-size:1.2em;letter-spacing:0.05em;border:none;border-radius:30px;padding:10px 32px;cursor:pointer;transition:transform 0.2s ease, background 0.2s ease;`;
   btnLecture.textContent = 'Lecture';
   btnLecture.addEventListener('mouseenter', () => { btnLecture.style.transform = 'scale(1.05)'; btnLecture.style.background = 'var(--c-vif)'; });
   btnLecture.addEventListener('mouseleave', () => { btnLecture.style.transform = 'scale(1)'; btnLecture.style.background = 'var(--c-primaire)'; });
@@ -3340,7 +3340,7 @@ function afficherContenuLaBase() {
   // Illustration La Base
   const illus = document.createElement('img');
   illus.src   = 'images/secrets/la base.png';
-  illus.style.cssText = 'position:sticky;bottom:15%;align-self:center;margin-top:auto;width:70%;max-width:400px;opacity:0.15;pointer-events:none;z-index:0;display:block;';
+  illus.style.cssText = 'position:sticky;bottom:2%;align-self:center;margin-top:auto;width:70%;max-width:400px;opacity:0.15;pointer-events:none;z-index:0;display:block;';
   contenu.appendChild(illus);
 
   // Animation d'entrée
