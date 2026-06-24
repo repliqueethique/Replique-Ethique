@@ -405,8 +405,11 @@ body {
   -webkit-clip-path: polygon(0% 0%, 100% 0%, 50% 70%);
   clip-path: polygon(0% 0%, 100% 0%, 50% 70%);
   border: none;
-  position: static;
-  margin-left: 10px;
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
 }
 .triangle-retour:hover { transform: scale(1.1); }
 .triangle-retour:active { transform: scale(0.95); }
