@@ -910,13 +910,13 @@ document.addEventListener('touchend', (e) => {
     if (paramsDirection === 'close') {
       if (paramsDy < -(screenH * 0.5)) {
         paramsPanel.style.transform = 'translateY(-110%)'; paramsPanel.classList.remove('visible');
-        appliquerParametres(); afficherListe(); genererEssentiel();
+        appliquerParametres(); afficherListe(); if(laBaseActive) afficherContenuLaBase(); else genererEssentiel();
       } else { paramsPanel.style.transform = 'translateY(0)'; }
     }
     if (paramsDirection === 'close-bottom') {
       if (paramsDy < -(screenH * 0.25)) {
         paramsPanel.style.transform = 'translateY(-110%)'; paramsPanel.classList.remove('visible');
-        appliquerParametres(); afficherListe(); genererEssentiel();
+        appliquerParametres(); afficherListe(); if(laBaseActive) afficherContenuLaBase(); else genererEssentiel();
       } else { paramsPanel.style.transform = 'translateY(0)'; }
     }
     draggingParams = false; paramsDirection = null;
@@ -998,7 +998,7 @@ document.addEventListener('touchend', (e) => {
         sauvegarderParametres(p);
         appliquerTaille(nouvelleTaille);
         afficherListe();
-        genererEssentiel();
+        if(laBaseActive) afficherContenuLaBase(); else genererEssentiel();
         afficherFavoris();
         mettreAJourBoutonTaille(nouvelleTaille);
         pinchCibleEl = null;
@@ -2097,7 +2097,7 @@ function creerSecteurThemes(conteneur) {
       sauvegarderTheme(theme.id);
       appliquerTheme(theme.id);
       afficherListe();
-      genererEssentiel();
+      if(laBaseActive) afficherContenuLaBase(); else genererEssentiel();
       afficherFavoris();
       _peuplerParametres();
       btn.style.transform = 'scale(0.92)';
@@ -2278,7 +2278,7 @@ function fermerParametres() {
   }
   appliquerParametres();
   afficherListe();
-  genererEssentiel();
+  if(laBaseActive) afficherContenuLaBase(); else genererEssentiel();
 }
 
 function reinitialiserParametres(){
