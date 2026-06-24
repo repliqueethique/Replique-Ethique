@@ -3088,6 +3088,11 @@ function genererSecrets() {
       item.style.cursor = 'pointer';
     }
 
+    // Reset styles inline pour que le CSS reprenne le dessus
+    item.style.opacity = '';
+    item.style.transform = '';
+    item.style.transition = '';
+
     galerie.appendChild(item);
   });
 
