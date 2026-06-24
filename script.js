@@ -3280,7 +3280,7 @@ function afficherContenuLaBase() {
   if (!fondBase) {
     fondBase = document.createElement('div');
     fondBase.id = 'fond-la-base';
-    fondBase.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:#2a2a2a;z-index:2;pointer-events:none;opacity:0;transition:opacity 0.5s ease;';
+    fondBase.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:#2a2a2a;z-index:1;pointer-events:none;opacity:0;transition:opacity 0.5s ease;';
     document.body.appendChild(fondBase);
   }
   requestAnimationFrame(() => { fondBase.style.opacity = '1'; });
@@ -3316,10 +3316,10 @@ function afficherContenuLaBase() {
   const cAccent   = cs.getPropertyValue('--c-accent').trim()   || '#fce7ac';
 
   const btnLecture = document.createElement('button');
-  btnLecture.style.cssText = `z-index:3;position:relative;margin-top:16px;background:${cPrimaire};color:${cSombre};font-family:'SF Sports Night';font-size:1.6em;letter-spacing:0.08em;border:none;border-radius:30px;padding:10px 32px;cursor:pointer;transition:transform 0.2s ease;`;
+  btnLecture.style.cssText = `z-index:3;position:relative;margin-top:16px;background:var(--c-primaire);color:var(--c-texte);font-family:'SF Sports Night';font-size:1.6em;letter-spacing:0.08em;border:none;border-radius:30px;padding:10px 32px;cursor:pointer;transition:transform 0.2s ease, background 0.2s ease;`;
   btnLecture.textContent = 'Lecture';
-  btnLecture.addEventListener('mouseenter', () => btnLecture.style.transform = 'scale(1.05)');
-  btnLecture.addEventListener('mouseleave', () => btnLecture.style.transform = 'scale(1)');
+  btnLecture.addEventListener('mouseenter', () => { btnLecture.style.transform = 'scale(1.05)'; btnLecture.style.background = 'var(--c-vif)'; });
+  btnLecture.addEventListener('mouseleave', () => { btnLecture.style.transform = 'scale(1)'; btnLecture.style.background = 'var(--c-primaire)'; });
   btnLecture.addEventListener('click', () => {
     if (!videoId) return;
     const iframe = document.createElement('iframe');
