@@ -444,8 +444,8 @@ body {
 }
 .tag:hover { background-color: var(--c-vif); transform: scale(1.05); }
 .image-cles {
-  position: fixed; bottom: 12%; left: 50%;
-  transform: translateX(-50%);
+  position: sticky; bottom: 15%;
+  align-self: center; margin-top: auto;
   width: 70%; max-width: 400px;
   opacity: 0.15; pointer-events: none; z-index: 0;
 }
@@ -601,8 +601,8 @@ body {
   box-sizing: border-box; width: 100%;
 }
 .image-favoris {
-  position: fixed; bottom: 12%; left: 50%;
-  transform: translateX(-50%);
+  position: sticky; bottom: 15%;
+  align-self: center; margin-top: auto;
   width: 70%; max-width: 400px;
   opacity: 0.15; pointer-events: none; z-index: 0;
 }
@@ -964,7 +964,7 @@ body.theme-clair .search-bar {
 }
 
 .image-sentiverse {
-  position: fixed; bottom: 12%; left: 50%;
+  position: fixed; bottom: 8%; left: 50%;
   transform: translateX(-50%);
   width: 70%; max-width: 400px;
   opacity: 0.15; pointer-events: none; z-index: 0;
