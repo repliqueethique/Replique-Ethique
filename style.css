@@ -400,13 +400,13 @@ body {
   margin-left: -6px;
 }
 .triangle-retour.bas {
-  width: 0; height: 0; background: none;
-  -webkit-clip-path: polygon(100% 0%, 30% 50%, 100% 100%);
-  clip-path: none;
-  border-style: solid;
-  border-width: 18px 12px 0 12px;
-  border-color: var(--c-primaire) transparent transparent transparent;
-  position: absolute; top: 20px; left: 20px;
+  width: 30px; height: 30px;
+  background: var(--c-primaire);
+  -webkit-clip-path: polygon(0% 0%, 100% 0%, 50% 70%);
+  clip-path: polygon(0% 0%, 100% 0%, 50% 70%);
+  border: none;
+  position: static;
+  margin-left: 10px;
 }
 .triangle-retour:hover { transform: scale(1.1); }
 .triangle-retour:active { transform: scale(0.95); }
