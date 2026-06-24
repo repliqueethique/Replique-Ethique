@@ -456,7 +456,30 @@ function naviguerVers(index, animer=true) {
 
   fondsDePage[index]?.();
   if(index === 3) afficherListe();
-  if(index === 4) { if(laBaseActive) { laBaseActive = false; document.getElementById('btn-essentiel').textContent = "L'essentiel"; } genererEssentiel(); }
+  if(index === 4) {
+    if (laBaseActive) {
+      afficherContenuLaBase();
+    } else {
+      genererEssentiel();
+    }
+  }
+  if(index !== 4 && laBaseActive) {
+    laBaseActive = false;
+    document.getElementById('btn-essentiel').textContent = "L'essentiel";
+    const fondBase = document.getElementById('fond-la-base');
+    if (fondBase) { fondBase.style.opacity = '0'; setTimeout(() => fondBase.remove(), 500); }
+    const titreEl = document.getElementById('page-essentiel')?.querySelector('.titre-essentiel');
+    if (titreEl) {
+      titreEl.innerHTML = '';
+      ["L","'","e","s","s","e","n","t","i","e","l"].forEach(c => {
+        const span = document.createElement('span');
+        span.className = 'lettre-titre';
+        span.textContent = c;
+        span.style.display = 'inline-block';
+        titreEl.appendChild(span);
+      });
+    }
+  }
 
   if (!animer) {
     conteneurPages.style.transition = 'none';
@@ -3209,11 +3232,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let laBaseActive = false;
 
-function animerTitre(el, ancienTexte, nouveauTexte, callback) {
+function animerTitre(el, nouveauTexte, callback) {
   const lettres = el.querySelectorAll('.lettre-titre');
   const dureeLettre = 80;
 
-  // Disparition lettre par lettre
   lettres.forEach((l, i) => {
     setTimeout(() => {
       l.style.transition = 'transform 0.18s ease-in, opacity 0.18s ease-in';
@@ -3225,17 +3247,14 @@ function animerTitre(el, ancienTexte, nouveauTexte, callback) {
   const dureeDisparition = lettres.length * dureeLettre + 200;
 
   setTimeout(() => {
-    // Construire les nouvelles lettres
     el.innerHTML = '';
-    [...nouveauTexte].forEach((c, i) => {
+    [...nouveauTexte].forEach(c => {
       const span = document.createElement('span');
       span.className = 'lettre-titre';
       span.textContent = c === ' ' ? '\u00A0' : c;
       span.style.cssText = 'display:inline-block;transform:scale(0);opacity:0;transition:none;';
       el.appendChild(span);
     });
-
-    // Apparition lettre par lettre
     setTimeout(() => {
       el.querySelectorAll('.lettre-titre').forEach((l, i) => {
         setTimeout(() => {
@@ -3249,126 +3268,153 @@ function animerTitre(el, ancienTexte, nouveauTexte, callback) {
   }, dureeDisparition);
 }
 
+function afficherContenuLaBase() {
+  const pageEssentiel = document.getElementById('page-essentiel');
+  const contenu       = pageEssentiel.querySelector('.contenu-essentiel');
+
+  contenu.innerHTML = '';
+  contenu.style.cssText = 'display:flex;flex-direction:column;align-items:center;padding:0;box-sizing:border-box;flex:1;';
+
+  // Fond anthracite par dessus le fond essentiel
+  let fondBase = document.getElementById('fond-la-base');
+  if (!fondBase) {
+    fondBase = document.createElement('div');
+    fondBase.id = 'fond-la-base';
+    fondBase.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:#2a2a2a;z-index:2;pointer-events:none;opacity:0;transition:opacity 0.5s ease;';
+    document.body.appendChild(fondBase);
+  }
+  requestAnimationFrame(() => { fondBase.style.opacity = '1'; });
+
+  // Trouver Chronique Éthique
+  const item    = (window.autreData || []).find(v => v.titre === 'Chronique Éthique');
+  if (!item) return;
+  const url     = item.youtube || '';
+  const videoId = url.includes('youtu.be/') ? url.split('youtu.be/')[1].split('?')[0]
+                : url.includes('v=')        ? url.split('v=')[1] : '';
+  const miniature = videoId ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg` : '';
+
+  // Spacer pour centrer verticalement
+  const spacer = document.createElement('div');
+  spacer.style.cssText = 'flex:1;min-height:20px;';
+  contenu.appendChild(spacer);
+
+  // Zone vidéo
+  const zoneVideo = document.createElement('div');
+  zoneVideo.id    = 'zone-video-labase';
+  zoneVideo.style.cssText = 'width:100%;max-width:800px;aspect-ratio:16/9;position:relative;overflow:hidden;background:#000;z-index:3;opacity:0;transform:scale(0.9);transition:opacity 0.4s ease,transform 0.4s cubic-bezier(0.34,1.56,0.64,1);';
+
+  const imgVignette = document.createElement('img');
+  imgVignette.src = miniature;
+  imgVignette.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+  zoneVideo.appendChild(imgVignette);
+  contenu.appendChild(zoneVideo);
+
+  // Bouton lecture
+  const cs        = getComputedStyle(document.body);
+  const cPrimaire = cs.getPropertyValue('--c-primaire').trim() || '#31bebd';
+  const cSombre   = cs.getPropertyValue('--c-sombre').trim()   || '#242422';
+  const cAccent   = cs.getPropertyValue('--c-accent').trim()   || '#fce7ac';
+
+  const btnLecture = document.createElement('button');
+  btnLecture.style.cssText = `z-index:3;position:relative;margin-top:16px;background:${cPrimaire};color:${cSombre};font-family:'SF Sports Night';font-size:1.6em;letter-spacing:0.08em;border:none;border-radius:30px;padding:10px 32px;cursor:pointer;transition:transform 0.2s ease;`;
+  btnLecture.textContent = 'Lecture';
+  btnLecture.addEventListener('mouseenter', () => btnLecture.style.transform = 'scale(1.05)');
+  btnLecture.addEventListener('mouseleave', () => btnLecture.style.transform = 'scale(1)');
+  btnLecture.addEventListener('click', () => {
+    if (!videoId) return;
+    const iframe = document.createElement('iframe');
+    iframe.src   = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+    iframe.style.cssText = 'width:100%;height:100%;border:none;display:block;position:absolute;top:0;left:0;';
+    iframe.allow = 'autoplay;encrypted-media';
+    zoneVideo.innerHTML = '';
+    zoneVideo.appendChild(iframe);
+    btnLecture.style.display = 'none';
+  });
+  contenu.appendChild(btnLecture);
+
+  // Spacer bas
+  const spacerBas = document.createElement('div');
+  spacerBas.style.cssText = 'flex:1;min-height:20px;';
+  contenu.appendChild(spacerBas);
+
+  // Illustration La Base
+  const illus = document.createElement('img');
+  illus.src   = 'images/secrets/la base.png';
+  illus.style.cssText = 'position:sticky;bottom:15%;align-self:center;margin-top:auto;width:70%;max-width:400px;opacity:0.15;pointer-events:none;z-index:0;display:block;';
+  contenu.appendChild(illus);
+
+  // Animation d'entrée
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      zoneVideo.style.opacity   = '1';
+      zoneVideo.style.transform = 'scale(1)';
+    });
+  });
+}
+
 function basculerLaBase() {
-  const pageEssentiel  = document.getElementById('page-essentiel');
-  const titreEl        = pageEssentiel.querySelector('.titre-essentiel');
-  const contenu        = pageEssentiel.querySelector('.contenu-essentiel');
-  const btnEssentiel   = document.getElementById('btn-essentiel');
+  const pageEssentiel = document.getElementById('page-essentiel');
+  const titreEl       = pageEssentiel.querySelector('.titre-essentiel');
+  const contenu       = pageEssentiel.querySelector('.contenu-essentiel');
+  const btnEssentiel  = document.getElementById('btn-essentiel');
 
   if (!laBaseActive) {
-    // → Aller vers La Base
-
     // Popup secret si première découverte
-    const decouverts = chargerSecretsDecouverts();
-    if (!decouverts.includes('secret_labase')) {
+    if (!chargerSecretsDecouverts().includes('secret_labase')) {
       setTimeout(() => afficherPopupNouveauSecret('secret_labase'), 600);
     }
 
     laBaseActive = true;
     if (btnEssentiel) btnEssentiel.textContent = 'La Base';
 
-    // Animation titre
-    animerTitre(titreEl, "L'essentiel", 'La Base', null);
+    animerTitre(titreEl, 'La Base', null);
 
-    // Disparition des vignettes
+    // Disparition vignettes
     const vignettes = Array.from(contenu.children);
     vignettes.forEach((v, i) => {
       setTimeout(() => {
         v.style.transition = 'transform 0.2s ease-in, opacity 0.2s ease-in';
-        v.style.transform = 'scale(0.7)';
-        v.style.opacity = '0';
+        v.style.transform  = 'scale(0.7)';
+        v.style.opacity    = '0';
       }, i * 60);
     });
 
     setTimeout(() => {
-      contenu.innerHTML = '';
-      contenu.style.cssText = 'display:flex;flex-direction:column;align-items:center;padding:0;box-sizing:border-box;';
-
-      // Trouver Chronique Éthique dans autreData
-      const item = (window.autreData || []).find(v => v.titre === 'Chronique Éthique');
-      if (!item) return;
-
-      const url     = item.youtube || '';
-      const videoId = url.includes('youtu.be/') ? url.split('youtu.be/')[1].split('?')[0] : (url.includes('v=') ? url.split('v=')[1] : '');
-      const miniature = videoId ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg` : '';
-
-      // Zone vidéo pleine largeur
-      const zoneVideo = document.createElement('div');
-      zoneVideo.id = 'zone-video-labase';
-      zoneVideo.style.cssText = 'width:100%;aspect-ratio:16/9;position:relative;cursor:pointer;overflow:hidden;background:#000;';
-
-      const img = document.createElement('img');
-      img.src = miniature;
-      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
-
-      const overlay = document.createElement('div');
-      overlay.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.2);';
-      overlay.innerHTML = '<img src="images/lecture.png" style="width:64px;height:64px;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.4));"/>';
-
-      zoneVideo.appendChild(img);
-      zoneVideo.appendChild(overlay);
-      zoneVideo.addEventListener('click', () => {
-        if (!videoId) return;
-        const iframe = document.createElement('iframe');
-        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-        iframe.style.cssText = 'width:100%;height:100%;border:none;display:block;position:absolute;top:0;left:0;';
-        iframe.allow = 'autoplay;encrypted-media';
-        zoneVideo.innerHTML = '';
-        zoneVideo.appendChild(iframe);
-      });
-
-      // Apparition avec animation
-      zoneVideo.style.opacity = '0';
-      zoneVideo.style.transform = 'scale(0.9)';
-      contenu.appendChild(zoneVideo);
-
-      // Illustration La Base en bas
-      const illusWrapper = document.createElement('div');
-      illusWrapper.style.cssText = 'position:sticky;bottom:15%;align-self:center;margin-top:auto;width:70%;max-width:400px;pointer-events:none;z-index:0;';
-      const illus = document.createElement('img');
-      illus.src = 'images/secrets/la base.png';
-      illus.style.cssText = 'width:100%;opacity:0.15;display:block;';
-      illusWrapper.appendChild(illus);
-      contenu.appendChild(illusWrapper);
-
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          zoneVideo.style.transition = 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.34,1.56,0.64,1)';
-          zoneVideo.style.opacity = '1';
-          zoneVideo.style.transform = 'scale(1)';
-        });
-      });
-
+      afficherContenuLaBase();
     }, Math.max(vignettes.length * 60 + 250, 400));
 
   } else {
-    // → Retour vers L'Essentiel
+    // Retour L'Essentiel
     laBaseActive = false;
     if (btnEssentiel) btnEssentiel.textContent = "L'essentiel";
 
-    animerTitre(titreEl, 'La Base', "L'essentiel", null);
+    // Supprimer fond anthracite
+    const fondBase = document.getElementById('fond-la-base');
+    if (fondBase) {
+      fondBase.style.opacity = '0';
+      setTimeout(() => fondBase.remove(), 500);
+    }
 
-    // Disparition contenu La Base
+    animerTitre(titreEl, "L'essentiel", null);
+
     const items = Array.from(contenu.children);
     items.forEach((v, i) => {
       setTimeout(() => {
         v.style.transition = 'transform 0.2s ease-in, opacity 0.2s ease-in';
-        v.style.transform = 'scale(0.7)';
-        v.style.opacity = '0';
+        v.style.transform  = 'scale(0.7)';
+        v.style.opacity    = '0';
       }, i * 60);
     });
 
     setTimeout(() => {
       genererEssentiel();
-      // Animer l'apparition des nouvelles vignettes
-      const nouvellesVignettes = Array.from(contenu.children);
-      nouvellesVignettes.forEach((v, i) => {
-        v.style.opacity = '0';
+      Array.from(contenu.children).forEach((v, i) => {
+        v.style.opacity   = '0';
         v.style.transform = 'scale(0.7)';
         setTimeout(() => {
           v.style.transition = 'opacity 0.25s ease, transform 0.25s cubic-bezier(0.34,1.56,0.64,1)';
-          v.style.opacity = '1';
-          v.style.transform = 'scale(1)';
+          v.style.opacity    = '1';
+          v.style.transform  = 'scale(1)';
         }, i * 60);
       });
     }, Math.max(items.length * 60 + 250, 400));
