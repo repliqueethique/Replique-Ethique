@@ -3046,6 +3046,7 @@ function afficherPopupNouveauSecret(secretId) {
     fermerPopupSecret(overlay, popup);
     if (document.getElementById('page-secrets')?.classList.contains('visible')) {
       genererSecrets();
+      animerIconesSecrets();
     }
   };
 
