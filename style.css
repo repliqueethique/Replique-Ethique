@@ -406,7 +406,7 @@ body {
   clip-path: polygon(0% 0%, 100% 0%, 50% 70%);
   border: none;
   position: absolute;
-  left: 4px;
+  left: 15px;
   top: 50%;
   transform: translateY(-50%);
   margin: 0;
