@@ -2373,6 +2373,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       panneauResultats.style.display = 'none';
       const searchInput = document.querySelector('.search-bar input');
       if (searchInput) searchInput.value = '';
+      if (pageActuelle !== 2) history.pushState(null, '', location.href);
       return;
     }
     if (estMobile() ? paramsPanel?.classList.contains('visible') : paramsPanel?.style.display === 'flex') {
