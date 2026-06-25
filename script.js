@@ -2930,6 +2930,7 @@ function chargerSecretsDecouverts() {
 function reinitialiserSecrets() {
   localStorage.removeItem('secrets_decouverts');
   genererSecrets();
+  animerIconesSecrets();
   setTimeout(() => afficherPopupNouveauSecret('secret_page'), 400);
 }
 
