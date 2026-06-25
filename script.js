@@ -2930,6 +2930,7 @@ function chargerSecretsDecouverts() {
 function reinitialiserSecrets() {
   localStorage.removeItem('secrets_decouverts');
   genererSecrets();
+  setTimeout(() => afficherPopupNouveauSecret('secret_page'), 400);
 }
 
 function _verifierSecretVideo(videoData) {
@@ -3054,8 +3055,6 @@ function afficherPopupNouveauSecret(secretId) {
 }
 
 function genererSecrets() {
-  deverrouillerSecret('secret_page');
-
   const galerie = document.getElementById('galerie-secrets');
   const compteur = document.getElementById('compteur-secrets');
   if (!galerie) return;
@@ -3218,8 +3217,9 @@ function fermerPageSecrets() {
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('retour-secrets')?.addEventListener('click', fermerPageSecrets);
 
-  document.getElementById('btn-reset-secrets')?.addEventListener('click', () => {
-    declencherEclat(window.innerWidth / 2, window.innerHeight * 0.85, '#fce7ac');
+  document.getElementById('btn-reset-secrets')?.addEventListener('click', function() {
+    const r = this.getBoundingClientRect();
+    declencherEclat(r.left + r.width / 2, r.top + r.height / 2, '#fce7ac');
     vibrer();
     reinitialiserSecrets();
   });
