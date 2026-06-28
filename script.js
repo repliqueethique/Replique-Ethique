@@ -2115,7 +2115,7 @@ function creerSecteurThemes(conteneur) {
 function chargerParametres(){
   const defaut={
     accueil:{'barre-recherche':true,'mots-cles':true,'essentiel':true,'lexique':true,'favoris':true,'liste':true,'barre-infos':true,'tutos':false},
-    demarrage:'accueil', affichage:'vignettes', taille:'petites', notif:false
+    demarrage:'accueil', affichage:'vignettes', taille:'grandes', notif:false
   };
   return JSON.parse(localStorage.getItem('parametres')||'null')||defaut;
 }
