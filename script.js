@@ -663,7 +663,8 @@ document.addEventListener('touchstart', (e) => {
 
   if (!favPanel?.classList.contains('visible') &&
       tStartY > screenH * 0.667 &&
-      !e.target.closest('#conteneur-vignettes > div, .contenu-essentiel > div')) {
+      !e.target.closest('#conteneur-vignettes > div, .contenu-essentiel > div') &&
+      !e.target.closest('#page-parametres')) {
     draggingFav = true;
     favDirection = 'open';
     favDragStartY = tStartY;
