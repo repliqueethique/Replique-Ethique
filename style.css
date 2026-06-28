@@ -393,11 +393,15 @@ body {
   transition: transform 0.2s ease;
   border: none;
   margin-left: 0px;
+  padding: 14px;
+  box-sizing: content-box;
 }
 .triangle-retour.gauche {
   -webkit-clip-path: polygon(100% 0%, 30% 50%, 100% 100%);
   clip-path: polygon(100% 0%, 30% 50%, 100% 100%);
   margin-left: -6px;
+  padding: 14px;
+  box-sizing: content-box;
 }
 .triangle-retour.bas {
   width: 38px; height: 38px;
