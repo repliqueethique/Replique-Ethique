@@ -1971,7 +1971,7 @@ const optionsParams=[
 function _optionsParamsEffectives() {
   const opts = [...optionsParams];
   if (chargerSecretsDecouverts().includes('secret_sentiverse')) {
-    opts.push({ id: 'sentiverse', label: 'sentiverse', demarrage: false });
+    opts.push({ id: 'sentiverse', label: 'sentiverse', demarrage: false, defaut: false });
   }
   return opts;
 }
@@ -2115,7 +2115,7 @@ function creerSecteurThemes(conteneur) {
 
 function chargerParametres(){
   const defaut={
-    accueil:{'barre-recherche':true,'mots-cles':true,'essentiel':true,'lexique':true,'favoris':true,'liste':true,'barre-infos':true,'tutos':false},
+    accueil:{'barre-recherche':true,'mots-cles':true,'essentiel':true,'lexique':true,'favoris':true,'liste':true,'barre-infos':true,'tutos':false,'sentiverse':false},
     demarrage:'accueil', affichage:'vignettes', taille:'grandes', notif:false
   };
   return JSON.parse(localStorage.getItem('parametres')||'null')||defaut;
