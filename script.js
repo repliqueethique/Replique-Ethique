@@ -662,7 +662,7 @@ document.addEventListener('touchstart', (e) => {
   }
 
   if (!favPanel?.classList.contains('visible') &&
-      tStartY > screenH * 0.875 &&
+      tStartY > screenH * 0.667 &&
       !e.target.closest('#conteneur-vignettes > div, .contenu-essentiel > div')) {
     draggingFav = true;
     favDirection = 'open';
