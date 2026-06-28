@@ -373,14 +373,6 @@ body {
   transform: translate(-50%, -50%) scaleY(1.587) scale(0.64);
 }
 
-.header-mots-cles .triangle-retour,
-.header-essentiel .triangle-retour,
-.header-liste .triangle-retour,
-.header-secrets .triangle-retour,
-.header-sentiverse .triangle-retour {
-  width: 35px; height: 35px;
-}
-
 .header-liste {
   color: var(--c-accent); padding: 0 10px;
 }
@@ -394,30 +386,26 @@ body {
    ============================================================ */
 .triangle-retour {
   width: 35px; height: 35px;
-  background: transparent;
+  background: var(--c-primaire);
+  -webkit-clip-path: polygon(0% 0%, 70% 50%, 0% 100%);
+  clip-path: polygon(0% 0%, 70% 50%, 0% 100%);
   cursor: pointer; flex-shrink: 0;
   transition: transform 0.2s ease;
   border: none;
   margin-left: 0px;
-  padding: 10px 16px;
   position: relative;
 }
-.triangle-retour::after {
+.triangle-retour::before {
   content: '';
   position: absolute;
-  top: 0; bottom: 0;
-  left: 16px; right: 16px;
-  background: var(--c-primaire);
-  -webkit-clip-path: polygon(0% 0%, 70% 50%, 0% 100%);
-  clip-path: polygon(0% 0%, 70% 50%, 0% 100%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 65px; height: 55px;
 }
 .triangle-retour.gauche {
-  margin-left: -6px;
-  padding: 10px 16px;
-}
-.triangle-retour.gauche::after {
   -webkit-clip-path: polygon(100% 0%, 30% 50%, 100% 100%);
   clip-path: polygon(100% 0%, 30% 50%, 100% 100%);
+  margin-left: -6px;
 }
 .triangle-retour.bas {
   width: 38px; height: 38px;
