@@ -112,7 +112,13 @@
       </div>
 
       <!-- Boutons bas -->
-      <div style="display:flex; gap:16px; margin-top:24px;">
+      <div style="display:flex; gap:16px; margin-top:24px; position:relative; z-index:1;">
+        <img src="images/machine.png" alt="" style="
+          position:absolute; bottom:calc(100% + 12px); left:50%;
+          transform:translateX(-50%);
+          width:75%; max-width:500px; opacity:0.2;
+          pointer-events:none; z-index:0;
+        "/>
         <button onclick="fermerParametres()" style="
           flex:1; font-family:'Intro'; font-size:1.1em;
           padding:16px; border-radius:30px; border:none;
@@ -129,12 +135,6 @@
 
     </div>
   </div>
-  <img src="images/machine.png" alt="" style="
-    position:sticky; bottom:0; left:50%;
-    transform:translateX(-50%);
-    width:75%; max-width:500px; opacity:0.2;
-    pointer-events:none; z-index:0; display:block;
-  "/>
 </div>
 
   <!-- BLOC 2 : Conteneur carrousel -->
