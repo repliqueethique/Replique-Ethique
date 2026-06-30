@@ -41,6 +41,12 @@
   background:var(--fond-params);
   flex-direction:column;
 ">
+  <img src="images/machine.png" alt="" style="
+    position:fixed; bottom:0; left:50%;
+    transform:translateX(-50%);
+    width:75%; max-width:500px; opacity:0.2;
+    pointer-events:none; z-index:1;
+  "/>
   <!-- Header pleine largeur en dehors du conteneur -->
   <div id="header-params" style="background:var(--c-sombre); width:100%; height:70px; display:flex; align-items:center; justify-content:space-between; padding:0 10px; box-sizing:border-box; position:relative; flex-shrink:0;">
     <button onclick="fermerParametres()" class="triangle-retour gauche" aria-label="Retour"></button>
@@ -328,14 +334,6 @@
     </div>
 
   <!-- JS global -->
-  <div id="machine-params" style="
-    position:fixed; bottom:0; left:50%;
-    transform:translateX(-50%);
-    width:75%; max-width:500px; opacity:0.2;
-    pointer-events:none; z-index:100000; display:none;
-  ">
-    <img src="images/machine.png" style="width:100%;display:block;"/>
-  </div>
   <script src="data.js"></script>
   <script src="script.js"></script>
 </body>
